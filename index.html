@@ -7,12 +7,14 @@
 <link rel="icon" type="image/png" href="favicon.png" />
 <style>
 :root{
+  /* Night palette + tuning knobs */
   --night-1:#0b1320; --night-2:#162235; --night-3:#1d2c42;
   --accent:#9EB5CF;
-  --logo-size:500px;         /* size knob */
+  --logo-size:500px;         /* logo size */
   --spin-secs:40s;           /* rotation speed */
-  --cloud-speed:180s;        /* faster so motion is obvious */
-  --cloud-opacity:.06;       /* subtle haze */
+  --cloud-speed:120s;        /* faster so motion is obvious */
+  --cloud-opacity:.12;       /* stronger clouds */
+  --cloud-blur:4px;          /* lower blur = more definition */
   --stars-opacity:.05;
 }
 
@@ -35,54 +37,71 @@ body{
   filter:blur(.2px);
 }
 
-/* crescent moon (no drift for now; we can re-enable later) */
+/* clean crescent moon (no eclipse look) */
 .moon{position:fixed; right:48px; top:42px; width:96px; height:96px; pointer-events:none;
-  filter:drop-shadow(0 0 10px rgba(255,255,255,.25)) drop-shadow(0 0 22px rgba(158,181,207,.18));
+  filter: drop-shadow(0 0 10px rgba(255,255,255,.25)) drop-shadow(0 0 22px rgba(158,181,207,.18));
 }
 .moon::before,.moon::after{content:""; position:absolute; inset:0; border-radius:50%;}
-.moon::before{background:radial-gradient(60% 60% at 45% 45%, rgba(255,255,255,.9), rgba(255,255,255,.6) 35%, rgba(255,255,255,0) 70%);}
-.moon::after{left:18px; background: var(--night-2); box-shadow:-18px 0 22px 0 rgba(255,255,255,.1) inset;}
+/* bright disk */
+.moon::before{
+  background:radial-gradient(60% 60% at 45% 45%, rgba(255,255,255,.95), rgba(255,255,255,.75) 35%, rgba(255,255,255,0) 70%);
+}
+/* carve crescent with night color pushed further so only a thin arc remains */
+.moon::after{
+  left:28px; top:0; background: var(--night-2); box-shadow:-22px 0 24px 0 rgba(255,255,255,.12) inset;
+}
 
-/* clouds with clear lateral motion */
+/* clouds — more defined & drifting */
 .clouds{
   position:fixed; inset:auto 0 0 0; height:42vh; pointer-events:none;
-  filter:blur(7px) saturate(85%); opacity:var(--cloud-opacity);
+  filter:blur(var(--cloud-blur)) saturate(95%); opacity:var(--cloud-opacity);
 }
 .clouds::before,.clouds::after{
-  content:""; position:absolute; inset:-10% 0 -5% 0;
+  content:""; position:absolute; inset:-12% 0 -6% 0;
   background:
-    radial-gradient(320px 160px at 10% 70%, #fff 22%, transparent 70%),
-    radial-gradient(280px 140px at 35% 75%, #fff 22%, transparent 70%),
-    radial-gradient(320px 160px at 62% 68%, #fff 22%, transparent 70%),
-    radial-gradient(280px 140px at 88% 72%, #fff 22%, transparent 70%);
-  mix-blend-mode:screen; opacity:.7; animation:clouds var(--cloud-speed) linear infinite;
+    radial-gradient(360px 180px at 8% 72%,  #fff 26%, transparent 72%),
+    radial-gradient(320px 160px at 34% 78%, #fff 26%, transparent 72%),
+    radial-gradient(360px 180px at 60% 68%, #fff 26%, transparent 72%),
+    radial-gradient(320px 160px at 86% 74%, #fff 26%, transparent 72%);
+  mix-blend-mode:screen; opacity:.85; animation:clouds var(--cloud-speed) linear infinite;
 }
-.clouds::after{opacity:.55; animation-duration:calc(var(--cloud-speed)*1.35); animation-direction:reverse; transform:translateY(6%);}
-@keyframes clouds{from{transform:translateX(-45%)}to{transform:translateX(45%)}}
+.clouds::after{
+  opacity:.65; animation-duration:calc(var(--cloud-speed)*1.35); animation-direction:reverse; transform:translateY(5%);
+}
+@keyframes clouds{from{transform:translateX(-50%)}to{transform:translateX(50%)}}
 
-/* center stage with 3D spin */
+/* stage + 3D spin */
 .stage{position:fixed; inset:0; display:grid; place-items:center; perspective:1100px;}
 .logo-wrap{position:relative; width:var(--logo-size); height:var(--logo-size); display:grid; place-items:center;}
-.logo{
-  width:100%; height:auto; transform-style:preserve-3d;
+/* fake thickness: a darker duplicate behind the face */
+.logo.depth{
+  position:absolute; width:100%; height:auto; z-index:0;
+  filter:brightness(.45) saturate(70%) blur(.3px);
+  transform: translateX(7px) translateY(4px) skewY(1deg);
+  opacity:.55;
+}
+.logo.face{
+  position:relative; z-index:1; width:100%; height:auto; transform-style:preserve-3d;
   animation:spinY var(--spin-secs) linear infinite;
-  /* subtle “depth” only; no beam layers */
   filter:drop-shadow(0 22px 30px rgba(0,0,0,.55)) drop-shadow(0 8px 14px rgba(74,111,165,.5));
 }
 @keyframes spinY{from{transform:rotateY(0deg)}to{transform:rotateY(360deg)}}
 
-/* caption & footer */
+/* title + tagline + footer */
 h1.center{
   position:fixed; left:50%; transform:translateX(-50%);
   top: calc(50% + calc(var(--logo-size)*.72));
-  font-size:1.15rem; font-weight:600; letter-spacing:.35px; color:var(--accent); opacity:.9; text-shadow:0 1px 2px rgba(0,0,0,.45);
+  font-size:1.15rem; font-weight:600; letter-spacing:.35px; color:var(--accent); opacity:.95; text-shadow:0 1px 2px rgba(0,0,0,.45);
+}
+p.tagline{
+  position:fixed; left:50%; transform:translateX(-50%);
+  top: calc(50% + calc(var(--logo-size)*.72) + 28px);
+  font-size:1rem; color:#cfd9e6; opacity:.9;
 }
 footer{position:fixed; bottom:18px; width:100%; text-align:center; font-size:.8rem; color:var(--accent); opacity:.65;}
 
-/* IMPORTANT: temporarily ignore “reduce motion” so we can verify animations */
-@media (prefers-reduced-motion: reduce){
-  /* intentionally left empty during debugging */
-}
+/* ignore reduced-motion just for now so we can validate animations */
+@media (prefers-reduced-motion: reduce){ }
 </style>
 </head>
 <body>
@@ -92,11 +111,14 @@ footer{position:fixed; bottom:18px; width:100%; text-align:center; font-size:.8r
 
   <div class="stage">
     <div class="logo-wrap" aria-label="A-Wave rotating chrome logo">
-      <img class="logo" src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'">
+      <img class="logo depth" src="assets/logo.png" alt="">
+      <img class="logo face"  src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'">
     </div>
   </div>
 
   <h1 class="center">J. Stevens BIM Acoustics</h1>
+  <p class="tagline">The future is almost here…</p>
+
   <footer>&copy; <span id="year"></span> J. Stevens BIM Acoustics</footer>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
