@@ -5,48 +5,114 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>J. Stevens BIM Acoustics</title>
 
-<!-- Favicon (add favicon.png at repo root when ready) -->
+<!-- Favicon -->
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="shortcut icon" type="image/png" href="favicon.png" />
 
 <style>
-  :root {
+  :root{
     --steel: #4A6FA5;
     --steel-dark: #2C3E55;
     --steel-darker: #1B2738;
     --text-light: #E8EEF5;
     --accent: #9EB5CF;
+    --logo-size: 440px;          /* 🔸 doubled from ~220px */
+    --spin-secs: 40s;            /* overall rotation period */
   }
+
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
   body{
-    background: radial-gradient(circle at center, var(--steel-darker) 0%, var(--steel-dark) 100%);
+    background: radial-gradient(circle at 50% 40%, var(--steel-dark) 0%, var(--steel-darker) 65%);
     color: var(--text-light);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center; overflow:hidden;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    overflow: hidden;
   }
-  header{display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:8px}
-  header img{
-    width:220px;height:auto;
-    animation: spin 40s linear infinite;
-    filter: drop-shadow(0 0 15px rgba(74,111,165,0.8));
+
+  /* Wrap adds perspective so Y-axis rotation looks truly 3D */
+  .logo-wrap{
+    position: relative;
+    width: var(--logo-size);
+    height: var(--logo-size);
+    display:flex;align-items:center;justify-content:center;
+    perspective: 900px;     /* 🔸 makes the horizontal spin read as depth */
   }
-  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
-  h1{color:var(--accent);font-weight:600;font-size:2rem;letter-spacing:.3px}
-  p.tagline{opacity:.85;color:#cfd9e6;margin-top:6px}
+  /* Subtle acoustic ripple behind the logo */
+  .logo-wrap::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:50%;
+    background:
+      radial-gradient(closest-side, rgba(158,181,207,.18), rgba(158,181,207,0) 70%);
+    animation: ripple 4.5s ease-out infinite;
+    filter: blur(2px);
+    pointer-events:none;
+  }
 
-  footer{position:absolute;bottom:18px;font-size:.8rem;color:var(--accent);opacity:.7}
+  /* Moving highlight “reflection” that sweeps over the face */
+  .logo-wrap::after{
+    content:"";
+    position:absolute; inset:-10%;
+    border-radius:50%;
+    background:
+      conic-gradient(from 0deg,
+        transparent 0 84%,
+        rgba(255,255,255,.18) 86% 88%,
+        transparent 90% 100%);
+    mix-blend-mode: overlay;
+    animation: sweep 6.5s linear infinite;
+    pointer-events:none;
+  }
+
+  /* The logo itself */
+  .logo{
+    width: 100%;
+    height: auto;
+    transform-style: preserve-3d;
+    /* 🔸 Horizontal spin: rotateY */
+    animation: spinY var(--spin-secs) linear infinite;
+    filter: drop-shadow(0 0 18px rgba(74,111,165,.75));
+  }
+
+  /* Title/footer for a bit of context */
+  h1{
+    position: absolute;
+    left: 50%; transform: translateX(-50%);
+    top: calc(50% + calc(var(--logo-size) * 0.72));
+    font-weight:600; letter-spacing:.3px; font-size:1.15rem;
+    color: var(--accent); opacity:.9;
+  }
+  footer{
+    position: fixed; bottom:18px; width:100%; text-align:center;
+    font-size:.8rem; color: var(--accent); opacity:.65;
+  }
+
+  /* Keyframes */
+  @keyframes spinY { from{ transform: rotateY(0deg); } to{ transform: rotateY(360deg); } }
+  @keyframes sweep {
+    from { transform: rotate(0deg) scale(1.02); }
+    to   { transform: rotate(360deg) scale(1.02); }
+  }
+  @keyframes ripple {
+    0%   { transform: scale(0.92); opacity:.22; }
+    60%  { transform: scale(1.08); opacity:.08; }
+    100% { transform: scale(1.18); opacity:0; }
+  }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .logo, .logo-wrap::before, .logo-wrap::after { animation: none !important; }
+  }
 </style>
 </head>
-<body>
-  <header>
-    <!-- If logo fails to load, we hide it but still show the heading below -->
-    <img src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'"/>
-    <h1>J. Stevens BIM Acoustics</h1>
-    <p class="tagline">Integrating Acoustics + AV Intelligence into BIM</p>
-  </header>
 
+<body>
+  <div class="logo-wrap" aria-label="A-Wave rotating logo">
+    <img class="logo" src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'">
+  </div>
+
+  <h1>J. Stevens BIM Acoustics</h1>
   <footer>&copy; <span id="year"></span> J. Stevens BIM Acoustics</footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
