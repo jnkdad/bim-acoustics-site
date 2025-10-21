@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>J. Stevens BIM Acoustics</title>
 
-<!-- 🔹 Favicon -->
+<!-- Favicon (add favicon.png at repo root when ready) -->
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="shortcut icon" type="image/png" href="favicon.png" />
 
@@ -17,56 +17,38 @@
     --text-light: #E8EEF5;
     --accent: #9EB5CF;
   }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    height: 100%;
-    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-    overflow: hidden;
-  }
-
-  body {
-    background: radial-gradient(circle at center, var(--steel-dark) 0%, var(--steel-darker) 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
+  body{
+    background: radial-gradient(circle at center, var(--steel-darker) 0%, var(--steel-dark) 100%);
     color: var(--text-light);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center; overflow:hidden;
   }
-
-  /* 🔹 Spinning logo animation */
-  header img {
-    width: 220px;
-    height: auto;
+  header{display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:8px}
+  header img{
+    width:220px;height:auto;
     animation: spin 40s linear infinite;
     filter: drop-shadow(0 0 15px rgba(74,111,165,0.8));
   }
+  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
+  h1{color:var(--accent);font-weight:600;font-size:2rem;letter-spacing:.3px}
+  p.tagline{opacity:.85;color:#cfd9e6;margin-top:6px}
 
-  footer {
-    position: absolute;
-    bottom: 20px;
-    font-size: 0.8rem;
-    color: var(--accent);
-    opacity: 0.7;
-  }
+  footer{position:absolute;bottom:18px;font-size:.8rem;color:var(--accent);opacity:.7}
 </style>
 </head>
-
 <body>
   <header>
-    <img src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'" />
+    <!-- If logo fails to load, we hide it but still show the heading below -->
+    <img src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'"/>
+    <h1>J. Stevens BIM Acoustics</h1>
+    <p class="tagline">Integrating Acoustics + AV Intelligence into BIM</p>
   </header>
 
   <footer>&copy; <span id="year"></span> J. Stevens BIM Acoustics</footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
