@@ -2,26 +2,59 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>J. Stevens BIM Acoustics</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
 <style>
-  :root { --steel:#4A6FA5; --bg:#f7f9fb; --text:#1c1f23; }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;background:var(--bg);color:var(--steel);
-    display:flex;align-items:center;justify-content:center;
-    font-family:Segoe UI,Arial,Helvetica,sans-serif
+  :root {
+    --steel: #4A6FA5;
+    --light-steel: #9eb5cf;
+    --text: #1c1f23;
+    --bg-top: #f7f9fb;
+    --bg-bottom: #eef2f6;
   }
-  .wrap{text-align:center;padding:24px}
-  h1{margin:0 0 8px 0;font-weight:600}
-  p{margin:0;color:#6c757d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
+  body{
+    background:linear-gradient(to bottom,var(--bg-top),var(--bg-bottom));
+    color:var(--text);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+  header img{
+    width:140px;
+    height:auto;
+    margin-bottom:24px;
+  }
+  h1{
+    color:var(--steel);
+    font-weight:600;
+    font-size:1.8rem;
+    margin-bottom:6px;
+  }
+  p{
+    color:var(--light-steel);
+    font-size:1.1rem;
+  }
+  footer{
+    position:absolute;
+    bottom:20px;
+    font-size:0.8rem;
+    color:#8a98a8;
+  }
 </style>
 </head>
 <body>
-  <div class="wrap">
+  <header>
+    <img src="assets/logo.png" alt="A-Wave logo" />
+  </header>
+  <main>
     <h1>J. Stevens BIM Acoustics</h1>
     <p>Site coming soon.</p>
-  </div>
+  </main>
+  <footer>&copy; <span id="year"></span> J. Stevens BIM Acoustics</footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
