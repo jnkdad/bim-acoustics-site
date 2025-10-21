@@ -7,14 +7,13 @@
 <link rel="icon" type="image/png" href="favicon.png" />
 <style>
 :root{
-  /* Night palette + tuning knobs */
   --night-1:#0b1320; --night-2:#162235; --night-3:#1d2c42;
   --accent:#9EB5CF;
-  --logo-size:500px;         /* logo size */
-  --spin-secs:40s;           /* rotation speed */
-  --cloud-speed:120s;        /* faster so motion is obvious */
-  --cloud-opacity:.12;       /* stronger clouds */
-  --cloud-blur:4px;          /* lower blur = more definition */
+  --logo-size:500px;
+  --spin-secs:40s;
+  --cloud-speed:120s;
+  --cloud-opacity:.12;
+  --cloud-blur:4px;
   --stars-opacity:.05;
 }
 
@@ -31,27 +30,24 @@ body{
     radial-gradient(2px 2px at 10% 20%, #fff 50%, transparent 51%),
     radial-gradient(1.6px 1.6px at 30% 70%, #fff 50%, transparent 51%),
     radial-gradient(1.4px 1.4px at 60% 25%, #fff 50%, transparent 51%),
-    radial-gradient(1.8px 1.8px at 80% 55%, #fff 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 40% 40%, #fff 50%, transparent 51%),
-    radial-gradient(1.2px 1.2px at 75% 30%, #fff 50%, transparent 51%);
+    radial-gradient(1.8px 1.8px at 80% 55%, #fff 50%, transparent 51%);
   filter:blur(.2px);
 }
 
-/* clean crescent moon (no eclipse look) */
-.moon{position:fixed; right:48px; top:42px; width:96px; height:96px; pointer-events:none;
-  filter: drop-shadow(0 0 10px rgba(255,255,255,.25)) drop-shadow(0 0 22px rgba(158,181,207,.18));
+/* crisp crescent moon */
+.moon{position:fixed; right:48px; top:42px; width:100px; height:100px; pointer-events:none;
+  filter:drop-shadow(0 0 8px rgba(255,255,255,.25)) drop-shadow(0 0 18px rgba(158,181,207,.18));
 }
 .moon::before,.moon::after{content:""; position:absolute; inset:0; border-radius:50%;}
-/* bright disk */
 .moon::before{
-  background:radial-gradient(60% 60% at 45% 45%, rgba(255,255,255,.95), rgba(255,255,255,.75) 35%, rgba(255,255,255,0) 70%);
+  background:radial-gradient(55% 55% at 45% 45%, rgba(255,255,255,.95), rgba(255,255,255,.7) 35%, rgba(255,255,255,0) 70%);
 }
-/* carve crescent with night color pushed further so only a thin arc remains */
 .moon::after{
-  left:28px; top:0; background: var(--night-2); box-shadow:-22px 0 24px 0 rgba(255,255,255,.12) inset;
+  left:38px; top:0; background:var(--night-2);
+  box-shadow:-25px 0 30px 0 rgba(255,255,255,.12) inset;
 }
 
-/* clouds — more defined & drifting */
+/* clouds */
 .clouds{
   position:fixed; inset:auto 0 0 0; height:42vh; pointer-events:none;
   filter:blur(var(--cloud-blur)) saturate(95%); opacity:var(--cloud-opacity);
@@ -63,27 +59,24 @@ body{
     radial-gradient(320px 160px at 34% 78%, #fff 26%, transparent 72%),
     radial-gradient(360px 180px at 60% 68%, #fff 26%, transparent 72%),
     radial-gradient(320px 160px at 86% 74%, #fff 26%, transparent 72%);
-  mix-blend-mode:screen; opacity:.85; animation:clouds var(--cloud-speed) linear infinite;
+  mix-blend-mode:screen; opacity:.9; animation:clouds var(--cloud-speed) linear infinite;
 }
 .clouds::after{
-  opacity:.65; animation-duration:calc(var(--cloud-speed)*1.35); animation-direction:reverse; transform:translateY(5%);
+  opacity:.7; animation-duration:calc(var(--cloud-speed)*1.35); animation-direction:reverse; transform:translateY(5%);
 }
 @keyframes clouds{from{transform:translateX(-50%)}to{transform:translateX(50%)}}
 
 /* stage + 3D spin */
 .stage{position:fixed; inset:0; display:grid; place-items:center; perspective:1100px;}
 .logo-wrap{position:relative; width:var(--logo-size); height:var(--logo-size); display:grid; place-items:center;}
-/* fake thickness: a darker duplicate behind the face */
-.logo.depth{
-  position:absolute; width:100%; height:auto; z-index:0;
-  filter:brightness(.45) saturate(70%) blur(.3px);
-  transform: translateX(7px) translateY(4px) skewY(1deg);
-  opacity:.55;
-}
-.logo.face{
-  position:relative; z-index:1; width:100%; height:auto; transform-style:preserve-3d;
+.logo{
+  width:100%; height:auto; transform-style:preserve-3d;
   animation:spinY var(--spin-secs) linear infinite;
   filter:drop-shadow(0 22px 30px rgba(0,0,0,.55)) drop-shadow(0 8px 14px rgba(74,111,165,.5));
+}
+.logo::before{
+  content:""; position:absolute; inset:0; background:rgba(0,0,0,.5);
+  transform:translateZ(-5px); border-radius:5%; /* fake thickness */
 }
 @keyframes spinY{from{transform:rotateY(0deg)}to{transform:rotateY(360deg)}}
 
@@ -91,17 +84,15 @@ body{
 h1.center{
   position:fixed; left:50%; transform:translateX(-50%);
   top: calc(50% + calc(var(--logo-size)*.72));
-  font-size:1.15rem; font-weight:600; letter-spacing:.35px; color:var(--accent); opacity:.95; text-shadow:0 1px 2px rgba(0,0,0,.45);
+  font-size:1.15rem; font-weight:600; letter-spacing:.35px; color:var(--accent);
+  opacity:.95; text-shadow:0 1px 2px rgba(0,0,0,.45);
 }
 p.tagline{
   position:fixed; left:50%; transform:translateX(-50%);
-  top: calc(50% + calc(var(--logo-size)*.72) + 28px);
-  font-size:1rem; color:#cfd9e6; opacity:.9;
+  top: calc(50% + calc(var(--logo-size)*.4)); /* halfway */
+  font-size:1.8rem; color:#cfd9e6; opacity:.9;
 }
 footer{position:fixed; bottom:18px; width:100%; text-align:center; font-size:.8rem; color:var(--accent); opacity:.65;}
-
-/* ignore reduced-motion just for now so we can validate animations */
-@media (prefers-reduced-motion: reduce){ }
 </style>
 </head>
 <body>
@@ -111,8 +102,7 @@ footer{position:fixed; bottom:18px; width:100%; text-align:center; font-size:.8r
 
   <div class="stage">
     <div class="logo-wrap" aria-label="A-Wave rotating chrome logo">
-      <img class="logo depth" src="assets/logo.png" alt="">
-      <img class="logo face"  src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'">
+      <img class="logo" src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'">
     </div>
   </div>
 
@@ -120,6 +110,6 @@ footer{position:fixed; bottom:18px; width:100%; text-align:center; font-size:.8r
   <p class="tagline">The future is almost here…</p>
 
   <footer>&copy; <span id="year"></span> J. Stevens BIM Acoustics</footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 </body>
 </html>
