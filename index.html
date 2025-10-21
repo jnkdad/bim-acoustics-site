@@ -4,95 +4,127 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>J. Stevens BIM Acoustics</title>
+
+<!-- Favicon (optional) -->
 <link rel="icon" type="image/png" href="favicon.png" />
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
+  /* Night palette & knobs */
   --night-1:#0b1320; --night-2:#162235; --night-3:#1d2c42;
   --accent:#9EB5CF;
   --logo-size:500px;
   --spin-secs:40s;
-  --cloud-speed:120s;
-  --cloud-opacity:.12;
-  --cloud-blur:4px;
-  --stars-opacity:.05;
+  --cloud-opacity:.16;     /* stronger clouds */
+  --cloud-blur:3px;        /* more defined */
+  --stars-opacity:.10;     /* more visible */
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
+html,body{height:100%}
 body{
-  background:radial-gradient(1200px 800px at 50% 35%, var(--night-3) 0%, var(--night-2) 45%, var(--night-1) 100%);
+  font-family: "Montserrat", Segoe UI, Arial, Helvetica, sans-serif;
+  background: radial-gradient(1200px 800px at 50% 35%, var(--night-3) 0%, var(--night-2) 45%, var(--night-1) 100%);
   color:#E8EEF5; overflow:hidden;
 }
 
-/* faint stars */
-.stars{position:fixed; inset:0; pointer-events:none; opacity:var(--stars-opacity);
+/* ─── Stars (denser & brighter, but still tasteful) ───────────────── */
+.stars{
+  position:fixed; inset:0; pointer-events:none; opacity:var(--stars-opacity);
   background:
-    radial-gradient(2px 2px at 10% 20%, #fff 50%, transparent 51%),
-    radial-gradient(1.6px 1.6px at 30% 70%, #fff 50%, transparent 51%),
-    radial-gradient(1.4px 1.4px at 60% 25%, #fff 50%, transparent 51%),
-    radial-gradient(1.8px 1.8px at 80% 55%, #fff 50%, transparent 51%);
-  filter:blur(.2px);
+    radial-gradient(2px 2px at 8% 18%,   #fff 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 22% 64%, #fff 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 31% 28%, #fff 50%, transparent 51%),
+    radial-gradient(1.8px 1.8px at 47% 52%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 63% 21%, #fff 50%, transparent 51%),
+    radial-gradient(1.6px 1.6px at 72% 68%, #fff 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 86% 37%, #fff 50%, transparent 51%),
+    radial-gradient(1.9px 1.9px at 92% 58%, #fff 50%, transparent 51%);
+  filter: blur(.2px);
 }
 
-/* crisp crescent moon */
-.moon{position:fixed; right:48px; top:42px; width:100px; height:100px; pointer-events:none;
-  filter:drop-shadow(0 0 8px rgba(255,255,255,.25)) drop-shadow(0 0 18px rgba(158,181,207,.18));
-}
-.moon::before,.moon::after{content:""; position:absolute; inset:0; border-radius:50%;}
-.moon::before{
-  background:radial-gradient(55% 55% at 45% 45%, rgba(255,255,255,.95), rgba(255,255,255,.7) 35%, rgba(255,255,255,0) 70%);
-}
-.moon::after{
-  left:38px; top:0; background:var(--night-2);
-  box-shadow:-25px 0 30px 0 rgba(255,255,255,.12) inset;
+/* ─── Full moon (soft, defocused) ─────────────────────────────────── */
+.moon{
+  position:fixed; right:48px; top:42px; width:110px; height:110px; pointer-events:none;
+  border-radius:50%;
+  background:
+    radial-gradient(55% 55% at 50% 50%, rgba(255,255,255,.95), rgba(255,255,255,.75) 35%, rgba(255,255,255,0) 70%);
+  filter:
+    blur(0.2px)
+    drop-shadow(0 0 10px rgba(255,255,255,.25))
+    drop-shadow(0 0 24px rgba(158,181,207,.22));
 }
 
-/* clouds */
+/* ─── Clouds (static, more defined, no motion) ────────────────────── */
 .clouds{
   position:fixed; inset:auto 0 0 0; height:42vh; pointer-events:none;
-  filter:blur(var(--cloud-blur)) saturate(95%); opacity:var(--cloud-opacity);
+  filter: blur(var(--cloud-blur)) saturate(105%); opacity: var(--cloud-opacity);
 }
-.clouds::before,.clouds::after{
-  content:""; position:absolute; inset:-12% 0 -6% 0;
+.clouds::before{
+  content:""; position:absolute; inset:-10% 0 -6% 0;
   background:
-    radial-gradient(360px 180px at 8% 72%,  #fff 26%, transparent 72%),
-    radial-gradient(320px 160px at 34% 78%, #fff 26%, transparent 72%),
-    radial-gradient(360px 180px at 60% 68%, #fff 26%, transparent 72%),
-    radial-gradient(320px 160px at 86% 74%, #fff 26%, transparent 72%);
-  mix-blend-mode:screen; opacity:.9; animation:clouds var(--cloud-speed) linear infinite;
+    radial-gradient(380px 180px at 10% 74%, #ffffff 28%, transparent 72%),
+    radial-gradient(340px 160px at 34% 78%, #ffffff 28%, transparent 72%),
+    radial-gradient(380px 180px at 60% 70%, #ffffff 28%, transparent 72%),
+    radial-gradient(340px 160px at 86% 76%, #ffffff 28%, transparent 72%);
+  mix-blend-mode:screen;
 }
-.clouds::after{
-  opacity:.7; animation-duration:calc(var(--cloud-speed)*1.35); animation-direction:reverse; transform:translateY(5%);
-}
-@keyframes clouds{from{transform:translateX(-50%)}to{transform:translateX(50%)}}
 
-/* stage + 3D spin */
+/* ─── Stage + spinning logo ───────────────────────────────────────── */
 .stage{position:fixed; inset:0; display:grid; place-items:center; perspective:1100px;}
-.logo-wrap{position:relative; width:var(--logo-size); height:var(--logo-size); display:grid; place-items:center;}
+.logo-wrap{
+  position:relative; width:var(--logo-size); height:var(--logo-size); display:grid; place-items:center;
+}
+
+/* spinning face */
 .logo{
   width:100%; height:auto; transform-style:preserve-3d;
   animation:spinY var(--spin-secs) linear infinite;
-  filter:drop-shadow(0 22px 30px rgba(0,0,0,.55)) drop-shadow(0 8px 14px rgba(74,111,165,.5));
+  filter: drop-shadow(0 22px 30px rgba(0,0,0,.55)) drop-shadow(0 8px 14px rgba(74,111,165,.5));
 }
-.logo::before{
-  content:""; position:absolute; inset:0; background:rgba(0,0,0,.5);
-  transform:translateZ(-5px); border-radius:5%; /* fake thickness */
-}
-@keyframes spinY{from{transform:rotateY(0deg)}to{transform:rotateY(360deg)}}
+@keyframes spinY{ from{transform:rotateY(0deg)} to{transform:rotateY(360deg)} }
 
-/* title + tagline + footer */
+/* fake thickness: shallow dark body that rotates with the face */
+.logo::before{
+  content:""; position:absolute; inset:0; border-radius:6px;
+  background: rgba(0,0,0,.45);
+  transform: translateZ(-6px);     /* how “thick” it feels */
+}
+
+/* wave-like reflections (static, curved highlights across the face) */
+.logo-wrap::after{
+  content:""; position:absolute; inset:8% 6% 20% 6%; border-radius:12px;
+  background:
+    radial-gradient(120% 50% at 50% 95%, rgba(255,255,255,.10), transparent 60%),
+    radial-gradient(120% 50% at 50% 75%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(120% 50% at 50% 55%, rgba(255,255,255,.06), transparent 60%),
+    radial-gradient(120% 50% at 50% 35%, rgba(255,255,255,.05), transparent 60%);
+  mix-blend-mode:screen;
+  pointer-events:none;
+  transform: rotate(-8deg);
+}
+
+/* ─── Title, tagline, footer ──────────────────────────────────────── */
 h1.center{
   position:fixed; left:50%; transform:translateX(-50%);
   top: calc(50% + calc(var(--logo-size)*.72));
-  font-size:1.15rem; font-weight:600; letter-spacing:.35px; color:var(--accent);
-  opacity:.95; text-shadow:0 1px 2px rgba(0,0,0,.45);
+  font-weight:700; font-size:1.2rem; letter-spacing:.35px; color:var(--accent);
+  text-shadow:0 1px 2px rgba(0,0,0,.45);
 }
+
 p.tagline{
   position:fixed; left:50%; transform:translateX(-50%);
-  top: calc(50% + calc(var(--logo-size)*.4)); /* halfway */
-  font-size:1.8rem; color:#cfd9e6; opacity:.9;
+  top: calc(50% + calc(var(--logo-size)*.4)); /* midway between logo & title */
+  font-weight:500; font-size:2rem; color:#d5dfec; opacity:.95;
 }
-footer{position:fixed; bottom:18px; width:100%; text-align:center; font-size:.8rem; color:var(--accent); opacity:.65;}
+
+footer{
+  position:fixed; bottom:18px; width:100%; text-align:center;
+  font-size:.8rem; color:var(--accent); opacity:.65;
+}
 </style>
 </head>
 <body>
@@ -110,6 +142,6 @@ footer{position:fixed; bottom:18px; width:100%; text-align:center; font-size:.8r
   <p class="tagline">The future is almost here…</p>
 
   <footer>&copy; <span id="year"></span> J. Stevens BIM Acoustics</footer>
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
