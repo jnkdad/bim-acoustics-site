@@ -4,6 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>J. Stevens BIM Acoustics</title>
+
+<!-- 🔹 Favicon -->
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="shortcut icon" type="image/png" href="favicon.png" />
+
 <style>
   :root {
     --steel: #4A6FA5;
@@ -12,44 +17,61 @@
     --text-light: #E8EEF5;
     --accent: #9EB5CF;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
-  body{
-    background:linear-gradient(180deg,var(--steel-darker),var(--steel-dark));
-    color:var(--text-light);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
   }
-  header img{
-    width:160px;
-    height:auto;
-    margin-bottom:28px;
-    filter:drop-shadow(0 0 8px rgba(0,0,0,0.5));
+
+  body {
+    background: linear-gradient(180deg, var(--steel-darker), var(--steel-dark));
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
-  h1{
-    color:var(--accent);
-    font-weight:600;
-    font-size:2rem;
-    letter-spacing:0.3px;
-    margin-bottom:10px;
+
+  header img {
+    width: 160px;
+    height: auto;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeIn 2.5s ease forwards;
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.6));
   }
-  p{
-    color:var(--text-light);
-    font-size:1.1rem;
-    opacity:0.85;
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  footer{
-    position:absolute;
-    bottom:20px;
-    font-size:0.8rem;
-    color:var(--accent);
-    opacity:0.7;
+
+  h1 {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 2rem;
+    letter-spacing: 0.3px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    opacity: 0.85;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    opacity: 0.7;
   }
 </style>
 </head>
+
 <body>
   <header>
     <img src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'" />
@@ -59,6 +81,9 @@
     <p>Site coming soon.</p>
   </main>
   <footer>&copy; <span id="year"></span> J. Stevens BIM Acoustics</footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
