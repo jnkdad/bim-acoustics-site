@@ -7,16 +7,16 @@
 <style>
   :root {
     --steel: #4A6FA5;
-    --light-steel: #9eb5cf;
-    --text: #1c1f23;
-    --bg-top: #f7f9fb;
-    --bg-bottom: #eef2f6;
+    --steel-dark: #2C3E55;
+    --steel-darker: #1B2738;
+    --text-light: #E8EEF5;
+    --accent: #9EB5CF;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;font-family:"Segoe UI",Arial,Helvetica,sans-serif}
   body{
-    background:linear-gradient(to bottom,var(--bg-top),var(--bg-bottom));
-    color:var(--text);
+    background:linear-gradient(180deg,var(--steel-darker),var(--steel-dark));
+    color:var(--text-light);
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -24,31 +24,35 @@
     text-align:center;
   }
   header img{
-    width:140px;
+    width:160px;
     height:auto;
-    margin-bottom:24px;
+    margin-bottom:28px;
+    filter:drop-shadow(0 0 8px rgba(0,0,0,0.5));
   }
   h1{
-    color:var(--steel);
+    color:var(--accent);
     font-weight:600;
-    font-size:1.8rem;
-    margin-bottom:6px;
+    font-size:2rem;
+    letter-spacing:0.3px;
+    margin-bottom:10px;
   }
   p{
-    color:var(--light-steel);
+    color:var(--text-light);
     font-size:1.1rem;
+    opacity:0.85;
   }
   footer{
     position:absolute;
     bottom:20px;
     font-size:0.8rem;
-    color:#8a98a8;
+    color:var(--accent);
+    opacity:0.7;
   }
 </style>
 </head>
 <body>
   <header>
-    <img src="assets/logo.png" alt="A-Wave logo" />
+    <img src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'" />
   </header>
   <main>
     <h1>J. Stevens BIM Acoustics</h1>
