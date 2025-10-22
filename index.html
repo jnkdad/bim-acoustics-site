@@ -18,12 +18,12 @@
   --spin-secs:40s;
 
   /* Background details */
-  --stars-opacity:.24;  /* ↑ brighter stars */
+  --stars-opacity:.38;  /* MUCH brighter stars */
   --cloud-opacity:.18;  /* stronger clouds */
   --cloud-blur:3px;     /* crisp but soft-edged */
 
-  /* Wave reflection toggle: 1 = on, 0 = off */
-  --waves: 1;
+  /* Optional wave reflection: 1 on / 0 off */
+  --waves: 0;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,18 +38,21 @@ body{
 .stars{
   position:fixed; inset:0; pointer-events:none; opacity:var(--stars-opacity);
   background:
-    radial-gradient(2.2px 2.2px at 7% 16%,   #fff 55%, transparent 56%),
-    radial-gradient(1.9px 1.9px at 15% 72%,  #fff 55%, transparent 56%),
-    radial-gradient(1.6px 1.6px at 24% 28%,  #fff 55%, transparent 56%),
-    radial-gradient(2.0px 2.0px at 33% 48%,  #fff 55%, transparent 56%),
-    radial-gradient(1.8px 1.8px at 41% 63%,  #fff 55%, transparent 56%),
-    radial-gradient(1.7px 1.7px at 50% 22%,  #fff 55%, transparent 56%),
-    radial-gradient(1.5px 1.5px at 58% 35%,  #fff 55%, transparent 56%),
-    radial-gradient(2.1px 2.1px at 66% 74%,  #fff 55%, transparent 56%),
-    radial-gradient(1.8px 1.8px at 74% 29%,  #fff 55%, transparent 56%),
-    radial-gradient(1.9px 1.9px at 82% 54%,  #fff 55%, transparent 56%),
-    radial-gradient(1.6px 1.6px at 90% 38%,  #fff 55%, transparent 56%),
-    radial-gradient(2.0px 2.0px at 94% 60%,  #fff 55%, transparent 56%);
+    radial-gradient(2.4px 2.4px at 7% 16%,   #fff 60%, transparent 61%),
+    radial-gradient(2.2px 2.2px at 15% 72%,  #fff 60%, transparent 61%),
+    radial-gradient(2.0px 2.0px at 24% 28%,  #fff 60%, transparent 61%),
+    radial-gradient(2.2px 2.2px at 33% 48%,  #fff 60%, transparent 61%),
+    radial-gradient(2.1px 2.1px at 41% 63%,  #fff 60%, transparent 61%),
+    radial-gradient(2.0px 2.0px at 50% 22%,  #fff 60%, transparent 61%),
+    radial-gradient(1.9px 1.9px at 58% 35%,  #fff 60%, transparent 61%),
+    radial-gradient(2.3px 2.3px at 66% 74%,  #fff 60%, transparent 61%),
+    radial-gradient(2.0px 2.0px at 74% 29%,  #fff 60%, transparent 61%),
+    radial-gradient(2.2px 2.2px at 82% 54%,  #fff 60%, transparent 61%),
+    radial-gradient(2.0px 2.0px at 90% 38%,  #fff 60%, transparent 61%),
+    radial-gradient(2.3px 2.3px at 94% 60%,  #fff 60%, transparent 61%),
+    radial-gradient(1.8px 1.8px at 12% 44%,  #fff 60%, transparent 61%),
+    radial-gradient(1.9px 1.9px at 28% 56%,  #fff 60%, transparent 61%),
+    radial-gradient(2.1px 2.1px at 52% 68%,  #fff 60%, transparent 61%);
   filter: blur(.15px);
 }
 
@@ -79,34 +82,34 @@ body{
   mix-blend-mode:screen;
 }
 
-/* ─── Stage + spinning logo ───────────────────────────────────────── */
-.stage{position:fixed; inset:0; display:grid; place-items:center; perspective:1100px;}
-.logo-wrap{position:relative; width:var(--logo-size); height:var(--logo-size); display:grid; place-items:center;}
+/* ─── Stage + two-sided spinning logo ─────────────────────────────── */
+.stage{
+  position:fixed; inset:0; display:grid; place-items:center; perspective:1100px;
+}
 
-.logo{
-  width:100%; height:auto;
+/* We rotate the container; front and back images are inside */
+.spin3d{
+  position:relative; width:var(--logo-size); height:var(--logo-size);
   transform-style:preserve-3d;
   animation:spinY var(--spin-secs) linear infinite;
+}
+
+.face, .back{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
   filter:
     drop-shadow(0 22px 30px rgba(0,0,0,.55))
     drop-shadow(0 8px 14px rgba(74,111,165,.5));
-  background:none;
-  backface-visibility:hidden; /* hide any back-face artifacts */
-}
-@keyframes spinY{
-  from{ transform: rotateY(0deg) }
-  to  { transform: rotateY(360deg) }
+  backface-visibility:hidden;
 }
 
-/* ─── Optional “wave reflection” highlight — clipped & very subtle ── */
+/* back shows the same art, flipped, so the logo never disappears */
+.back{ transform: rotateY(180deg); }
+
+/* Optional “wave reflection” highlight — clipped and very subtle */
 .waveFX{
-  display: calc(var(--waves) * 1) ;    /* 0 = hide instantly, 1 = show */
-  position:absolute;
-  width:82%; height:56%;
-  top:18%; left:9%;
-  pointer-events:none;
-  mix-blend-mode:screen;
-  /* curved ellipse clip so we never see a rectangle */
+  display: calc(var(--waves) * 1);
+  position:absolute; width:82%; height:56%; top:18%; left:9%;
+  pointer-events:none; mix-blend-mode:screen;
   clip-path: ellipse(58% 42% at 50% 65%);
   background:
     radial-gradient(65% 40% at 50% 65%, rgba(255,255,255,.16), transparent 62%),
@@ -115,18 +118,31 @@ body{
   filter: blur(1.2px);
 }
 
-/* ─── Title, tagline, footer ──────────────────────────────────────── */
+@keyframes spinY{ from{transform:rotateY(0deg)} to{transform:rotateY(360deg)} }
+
+/* ─── Title, 3D tagline, footer ───────────────────────────────────── */
 h1.center{
   position:fixed; left:50%; transform:translateX(-50%);
   top: calc(50% + calc(var(--logo-size)*.72));
   font-weight:700; font-size:1.2rem; letter-spacing:.35px; color:var(--accent);
   text-shadow:0 1px 2px rgba(0,0,0,.45);
 }
+
+/* 3D text effect via layered shadows */
 p.tagline{
   position:fixed; left:50%; transform:translateX(-50%);
-  top: calc(50% + calc(var(--logo-size)*.4));  /* midway */
-  font-weight:500; font-size:2rem; color:#d5dfec; opacity:.98;
+  top: calc(50% + calc(var(--logo-size)*.40));  /* midway */
+  font-weight:700; font-size:2.2rem; letter-spacing:.02em;
+  color:#e8eef7;
+  /* multi-layer “extrusion” */
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.25),
+    0 2px 0 rgba(0,0,0,.22),
+    0 3px 0 rgba(0,0,0,.18),
+    0 4px 3px rgba(0,0,0,.20),
+    0 8px 12px rgba(0,0,0,.25);
 }
+
 footer{
   position:fixed; bottom:18px; width:100%; text-align:center;
   font-size:.8rem; color:var(--accent); opacity:.65;
@@ -139,9 +155,13 @@ footer{
   <div class="clouds" aria-hidden="true"></div>
 
   <div class="stage">
-    <div class="logo-wrap" aria-label="A-Wave rotating logo">
+    <div class="spin3d" aria-label="A-Wave rotating logo">
+      <!-- optional subtle wave reflection -->
       <span class="waveFX" aria-hidden="true"></span>
-      <img class="logo" src="assets/logo.png" alt="A-Wave logo" onerror="this.style.display='none'">
+
+      <!-- two-sided render -->
+      <img class="face" src="assets/logo.png" alt="A-Wave logo (front)">
+      <img class="back" src="assets/logo.png" alt="A-Wave logo (back)">
     </div>
   </div>
 
@@ -149,6 +169,6 @@ footer{
   <p class="tagline">The future is almost here…</p>
 
   <footer>&copy; <span id="year"></span> J. Stevens BIM Acoustics</footer>
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
