@@ -10,20 +10,13 @@
 
 <style>
 :root{
-  /* Theme + knobs */
   --night-1:#0b1320; --night-2:#162235; --night-3:#1d2c42;
   --accent:#9EB5CF;
-
   --logo-size:500px;
   --spin-secs:40s;
-
-  /* Background details */
-  --stars-opacity:.38;  /* MUCH brighter stars */
-  --cloud-opacity:.18;  /* stronger clouds */
-  --cloud-blur:3px;     /* crisp but soft-edged */
-
-  /* Optional wave reflection: 1 on / 0 off */
-  --waves: 0;
+  --stars-opacity:.38;
+  --cloud-opacity:.18;
+  --cloud-blur:3px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -34,7 +27,7 @@ body{
   color:#E8EEF5; overflow:hidden;
 }
 
-/* ─── Starfield (brighter & denser) ───────────────────────────────── */
+/* Stars */
 .stars{
   position:fixed; inset:0; pointer-events:none; opacity:var(--stars-opacity);
   background:
@@ -49,16 +42,13 @@ body{
     radial-gradient(2.0px 2.0px at 74% 29%,  #fff 60%, transparent 61%),
     radial-gradient(2.2px 2.2px at 82% 54%,  #fff 60%, transparent 61%),
     radial-gradient(2.0px 2.0px at 90% 38%,  #fff 60%, transparent 61%),
-    radial-gradient(2.3px 2.3px at 94% 60%,  #fff 60%, transparent 61%),
-    radial-gradient(1.8px 1.8px at 12% 44%,  #fff 60%, transparent 61%),
-    radial-gradient(1.9px 1.9px at 28% 56%,  #fff 60%, transparent 61%),
-    radial-gradient(2.1px 2.1px at 52% 68%,  #fff 60%, transparent 61%);
-  filter: blur(.15px);
+    radial-gradient(2.3px 2.3px at 94% 60%,  #fff 60%, transparent 61%);
+  filter:blur(.15px);
 }
 
-/* ─── Full moon (soft, defocused) ─────────────────────────────────── */
+/* Full moon */
 .moon{
-  position:fixed; right:48px; top:42px; width:110px; height:110px; pointer-events:none;
+  position:fixed; right:48px; top:42px; width:110px; height:110px;
   border-radius:50%;
   background:radial-gradient(55% 55% at 50% 50%, rgba(255,255,255,.95), rgba(255,255,255,.75) 35%, rgba(255,255,255,0) 70%);
   filter:
@@ -67,10 +57,11 @@ body{
     drop-shadow(0 0 24px rgba(158,181,207,.22));
 }
 
-/* ─── Clouds (static, sharper, no motion) ─────────────────────────── */
+/* Clouds (static) */
 .clouds{
-  position:fixed; inset:auto 0 0 0; height:42vh; pointer-events:none;
-  filter: blur(var(--cloud-blur)) saturate(108%); opacity: var(--cloud-opacity);
+  position:fixed; inset:auto 0 0 0; height:42vh;
+  filter:blur(var(--cloud-blur)) saturate(108%); opacity:var(--cloud-opacity);
+  pointer-events:none;
 }
 .clouds::before{
   content:""; position:absolute; inset:-10% 0 -6% 0;
@@ -82,67 +73,53 @@ body{
   mix-blend-mode:screen;
 }
 
-/* ─── Stage + two-sided spinning logo ─────────────────────────────── */
-.stage{
-  position:fixed; inset:0; display:grid; place-items:center; perspective:1100px;
-}
-
-/* We rotate the container; front and back images are inside */
+/* Spinning logo (two sided) */
+.stage{position:fixed; inset:0; display:grid; place-items:center; perspective:1100px;}
 .spin3d{
   position:relative; width:var(--logo-size); height:var(--logo-size);
   transform-style:preserve-3d;
   animation:spinY var(--spin-secs) linear infinite;
 }
-
-.face, .back{
+.face,.back{
   position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
   filter:
     drop-shadow(0 22px 30px rgba(0,0,0,.55))
     drop-shadow(0 8px 14px rgba(74,111,165,.5));
   backface-visibility:hidden;
 }
+.back{transform:rotateY(180deg);}
+@keyframes spinY{from{transform:rotateY(0deg)}to{transform:rotateY(360deg)}}
 
-/* back shows the same art, flipped, so the logo never disappears */
-.back{ transform: rotateY(180deg); }
-
-/* Optional “wave reflection” highlight — clipped and very subtle */
-.waveFX{
-  display: calc(var(--waves) * 1);
-  position:absolute; width:82%; height:56%; top:18%; left:9%;
-  pointer-events:none; mix-blend-mode:screen;
-  clip-path: ellipse(58% 42% at 50% 65%);
-  background:
-    radial-gradient(65% 40% at 50% 65%, rgba(255,255,255,.16), transparent 62%),
-    radial-gradient(65% 40% at 50% 50%, rgba(255,255,255,.10), transparent 62%),
-    radial-gradient(65% 40% at 50% 35%, rgba(255,255,255,.07), transparent 62%);
-  filter: blur(1.2px);
-}
-
-@keyframes spinY{ from{transform:rotateY(0deg)} to{transform:rotateY(360deg)} }
-
-/* ─── Title, 3D tagline, footer ───────────────────────────────────── */
+/* Title */
 h1.center{
   position:fixed; left:50%; transform:translateX(-50%);
-  top: calc(50% + calc(var(--logo-size)*.72));
+  top:calc(50% + calc(var(--logo-size)*.72));
   font-weight:700; font-size:1.2rem; letter-spacing:.35px; color:var(--accent);
   text-shadow:0 1px 2px rgba(0,0,0,.45);
 }
 
-/* 3D text effect via layered shadows */
+/* 3D tagline (metallic gradient text) */
 p.tagline{
-  position:fixed; left:50%; transform:translateX(-50%);
-  top: calc(50% + calc(var(--logo-size)*.40));  /* midway */
-  font-weight:700; font-size:2.2rem; letter-spacing:.02em;
-  color:#e8eef7;
-  /* multi-layer “extrusion” */
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  top:calc(50% + calc(var(--logo-size)*.40));
+  font-weight:700;
+  font-size:2.2rem;
+  letter-spacing:.02em;
+  background:linear-gradient(180deg,#e8ecf5 0%,#aebed2 50%,#6c7a91 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
   text-shadow:
-    0 1px 0 rgba(0,0,0,.25),
-    0 2px 0 rgba(0,0,0,.22),
-    0 3px 0 rgba(0,0,0,.18),
-    0 4px 3px rgba(0,0,0,.20),
-    0 8px 12px rgba(0,0,0,.25);
+    0 1px 0 rgba(0,0,0,.35),
+    0 2px 2px rgba(0,0,0,.25),
+    0 4px 4px rgba(0,0,0,.2),
+    0 6px 6px rgba(0,0,0,.15),
+    0 8px 10px rgba(0,0,0,.15);
+  filter:drop-shadow(0 6px 8px rgba(74,111,165,.45));
 }
 
+/* Footer */
 footer{
   position:fixed; bottom:18px; width:100%; text-align:center;
   font-size:.8rem; color:var(--accent); opacity:.65;
@@ -156,10 +133,6 @@ footer{
 
   <div class="stage">
     <div class="spin3d" aria-label="A-Wave rotating logo">
-      <!-- optional subtle wave reflection -->
-      <span class="waveFX" aria-hidden="true"></span>
-
-      <!-- two-sided render -->
       <img class="face" src="assets/logo.png" alt="A-Wave logo (front)">
       <img class="back" src="assets/logo.png" alt="A-Wave logo (back)">
     </div>
@@ -169,6 +142,6 @@ footer{
   <p class="tagline">The future is almost here…</p>
 
   <footer>&copy; <span id="year"></span> J. Stevens BIM Acoustics</footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 </body>
 </html>
