@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>J. Stevens BIM Acoustics</title>
-  <meta name="description" content="Acoustics • Audiovisual • BIM Integration" />
   <meta name="theme-color" content="#0b0f1a" />
 
   <!-- Icons -->
@@ -16,15 +15,20 @@
 
   <style>
     :root{
-      --sky-start:#060b18;
-      --sky-end:#101828;
-      --moon:#f6f8ff;
-      --moon-rim:#cfd8ff;
-      --moon-glow:#9fb2ff33;
-      --text:#e9eef6;
-      --text-dim:#b8c2d8;
-      --accent:#66ccff;
+      /* Easy knobs to match your Oct 21 look */
+      --moon-size: min(22vw, 260px);     /* smaller moon */
+      --moon-x: 10vw;                    /* right offset */
+      --moon-y: 8vh;                     /* top offset */
+      --cloud-opacity-1: .22;            /* foreground clouds */
+      --cloud-opacity-2: .16;            /* mid clouds */
+      --cloud-opacity-3: .10;            /* rear clouds */
+      --star-bright: #ffffff;
+      --sky-a: #071126;
+      --sky-b: #0e1a33;
+      --accent: #9fb6ff;
+      --text: #e9eef6;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -32,72 +36,79 @@
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1400px 900px at 70% -240px, #2b3a6a22 0 60%, transparent 70%),
-        linear-gradient(180deg, var(--sky-start) 0%, var(--sky-end) 100%);
+        radial-gradient(1200px 800px at 70% -220px, #2b3a6a22 0 60%, transparent 70%),
+        linear-gradient(180deg, var(--sky-a) 0%, var(--sky-b) 100%);
       overflow-x:hidden;
     }
 
-    /* Sky container */
+    /* --- Sky Layers --- */
     .sky{ position:fixed; inset:0; z-index:-1; overflow:hidden; }
 
-    /* Stars (3 parallax layers) */
+    /* Stars: dense tiny stars on three parallax layers */
     .stars, .stars2, .stars3{
-      position:absolute; inset:-2200px 0 0 0; width:2px; height:2px; background:#fff;
-      border-radius:50%; opacity:.85; filter:drop-shadow(0 0 2px #fff);
-      animation: drift 180s linear infinite;
+      position:absolute; inset:-2400px 0 0 0; width:1.5px; height:1.5px; background:var(--star-bright);
+      border-radius:50%;
+      opacity:.9; filter:drop-shadow(0 0 1.5px #fff);
+      animation: drift 200s linear infinite;
     }
     .stars{
       box-shadow:
-      100px 300px #fff, 300px 120px #fff, 600px 400px #fff, 900px 50px #fff,
-      1200px 260px #fff, 1500px 500px #fff, 1800px 180px #fff, 2000px 340px #fff,
-      2300px 90px #fff, 2600px 420px #fff, 2900px 240px #fff, 3200px 380px #fff,
-      3500px 60px #fff, 3800px 310px #fff, 4100px 170px #fff, 4400px 430px #fff;
+      90px 310px #fff, 160px 140px #fff, 230px 60px #fff, 300px 210px #fff, 380px 40px #fff, 450px 260px #fff, 520px 120px #fff,
+      590px 300px #fff, 660px 80px #fff, 730px 190px #fff, 800px 30px #fff, 870px 340px #fff, 940px 160px #fff, 1010px 260px #fff,
+      1080px 110px #fff, 1150px 330px #fff, 1220px 70px #fff, 1290px 220px #fff, 1360px 40px #fff, 1430px 280px #fff,
+      1500px 150px #fff, 1570px 310px #fff, 1640px 90px #fff, 1710px 240px #fff, 1780px 50px #fff, 1850px 200px #fff,
+      1920px 130px #fff, 1990px 300px #fff, 2060px 60px #fff, 2130px 180px #fff, 2200px 20px #fff, 2270px 260px #fff,
+      2340px 120px #fff, 2410px 340px #fff, 2480px 90px #fff, 2550px 220px #fff, 2620px 40px #fff, 2690px 280px #fff,
+      2760px 160px #fff, 2830px 320px #fff, 2900px 100px #fff, 2970px 240px #fff;
     }
     .stars2{
-      transform:scale(.8); opacity:.6; filter:drop-shadow(0 0 1px #dfe7ff);
-      animation-duration:260s;
+      transform:scale(.85); opacity:.65; animation-duration:280s;
+      filter:drop-shadow(0 0 1px #dfe7ff);
       box-shadow:
-      200px 200px #fff, 500px 350px #fff, 800px 80px #fff, 1100px 300px #fff,
-      1400px 150px #fff, 1700px 420px #fff, 2000px 40px #fff, 2300px 280px #fff,
-      2600px 200px #fff, 2900px 420px #fff, 3200px 120px #fff, 3500px 300px #fff;
+      120px 220px #fff, 240px 80px #fff, 360px 300px #fff, 480px 140px #fff, 600px 260px #fff, 720px 60px #fff,
+      840px 200px #fff, 960px 320px #fff, 1080px 100px #fff, 1200px 240px #fff, 1320px 40px #fff, 1440px 280px #fff,
+      1560px 160px #fff, 1680px 320px #fff, 1800px 110px #fff, 1920px 260px #fff, 2040px 50px #fff, 2160px 200px #fff;
     }
     .stars3{
-      transform:scale(1.25); opacity:.4; animation-duration:360s;
+      transform:scale(1.2); opacity:.45; animation-duration:360s;
       box-shadow:
-      150px 120px #fff, 450px 260px #fff, 750px 30px #fff, 1050px 210px #fff,
-      1350px 70px #fff, 1650px 350px #fff, 1950px 140px #fff, 2250px 310px #fff,
-      2550px 90px #fff, 2850px 260px #fff, 3150px 160px #fff;
+      150px 120px #fff, 300px 260px #fff, 450px 30px #fff, 600px 210px #fff, 750px 70px #fff, 900px 350px #fff,
+      1050px 140px #fff, 1200px 310px #fff, 1350px 90px #fff, 1500px 260px #fff, 1650px 160px #fff, 1800px 300px #fff;
     }
     @keyframes drift{ from{transform:translateX(0)} to{transform:translateX(-1400px)} }
 
-    /* BIG Moon (per your Oct 21 version) */
+    /* Moon: smaller, crisp */
     .moon{
-      position:absolute; 
-      top:4vh; right:6vw; 
-      width:min(36vw, 420px); height:min(36vw, 420px); 
+      position:absolute;
+      top: var(--moon-y);
+      right: var(--moon-x);
+      width: var(--moon-size);
+      height: var(--moon-size);
       border-radius:50%;
       background:
-        radial-gradient(circle at 35% 30%, var(--moon) 0 56%, var(--moon-rim) 68%, #9aa9ff 92%),
-        radial-gradient(circle at 55% 65%, #dfe5ff 0 18%, transparent 28%);
+        radial-gradient(circle at 35% 30%, #f8fbff 0 56%, #dfe6ff 70%, #a7b7ff 92%),
+        radial-gradient(circle at 55% 65%, #ecf0ff 0 16%, transparent 26%);
       box-shadow:
-        0 0 60px 10px var(--moon-glow),
-        0 0 180px 70px #8aa3ff1a;
-      filter:saturate(105%) contrast(105%);
+        0 0 40px 8px #8aa3ff33,
+        0 0 110px 50px #7e93ff1f;
+      filter:saturate(105%) contrast(106%);
     }
 
-    /* Clouds */
+    /* Clouds: higher definition via layered soft ellipses */
     .clouds, .clouds:before, .clouds:after{
-      position:absolute; left:-30vw; right:-30vw; height:40vh; top:18vh;
+      position:absolute; left:-35vw; right:-35vw; height:36vh; top:18vh; pointer-events:none;
       background:
-        radial-gradient(closest-side, #ffffff18, #ffffff05 70%, transparent 72%) 0 0/28% 100% repeat-x,
-        radial-gradient(closest-side, #ffffff10, #ffffff03 70%, transparent 72%) 14% 10%/28% 100% repeat-x;
-      animation: clouds 140s linear infinite; pointer-events:none;
+        radial-gradient(60% 120% at 20% 60%, rgba(255,255,255,var(--cloud-opacity-1)) 0 40%, transparent 60%) 0 0/28% 100% repeat-x,
+        radial-gradient(60% 120% at 40% 50%, rgba(255,255,255,var(--cloud-opacity-2)) 0 40%, transparent 60%) 14% 0/28% 100% repeat-x,
+        radial-gradient(60% 120% at 60% 55%, rgba(255,255,255,var(--cloud-opacity-3)) 0 40%, transparent 60%) 7% 8%/28% 100% repeat-x;
+      animation: clouds 150s linear infinite;
+      filter: blur(0.5px);
     }
-    .clouds:before{ content:""; top:10vh; opacity:.7; animation-duration: 180s }
-    .clouds:after{  content:""; top:-8vh; opacity:.45; animation-duration: 220s }
-    @keyframes clouds{ from{transform:translateX(0)} to{transform:translateX(-40vw)} }
+    .clouds:before{ content:""; top:8vh; height:34vh; opacity:.9; animation-duration: 190s; filter: blur(0.4px); }
+    .clouds:after{  content:""; top:-8vh; height:32vh; opacity:.7; animation-duration: 230s; filter: blur(0.6px); }
+    @keyframes clouds{ from{transform:translateX(0)} to{transform:translateX(-36vw)} }
 
-    /* Layout */
+    /* Content */
     .wrap{ display:flex; flex-direction:column; align-items:center; text-align:center; padding:9vh 16px 12vh; }
 
     /* Rotating logo */
@@ -106,17 +117,31 @@
       animation: spin 28s linear infinite;
       filter: drop-shadow(0 10px 28px rgba(0,0,0,.55)) drop-shadow(0 2px 6px rgba(0,0,0,.5));
     }
-    @media (min-width: 720px){ .logo{ width:300px } }
+    @media (min-width: 820px){ .logo{ width:300px } }
     @keyframes spin{ 0%{transform:rotateY(0)} 100%{transform:rotateY(360deg)} }
 
-    h1{ margin:.75rem 0 .25rem; font-size: clamp(2rem, 3.8vw, 3rem) }
-    .tagline{ color:var(--text-dim); margin:.2rem 0 .4rem; font-weight:500 }
-    .future{ color:#dfe7ff; font-weight:600; margin:.2rem 0 1.4rem; letter-spacing:.4px }
+    h1{ margin:1.1rem 0 .6rem; font-size: clamp(2rem, 4vw, 3rem) }
 
-    p{ color:#d3daea; max-width: 900px; margin: 0 auto 1.1rem; line-height:1.6 }
-    a{ color:var(--accent); text-decoration:none }
-    a:hover{ text-decoration:underline }
-    footer{ margin-top: 2.6rem; color:#96a1bb; font-size:.92rem }
+    /* Metallic 3D headline */
+    .future{
+      font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: .5px;
+      background: linear-gradient(180deg, #f5f7ff 0%, #bcc6dc 45%, #8c98b3 52%, #dfe6f7 70%, #9aa6bf 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow:
+        0 1px 0 #fff8,
+        0 2px 1px #b3bfd9cc,
+        0 10px 18px rgba(0,0,0,.32);
+      margin: .2rem 0 1.8rem;
+    }
+
+    /* Link section (kept minimal) */
+    .links a{ color:#89c4ff; text-decoration:none; font-weight:600 }
+    .links a:hover{ text-decoration:underline }
+    footer{ margin-top:2.4rem; color:#9dadc9; font-size:.92rem }
   </style>
 </head>
 <body>
@@ -144,19 +169,11 @@
     </picture>
 
     <h1>J. Stevens BIM Acoustics</h1>
-    <div class="tagline">Acoustics • Audiovisual • BIM Integration</div>
     <div class="future">The future is almost here.</div>
 
-    <p>
-      J. Stevens BIM Acoustics provides advanced acoustical and audiovisual design tools for architects, engineers, and integrators
-      working within the Revit environment. Our suite of Revit add-ins streamlines the workflow from concept to documentation,
-      bridging the gap between acoustics, AV, and BIM coordination.
-    </p>
-
-    <p>
-      Explore our current tools:
-      <br><a href="https://bimacoustics.net">bimacoustics.net</a>
-    </p>
+    <div class="links">
+      <a href="https://bimacoustics.net">bimacoustics.net</a>
+    </div>
 
     <footer>
       &copy; 2025 J. Stevens BIM Acoustics — All rights reserved.
