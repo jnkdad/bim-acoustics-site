@@ -1,113 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="J. Stevens BIM Acoustics – Professional Acoustics and AV Design Integration">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>J. Stevens BIM Acoustics</title>
+  <meta name="description" content="Acoustics • Audiovisual • BIM Integration" />
+  <meta name="theme-color" content="#0b0f1a" />
 
   <!-- Icons -->
   <link rel="icon" type="image/png" sizes="256x256" href="assets/A-Wave_Logo_BrushedNickel_3D_256px_Favicon.png">
   <link rel="apple-touch-icon" sizes="512x512" href="assets/A-Wave_Logo_BrushedNickel_3D_512px_AppIcon.png">
 
-  <!-- Preload logo for faster hero render -->
-  <link rel="preload" as="image" href="assets/A-Wave_Logo_BrushedNickel_3D_1024px_Header.png" imagesizes="(max-width: 1024px) 100vw, 1024px">
+  <!-- Preload hero logo -->
+  <link rel="preload" as="image" href="assets/A-Wave_Logo_BrushedNickel_3D_1024px_Header.png">
 
-  <!-- Styles -->
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #e5e5e5;
-      background-color: #121212;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      overflow-x: hidden;
+    :root{
+      --sky-start:#060b18;
+      --sky-end:#101828;
+      --moon:#f0f3ff;
+      --moon-glow:#aab6ff33;
+      --text:#e9eef6;
+      --text-dim:#b8c2d8;
+      --accent:#66ccff;
+    }
+    /* Page frame */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 70% -200px, #2b3a6a22 0 60%, transparent 70%) ,
+        linear-gradient(180deg, var(--sky-start) 0%, var(--sky-end) 100%);
+      overflow-x:hidden;
     }
 
-    header {
-      margin-top: 40px;
+    /* Sky layers container */
+    .sky{
+      position:fixed; inset:0; z-index:-1; overflow:hidden;
     }
 
-    h1 {
-      font-size: 2.25rem;
-      margin: 1rem 0 0.25rem 0;
-      letter-spacing: 1px;
+    /* Stars: three parallax layers using box-shadows for performance */
+    .stars, .stars2, .stars3{
+      position:absolute; inset:-2000px 0 0 0; width:2px; height:2px; background:#fff;
+      border-radius:50%;
+      opacity:.8; filter:drop-shadow(0 0 2px #fff);
+      animation: drift 180s linear infinite;
+    }
+    .stars{
+      box-shadow:
+      100px 300px #fff, 300px 120px #fff, 600px 400px #fff, 900px 50px #fff,
+      1200px 260px #fff, 1500px 500px #fff, 1800px 180px #fff, 2000px 340px #fff,
+      2300px 90px #fff, 2600px 420px #fff, 2900px 240px #fff, 3200px 380px #fff,
+      3500px 60px #fff, 3800px 310px #fff, 4100px 170px #fff, 4400px 430px #fff;
+      opacity:.9;
+    }
+    .stars2{
+      transform:scale(.8);
+      opacity:.6;
+      filter:drop-shadow(0 0 1px #dfe7ff);
+      animation-duration:260s;
+      box-shadow:
+      200px 200px #fff, 500px 350px #fff, 800px 80px #fff, 1100px 300px #fff,
+      1400px 150px #fff, 1700px 420px #fff, 2000px 40px #fff, 2300px 280px #fff,
+      2600px 200px #fff, 2900px 420px #fff, 3200px 120px #fff, 3500px 300px #fff;
+    }
+    .stars3{
+      transform:scale(1.2);
+      opacity:.4;
+      animation-duration:360s;
+      box-shadow:
+      150px 120px #fff, 450px 260px #fff, 750px 30px #fff, 1050px 210px #fff,
+      1350px 70px #fff, 1650px 350px #fff, 1950px 140px #fff, 2250px 310px #fff,
+      2550px 90px #fff, 2850px 260px #fff, 3150px 160px #fff;
+    }
+    @keyframes drift{
+      from{ transform: translateX(0) }
+      to  { transform: translateX(-1400px) }
     }
 
-    h2 {
-      font-weight: 400;
-      color: #b0b0b0;
-      font-size: 1.2rem;
-      margin-top: 0;
+    /* Moon */
+    .moon{
+      position:absolute; top:7vh; right:10vw; width:140px; height:140px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, var(--moon) 0 55%, #cfd6ff 70%, #98a6ff 100%);
+      box-shadow:
+        0 0 40px 6px var(--moon-glow),
+        0 0 120px 50px #8aa3ff1a;
+      filter:saturate(105%);
     }
 
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+    /* Clouds */
+    .clouds, .clouds:before, .clouds:after{
+      position:absolute; left:-30vw; right:-30vw; height:35vh; top:15vh;
+      background:
+        radial-gradient(closest-side, #ffffff18, #ffffff05 70%, transparent 72%) 0 0/28% 100% repeat-x,
+        radial-gradient(closest-side, #ffffff10, #ffffff03 70%, transparent 72%) 14% 10%/28% 100% repeat-x;
+      animation: clouds 140s linear infinite;
+      pointer-events:none;
+    }
+    .clouds:before{ content:""; top:8vh; opacity:.7; animation-duration: 180s }
+    .clouds:after{ content:""; top:-6vh; opacity:.45; animation-duration: 220s }
+    @keyframes clouds{
+      from{ transform: translateX(0) }
+      to  { transform: translateX(-40vw) }
     }
 
-    footer {
-      font-size: 0.9rem;
-      color: #777;
-      margin-bottom: 40px;
+    /* Layout */
+    .wrap{
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+      padding:8vh 16px 12vh;
     }
 
-    picture img {
-      width: 240px;
-      height: auto;
-      user-select: none;
+    /* Rotating logo */
+    .logo{
+      width:220px; height:auto; will-change:transform,filter;
+      animation: spin 28s linear infinite;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,.55)) drop-shadow(0 2px 6px rgba(0,0,0,.5));
+    }
+    @media (min-width: 720px){
+      .logo{ width:260px }
+    }
+    @keyframes spin{
+      0%   { transform: rotateY(0deg) }
+      100% { transform: rotateY(360deg) }
     }
 
-    @media (max-width: 768px) {
-      h1 { font-size: 1.8rem; }
-      picture img { width: 180px; }
-    }
+    h1{ margin:.6rem 0 .2rem; font-size: clamp(1.8rem, 3.4vw, 2.8rem) }
+    .tagline{ color:var(--text-dim); margin:.2rem 0 1.2rem; font-weight:500 }
 
-    a {
-      color: #66ccff;
-      text-decoration: none;
-    }
+    p{ color:#d3daea; max-width: 900px; margin: 0 auto 1.1rem; line-height:1.6 }
+    a{ color:var(--accent); text-decoration:none }
+    a:hover{ text-decoration:underline }
 
-    a:hover {
-      text-decoration: underline;
+    footer{
+      margin-top: 2.5rem; color:#96a1bb; font-size:.92rem
     }
   </style>
 </head>
-
 <body>
-  <header>
-    <picture>
-      <source srcset="assets/A-Wave_Logo_BrushedNickel_3D_2048px_WebOptimized.webp" type="image/webp">
-      <img src="assets/A-Wave_Logo_BrushedNickel_3D_1024px_Header.png" alt="J. Stevens BIM Acoustics Logo" width="240" height="240" loading="eager" fetchpriority="high">
-    </picture>
-    <h1>J. Stevens BIM Acoustics</h1>
-    <h2>Acoustics • Audiovisual • BIM Integration</h2>
-  </header>
 
-  <main>
+  <!-- SKY LAYERS -->
+  <div class="sky" aria-hidden="true">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    <div class="moon"></div>
+    <div class="clouds"></div>
+  </div>
+
+  <!-- CONTENT -->
+  <main class="wrap" role="main">
+    <picture>
+      <!-- WebP preferred, PNG fallback; using your new assets -->
+      <source srcset="assets/A-Wave_Logo_BrushedNickel_3D_2048px_WebOptimized.webp" type="image/webp" />
+      <img
+        class="logo"
+        src="assets/A-Wave_Logo_BrushedNickel_3D_1024px_Header.png"
+        alt="J. Stevens BIM Acoustics logo"
+        width="260" height="260"
+        loading="eager" fetchpriority="high"
+      />
+    </picture>
+
+    <h1>J. Stevens BIM Acoustics</h1>
+    <div class="tagline">Acoustics • Audiovisual • BIM Integration</div>
+
     <p>
-      J. Stevens BIM Acoustics provides advanced acoustical and audiovisual design tools
-      for architects, engineers, and integrators working within the Revit environment.
-      Our suite of Revit add-ins streamlines the workflow from concept to documentation,
+      J. Stevens BIM Acoustics provides advanced acoustical and audiovisual design tools for architects, engineers, and integrators
+      working within the Revit environment. Our suite of Revit add-ins streamlines the workflow from concept to documentation,
       bridging the gap between acoustics, AV, and BIM coordination.
     </p>
 
     <p>
       Explore our current tools:
-      <br>
-      <a href="https://bimacoustics.net">bimacoustics.net</a>
+      <br><a href="https://bimacoustics.net">bimacoustics.net</a>
     </p>
+
+    <footer>
+      &copy; 2025 J. Stevens BIM Acoustics — All rights reserved.
+    </footer>
   </main>
 
-  <footer>
-    &copy; 2025 J. Stevens BIM Acoustics — All rights reserved.<br>
-    Designed and built with ❤️ for the AV and acoustics community.
-  </footer>
 </body>
 </html>
