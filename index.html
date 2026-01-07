@@ -228,22 +228,6 @@
       margin-top:2px;
     }
 
-    details.opt{
-      margin-top:10px;
-      border:1px dashed rgba(158,181,207,.26);
-      border-radius:14px;
-      background:rgba(11,19,32,.20);
-      padding:10px 12px;
-    }
-    details.opt > summary{
-      cursor:pointer;
-      list-style:none;
-      color:var(--accent);
-      font-weight:700;
-      font-size:.9rem;
-    }
-    details.opt > summary::-webkit-details-marker{display:none}
-
     /* Hide Mailchimp default fluff if present */
     #mc_embed_shell, #mc_embed_signup, #mc_embed_signup_scroll,
     .indicates-required, .mc-field-group label { all:unset; display:contents; }
@@ -276,6 +260,116 @@
       .mcgrid{grid-template-columns: 1fr}
       .span2{grid-column:auto}
     }
+
+    /* Lucius Widget (floating) */
+    #lucius-widget { position: fixed; right: 18px; bottom: 18px; z-index: 9999; }
+    .lw-shell { position: relative; font-family: "Montserrat", Segoe UI, Arial, sans-serif; }
+    .lw-fab{
+      border:1px solid rgba(158,181,207,.28);
+      background:rgba(15,26,42,.75);
+      color:#E8EEF5;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 18px 40px rgba(0,0,0,.45);
+    }
+    .lw-panel{
+      width: 360px;
+      max-width: calc(100vw - 36px);
+      height: 520px;
+      max-height: calc(100vh - 120px);
+      margin-top: 10px;
+      border:1px solid rgba(158,181,207,.22);
+      background:linear-gradient(180deg, rgba(15,26,42,.92), rgba(12,21,35,.90));
+      border-radius:18px;
+      overflow:hidden;
+      display:none;
+      box-shadow:0 22px 60px rgba(0,0,0,.60);
+    }
+    .lw-shell.open .lw-panel{ display:block; }
+    .lw-hd{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 12px;
+      border-bottom:1px solid rgba(158,181,207,.14);
+    }
+    .lw-title{ font-weight:700; color:#9EB5CF; }
+    .lw-x{
+      border:1px solid rgba(158,181,207,.22);
+      background:rgba(11,19,32,.40);
+      color:#E8EEF5;
+      width:34px; height:34px;
+      border-radius:12px;
+      cursor:pointer;
+    }
+    .lw-body{
+      padding:12px;
+      height: calc(100% - 110px);
+      overflow:auto;
+    }
+    .lw-ft{
+      display:flex;
+      gap:8px;
+      padding:12px;
+      border-top:1px solid rgba(158,181,207,.14);
+    }
+    .lw-in{
+      flex:1;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid rgba(158,181,207,.24);
+      background:rgba(11,19,32,.45);
+      color:#E8EEF5;
+      outline:none;
+    }
+    .lw-send{
+      border:1px solid rgba(158,181,207,.28);
+      background:linear-gradient(180deg, rgba(158,181,207,.28), rgba(15,26,42,.50));
+      color:#E8EEF5;
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .lw-send:disabled, .lw-in:disabled{ opacity:.6; cursor:not-allowed; }
+    .lw-msg{
+      padding:10px 10px;
+      border-radius:12px;
+      margin:0 0 10px 0;
+      line-height:1.35;
+      font-size:.92rem;
+      border:1px solid rgba(158,181,207,.16);
+    }
+    .lw-msg.sys{ background:rgba(11,19,32,.28); color:rgba(232,238,245,.80); }
+    .lw-msg.user{ background:rgba(158,181,207,.10); }
+    .lw-msg.bot{ background:rgba(15,26,42,.55); }
+
+    /* Consent card */
+    .lw-consent{
+      margin-top:12px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(158,181,207,.18);
+      background:rgba(11,19,32,.28);
+    }
+    .lw-consent-title{ font-weight:700; color:#9EB5CF; margin-bottom:6px; }
+    .lw-consent-text{ color:rgba(232,238,245,.78); font-size:.88rem; line-height:1.35; margin-bottom:10px; }
+    .lw-consent-row{ display:flex; gap:10px; align-items:flex-start; color:rgba(232,238,245,.82); font-size:.88rem; line-height:1.35; }
+    .lw-consent-actions{ display:flex; gap:8px; margin-top:10px; }
+    .lw-btn{
+      border:1px solid rgba(158,181,207,.22);
+      background:rgba(15,26,42,.50);
+      color:#E8EEF5;
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .lw-btn.primary{
+      background:linear-gradient(180deg, rgba(158,181,207,.28), rgba(15,26,42,.50));
+      border-color:rgba(158,181,207,.40);
+    }
+    .lw-btn:disabled{ opacity:.55; cursor:not-allowed; }
   </style>
 </head>
 
@@ -340,69 +434,53 @@
                     <div id="mc_embed_signup_scroll">
 
                       <div class="mcgrid">
+                        <div class="span2">
+                          <label class="sr-only" for="mce-EMAIL">Email Address</label>
+                          <input type="email" name="EMAIL" class="input" id="mce-EMAIL" placeholder="Email address *" required>
+                        </div>
 
-  <div class="span2">
-    <label class="sr-only" for="mce-EMAIL">Email Address</label>
-    <input
-      type="email"
-      name="EMAIL"
-      class="input"
-      id="mce-EMAIL"
-      placeholder="Email address *"
-      required>
-  </div>
+                        <div>
+                          <label class="sr-only" for="mce-FNAME">First Name</label>
+                          <input type="text" name="FNAME" class="input" id="mce-FNAME" placeholder="First name (optional)">
+                        </div>
 
-  <div>
-    <label class="sr-only" for="mce-FNAME">First Name</label>
-    <input
-      type="text"
-      name="FNAME"
-      class="input"
-      id="mce-FNAME"
-      placeholder="First name (optional)">
-  </div>
+                        <div>
+                          <label class="sr-only" for="mce-LNAME">Last Name</label>
+                          <input type="text" name="LNAME" class="input" id="mce-LNAME" placeholder="Last name (optional)">
+                        </div>
 
-  <div>
-    <label class="sr-only" for="mce-LNAME">Last Name</label>
-    <input
-      type="text"
-      name="LNAME"
-      class="input"
-      id="mce-LNAME"
-      placeholder="Last name (optional)">
-  </div>
+                        <div class="span2">
+                          <label class="sr-only" for="mce-COMPANY">Company</label>
+                          <input type="text" name="COMPANY" class="input" id="mce-COMPANY" placeholder="Company (optional)">
+                        </div>
 
-  <div class="span2">
-    <label class="sr-only" for="mce-COMPANY">Company</label>
-    <input
-      type="text"
-      name="COMPANY"
-      class="input"
-      id="mce-COMPANY"
-      placeholder="Company (optional)">
-  </div>
+                        <div class="span2">
+                          <label class="sr-only" for="mce-COMMENTS">Comments</label>
+                          <input type="text" name="COMMENTS" class="input" id="mce-COMMENTS" placeholder="Anything you’d like us to know (optional)">
+                        </div>
 
-  <div class="span2">
-    <label class="sr-only" for="mce-COMMENTS">Comments</label>
-    <input
-      type="text"
-      name="COMMENTS"
-      class="input"
-      id="mce-COMMENTS"
-      placeholder="Anything you’d like us to know (optional)">
-  </div>
+                        <div class="mcactions span2">
+                          <button class="btn primary" type="submit" name="subscribe" id="mc-embedded-subscribe">
+                            Join early access
+                          </button>
+                          <div class="note">
+                            No spam—just launch updates and optional beta opportunities.
+                          </div>
+                        </div>
+                      </div>
 
-  <div class="mcactions span2">
-    <button class="btn primary" type="submit" name="subscribe">
-      Join early access
-    </button>
-    <div class="note">
-      No spam—just launch updates and optional beta opportunities.
-    </div>
-  </div>
+                      <!-- Mailchimp responses -->
+                      <div id="mce-responses" class="clear" style="margin-top:10px;">
+                        <div class="response note" id="mce-error-response" style="display:none;"></div>
+                        <div class="response note" id="mce-success-response" style="display:none;"></div>
+                      </div>
 
-</div>
+                      <!-- Honeypot -->
+                      <div aria-hidden="true" style="position:absolute; left:-5000px;">
+                        <input type="text" name="b_51f5fe5a086643c0313576e9b_24c4052dce" tabindex="-1" value="">
+                      </div>
 
+                    </div>
                   </form>
                 </div>
               </div>
@@ -435,7 +513,7 @@
             </div>
 
             <div class="note">
-              When you’re ready, we’ll decide: (1) simple hosted widget, or (2) embedded assistant tied to your docs + release notes.
+              For enterprise or manufacturer discussions: <a href="mailto:info@bimacoustics.net" style="color:var(--accent); text-decoration:none;">info@bimacoustics.net</a>
             </div>
           </div>
         </div>
@@ -448,6 +526,9 @@
 
     </div>
   </div>
+
+  <div id="lucius-widget"></div>
+  <script src="/lucius-widget.js"></script>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
