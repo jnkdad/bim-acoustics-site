@@ -5,8 +5,8 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": ["get"],
-      "route": "ping"
+      "methods": ["get", "post"],
+      "route": "lucius-web-chat"
     },
     {
       "type": "http",
