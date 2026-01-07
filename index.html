@@ -25,18 +25,6 @@
 
       --maxw:1200px;
     }
-    /* Embedded Lucius panel (inside the right card) */
-.lw-embed-shell{
-  height: 100%;
-  display:flex;
-  flex-direction:column;
-}
-.lw-embed-hd{
-  padding:12px 12px;
-  border-bottom:1px solid rgba(158,181,207,.14);
-}
-.luciusEmbed{ padding:0 !important; }
-.luciusEmbed #lucius-embed{ height: 100%; min-height: 320px; }
 
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%}
@@ -244,20 +232,100 @@
     #mc_embed_shell, #mc_embed_signup, #mc_embed_signup_scroll,
     .indicates-required, .mc-field-group label { all:unset; display:contents; }
 
-    /* Lucius placeholder */
-    <div id="lucius-embed"></div>
-
+    /* Lucius embed container (right card) */
+    .luciusEmbed{
       border-radius:14px;
       border:1px solid rgba(158,181,207,.20);
       overflow:hidden;
       background:rgba(0,0,0,.18);
       min-height:320px;
-      display:grid;
-      place-items:center;
-      color:rgba(232,238,245,.65);
-      padding:14px;
-      text-align:center;
+      padding:0;                 /* important: embed fills box */
     }
+    #lucius-embed{
+      height:100%;
+      min-height:320px;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* Embedded Lucius UI */
+    .lw-embed-shell{ height:100%; display:flex; flex-direction:column; }
+    .lw-embed-hd{
+      padding:12px 12px;
+      border-bottom:1px solid rgba(158,181,207,.14);
+    }
+    .lw-title{ font-weight:700; color:var(--accent); }
+
+    .lw-body{
+      padding:12px;
+      overflow:auto;
+      flex:1 1 auto;
+    }
+    .lw-ft{
+      display:flex;
+      gap:8px;
+      padding:12px;
+      border-top:1px solid rgba(158,181,207,.14);
+    }
+    .lw-in{
+      flex:1;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid rgba(158,181,207,.24);
+      background:rgba(11,19,32,.45);
+      color:var(--text);
+      outline:none;
+    }
+    .lw-send{
+      border:1px solid rgba(158,181,207,.28);
+      background:linear-gradient(180deg, rgba(158,181,207,.28), rgba(15,26,42,.50));
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .lw-send:disabled, .lw-in:disabled{ opacity:.6; cursor:not-allowed; }
+
+    .lw-msg{
+      padding:10px 10px;
+      border-radius:12px;
+      margin:0 0 10px 0;
+      line-height:1.35;
+      font-size:.92rem;
+      border:1px solid rgba(158,181,207,.16);
+      white-space:pre-wrap; /* preserve line breaks in replies */
+    }
+    .lw-msg.sys{ background:rgba(11,19,32,.28); color:rgba(232,238,245,.80); }
+    .lw-msg.user{ background:rgba(158,181,207,.10); }
+    .lw-msg.bot{ background:rgba(15,26,42,.55); }
+
+    /* Consent card */
+    .lw-consent{
+      margin-top:12px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(158,181,207,.18);
+      background:rgba(11,19,32,.28);
+    }
+    .lw-consent-title{ font-weight:700; color:var(--accent); margin-bottom:6px; }
+    .lw-consent-text{ color:rgba(232,238,245,.78); font-size:.88rem; line-height:1.35; margin-bottom:10px; }
+    .lw-consent-row{ display:flex; gap:10px; align-items:flex-start; color:rgba(232,238,245,.82); font-size:.88rem; line-height:1.35; }
+    .lw-consent-actions{ display:flex; gap:8px; margin-top:10px; }
+    .lw-btn{
+      border:1px solid rgba(158,181,207,.22);
+      background:rgba(15,26,42,.50);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .lw-btn.primary{
+      background:linear-gradient(180deg, rgba(158,181,207,.28), rgba(15,26,42,.50));
+      border-color:rgba(158,181,207,.40);
+    }
+    .lw-btn:disabled{ opacity:.55; cursor:not-allowed; }
 
     footer{
       padding:6px 2px 0;
@@ -273,116 +341,6 @@
       .mcgrid{grid-template-columns: 1fr}
       .span2{grid-column:auto}
     }
-
-    /* Lucius Widget (floating) */
-    #lucius-widget { position: fixed; right: 18px; bottom: 18px; z-index: 9999; }
-    .lw-shell { position: relative; font-family: "Montserrat", Segoe UI, Arial, sans-serif; }
-    .lw-fab{
-      border:1px solid rgba(158,181,207,.28);
-      background:rgba(15,26,42,.75);
-      color:#E8EEF5;
-      padding:12px 14px;
-      border-radius:14px;
-      font-weight:700;
-      cursor:pointer;
-      box-shadow:0 18px 40px rgba(0,0,0,.45);
-    }
-    .lw-panel{
-      width: 360px;
-      max-width: calc(100vw - 36px);
-      height: 520px;
-      max-height: calc(100vh - 120px);
-      margin-top: 10px;
-      border:1px solid rgba(158,181,207,.22);
-      background:linear-gradient(180deg, rgba(15,26,42,.92), rgba(12,21,35,.90));
-      border-radius:18px;
-      overflow:hidden;
-      display:none;
-      box-shadow:0 22px 60px rgba(0,0,0,.60);
-    }
-    .lw-shell.open .lw-panel{ display:block; }
-    .lw-hd{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px 12px;
-      border-bottom:1px solid rgba(158,181,207,.14);
-    }
-    .lw-title{ font-weight:700; color:#9EB5CF; }
-    .lw-x{
-      border:1px solid rgba(158,181,207,.22);
-      background:rgba(11,19,32,.40);
-      color:#E8EEF5;
-      width:34px; height:34px;
-      border-radius:12px;
-      cursor:pointer;
-    }
-    .lw-body{
-      padding:12px;
-      height: calc(100% - 110px);
-      overflow:auto;
-    }
-    .lw-ft{
-      display:flex;
-      gap:8px;
-      padding:12px;
-      border-top:1px solid rgba(158,181,207,.14);
-    }
-    .lw-in{
-      flex:1;
-      padding:11px 12px;
-      border-radius:12px;
-      border:1px solid rgba(158,181,207,.24);
-      background:rgba(11,19,32,.45);
-      color:#E8EEF5;
-      outline:none;
-    }
-    .lw-send{
-      border:1px solid rgba(158,181,207,.28);
-      background:linear-gradient(180deg, rgba(158,181,207,.28), rgba(15,26,42,.50));
-      color:#E8EEF5;
-      padding:10px 12px;
-      border-radius:12px;
-      font-weight:700;
-      cursor:pointer;
-    }
-    .lw-send:disabled, .lw-in:disabled{ opacity:.6; cursor:not-allowed; }
-    .lw-msg{
-      padding:10px 10px;
-      border-radius:12px;
-      margin:0 0 10px 0;
-      line-height:1.35;
-      font-size:.92rem;
-      border:1px solid rgba(158,181,207,.16);
-    }
-    .lw-msg.sys{ background:rgba(11,19,32,.28); color:rgba(232,238,245,.80); }
-    .lw-msg.user{ background:rgba(158,181,207,.10); }
-    .lw-msg.bot{ background:rgba(15,26,42,.55); }
-
-    /* Consent card */
-    .lw-consent{
-      margin-top:12px;
-      padding:12px;
-      border-radius:14px;
-      border:1px solid rgba(158,181,207,.18);
-      background:rgba(11,19,32,.28);
-    }
-    .lw-consent-title{ font-weight:700; color:#9EB5CF; margin-bottom:6px; }
-    .lw-consent-text{ color:rgba(232,238,245,.78); font-size:.88rem; line-height:1.35; margin-bottom:10px; }
-    .lw-consent-row{ display:flex; gap:10px; align-items:flex-start; color:rgba(232,238,245,.82); font-size:.88rem; line-height:1.35; }
-    .lw-consent-actions{ display:flex; gap:8px; margin-top:10px; }
-    .lw-btn{
-      border:1px solid rgba(158,181,207,.22);
-      background:rgba(15,26,42,.50);
-      color:#E8EEF5;
-      padding:10px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:700;
-    }
-    .lw-btn.primary{
-      background:linear-gradient(180deg, rgba(158,181,207,.28), rgba(15,26,42,.50));
-      border-color:rgba(158,181,207,.40);
-    }
-    .lw-btn:disabled{ opacity:.55; cursor:not-allowed; }
   </style>
 </head>
 
@@ -512,24 +470,23 @@
           </div>
           <div class="bd">
             <div class="small">
-              We’re preparing a website version of Lucius trained specifically for BIM Acoustics:
-              quick FAQs, product guidance, and next-step routing—without hype.
+              Ask Lucius questions about System Designer (Distributed Systems), supported Revit versions (2022–2026), and early access.
             </div>
 
-            <div class="luciusEmbed" style="margin-top:12px" aria-label="Lucius embed placeholder">
-              <div>
-                <div style="font-weight:700; color: var(--accent); margin-bottom:6px;">Lucius embed goes here</div>
-                <div class="small">
-                  Next step: we’ll publish a web chat widget and connect it to a constrained “marketing + FAQ” knowledge base.
-                </div>
-              </div>
+            <!-- Embedded Lucius lives here -->
+            <div class="luciusEmbed" style="margin-top:12px" aria-label="Lucius embed">
+              <div id="lucius-embed"></div>
             </div>
+              <script src="/lucius-widget.js"></script>
 
             <div class="note">
-              For enterprise or manufacturer discussions: <a href="mailto:info@bimacoustics.net" style="color:var(--accent); text-decoration:none;">info@bimacoustics.net</a>
+              For enterprise or manufacturer discussions:
+              <a href="mailto:info@bimacoustics.net" style="color:var(--accent); text-decoration:none;">info@bimacoustics.net</a>
             </div>
           </div>
         </div>
+        <div id="lucius-widget"></div>
+          <script src="/lucius-widget.js"></script>
 
       </section>
 
@@ -540,11 +497,9 @@
     </div>
   </div>
 
-  <script src="/lucius-widget.js"></script>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
