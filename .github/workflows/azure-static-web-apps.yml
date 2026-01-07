@@ -25,3 +25,4 @@ jobs:
           # ✅ Enable API deployment from /api
           api_location: "api"
           skip_api_build: false        # let SWA build the API
+ 
