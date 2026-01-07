@@ -1,5 +1,5 @@
-// Azure Static Web Apps Function: /api/lucius-web-chat
-// POST { message, sessionId, consentToLog } -> { reply }
+// Azure Static Web Apps / Azure Functions (Node)
+// Route: /api/lucius-web-chat
 
 const SYSTEM_PROMPT = process.env.LUCIUS_SYSTEM_PROMPT || "";
 const KB = process.env.LUCIUS_KB || "";
@@ -11,11 +11,17 @@ function clamp(s, max) {
 
 module.exports = async function (context, req) {
   try {
-    if (req.method !== "POST") {
-      context.res = { status: 405, body: { error: "Method not allowed" } };
+    // ✅ GET sanity check (so we can test in browser)
+    if ((req.method || "").toUpperCase() === "GET") {
+      context.res = {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+        body: { ok: true, service: "lucius-web-chat" }
+      };
       return;
     }
 
+    // POST only below
     const body = req.body || {};
     const userMsg = clamp(body.message || "", 2000).trim();
     const sessionId = clamp(body.sessionId || "", 120).trim();
@@ -30,7 +36,7 @@ module.exports = async function (context, req) {
     const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-4o-mini";
 
     if (!OPENAI_API_KEY) {
-      context.res = { status: 500, body: { error: "Server not configured" } };
+      context.res = { status: 500, body: { error: "OPENAI_API_KEY not set" } };
       return;
     }
 
@@ -40,9 +46,7 @@ module.exports = async function (context, req) {
       { role: "user", content: userMsg }
     ];
 
-    const fetchFn = globalThis.fetch || (await import("node-fetch")).default;
-
-    const resp = await fetchFn("https://api.openai.com/v1/chat/completions", {
+    const resp = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${OPENAI_API_KEY}`,
@@ -56,6 +60,11 @@ module.exports = async function (context, req) {
     });
 
     const json = await resp.json();
+
+    if (!resp.ok) {
+      context.res = { status: 502, body: { error: "OpenAI error", details: json } };
+      return;
+    }
 
     const reply =
       json?.choices?.[0]?.message?.content
@@ -73,6 +82,6 @@ module.exports = async function (context, req) {
 
     context.res = { status: 200, body: { reply } };
   } catch (e) {
-    context.res = { status: 500, body: { error: String(e) } };
+    context.res = { status: 500, body: { error: "Server error", details: String(e) } };
   }
 };

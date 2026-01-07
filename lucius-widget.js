@@ -1,5 +1,5 @@
 (function () {
-  const endpoint = "/api/lucius-web-chat";
+const endpoint = "https://mango-sand-0a4b94410.3.azurestaticapps.net/api/lucius-web-chat";
 
   const SESSION_KEY = "lucius_session_id";
   const CONSENT_KEY = "lucius_log_consent"; // "yes" | "no" | null
