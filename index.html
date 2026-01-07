@@ -25,6 +25,18 @@
 
       --maxw:1200px;
     }
+    /* Embedded Lucius panel (inside the right card) */
+.lw-embed-shell{
+  height: 100%;
+  display:flex;
+  flex-direction:column;
+}
+.lw-embed-hd{
+  padding:12px 12px;
+  border-bottom:1px solid rgba(158,181,207,.14);
+}
+.luciusEmbed{ padding:0 !important; }
+.luciusEmbed #lucius-embed{ height: 100%; min-height: 320px; }
 
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%}
@@ -233,7 +245,8 @@
     .indicates-required, .mc-field-group label { all:unset; display:contents; }
 
     /* Lucius placeholder */
-    .luciusEmbed{
+    <div id="lucius-embed"></div>
+
       border-radius:14px;
       border:1px solid rgba(158,181,207,.20);
       overflow:hidden;
@@ -527,7 +540,6 @@
     </div>
   </div>
 
-  <div id="lucius-widget"></div>
   <script src="/lucius-widget.js"></script>
 
   <script>
@@ -535,3 +547,4 @@
   </script>
 </body>
 </html>
+

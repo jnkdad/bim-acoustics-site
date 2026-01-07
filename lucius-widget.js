@@ -1,10 +1,9 @@
 (function () {
-  const el = document.getElementById("lucius-widget");
-  if (!el) return;
+  const mount = document.getElementById("lucius-embed");
+  if (!mount) return;
 
   const endpoint = "/api/lucius-web-chat";
 
-  // Persistent anonymous session id (no PII)
   const SESSION_KEY = "lucius_session_id";
   const CONSENT_KEY = "lucius_log_consent"; // "yes" | "no" | null
 
@@ -30,10 +29,9 @@
   }
 
   const state = {
-    open: false,
     busy: false,
     sessionId: getOrCreateSessionId(),
-    consent: getConsent() // null/yes/no
+    consent: getConsent(),  // null/yes/no
   };
 
   function escapeHtml(s) {
@@ -42,7 +40,7 @@
     }[c]));
   }
 
-  function showConsentGate() {
+  function gated() {
     return (state.consent !== "yes" && state.consent !== "no");
   }
 
@@ -54,73 +52,60 @@
   }
 
   function render() {
-    const gated = showConsentGate();
+    const isGated = gated();
 
-    el.innerHTML = `
-      <div class="lw-shell ${state.open ? "open" : ""}">
-        <button class="lw-fab" type="button" aria-label="Open Lucius">Lucius</button>
+    mount.innerHTML = `
+      <div class="lw-embed-shell">
+        <div class="lw-embed-hd">
+          <div class="lw-title">Lucius</div>
+        </div>
 
-        <div class="lw-panel" role="dialog" aria-label="Lucius chat">
-          <div class="lw-hd">
-            <div class="lw-title">Lucius</div>
-            <button class="lw-x" type="button" aria-label="Close">✕</button>
+        <div class="lw-body" id="lw-body">
+          <div class="lw-msg sys">
+            Hi — I’m Lucius. Ask me about System Designer (Distributed Systems), Revit support (2022–2026), and early access.
+            If you represent an enterprise team or a manufacturer, email <b>info@bimacoustics.net</b>.
           </div>
 
-          <div class="lw-body" id="lw-body">
-            <div class="lw-msg sys">
-              Hi — I’m Lucius. Ask me about System Designer (Distributed Systems), Revit support (2022–2026), and early access.
-              If you represent an enterprise team or a manufacturer, email <b>info@bimacoustics.net</b>.
-            </div>
-
-            ${gated ? `
-              <div class="lw-consent">
-                <div class="lw-consent-title">Help improve Lucius (optional)</div>
-                <div class="lw-consent-text">
-                  If you agree, we’ll store a transcript of this chat to improve Lucius’ responses.
-                  If you don’t agree, Lucius will still work — we just won’t save the transcript.
-                </div>
-                <label class="lw-consent-row">
-                  <input type="checkbox" id="lw-consent-check" />
-                  <span>I agree to allow BIM Acoustics to store this chat transcript.</span>
-                </label>
-                <div class="lw-consent-actions">
-                  <button class="lw-btn" id="lw-consent-no" type="button">No thanks</button>
-                  <button class="lw-btn primary" id="lw-consent-yes" type="button" disabled>Continue</button>
-                </div>
+          ${isGated ? `
+            <div class="lw-consent">
+              <div class="lw-consent-title">Help improve Lucius (optional)</div>
+              <div class="lw-consent-text">
+                If you agree, we’ll store a transcript of this chat to improve Lucius’ responses.
+                If you don’t agree, Lucius will still work — we just won’t save the transcript.
               </div>
-            ` : ""}
-          </div>
+              <label class="lw-consent-row">
+                <input type="checkbox" id="lw-consent-check" />
+                <span>I agree to allow BIM Acoustics to store this chat transcript.</span>
+              </label>
+              <div class="lw-consent-actions">
+                <button class="lw-btn" id="lw-consent-no" type="button">No thanks</button>
+                <button class="lw-btn primary" id="lw-consent-yes" type="button" disabled>Continue</button>
+              </div>
+            </div>
+          ` : ""}
+        </div>
 
-          <div class="lw-ft">
-            <input class="lw-in" id="lw-in" type="text" placeholder="${gated ? "Consent required to start…" : "Ask a question…"}" ${gated ? "disabled" : ""}/>
-            <button class="lw-send" type="button" ${gated ? "disabled" : ""}>${state.busy ? "…" : "Send"}</button>
-          </div>
+        <div class="lw-ft">
+          <input class="lw-in" id="lw-in" type="text" placeholder="${isGated ? "Consent required to start…" : "Ask a question…"}" ${isGated ? "disabled" : ""}/>
+          <button class="lw-send" id="lw-send" type="button" ${isGated ? "disabled" : ""}>${state.busy ? "…" : "Send"}</button>
         </div>
       </div>
     `;
 
-    const fab = el.querySelector(".lw-fab");
-    const close = el.querySelector(".lw-x");
-    const send = el.querySelector(".lw-send");
-    const input = el.querySelector("#lw-in");
-
-    fab.addEventListener("click", () => { state.open = true; render(); });
-    close.addEventListener("click", () => { state.open = false; render(); });
+    const input = document.getElementById("lw-in");
+    const send = document.getElementById("lw-send");
 
     if (send && input) {
-      send.addEventListener("click", () => sendMessage());
+      send.addEventListener("click", sendMessage);
       input.addEventListener("keydown", (e) => { if (e.key === "Enter") sendMessage(); });
     }
 
-    // Consent wiring
-    const check = el.querySelector("#lw-consent-check");
-    const yesBtn = el.querySelector("#lw-consent-yes");
-    const noBtn = el.querySelector("#lw-consent-no");
+    const check = document.getElementById("lw-consent-check");
+    const yesBtn = document.getElementById("lw-consent-yes");
+    const noBtn = document.getElementById("lw-consent-no");
 
     if (check && yesBtn) {
-      check.addEventListener("change", () => {
-        yesBtn.disabled = !check.checked;
-      });
+      check.addEventListener("change", () => { yesBtn.disabled = !check.checked; });
     }
     if (yesBtn) {
       yesBtn.addEventListener("click", () => {
@@ -139,10 +124,10 @@
   }
 
   async function sendMessage() {
-    if (state.busy) return;
+    if (state.busy || gated()) return;
 
-    const input = el.querySelector("#lw-in");
-    const msg = (input.value || "").trim();
+    const input = document.getElementById("lw-in");
+    const msg = (input?.value || "").trim();
     if (!msg) return;
 
     appendMessage("user", msg);
@@ -162,8 +147,8 @@
         })
       });
 
-      const json = await resp.json();
-      const reply = (json && json.reply) ? json.reply : "Sorry — I couldn’t respond right now.";
+      const data = await resp.json();
+      const reply = (data && data.reply) ? data.reply : "Sorry — I couldn’t respond right now.";
       appendMessage("bot", reply);
     } catch {
       appendMessage("bot", "Sorry — something went wrong.");
