@@ -12,8 +12,6 @@
     :root{
       --night-1:#0b1320; --night-2:#162235; --night-3:#1d2c42;
       --accent:#9EB5CF;
-      --card:#0f1a2a;
-      --card-2:#0c1523;
       --border:rgba(158,181,207,.22);
       --text:#E8EEF5;
       --muted:rgba(232,238,245,.75);
@@ -25,9 +23,7 @@
       --radius:18px;
       --shadow: 0 22px 60px rgba(0,0,0,.55);
 
-      --spin-secs:40s;
-      --logo-size:160px;
-      --maxw:1100px;
+      --maxw:1200px;
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -82,87 +78,51 @@
       mix-blend-mode:screen;
     }
 
-    /* Page layout */
+    /* Layout */
     .wrap{
       position:relative;
       z-index:1;
       min-height:100vh;
       display:flex;
-      align-items:flex-start;
       justify-content:center;
-      padding:42px 18px 28px;
+      padding:26px 18px 28px;
     }
-
     .container{
       width:100%;
       max-width:var(--maxw);
       display:flex;
       flex-direction:column;
-      gap:18px;
+      gap:16px;
     }
 
-    header{
+    /* Minimal top bar */
+    .topbar{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
-      padding:6px 2px 0;
+      gap:14px;
+      padding:2px 2px 4px;
     }
-
     .brand{
       display:flex;
       align-items:center;
-      gap:14px;
+      gap:12px;
       min-width:0;
     }
-
-    /* Small 3D rotating logo */
-    .spin3d{
-      position:relative;
-      width:var(--logo-size);
-      height:var(--logo-size);
-      transform-style:preserve-3d;
-      animation:spinY var(--spin-secs) linear infinite;
-      perspective:1100px;
-      flex:0 0 auto;
+    .brand img{
+      width:44px; height:44px; object-fit:contain;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
     }
-    .face,.back{
-      position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
-      filter:
-        drop-shadow(0 18px 24px rgba(0,0,0,.50))
-        drop-shadow(0 8px 14px rgba(74,111,165,.45));
-      backface-visibility:hidden;
-    }
-    .back{transform:rotateY(180deg);}
-    @keyframes spinY{from{transform:rotateY(0deg)}to{transform:rotateY(360deg)}}
-
-    .brandtext{
-      min-width:0;
-    }
-    .brandtext h1{
-      font-size:1.05rem;
-      letter-spacing:.35px;
-      color:var(--accent);
+    .brand .name{
       font-weight:700;
-      text-shadow:0 1px 2px rgba(0,0,0,.45);
-      margin-bottom:6px;
+      color:var(--accent);
+      letter-spacing:.3px;
+      font-size:1.0rem;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
-    .brandtext p{
-      color:var(--muted);
-      font-size:.95rem;
-      line-height:1.35;
-      max-width:620px;
-    }
 
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
     .btn{
       appearance:none;
       border:1px solid var(--border);
@@ -181,19 +141,12 @@
       transition:transform .12s ease, background .12s ease, border-color .12s ease;
     }
     .btn:hover{transform:translateY(-1px); background:rgba(15,26,42,.62); border-color:rgba(158,181,207,.35)}
-    .btn:active{transform:translateY(0px)}
     .btn.primary{
       background:linear-gradient(180deg, rgba(158,181,207,.28), rgba(15,26,42,.50));
       border-color:rgba(158,181,207,.40);
     }
 
-    /* Main content card */
-    .grid{
-      display:grid;
-      grid-template-columns: 1.45fr 1fr;
-      gap:16px;
-    }
-
+    /* Cards */
     .card{
       border:1px solid var(--border);
       background:linear-gradient(180deg, rgba(15,26,42,.75), rgba(12,21,35,.72));
@@ -201,40 +154,20 @@
       box-shadow:var(--shadow);
       overflow:hidden;
     }
-
-    .card .hd{
-      padding:16px 18px 12px;
+    .hd{
+      padding:14px 16px 10px;
       border-bottom:1px solid rgba(158,181,207,.14);
-      background:linear-gradient(180deg, rgba(15,26,42,.62), rgba(15,26,42,.12));
+      background:linear-gradient(180deg, rgba(15,26,42,.62), rgba(15,26,42,.10));
     }
-
-    .kicker{
-      color:var(--accent);
-      font-weight:700;
-      font-size:.88rem;
-      letter-spacing:.22px;
-      margin-bottom:6px;
-    }
-
     .title{
-      font-size:1.45rem;
+      font-size:1.55rem;
       font-weight:700;
-      line-height:1.2;
-      margin-bottom:8px;
+      line-height:1.15;
+      margin:0;
     }
+    .bd{ padding:14px 16px 16px; }
 
-    .subtitle{
-      color:var(--muted);
-      font-size:1rem;
-      line-height:1.45;
-      max-width:62ch;
-    }
-
-    .card .bd{
-      padding:16px 18px 18px;
-    }
-
-    /* Responsive video wrapper */
+    /* Video (full width) */
     .video{
       border-radius:14px;
       overflow:hidden;
@@ -242,43 +175,34 @@
       background:#000;
       box-shadow:0 12px 30px rgba(0,0,0,.35);
     }
-    .video .ratio{
+    .ratio{
       position:relative;
       width:100%;
       padding-top:56.25%;
     }
-    .video iframe{
+    .ratio iframe{
       position:absolute; inset:0;
-      width:100%;
-      height:100%;
+      width:100%; height:100%;
       border:0;
     }
 
-    /* Mailchimp form styling (we ignore Mailchimp's default markup) */
-    .small{
-      font-size:.9rem;
-      color:var(--muted);
-      line-height:1.45;
+    /* Two-column section below */
+    .grid2{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:16px;
     }
-    .formrow{
-      display:flex;
-      gap:10px;
-      margin-top:14px;
-      flex-wrap:wrap;
-      align-items:flex-end;
-    }
+
+    .small{ font-size:.92rem; color:var(--muted); line-height:1.45; }
+    .note{ margin-top:10px; color:rgba(232,238,245,.62); font-size:.86rem; line-height:1.35; }
+
+    /* Inputs */
     label.sr-only{
-      position:absolute;
-      width:1px;
-      height:1px;
-      padding:0;
-      margin:-1px;
-      overflow:hidden;
-      clip:rect(0,0,0,0);
-      border:0;
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); border:0;
     }
     .input{
-      flex:1 1 240px;
+      width:100%;
       padding:11px 12px;
       border-radius:12px;
       border:1px solid rgba(158,181,207,.24);
@@ -287,43 +211,50 @@
       outline:none;
     }
     .input::placeholder{color:rgba(232,238,245,.55)}
-    .note{
-      margin-top:10px;
-      color:rgba(232,238,245,.62);
-      font-size:.86rem;
-      line-height:1.35;
-    }
 
-    /* Hide Mailchimp default headings/labels/responses we don't need */
-    #mc_embed_shell,
-    #mc_embed_signup,
-    #mc_embed_signup_scroll,
-    .indicates-required,
-    .mc-field-group label,
-    #mce-responses{
-      all:unset;
-      display:contents;
+    /* Mailchimp grid */
+    .mcgrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:12px;
     }
+    .span2{grid-column: 1 / -1}
 
-    /* Lucius placeholder */
-    .luciusBox{
+    .mcactions{
       display:flex;
       flex-direction:column;
-      gap:12px;
+      gap:6px;
+      margin-top:2px;
     }
-    .luciusCallout{
-      border:1px dashed rgba(158,181,207,.35);
+
+    details.opt{
+      margin-top:10px;
+      border:1px dashed rgba(158,181,207,.26);
       border-radius:14px;
-      padding:14px;
-      background:rgba(11,19,32,.28);
+      background:rgba(11,19,32,.20);
+      padding:10px 12px;
     }
-    .luciusCallout strong{color:var(--accent)}
+    details.opt > summary{
+      cursor:pointer;
+      list-style:none;
+      color:var(--accent);
+      font-weight:700;
+      font-size:.9rem;
+    }
+    details.opt > summary::-webkit-details-marker{display:none}
+
+    /* Hide Mailchimp default fluff if present */
+    #mc_embed_shell, #mc_embed_signup, #mc_embed_signup_scroll,
+    .indicates-required, .mc-field-group label { all:unset; display:contents; }
+
+    /* Lucius placeholder */
     .luciusEmbed{
       border-radius:14px;
       border:1px solid rgba(158,181,207,.20);
       overflow:hidden;
       background:rgba(0,0,0,.18);
-      min-height:360px;
+      min-height:320px;
       display:grid;
       place-items:center;
       color:rgba(232,238,245,.65);
@@ -332,19 +263,18 @@
     }
 
     footer{
-      padding:10px 2px 0;
+      padding:6px 2px 0;
       text-align:center;
       color:rgba(158,181,207,.70);
       font-size:.85rem;
       opacity:.85;
     }
 
-    /* Mobile */
     @media (max-width: 920px){
-      :root{ --logo-size:120px; }
-      .grid{ grid-template-columns: 1fr; }
-      .actions{justify-content:flex-start}
-      .title{font-size:1.28rem}
+      .title{font-size:1.25rem}
+      .grid2{grid-template-columns: 1fr}
+      .mcgrid{grid-template-columns: 1fr}
+      .span2{grid-column:auto}
     }
   </style>
 </head>
@@ -357,194 +287,187 @@
   <div class="wrap">
     <div class="container">
 
-      <header>
+      <div class="topbar">
         <div class="brand">
-          <div class="spin3d" aria-label="A-Wave rotating logo">
-            <img class="face" src="assets/logo.png" alt="A-Wave logo (front)">
-            <img class="back" src="assets/logo.png" alt="A-Wave logo (back)">
-          </div>
-          <div class="brandtext">
-            <h1>J. Stevens BIM Acoustics</h1>
-            <p>
-              BIM-first tools for AV and acoustics—built to make design faster, clearer, and more consistent inside Revit.
-            </p>
-          </div>
+          <img src="assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+          <div class="name">J. Stevens BIM Acoustics</div>
         </div>
+        <a class="btn primary" href="#early-access">Early access</a>
+      </div>
 
-        <div class="actions">
-          <a class="btn" href="#early-access">Early access</a>
-          <a class="btn primary" href="#video">Watch the video</a>
+      <!-- Full-width video hero -->
+      <section class="card" id="video">
+        <div class="hd">
+          <h1 class="title">AV System Design, Reimagined</h1>
         </div>
-      </header>
-
-      <section class="grid">
-        <!-- Left: Video + pitch + signup -->
-        <div class="card" id="video">
-          <div class="hd">
-            <div class="kicker">Now previewing</div>
-            <div class="title">AV System Design, Reimagined</div>
-            <div class="subtitle">
-              Watch the short intro video, then join the early-access list to get launch updates for the System Designer add-in.
-            </div>
-          </div>
-
-          <div class="bd">
-            <div class="video" aria-label="Intro video">
-              <div class="ratio">
-                <iframe
-                  src="https://player.vimeo.com/video/1152185899?h=d4b3972eae"
-                  title="BIM Acoustics intro video"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowfullscreen>
-                </iframe>
-              </div>
-            </div>
-
-            <div id="early-access" style="margin-top:18px"></div>
-
-            <div class="kicker" style="margin-top:2px">Get launch updates</div>
-            <div class="small">
-              Early access is limited. If you want updates (and optional beta opportunities), add your email below.
-            </div>
-
-            <!-- Mailchimp embed (wired to your audience) -->
-<div style="margin-top:12px">
-  <div id="mc_embed_shell">
-    <div id="mc_embed_signup">
-      <form
-        action="https://bimacoustics.us13.list-manage.com/subscribe/post?u=51f5fe5a086643c0313576e9b&amp;id=24c4052dce&amp;f_id=002ce1edf0"
-        method="post"
-        id="mc-embedded-subscribe-form"
-        name="mc-embedded-subscribe-form"
-        target="_self"
-        novalidate="">
-        <div id="mc_embed_signup_scroll">
-
-          <!-- We provide our own header/copy above; keep Mailchimp markup minimal -->
-          <div class="mcgrid">
-
-            <div class="mcfield span2">
-              <label class="sr-only" for="mce-EMAIL">Email Address</label>
-              <input
-                type="email"
-                name="EMAIL"
-                class="input"
-                id="mce-EMAIL"
-                placeholder="Email address *"
-                required
-                value="">
-            </div>
-
-            <div class="mcfield">
-              <label class="sr-only" for="mce-FNAME">First Name</label>
-              <input
-                type="text"
-                name="FNAME"
-                class="input"
-                id="mce-FNAME"
-                placeholder="First name (optional)"
-                value="">
-            </div>
-
-            <div class="mcfield">
-              <label class="sr-only" for="mce-LNAME">Last Name</label>
-              <input
-                type="text"
-                name="LNAME"
-                class="input"
-                id="mce-LNAME"
-                placeholder="Last name (optional)"
-                value="">
-            </div>
-
-            <div class="mcfield span2">
-              <label class="sr-only" for="mce-COMPANY">Company</label>
-              <input
-                type="text"
-                name="COMPANY"
-                class="input"
-                id="mce-COMPANY"
-                placeholder="Company (optional)"
-                value="">
-            </div>
-
-            <div class="mcfield span2">
-              <label class="sr-only" for="mce-COMMENTS">Comments</label>
-              <input
-                type="text"
-                name="COMMENTS"
-                class="input"
-                id="mce-COMMENTS"
-                placeholder="Anything you’d like us to know (optional)"
-                value="">
-            </div>
-
-            <div class="mcactions span2">
-              <button class="btn primary" type="submit" name="subscribe" id="mc-embedded-subscribe">
-                Notify me
-              </button>
-              <div class="note" style="margin-top:8px">
-                You’ll get a confirmation email if double opt-in is enabled. No spam—just launch updates.
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Honeypot -->
-          <div aria-hidden="true" style="position:absolute; left:-5000px;">
-            <input type="text" name="b_51f5fe5a086643c0313576e9b_24c4052dce" tabindex="-1" value="">
-          </div>
-
-          <!-- Response area (Mailchimp may populate these) -->
-          <div id="mce-responses" class="clear" style="margin-top:10px;">
-            <div class="response note" id="mce-error-response" style="display:none;"></div>
-            <div class="response note" id="mce-success-response" style="display:none;"></div>
-          </div>
-
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-        <!-- Right: Lucius / FAQ -->
-        <div class="card">
-          <div class="hd">
-            <div class="kicker">Ask Lucius</div>
-            <div class="title">Marketing + FAQ Assistant</div>
-            <div class="subtitle">
-              A guided, honest assistant that answers common questions about the tools, workflow, and what’s launching next.
-            </div>
-          </div>
-          <div class="bd luciusBox">
-            <div class="luciusCallout">
-              <div class="small">
-                <strong>Planned:</strong> Lucius will handle quick FAQs (Revit versions, what System Designer does, what’s in beta),
-                and can route visitors to early access when appropriate.
-              </div>
-            </div>
-
-            <div class="luciusEmbed" aria-label="Lucius embed placeholder">
-              <div>
-                <div style="font-weight:700; color: var(--accent); margin-bottom:6px;">Lucius embed goes here</div>
-                <div class="small">
-                  When you have the web-chat snippet (or we build a simple hosted widget),
-                  we’ll replace this box with the live assistant.
-                </div>
-              </div>
-            </div>
-
-            <div class="small">
-              <strong>Note:</strong> We’ll keep Lucius “professional-first” (no hype, no pushy sales language), and clearly label
-              what he can and cannot answer.
+        <div class="bd">
+          <div class="video" aria-label="Intro video">
+            <div class="ratio">
+              <iframe
+                src="https://player.vimeo.com/video/1152185899?h=d4b3972eae"
+                title="BIM Acoustics intro video"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen>
+              </iframe>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- Row below: signup left, Lucius right -->
+      <section class="grid2">
+
+        <!-- SIGNUP -->
+        <div class="card" id="early-access">
+          <div class="hd">
+            <h2 class="title" style="font-size:1.15rem">Get early access updates</h2>
+          </div>
+          <div class="bd">
+            <div class="small">
+              Join the early-access list for launch updates (and optional beta opportunities).
+            </div>
+
+            <div style="margin-top:12px">
+              <div id="mc_embed_shell">
+                <div id="mc_embed_signup">
+                  <form
+                    action="https://bimacoustics.us13.list-manage.com/subscribe/post?u=51f5fe5a086643c0313576e9b&amp;id=24c4052dce&amp;f_id=002ce1edf0"
+                    method="post"
+                    id="mc-embedded-subscribe-form"
+                    name="mc-embedded-subscribe-form"
+                    target="_self"
+                    novalidate="">
+                    <div id="mc_embed_signup_scroll">
+
+                      <!-- Required -->
+                      <div class="mcgrid">
+                        <div class="span2">
+                          <label class="sr-only" for="mce-EMAIL">Email Address</label>
+                          <input
+                            type="email"
+                            name="EMAIL"
+                            class="input"
+                            id="mce-EMAIL"
+                            placeholder="Email address *"
+                            required
+                            value="">
+                        </div>
+
+                        <div>
+                          <label class="sr-only" for="mce-FNAME">First Name</label>
+                          <input
+                            type="text"
+                            name="FNAME"
+                            class="input"
+                            id="mce-FNAME"
+                            placeholder="First name (optional)"
+                            value="">
+                        </div>
+
+                        <div class="mcactions">
+                          <button class="btn primary" type="submit" name="subscribe" id="mc-embedded-subscribe">
+                            Join early access
+                          </button>
+                          <div class="note" style="margin-top:0">
+                            No spam—just launch updates.
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Optional fields (collapsed by default) -->
+                      <details class="opt">
+                        <summary>Add company & a note (optional)</summary>
+                        <div class="mcgrid" style="margin-top:10px">
+                          <div>
+                            <label class="sr-only" for="mce-LNAME">Last Name</label>
+                            <input
+                              type="text"
+                              name="LNAME"
+                              class="input"
+                              id="mce-LNAME"
+                              placeholder="Last name (optional)"
+                              value="">
+                          </div>
+
+                          <div>
+                            <label class="sr-only" for="mce-COMPANY">Company</label>
+                            <input
+                              type="text"
+                              name="COMPANY"
+                              class="input"
+                              id="mce-COMPANY"
+                              placeholder="Company (optional)"
+                              value="">
+                          </div>
+
+                          <div class="span2">
+                            <label class="sr-only" for="mce-COMMENTS">Comments</label>
+                            <input
+                              type="text"
+                              name="COMMENTS"
+                              class="input"
+                              id="mce-COMMENTS"
+                              placeholder="Anything you’d like us to know (optional)"
+                              value="">
+                          </div>
+                        </div>
+                      </details>
+
+                      <!-- Honeypot -->
+                      <div aria-hidden="true" style="position:absolute; left:-5000px;">
+                        <input type="text" name="b_51f5fe5a086643c0313576e9b_24c4052dce" tabindex="-1" value="">
+                      </div>
+
+                      <!-- Mailchimp response area -->
+                      <div id="mce-responses" class="clear" style="margin-top:10px;">
+                        <div class="response note" id="mce-error-response" style="display:none;"></div>
+                        <div class="response note" id="mce-success-response" style="display:none;"></div>
+                      </div>
+
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="note">
+              If double opt-in is enabled, you’ll receive a confirmation email.
+            </div>
+          </div>
+        </div>
+
+        <!-- LUCIUS -->
+        <div class="card">
+          <div class="hd">
+            <h2 class="title" style="font-size:1.15rem">Ask Lucius</h2>
+          </div>
+          <div class="bd">
+            <div class="small">
+              We’re preparing a website version of Lucius trained specifically for BIM Acoustics:
+              quick FAQs, product guidance, and next-step routing—without hype.
+            </div>
+
+            <div class="luciusEmbed" style="margin-top:12px" aria-label="Lucius embed placeholder">
+              <div>
+                <div style="font-weight:700; color: var(--accent); margin-bottom:6px;">Lucius embed goes here</div>
+                <div class="small">
+                  Next step: we’ll publish a web chat widget and connect it to a constrained “marketing + FAQ” knowledge base.
+                </div>
+              </div>
+            </div>
+
+            <div class="note">
+              When you’re ready, we’ll decide: (1) simple hosted widget, or (2) embedded assistant tied to your docs + release notes.
+            </div>
+          </div>
+        </div>
+
+      </section>
+
       <footer>
         &copy; <span id="year"></span> J. Stevens BIM Acoustics
       </footer>
+
     </div>
   </div>
 
