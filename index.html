@@ -150,8 +150,8 @@
     .card{
       border:1px solid var(--border);
       background:linear-gradient(180deg, rgba(15,26,42,.75), rgba(12,21,35,.72));
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
+      border-radius:18px;
+      box-shadow:0 22px 60px rgba(0,0,0,.55);
       overflow:hidden;
     }
     .hd{
@@ -239,94 +239,13 @@
       overflow:hidden;
       background:rgba(0,0,0,.18);
       min-height:320px;
-      padding:0;                 /* important: embed fills box */
+      padding:0;
     }
     #lucius-embed{
-      height:100%;
       min-height:320px;
-      display:flex;
-      flex-direction:column;
     }
 
-    /* Embedded Lucius UI */
-    .lw-embed-shell{ height:100%; display:flex; flex-direction:column; }
-    .lw-embed-hd{
-      padding:12px 12px;
-      border-bottom:1px solid rgba(158,181,207,.14);
-    }
-    .lw-title{ font-weight:700; color:var(--accent); }
-
-    .lw-body{
-      padding:12px;
-      overflow:auto;
-      flex:1 1 auto;
-    }
-    .lw-ft{
-      display:flex;
-      gap:8px;
-      padding:12px;
-      border-top:1px solid rgba(158,181,207,.14);
-    }
-    .lw-in{
-      flex:1;
-      padding:11px 12px;
-      border-radius:12px;
-      border:1px solid rgba(158,181,207,.24);
-      background:rgba(11,19,32,.45);
-      color:var(--text);
-      outline:none;
-    }
-    .lw-send{
-      border:1px solid rgba(158,181,207,.28);
-      background:linear-gradient(180deg, rgba(158,181,207,.28), rgba(15,26,42,.50));
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:12px;
-      font-weight:700;
-      cursor:pointer;
-    }
-    .lw-send:disabled, .lw-in:disabled{ opacity:.6; cursor:not-allowed; }
-
-    .lw-msg{
-      padding:10px 10px;
-      border-radius:12px;
-      margin:0 0 10px 0;
-      line-height:1.35;
-      font-size:.92rem;
-      border:1px solid rgba(158,181,207,.16);
-      white-space:pre-wrap; /* preserve line breaks in replies */
-    }
-    .lw-msg.sys{ background:rgba(11,19,32,.28); color:rgba(232,238,245,.80); }
-    .lw-msg.user{ background:rgba(158,181,207,.10); }
-    .lw-msg.bot{ background:rgba(15,26,42,.55); }
-
-    /* Consent card */
-    .lw-consent{
-      margin-top:12px;
-      padding:12px;
-      border-radius:14px;
-      border:1px solid rgba(158,181,207,.18);
-      background:rgba(11,19,32,.28);
-    }
-    .lw-consent-title{ font-weight:700; color:var(--accent); margin-bottom:6px; }
-    .lw-consent-text{ color:rgba(232,238,245,.78); font-size:.88rem; line-height:1.35; margin-bottom:10px; }
-    .lw-consent-row{ display:flex; gap:10px; align-items:flex-start; color:rgba(232,238,245,.82); font-size:.88rem; line-height:1.35; }
-    .lw-consent-actions{ display:flex; gap:8px; margin-top:10px; }
-    .lw-btn{
-      border:1px solid rgba(158,181,207,.22);
-      background:rgba(15,26,42,.50);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:700;
-    }
-    .lw-btn.primary{
-      background:linear-gradient(180deg, rgba(158,181,207,.28), rgba(15,26,42,.50));
-      border-color:rgba(158,181,207,.40);
-    }
-    .lw-btn:disabled{ opacity:.55; cursor:not-allowed; }
-
+    /* Footer */
     footer{
       padding:6px 2px 0;
       text-align:center;
@@ -473,11 +392,9 @@
               Ask Lucius questions about System Designer (Distributed Systems), supported Revit versions (2022–2026), and early access.
             </div>
 
-            <!-- Embedded Lucius lives here -->
             <div class="luciusEmbed" style="margin-top:12px" aria-label="Lucius embed">
               <div id="lucius-embed"></div>
             </div>
-              <script src="/lucius-widget.js"></script>
 
             <div class="note">
               For enterprise or manufacturer discussions:
@@ -485,8 +402,6 @@
             </div>
           </div>
         </div>
-        <div id="lucius-widget"></div>
-          <script src="/lucius-widget.js"></script>
 
       </section>
 
@@ -497,6 +412,11 @@
     </div>
   </div>
 
+  <!-- Floating mount for other pages (hybrid JS will use it when #lucius-embed is absent) -->
+  <div id="lucius-widget"></div>
+
+  <!-- Load Lucius once, globally -->
+  <script src="/lucius-widget.js"></script>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
