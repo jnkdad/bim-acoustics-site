@@ -31,7 +31,7 @@
   const state = {
     busy: false,
     sessionId: getOrCreateSessionId(),
-    consent: getConsent(),  // null/yes/no
+    consent: getConsent()  // null / yes / no
   };
 
   function escapeHtml(s) {
@@ -40,7 +40,7 @@
     }[c]));
   }
 
-  function gated() {
+  function isGated() {
     return (state.consent !== "yes" && state.consent !== "no");
   }
 
@@ -52,7 +52,7 @@
   }
 
   function render() {
-    const isGated = gated();
+    const gated = isGated();
 
     mount.innerHTML = `
       <div class="lw-embed-shell">
@@ -63,10 +63,10 @@
         <div class="lw-body" id="lw-body">
           <div class="lw-msg sys">
             Hi — I’m Lucius. Ask me about System Designer (Distributed Systems), Revit support (2022–2026), and early access.
-            If you represent an enterprise team or a manufacturer, email <b>info@bimacoustics.net</b>.
+            For enterprise or manufacturer discussions, email <b>info@bimacoustics.net</b>.
           </div>
 
-          ${isGated ? `
+          ${gated ? `
             <div class="lw-consent">
               <div class="lw-consent-title">Help improve Lucius (optional)</div>
               <div class="lw-consent-text">
@@ -86,8 +86,8 @@
         </div>
 
         <div class="lw-ft">
-          <input class="lw-in" id="lw-in" type="text" placeholder="${isGated ? "Consent required to start…" : "Ask a question…"}" ${isGated ? "disabled" : ""}/>
-          <button class="lw-send" id="lw-send" type="button" ${isGated ? "disabled" : ""}>${state.busy ? "…" : "Send"}</button>
+          <input class="lw-in" id="lw-in" type="text" placeholder="${gated ? "Consent required to start…" : "Ask a question…"}" ${gated ? "disabled" : ""}/>
+          <button class="lw-send" id="lw-send" type="button" ${gated ? "disabled" : ""}>${state.busy ? "…" : "Send"}</button>
         </div>
       </div>
     `;
@@ -97,15 +97,20 @@
 
     if (send && input) {
       send.addEventListener("click", sendMessage);
-      input.addEventListener("keydown", (e) => { if (e.key === "Enter") sendMessage(); });
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendMessage();
+      });
     }
 
+    // Consent buttons
     const check = document.getElementById("lw-consent-check");
     const yesBtn = document.getElementById("lw-consent-yes");
     const noBtn = document.getElementById("lw-consent-no");
 
     if (check && yesBtn) {
-      check.addEventListener("change", () => { yesBtn.disabled = !check.checked; });
+      check.addEventListener("change", () => {
+        yesBtn.disabled = !check.checked;
+      });
     }
     if (yesBtn) {
       yesBtn.addEventListener("click", () => {
@@ -124,7 +129,7 @@
   }
 
   async function sendMessage() {
-    if (state.busy || gated()) return;
+    if (state.busy || isGated()) return;
 
     const input = document.getElementById("lw-in");
     const msg = (input?.value || "").trim();
@@ -147,10 +152,19 @@
         })
       });
 
+      // If backend returns non-200, show useful text
+      if (!resp.ok) {
+        const t = await resp.text();
+        appendMessage("bot", `Sorry — server error (${resp.status}).`);
+        console.warn("Lucius API error:", resp.status, t);
+        return;
+      }
+
       const data = await resp.json();
       const reply = (data && data.reply) ? data.reply : "Sorry — I couldn’t respond right now.";
       appendMessage("bot", reply);
-    } catch {
+    } catch (e) {
+      console.warn("Lucius fetch failed:", e);
       appendMessage("bot", "Sorry — something went wrong.");
     } finally {
       state.busy = false;
