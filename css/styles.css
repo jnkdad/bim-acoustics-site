@@ -623,3 +623,26 @@ textarea:focus{
   border-color: #e5e7eb !important;
   cursor: not-allowed;
 }
+/* ---- Lucius consent panel: force readable text ---- */
+.lw-consent,
+.lw-consent *{
+  color: #111827 !important; /* near-black for readability */
+}
+
+.lw-consent-title{
+  color: #111827 !important;
+  font-weight: 600;
+}
+
+.lw-consent-text{
+  color: #374151 !important; /* slightly softer body text */
+}
+
+.lw-consent-row span{
+  color: #111827 !important;
+}
+
+/* Keep disabled button text muted, but readable */
+.lw-consent .lw-btn:disabled{
+  color: #9ca3af !important;
+}
