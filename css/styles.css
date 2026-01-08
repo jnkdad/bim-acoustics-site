@@ -663,8 +663,8 @@ textarea:focus{
 
 /* Logo bigger */
 .brand img{
-  width: 250px;
-  height: 250px;
+  width: 64px;
+  height: 64px;
 }
 
 /* Company name bigger */
@@ -875,8 +875,8 @@ textarea:focus{
    ================================ */
 
 .brand img{
-  width: 76px;
-  height: 76px;
+  width: 112px;
+  height: 112px;
 }
 
 .brand .name{
