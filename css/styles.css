@@ -646,3 +646,50 @@ textarea:focus{
 .lw-consent .lw-btn:disabled{
   color: #9ca3af !important;
 }
+/* ================================
+   Global Header + Hero Type Sizing
+   ================================ */
+
+/* Top bar: give it a bit more presence */
+.topbar{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Brand block (logo + name) */
+.brand{
+  gap: 14px; /* more breathing room between logo and name */
+}
+
+/* Logo bigger */
+.brand img{
+  width: 64px;
+  height: 64px;
+}
+
+/* Company name bigger */
+.brand .name{
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Optional: keep the button from feeling tiny next to the brand */
+.topbar .btn{
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+/* Hero headline should be subordinate to the brand header */
+#video .title{
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* On larger screens, bump brand up a bit more, but keep hero modest */
+@media (min-width: 900px){
+  .brand img{ width: 72px; height: 72px; }
+  .brand .name{ font-size: 32px; }
+  #video .title{ font-size: 24px; }
+}
