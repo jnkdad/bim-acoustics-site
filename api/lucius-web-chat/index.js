@@ -1,7 +1,6 @@
 // /api/lucius-web-chat/index.js
-// Robust Lucius website chat handler:
-// - Loads engineering docs from /docs/lucius by searching filenames (no brittle exact names)
-// - Falls back to env vars LUCIUS_SYSTEM_PROMPT and LUCIUS_KB if present
+// Azure Functions (Node) Lucius website chat handler
+// - Loads engineering docs from *within this function folder* at /api/lucius-web-chat/docs/
 // - Calls OpenAI Responses API
 // - Returns { ok:true, reply } for the widget
 
@@ -9,20 +8,16 @@ const fs = require("fs");
 const path = require("path");
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || process.env.OPENAI_KEY;
-const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-4o";
+const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-4o-mini";
 const OPENAI_API_BASE = process.env.OPENAI_API_BASE || "https://api.openai.com";
 
-// Optional Azure SWA env vars you already have:
+// Optional Azure SWA env vars you already have (fallback only)
 const ENV_SYSTEM_PROMPT = process.env.LUCIUS_SYSTEM_PROMPT || "";
 const ENV_KB = process.env.LUCIUS_KB || "";
 
-// Cache docs across warm invocations
+// Cache across warm invocations
 let _cached = null;
 let _cachedKey = null;
-
-function getRepoRoot() {
-  return path.resolve(__dirname, "..", "..");
-}
 
 function safeReadUtf8(filePath) {
   try {
@@ -41,7 +36,6 @@ function listFiles(dir) {
 }
 
 function findDocByKeywords(docsDir, keywords) {
-  // keywords: array of strings; all must be present (case-insensitive)
   const files = listFiles(docsDir);
   const mdFiles = files.filter((f) => f.toLowerCase().endsWith(".md"));
 
@@ -54,10 +48,10 @@ function findDocByKeywords(docsDir, keywords) {
 }
 
 function loadLuciusDocs() {
-  const repoRoot = getRepoRoot();
-  const docsDir = path.join(repoRoot, "docs", "lucius");
+  // ✅ Always read docs packaged with this function:
+  // api/lucius-web-chat/docs/*.md
+  const docsDir = path.join(__dirname, "docs");
 
-  // Find docs even if the filenames differ from what we expect
   const engineeringModelPath =
     findDocByKeywords(docsDir, ["system", "designer", "engineering"]) ||
     findDocByKeywords(docsDir, ["engineering", "model"]) ||
@@ -121,8 +115,6 @@ function parseUserMessage(req) {
 }
 
 function buildDeveloperInstructions(docs) {
-  // Hard rules: identity, product naming, tone, and no evasive language.
-  // This is intentionally explicit to prevent the “I can’t provide…” failure mode.
   const hardRules = `
 You are Lucius, the technically credible engineering explainer for the BIM Acoustics website.
 
@@ -153,16 +145,15 @@ Answer behavior:
 - Keep answers concise: 1–6 short paragraphs; bullets are fine.
 `.trim();
 
-  // Prefer filesystem docs; fall back to env var KB/prompt if needed.
   const engineeringModel =
     docs.engineeringModel ||
     ENV_KB ||
-    "(No engineering model text found. Ensure /docs/lucius/*.md is deployed.)";
+    "(No engineering model text found. Ensure api/lucius-web-chat/docs/*.md is deployed.)";
 
   const engineeringResponses =
     docs.engineeringResponses ||
     ENV_SYSTEM_PROMPT ||
-    "(No engineering responses text found. Ensure /docs/lucius/*.md is deployed.)";
+    "(No engineering responses text found. Ensure api/lucius-web-chat/docs/*.md is deployed.)";
 
   return `
 ${hardRules}
@@ -216,25 +207,13 @@ async function callOpenAI({ developerText, userText }) {
 
   if (typeof data.output_text === "string" && data.output_text.trim()) return data.output_text.trim();
 
-  // best-effort fallback
-  try {
-    const out = data.output || [];
-    for (const item of out) {
-      if (item && item.type === "message" && Array.isArray(item.content)) {
-        const textParts = item.content
-          .filter((c) => c && (c.type === "output_text" || c.type === "text") && typeof c.text === "string")
-          .map((c) => c.text);
-        if (textParts.length) return textParts.join("\n").trim();
-      }
-    }
-  } catch {}
   return "I’m here, but I couldn’t parse the model output. Please try again.";
 }
 
 module.exports = async function (context, req) {
   const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Methods": "POST, OPTIONS, GET",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
 
@@ -244,7 +223,6 @@ module.exports = async function (context, req) {
   }
 
   if (req.method === "GET") {
-    // Minimal health check (keeps secrets out)
     const docs = loadLuciusDocs();
     context.res = {
       status: 200,
@@ -253,6 +231,7 @@ module.exports = async function (context, req) {
         ok: true,
         service: "lucius-web-chat",
         model: OPENAI_MODEL,
+        docsDir: docs.docsDir,
         docsFound: {
           engineeringModel: !!docs.engineeringModel,
           engineeringResponses: !!docs.engineeringResponses,
