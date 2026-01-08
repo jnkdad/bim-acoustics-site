@@ -693,3 +693,59 @@ textarea:focus{
   .brand .name{ font-size: 32px; }
   #video .title{ font-size: 24px; }
 }
+/* ================================
+   Lucius Floating Widget Positioning
+   Ensures #lucius-widget is a real floating button/panel
+   ================================ */
+
+#lucius-widget{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+  width: auto;
+}
+
+/* The widget shell itself should not take page layout space */
+#lucius-widget .lw-shell{
+  position: relative;
+}
+
+/* Floating button */
+#lucius-widget .lw-fab{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border: 1px solid #cfd5dd;
+  background: #e5e7eb;
+  color: #111827;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* Floating panel */
+#lucius-widget .lw-panel{
+  position: absolute;
+  right: 0;
+  bottom: 52px; /* sits above the button */
+  width: min(420px, calc(100vw - 36px));
+  max-height: min(70vh, 560px);
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0,0,0,.25);
+}
+
+/* Default hidden unless open */
+#lucius-widget .lw-panel{
+  display: none;
+}
+#lucius-widget .lw-panel.open{
+  display: block;
+}
+
+/* Make body scroll inside panel */
+#lucius-widget .lw-body{
+  max-height: 420px;
+  overflow: auto;
+}
