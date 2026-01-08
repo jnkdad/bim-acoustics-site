@@ -60,7 +60,8 @@ function findDocByKeywords(docsDir, keywords) {
 
 function loadLuciusDocs() {
   // Guaranteed relative to this function folder (if deployed):
-  const docsDir = path.join(__dirname, "docs");
+  const docsDir = path.join(__dirname, "docs", "lucius");
+
 
   const engineeringModelPath =
     findDocByKeywords(docsDir, ["system", "designer", "engineering"]) ||
