@@ -226,6 +226,15 @@ module.exports = async function (context, req) {
     context.res = { status: 200, headers: corsHeaders, body: { ok: true, service: "lucius-web-chat" } };
     return;
   }
+function logTranscriptEvent(context, payload) {
+  // Application Insights captures context.log output automatically when enabled.
+  // Prefix makes it easy to query later.
+  try {
+    context.log("LUCIUS_TRANSCRIPT " + JSON.stringify(payload));
+  } catch {
+    // ignore logging failures
+  }
+}
 
   try {
     const userText = parseUserMessage(req);

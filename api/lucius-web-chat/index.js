@@ -384,6 +384,20 @@ module.exports = async function (context, req) {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       body: { ok: true, reply },
     };
+    const consentToLog = !!(req.body && req.body.consentToLog);
+const sessionId = (req.body && req.body.sessionId) ? String(req.body.sessionId) : null;
+
+if (consentToLog) {
+  logTranscriptEvent(context, {
+    ts: new Date().toISOString(),
+    sessionId,
+    page: (req.headers && (req.headers.referer || req.headers.referrer)) || null,
+    user: userText,
+    lucius: reply,
+    model: OPENAI_MODEL
+  });
+}
+
   } catch (err) {
     context.log.error("Lucius error:", err);
 
@@ -392,5 +406,19 @@ module.exports = async function (context, req) {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       body: { ok: false, error: err.message || "Unknown error" },
     };
+    const consentToLog = !!(req.body && req.body.consentToLog);
+const sessionId = (req.body && req.body.sessionId) ? String(req.body.sessionId) : null;
+
+if (consentToLog) {
+  logTranscriptEvent(context, {
+    ts: new Date().toISOString(),
+    sessionId,
+    page: (req.headers && (req.headers.referer || req.headers.referrer)) || null,
+    user: userText,
+    lucius: reply,
+    model: OPENAI_MODEL
+  });
+}
+
   }
 };
