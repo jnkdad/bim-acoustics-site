@@ -62,24 +62,26 @@
   }
 
   function consentHtml() {
-    return `
-      <div class="lw-consent">
-        <div class="lw-consent-title">Help improve Lucius (optional)</div>
-        <div class="lw-consent-text">
-          If you agree, we’ll store a transcript of this chat to improve Lucius’ responses.
-          If you don’t agree, Lucius will still work — we just won’t save the transcript.
-        </div>
-        <label class="lw-consent-row">
-          <input type="checkbox" id="lw-consent-check" />
-          <span>I agree to allow BIM Acoustics to store this chat transcript.</span>
-        </label>
-        <div class="lw-consent-actions">
-          <button class="lw-btn" id="lw-consent-no" type="button">No thanks</button>
-          <button class="lw-btn primary" id="lw-consent-yes" type="button" disabled>Continue</button>
-        </div>
+  return `
+    <div class="lw-consent">
+      <div class="lw-consent-title">Help make Lucius smarter (optional)</div>
+      <div class="lw-consent-text">
+        If you opt in, BIM Acoustics may store this chat transcript — including your questions, Lucius’ answers,
+        and any feedback you share — so we can improve accuracy and usefulness. If you decline, Lucius will still work
+        normally and we won’t store this transcript.
       </div>
-    `;
-  }
+      <label class="lw-consent-row">
+        <input type="checkbox" id="lw-consent-check" />
+        <span>I agree to allow BIM Acoustics to store this chat transcript for product improvement.</span>
+      </label>
+      <div class="lw-consent-actions">
+        <button class="lw-btn" id="lw-consent-no" type="button">No thanks</button>
+        <button class="lw-btn primary" id="lw-consent-yes" type="button" disabled>Continue</button>
+      </div>
+    </div>
+  `;
+}
+
 
   function scrollToBottom(container) {
     const body = container.querySelector("#lw-body");

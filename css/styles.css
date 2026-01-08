@@ -606,3 +606,20 @@ textarea:focus{
   border-color: #cfd5dd !important;
   box-shadow: 0 0 0 4px rgba(59,130,246,.25) !important;
 }
+/* ---- Lucius Send Button: neutral gray (not white) ---- */
+.lw-send{
+  background: #e5e7eb !important;      /* light neutral gray */
+  color: #111827 !important;           /* dark text */
+  border: 1px solid #cfd5dd !important;
+}
+
+.lw-send:hover{
+  background: #dfe3e8 !important;
+}
+
+.lw-send:disabled{
+  background: #f1f3f5 !important;
+  color: #9ca3af !important;
+  border-color: #e5e7eb !important;
+  cursor: not-allowed;
+}
