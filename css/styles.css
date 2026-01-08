@@ -824,3 +824,49 @@ textarea:focus{
     grid-template-columns: 1fr 1fr;
   }
 }
+/* ================================
+   Resources page: tighten descriptions
+   ================================ */
+
+#resources .prod-list li{
+  margin-bottom: 10px;
+}
+
+/* Description text under links */
+#resources .prod-list .muted{
+  display: block;
+  margin-left: 14px;      /* visual indent */
+  margin-top: 4px;
+  font-size: 13.2px;      /* smaller than body */
+  line-height: 1.35;
+  opacity: 0.78;
+}
+
+/* Make resource titles stand out a bit more */
+#resources .prod-list a.link{
+  font-size: 15px;
+  font-weight: 600;
+}
+/* ================================
+   Resources page: tighten descriptions
+   ================================ */
+
+#resources .prod-list li{
+  margin-bottom: 10px;
+}
+
+/* Description text under links */
+#resources .prod-list .muted{
+  display: block;
+  margin-left: 14px;      /* visual indent */
+  margin-top: 4px;
+  font-size: 13.2px;      /* smaller than body */
+  line-height: 1.35;
+  opacity: 0.78;
+}
+
+/* Make resource titles stand out a bit more */
+#resources .prod-list a.link{
+  font-size: 15px;
+  font-weight: 600;
+}
