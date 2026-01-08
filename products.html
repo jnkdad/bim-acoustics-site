@@ -1,80 +1,127 @@
-<section class="card" id="products">
-  <div class="hd">
-    <h1 class="title">Products</h1>
-  </div>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Products | J. Stevens BIM Acoustics</title>
 
-  <div class="bd">
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-    <div class="small" style="margin-bottom:12px;">
-      BIM Acoustics tools are built to accelerate real-world Revit-based AV workflows with clear engineering intent and transparent assumptions.
-    </div>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
 
-    <!-- Two-up product overview -->
-    <div class="prod-grid">
+  <div class="wrap">
+    <div class="container">
 
-      <!-- STANDARD -->
-      <div class="prod-card">
-        <div class="prod-kicker">Available Now</div>
-        <h2 class="prod-title">AVTools System Designer <span class="muted">(Standard)</span></h2>
-        <div class="prod-sub">Distributed ceiling loudspeaker layout + first-order system intent in Revit</div>
+      <div class="topbar">
+        <div class="brand">
+          <a href="/" style="display:flex; align-items:center; gap:14px; text-decoration:none;">
+            <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+            <div class="name">J. Stevens BIM Acoustics</div>
+          </a>
+        </div>
 
-        <div class="prod-body">
-          <ul class="prod-list">
-            <li>Automated ceiling-hosted placement using industry-standard spacing models</li>
-            <li>Consistent multi-room layouts without manual copy/paste workflows</li>
-            <li>Target SPL input with tap-setting recommendations (designer-controlled)</li>
-            <li>Basic ISO-line coverage visualization for relative uniformity</li>
-          </ul>
-
-          <div class="prod-meta">
-            <div><b>Platform:</b> Autodesk Revit (2022–2026)</div>
-            <div><b>Status:</b> Limited early access</div>
-          </div>
-
-          <div class="prod-foot">
-            Ask <b>Lucius</b> about spacing models, overlap intent, ISO-line mapping, and tap recommendations.
-          </div>
+        <!-- Traditional top nav -->
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn primary" href="/products.html">Products</a>
+          <a class="btn" href="/resources.html">Resources</a>
+          <a class="btn" href="/about.html">About</a>
         </div>
       </div>
 
-      <!-- PRO -->
-      <div class="prod-card">
-        <div class="prod-kicker">Planned</div>
-        <h2 class="prod-title">AVTools System Designer <span class="muted">(Pro)</span></h2>
-        <div class="prod-sub">Deeper coverage mapping + early acoustic metrics + electrical validation</div>
-
-        <div class="prod-body">
-          <ul class="prod-list">
-            <li>Enhanced coverage mapping using loudspeaker balloon data (where available)</li>
-            <li>Improved mapping beyond basic ISO-line visualization</li>
-            <li>Early design metrics: RT60 and STI (room-level)</li>
-            <li>Electrical modeling: loading, circuiting, and line-loss analysis</li>
-          </ul>
-
-          <div class="prod-meta">
-            <div><b>Target availability:</b> Q2 2026 (subject to change)</div>
-          </div>
-
-          <div class="prod-foot">
-            Pro is intended to bridge automated layout into deeper early validation while staying inside Revit.
-          </div>
+      <section class="card" id="products">
+        <div class="hd">
+          <h1 class="title">Products</h1>
         </div>
-      </div>
+
+        <div class="bd">
+          <div class="small" style="margin-bottom:12px;">
+            BIM Acoustics tools are built to accelerate real-world Revit-based AV workflows with clear engineering intent and transparent assumptions.
+          </div>
+
+          <div class="prod-grid">
+
+            <!-- STANDARD -->
+            <div class="prod-card">
+              <div class="prod-kicker">Available Now</div>
+              <h2 class="prod-title">AVTools System Designer <span class="muted">(Standard)</span></h2>
+              <div class="prod-sub">Distributed ceiling loudspeaker layout + first-order system intent in Revit</div>
+
+              <ul class="prod-list">
+                <li>Automated ceiling-hosted placement using industry-standard spacing models</li>
+                <li>Consistent multi-room layouts without manual copy/paste workflows</li>
+                <li>Target SPL input with tap-setting recommendations (designer-controlled)</li>
+                <li>Basic ISO-line coverage visualization for relative uniformity</li>
+              </ul>
+
+              <div class="prod-meta">
+                <div><b>Platform:</b> Autodesk Revit (2022–2026)</div>
+                <div><b>Status:</b> Limited early access</div>
+              </div>
+
+              <div class="prod-foot">
+                Ask <b>Lucius</b> about spacing models, overlap intent, ISO-line mapping, and tap recommendations.
+              </div>
+            </div>
+
+            <!-- PRO -->
+            <div class="prod-card">
+              <div class="prod-kicker">Planned</div>
+              <h2 class="prod-title">AVTools System Designer <span class="muted">(Pro)</span></h2>
+              <div class="prod-sub">Deeper coverage mapping + early acoustic metrics + electrical validation</div>
+
+              <ul class="prod-list">
+                <li>Enhanced coverage mapping using loudspeaker balloon data (where available)</li>
+                <li>Improved mapping beyond basic ISO-line visualization</li>
+                <li>Early design metrics: RT60 and STI (room-level)</li>
+                <li>Electrical modeling: loading, circuiting, and line-loss analysis</li>
+              </ul>
+
+              <div class="prod-meta">
+                <div><b>Target availability:</b> Q2 2026 (subject to change)</div>
+              </div>
+
+              <div class="prod-foot">
+                Pro is intended to bridge automated layout into deeper early validation while staying inside Revit.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="note" style="margin-top:14px;">
+            Questions? Ask <b>Lucius</b> directly, or contact us at
+            <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>.
+          </div>
+
+          <!-- Later: PDF spec sheet link -->
+          <!--
+          <div class="note" style="margin-top:10px;">
+            Download: <a class="link" href="/downloads/SystemDesigner_SpecSheet.pdf">System Designer Spec Sheet (PDF)</a>
+          </div>
+          -->
+        </div>
+      </section>
+
+      <footer>
+        &copy; <span id="year"></span> J. Stevens BIM Acoustics
+        &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+      </footer>
 
     </div>
-
-    <!-- Questions + contact -->
-    <div style="margin-top:14px;" class="note">
-      Questions? Ask <b>Lucius</b> directly, or contact us at
-      <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>.
-    </div>
-
-    <!-- Optional: placeholder for later PDF link -->
-    <!--
-    <div style="margin-top:10px;" class="note">
-      Download: <a class="link" href="/downloads/SystemDesigner_SpecSheet.pdf">System Designer Spec Sheet (PDF)</a>
-    </div>
-    -->
-
   </div>
-</section>
+
+  <!-- Floating Lucius on pages without #lucius-embed -->
+  <div id="lucius-widget"></div>
+
+  <script src="/lucius-widget.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
