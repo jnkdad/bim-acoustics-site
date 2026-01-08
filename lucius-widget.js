@@ -1,6 +1,7 @@
 (function () {
   const endpoint = "/api/lucius-web-chat";
 
+  // Persistent anonymous session + consent
   const SESSION_KEY = "lucius_session_id";
   const CONSENT_KEY = "lucius_log_consent"; // "yes" | "no" | null
 
@@ -17,7 +18,6 @@
       return "sess_" + Date.now();
     }
   }
-
   function getConsent() {
     try { return localStorage.getItem(CONSENT_KEY); } catch { return null; }
   }
@@ -26,11 +26,23 @@
   }
 
   const state = {
-    open: false,          // used for floating mode
+    open: false,          // for floating mode
     busy: false,
     sessionId: getOrCreateSessionId(),
-    consent: getConsent() // null | yes | no
+    consent: getConsent(), // null | yes | no
+
+    // Chat history (so re-render never wipes it)
+    messages: [
+      {
+        role: "sys",
+        text: "Hi — I’m Lucius. You can ask me anything about BIM Acoustics, including our first product: AVTools System Designer for distributed systems, Revit support (2022–2026), and early access."
+      }
+    ]
   };
+
+  function gated() {
+    return state.consent !== "yes" && state.consent !== "no";
+  }
 
   function escapeHtml(s) {
     return (s || "").replace(/[&<>"']/g, (c) => ({
@@ -38,16 +50,14 @@
     }[c]));
   }
 
-  function gated() {
-    return state.consent !== "yes" && state.consent !== "no";
+  function renderMessages() {
+    return state.messages.map(m => {
+      const cls = m.role === "user" ? "user" : (m.role === "bot" ? "bot" : "sys");
+      return `<div class="lw-msg ${cls}">${escapeHtml(m.text)}</div>`;
+    }).join("");
   }
 
-  function appendMessage(bodyEl, cls, text) {
-    bodyEl.insertAdjacentHTML("beforeend", `<div class="lw-msg ${cls}">${escapeHtml(text)}</div>`);
-    bodyEl.scrollTop = bodyEl.scrollHeight;
-  }
-
-  function buildConsentHtml() {
+  function consentHtml() {
     return `
       <div class="lw-consent">
         <div class="lw-consent-title">Help improve Lucius (optional)</div>
@@ -67,75 +77,60 @@
     `;
   }
 
-  function greetingHtml() {
-    return `
-      <div class="lw-msg sys">
-        Hi — I’m Lucius. You can ask me anything about <b>BIM Acoustics</b>, including our first product:
-        <b>AVTools System Designer</b> for distributed systems, Revit support (2022–2026), and early access.
-      </div>
-    `;
-  }
-
   function renderChat(container, mode) {
     const isGated = gated();
-    const showPanel = (mode === "embedded") ? true : state.open;
 
-    // Floating outer wrapper
-    if (mode === "floating") {
-      container.innerHTML = `
+    // Panel shell differs between embedded vs floating
+    const panelOpen = (mode === "embedded") ? true : state.open;
+
+    container.innerHTML = mode === "embedded"
+      ? `
+        <div class="lw-embed-shell">
+          <div class="lw-embed-hd"><div class="lw-title">Lucius</div></div>
+
+          <div class="lw-body" id="lw-body">
+            ${renderMessages()}
+            ${isGated ? consentHtml() : ""}
+          </div>
+
+          <div class="lw-ft">
+            <input class="lw-in" id="lw-in" type="text"
+              placeholder="${isGated ? "Consent required to start…" : "Ask a question…"}"
+              ${isGated ? "disabled" : ""}/>
+            <button class="lw-send" id="lw-send" type="button" ${isGated ? "disabled" : ""}>
+              ${state.busy ? "…" : "Send"}
+            </button>
+          </div>
+        </div>
+      `
+      : `
         <div class="lw-shell">
           <button class="lw-fab" type="button" aria-label="Open Lucius">Lucius</button>
-          <div class="lw-panel ${showPanel ? "open" : ""}" role="dialog" aria-label="Lucius chat">
+
+          <div class="lw-panel ${panelOpen ? "open" : ""}" role="dialog" aria-label="Lucius chat">
             <div class="lw-hd">
               <div class="lw-title">Lucius</div>
               <button class="lw-x" type="button" aria-label="Close">✕</button>
             </div>
 
             <div class="lw-body" id="lw-body">
-              ${greetingHtml()}
-              ${isGated ? buildConsentHtml() : ""}
+              ${renderMessages()}
+              ${isGated ? consentHtml() : ""}
             </div>
 
             <div class="lw-ft">
-              <input class="lw-in" id="lw-in" type="text" placeholder="${isGated ? "Consent required to start…" : "Ask a question…"}" ${isGated ? "disabled" : ""}/>
-              <button class="lw-send" id="lw-send" type="button" ${isGated ? "disabled" : ""}>${state.busy ? "…" : "Send"}</button>
+              <input class="lw-in" id="lw-in" type="text"
+                placeholder="${isGated ? "Consent required to start…" : "Ask a question…"}"
+                ${isGated ? "disabled" : ""}/>
+              <button class="lw-send" id="lw-send" type="button" ${isGated ? "disabled" : ""}>
+                ${state.busy ? "…" : "Send"}
+              </button>
             </div>
           </div>
         </div>
       `;
-    } else {
-      // Embedded layout
-      container.innerHTML = `
-        <div class="lw-embed-shell">
-          <div class="lw-embed-hd"><div class="lw-title">Lucius</div></div>
 
-          <div class="lw-body" id="lw-body">
-            ${greetingHtml()}
-            ${isGated ? buildConsentHtml() : ""}
-          </div>
-
-          <div class="lw-ft">
-            <input class="lw-in" id="lw-in" type="text" placeholder="${isGated ? "Consent required to start…" : "Ask a question…"}" ${isGated ? "disabled" : ""}/>
-            <button class="lw-send" id="lw-send" type="button" ${isGated ? "disabled" : ""}>${state.busy ? "…" : "Send"}</button>
-          </div>
-        </div>
-      `;
-    }
-
-    const bodyEl = container.querySelector("#lw-body");
-    const input = container.querySelector("#lw-in");
-    const send = container.querySelector("#lw-send");
-
-    // Consent wiring
-    const check = container.querySelector("#lw-consent-check");
-    const yesBtn = container.querySelector("#lw-consent-yes");
-    const noBtn  = container.querySelector("#lw-consent-no");
-
-    if (check && yesBtn) check.onchange = () => { yesBtn.disabled = !check.checked; };
-    if (yesBtn) yesBtn.onclick = () => { setConsent("yes"); state.consent = "yes"; render(); };
-    if (noBtn)  noBtn.onclick  = () => { setConsent("no");  state.consent = "no";  render(); };
-
-    // Floating open/close
+    // Floating open/close controls
     if (mode === "floating") {
       const fab = container.querySelector(".lw-fab");
       const close = container.querySelector(".lw-x");
@@ -143,13 +138,28 @@
       if (close) close.onclick = () => { state.open = false; render(); };
     }
 
+    // Consent controls
+    const check = container.querySelector("#lw-consent-check");
+    const yesBtn = container.querySelector("#lw-consent-yes");
+    const noBtn = container.querySelector("#lw-consent-no");
+
+    if (check && yesBtn) check.onchange = () => { yesBtn.disabled = !check.checked; };
+    if (yesBtn) yesBtn.onclick = () => { setConsent("yes"); state.consent = "yes"; render(); };
+    if (noBtn)  noBtn.onclick  = () => { setConsent("no");  state.consent = "no";  render(); };
+
     // Send handler
+    const input = container.querySelector("#lw-in");
+    const send = container.querySelector("#lw-send");
+    const bodyEl = container.querySelector("#lw-body");
+
     async function sendMessage() {
+      if (!input || !bodyEl) return;
       if (state.busy || gated()) return;
-      const msg = (input?.value || "").trim();
+
+      const msg = (input.value || "").trim();
       if (!msg) return;
 
-      appendMessage(bodyEl, "user", msg);
+      state.messages.push({ role: "user", text: msg });
       input.value = "";
 
       state.busy = true;
@@ -169,15 +179,15 @@
         if (!resp.ok) {
           const t = await resp.text();
           console.warn("Lucius API error:", resp.status, t);
-          appendMessage(bodyEl, "bot", `Server error (${resp.status}).`);
+          state.messages.push({ role: "bot", text: `Server error (${resp.status}). Please try again.` });
           return;
         }
 
         const data = await resp.json();
-        appendMessage(bodyEl, "bot", data.reply || "No response available.");
+        state.messages.push({ role: "bot", text: (data && data.reply) ? data.reply : "No response available." });
       } catch (e) {
         console.warn("Lucius fetch failed:", e);
-        appendMessage(bodyEl, "bot", "Sorry — something went wrong.");
+        state.messages.push({ role: "bot", text: "Sorry — something went wrong. Please try again." });
       } finally {
         state.busy = false;
         render();
@@ -196,7 +206,7 @@
 
     if (embed) {
       renderChat(embed, "embedded");
-      if (floating) floating.innerHTML = ""; // keep quiet on landing page
+      if (floating) floating.innerHTML = ""; // quiet on landing page
       return;
     }
 
