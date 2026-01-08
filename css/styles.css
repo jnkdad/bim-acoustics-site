@@ -334,3 +334,275 @@ footer{
   .mcgrid{grid-template-columns:1fr}
   .span2{grid-column:auto}
 }
+/* ================================
+   Lucius + Signup Fields: ChatGPT-like Light UI
+   Paste at END of css/styles.css
+   ================================ */
+
+:root{
+  --ui-surface: #f7f7f8;          /* ChatGPT-ish light gray */
+  --ui-surface-2: #ffffff;        /* white */
+  --ui-border: #dcdfe4;           /* subtle border */
+  --ui-border-2: #cfd5dd;
+  --ui-text: #111827;             /* near-black */
+  --ui-text-muted: #4b5563;       /* muted */
+  --ui-focus: rgba(59,130,246,.25); /* soft blue focus glow */
+  --ui-radius: 10px;
+}
+
+/* ---- Global form controls (signup form + any inputs) ---- */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="url"],
+input[type="password"],
+select,
+textarea{
+  background: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius) !important;
+  padding: 10px 12px !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+input::placeholder,
+textarea::placeholder{
+  color: var(--ui-text-muted) !important;
+  opacity: .85 !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color: var(--ui-border-2) !important;
+  box-shadow: 0 0 0 4px var(--ui-focus) !important;
+}
+
+/* If any theme styles force dark fields via inline styles, this helps */
+input[style*="background"],
+textarea[style*="background"],
+select[style*="background"]{
+  background: var(--ui-surface) !important;
+}
+
+/* ---- Lucius widget: try multiple common wrappers ---- */
+#lucius,
+#lucius-widget,
+#luciusWebChat,
+.lucius,
+.lucius-widget,
+.lucius-web-chat,
+.chat-widget,
+.chatbot,
+.chat-container{
+  color: var(--ui-text);
+}
+
+/* Chat window / transcript area */
+#lucius .chat-window,
+#lucius-widget .chat-window,
+.lucius-widget .chat-window,
+.lucius-web-chat .chat-window,
+.chat-widget .chat-window,
+#lucius .messages,
+#lucius-widget .messages,
+.lucius-widget .messages,
+.lucius-web-chat .messages,
+.chat-widget .messages,
+#lucius .chat-messages,
+#lucius-widget .chat-messages,
+.lucius-widget .chat-messages,
+.lucius-web-chat .chat-messages,
+.chat-widget .chat-messages{
+  background: var(--ui-surface-2) !important;
+  color: var(--ui-text) !important;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius) !important;
+}
+
+/* Lucius input row / textbox */
+#lucius input,
+#lucius textarea,
+#lucius-widget input,
+#lucius-widget textarea,
+.lucius-widget input,
+.lucius-widget textarea,
+.lucius-web-chat input,
+.lucius-web-chat textarea,
+.chat-widget input,
+.chat-widget textarea{
+  background: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius) !important;
+}
+
+/* Optional: make bot/user bubbles light + readable if your widget uses bubbles */
+#lucius .message,
+#lucius-widget .message,
+.lucius-widget .message,
+.lucius-web-chat .message,
+.chat-widget .message{
+  color: var(--ui-text) !important;
+}
+
+#lucius .message.bot,
+#lucius-widget .message.bot,
+.lucius-widget .message.bot,
+.lucius-web-chat .message.bot,
+.chat-widget .message.bot,
+#lucius .assistant,
+#lucius-widget .assistant,
+.lucius-widget .assistant,
+.lucius-web-chat .assistant{
+  background: var(--ui-surface) !important;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius) !important;
+}
+
+#lucius .message.user,
+#lucius-widget .message.user,
+.lucius-widget .message.user,
+.lucius-web-chat .message.user,
+.chat-widget .message.user,
+#lucius .user,
+#lucius-widget .user,
+.lucius-widget .user,
+.lucius-web-chat .user{
+  background: #eef2ff !important; /* subtle tint for user messages */
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius) !important;
+}
+
+/* Buttons near forms/widgets often look better with the same surface */
+button,
+input[type="submit"]{
+  border-radius: var(--ui-radius) !important;
+}
+/* =========================================
+   Lucius Widget (.lw-*) — ChatGPT-like theme
+   Paste at END of css/styles.css
+   ========================================= */
+
+:root{
+  --lw-surface: #ffffff;
+  --lw-surface-2: #f7f7f8;         /* ChatGPT-ish light gray */
+  --lw-border: #dcdfe4;
+  --lw-text: #111827;
+  --lw-muted: #4b5563;
+  --lw-focus: rgba(59,130,246,.25);
+  --lw-radius: 12px;
+}
+
+/* Chat container surfaces */
+.lw-shell,
+.lw-embed-shell,
+.lw-panel{
+  background: var(--lw-surface) !important;
+  color: var(--lw-text) !important;
+  border: 1px solid var(--lw-border) !important;
+  border-radius: var(--lw-radius) !important;
+}
+
+/* Transcript window */
+.lw-body{
+  background: var(--lw-surface) !important;
+  color: var(--lw-text) !important;
+}
+
+/* Messages */
+.lw-msg{
+  color: var(--lw-text) !important;
+}
+
+.lw-msg.sys,
+.lw-msg.bot{
+  background: var(--lw-surface-2) !important;
+  border: 1px solid var(--lw-border) !important;
+  border-radius: var(--lw-radius) !important;
+}
+
+.lw-msg.user{
+  background: #eef2ff !important;
+  border: 1px solid var(--lw-border) !important;
+  border-radius: var(--lw-radius) !important;
+}
+
+/* Input row + textbox */
+.lw-ft{
+  background: var(--lw-surface) !important;
+  border-top: 1px solid var(--lw-border) !important;
+}
+
+.lw-in{
+  background: var(--lw-surface-2) !important;
+  color: var(--lw-text) !important;
+  border: 1px solid var(--lw-border) !important;
+  border-radius: var(--lw-radius) !important;
+  padding: 10px 12px !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.lw-in::placeholder{
+  color: var(--lw-muted) !important;
+  opacity: .85 !important;
+}
+
+.lw-in:focus{
+  border-color: #cfd5dd !important;
+  box-shadow: 0 0 0 4px var(--lw-focus) !important;
+}
+
+/* Buttons */
+.lw-btn,
+.lw-send,
+.lw-fab{
+  border-radius: var(--lw-radius) !important;
+}
+
+/* Consent panel */
+.lw-consent{
+  background: var(--lw-surface) !important;
+  border: 1px solid var(--lw-border) !important;
+  border-radius: var(--lw-radius) !important;
+  color: var(--lw-text) !important;
+}
+
+/* =========================================
+   Signup form fields — ChatGPT-like theme
+   (covers email, name, company, textarea, etc.)
+   ========================================= */
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="url"],
+input[type="password"],
+select,
+textarea{
+  background: #f7f7f8 !important;
+  color: #111827 !important;
+  border: 1px solid #dcdfe4 !important;
+  border-radius: 12px !important;
+  padding: 10px 12px !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+input::placeholder,
+textarea::placeholder{
+  color: #4b5563 !important;
+  opacity: .85 !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color: #cfd5dd !important;
+  box-shadow: 0 0 0 4px rgba(59,130,246,.25) !important;
+}
