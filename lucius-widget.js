@@ -115,8 +115,7 @@
       `
       : `
         <div class="lw-shell">
-          <button class="lw-fab" type="button" aria-label="Open Lucius">Lucius</button>
-
+          <button class="lw-fab" type="button" aria-label="Questions? Ask Lucius">Ask Lucius</button>
           <div class="lw-panel ${panelOpen ? "open" : ""}" role="dialog" aria-label="Lucius chat">
             <div class="lw-hd">
               <div class="lw-title">Lucius</div>
