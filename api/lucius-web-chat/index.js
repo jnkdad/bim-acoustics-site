@@ -230,7 +230,6 @@ async function callOpenAI({ developerText, userText }) {
 
   const payload = {
     model: OPENAI_MODEL,
-    reasoning: { effort: "low" },
     input: [
       { role: "developer", content: developerText },
       { role: "user", content: userText },
