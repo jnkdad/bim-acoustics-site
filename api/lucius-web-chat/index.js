@@ -1,10 +1,12 @@
 // /api/lucius-web-chat/index.js
 // Azure Functions (Node) Lucius website chat handler + debug file listing
-// - Loads engineering docs from api/lucius-web-chat/docs/*.md
-// - Adds GET ?debug=1 to list what files the function can see at runtime
+// - Loads engineering docs from api/lucius-web-chat/docs/lucius/*.md
+// - Calls OpenAI via built-in https (no fetch dependency)
+// - GET ?debug=1 shows what the function can see at runtime
 
 const fs = require("fs");
 const path = require("path");
+const https = require("https");
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || process.env.OPENAI_KEY;
 const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-4o-mini";
@@ -59,9 +61,8 @@ function findDocByKeywords(docsDir, keywords) {
 }
 
 function loadLuciusDocs() {
-  // Guaranteed relative to this function folder (if deployed):
+  // ✅ Deployed location (confirmed by your debug output):
   const docsDir = path.join(__dirname, "docs", "lucius");
-
 
   const engineeringModelPath =
     findDocByKeywords(docsDir, ["system", "designer", "engineering"]) ||
@@ -106,6 +107,7 @@ function parseUserMessage(req) {
   if (typeof body.message === "string" && body.message.trim()) return body.message.trim();
   if (typeof body.input === "string" && body.input.trim()) return body.input.trim();
   if (typeof body.text === "string" && body.text.trim()) return body.text.trim();
+
   if (Array.isArray(body.messages) && body.messages.length) {
     for (let i = body.messages.length - 1; i >= 0; i--) {
       const m = body.messages[i];
@@ -154,12 +156,12 @@ Answer behavior:
   const engineeringModel =
     docs.engineeringModel ||
     ENV_KB ||
-    "(No engineering model text found. If this is unexpected, deploy docs into api/lucius-web-chat/docs/.)";
+    "(No engineering model text found. Ensure api/lucius-web-chat/docs/lucius/*.md is deployed.)";
 
   const engineeringResponses =
     docs.engineeringResponses ||
     ENV_SYSTEM_PROMPT ||
-    "(No engineering responses text found. If this is unexpected, deploy docs into api/lucius-web-chat/docs/.)";
+    "(No engineering responses text found. Ensure api/lucius-web-chat/docs/lucius/*.md is deployed.)";
 
   return `
 ${hardRules}
@@ -176,6 +178,46 @@ ${engineeringResponses}
 `.trim();
 }
 
+function httpsJsonRequest(urlString, { method, headers, body }) {
+  return new Promise((resolve, reject) => {
+    const u = new URL(urlString);
+
+    const options = {
+      protocol: u.protocol,
+      hostname: u.hostname,
+      port: u.port || (u.protocol === "https:" ? 443 : 80),
+      path: u.pathname + (u.search || ""),
+      method,
+      headers,
+    };
+
+    const req = https.request(options, (res) => {
+      let data = "";
+      res.setEncoding("utf8");
+      res.on("data", (chunk) => (data += chunk));
+      res.on("end", () => {
+        let json = null;
+        try {
+          json = data ? JSON.parse(data) : {};
+        } catch {
+          // keep raw
+        }
+
+        resolve({
+          ok: res.statusCode >= 200 && res.statusCode < 300,
+          status: res.statusCode,
+          json,
+          raw: data,
+        });
+      });
+    });
+
+    req.on("error", reject);
+    if (body) req.write(body);
+    req.end();
+  });
+}
+
 async function callOpenAI({ developerText, userText }) {
   if (!OPENAI_API_KEY) {
     const e = new Error("Missing OPENAI_API_KEY environment variable.");
@@ -183,7 +225,9 @@ async function callOpenAI({ developerText, userText }) {
     throw e;
   }
 
-  const url = `${OPENAI_API_BASE.replace(/\/+$/, "")}/v1/responses`;
+  const base = OPENAI_API_BASE.replace(/\/+$/, "");
+  const url = `${base}/v1/responses`;
+
   const payload = {
     model: OPENAI_MODEL,
     reasoning: { effort: "low" },
@@ -193,18 +237,29 @@ async function callOpenAI({ developerText, userText }) {
     ],
   };
 
-  const resp = await fetch(url, {
+  const resp = await httpsJsonRequest(url, {
     method: "POST",
-    headers: { Authorization: `Bearer ${OPENAI_API_KEY}`, "Content-Type": "application/json" },
+    headers: {
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(payload),
   });
 
-  const data = await resp.json().catch(() => ({}));
-  if (!resp.ok) throw new Error((data && data.error && data.error.message) || `OpenAI API error (${resp.status})`);
+  if (!resp.ok) {
+    const errMsg =
+      (resp.json && resp.json.error && resp.json.error.message) ||
+      `OpenAI API error (${resp.status})`;
+    const err = new Error(errMsg);
+    err.status = resp.status;
+    err.details = resp.json || resp.raw;
+    throw err;
+  }
 
-  return (typeof data.output_text === "string" && data.output_text.trim())
-    ? data.output_text.trim()
-    : "I’m here, but I couldn’t parse the model output. Please try again.";
+  const data = resp.json || {};
+  if (typeof data.output_text === "string" && data.output_text.trim()) return data.output_text.trim();
+
+  return "I’m here, but I couldn’t parse the model output. Please try again.";
 }
 
 module.exports = async function (context, req) {
@@ -219,14 +274,13 @@ module.exports = async function (context, req) {
     return;
   }
 
-  // ✅ Debug GET: add ?debug=1 to list what the function can see
   if (req.method === "GET") {
     const docs = loadLuciusDocs();
-
     const debug = String((req.query && req.query.debug) || "").trim() === "1";
+
     if (debug) {
       const docsDirExists = !!safeStat(docs.docsDir);
-      const docsDirListing = listDir(docs.docsDir); // may be null if missing
+      const docsDirListing = listDir(docs.docsDir);
 
       context.res = {
         status: 200,
@@ -238,7 +292,7 @@ module.exports = async function (context, req) {
           __dirname,
           docsDir: docs.docsDir,
           docsDirExists,
-          docsDirListing, // <-- this is what we need to see
+          docsDirListing,
           docsFound: {
             engineeringModel: !!docs.engineeringModel,
             engineeringResponses: !!docs.engineeringResponses,
@@ -263,10 +317,6 @@ module.exports = async function (context, req) {
           engineeringModel: !!docs.engineeringModel,
           engineeringResponses: !!docs.engineeringResponses,
         },
-        docPaths: {
-          engineeringModelPath: docs.engineeringModelPath ? path.basename(docs.engineeringModelPath) : null,
-          engineeringResponsesPath: docs.engineeringResponsesPath ? path.basename(docs.engineeringResponsesPath) : null,
-        },
       },
     };
     return;
@@ -283,9 +333,20 @@ module.exports = async function (context, req) {
     const developerText = buildDeveloperInstructions(docs);
     const reply = await callOpenAI({ developerText, userText });
 
-    context.res = { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" }, body: { ok: true, reply } };
+    context.res = {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      body: { ok: true, reply },
+    };
   } catch (err) {
     context.log.error("Lucius error:", err);
-    context.res = { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" }, body: { ok: false, error: err.message || "Unknown error" } };
+    context.res = {
+      status: err.status || 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      body: {
+        ok: false,
+        error: err.message || "Unknown error",
+      },
+    };
   }
 };
