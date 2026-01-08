@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resources | J. Stevens BIM Acoustics</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <div class="topbar">
+        <div class="brand">
+          <a href="/" style="display:flex; align-items:center; gap:14px; text-decoration:none;">
+            <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+            <div class="name">J. Stevens BIM Acoustics</div>
+          </a>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn" href="/products.html">Products</a>
+          <a class="btn primary" href="/resources.html">Resources</a>
+          <a class="btn" href="/about.html">About</a>
+        </div>
+      </div>
+
+      <section class="card" id="resources">
+        <div class="hd">
+          <h1 class="title">Resources</h1>
+        </div>
+
+        <div class="bd">
+          <div class="small" style="margin-bottom:12px;">
+            Articles, references, and training links related to Revit-based AV workflows and acoustics design.
+          </div>
+
+          <div class="prod-grid">
+            <!-- ARTICLES -->
+            <div class="prod-card">
+              <div class="prod-kicker">Articles & Publications</div>
+              <h2 class="prod-title">ProSoundWeb <span class="muted">(External)</span></h2>
+              <div class="prod-sub">Selected technical articles by Jerrold Stevens</div>
+
+              <ul class="prod-list">
+                <li>
+                  <a class="link" href="https://www.prosoundweb.com/the-best-place-to-put-subwoofers-is/" target="_blank" rel="noopener">
+                    The Best Place to Put Subwoofers Is…
+                  </a>
+                  <div class="muted">
+                    Examines subwoofer placement strategies beyond conventional rules of thumb, focusing on low-frequency behavior and system integration.
+                  </div>
+                </li>
+
+                <li>
+                  <a class="link" href="https://www.prosoundweb.com/the-relationship-between-amplifier-damping-factor-impedance-cable/" target="_blank" rel="noopener">
+                    The Relationship Between Amplifier Damping Factor, Impedance &amp; Cable
+                  </a>
+                  <div class="muted">
+                    Explores how amplifier damping factor interacts with loudspeaker impedance and cable characteristics, and why these relationships matter in practice.
+                  </div>
+                </li>
+
+                <li>
+                  <a class="link" href="https://www.prosoundweb.com/conventional-wisdom-i-can-eq-a-system-better-by-ear/" target="_blank" rel="noopener">
+                    Conventional Wisdom: “I Can EQ a System Better by Ear”
+                  </a>
+                  <div class="muted">
+                    Challenges the notion that equalization by ear alone is sufficient, emphasizing measurement-based approaches and repeatable results.
+                  </div>
+                </li>
+
+                <li>
+                  <a class="link" href="https://www.prosoundweb.com/defining-amplifier-damping-and-what-it-really-means-within-a-system/" target="_blank" rel="noopener">
+                    Defining Amplifier Damping (And What It Really Means Within a System)
+                  </a>
+                  <div class="muted">
+                    A technical discussion of amplifier damping factor and its real-world implications for loudspeaker control and low-frequency performance.
+                  </div>
+                </li>
+              </ul>
+
+              <div class="note" style="margin-top:10px;">
+                Links open external articles on ProSoundWeb.
+              </div>
+            </div>
+
+            <!-- TRAINING -->
+            <div class="prod-card">
+              <div class="prod-kicker">Training</div>
+              <h2 class="prod-title">ProSoundTraining / SynAudCon <span class="muted">(External)</span></h2>
+              <div class="prod-sub">Online courses created and taught by Jerrold Stevens</div>
+
+              <ul class="prod-list">
+                <li>
+                  <a class="link" href="https://www.prosoundtraining.com/revit-for-av-systems/" target="_blank" rel="noopener">
+                    Revit for AV Systems
+                  </a>
+                  <div class="muted">
+                    Covers practical workflows for designing and documenting AV systems in Revit, with an emphasis on coordination, accuracy, and efficiency.
+                  </div>
+                </li>
+
+                <li>
+                  <a class="link" href="https://www.prosoundtraining.com/revit-families-for-av/" target="_blank" rel="noopener">
+                    Revit Families for AV
+                  </a>
+                  <div class="muted">
+                    Focuses on creating AV-specific Revit families, from simple components to parameter-driven models used in real projects.
+                  </div>
+                </li>
+              </ul>
+
+              <div class="note" style="margin-top:10px;">
+                These courses are currently hosted externally via ProSoundTraining / SynAudCon.
+                A next-generation, AI-enhanced training platform is in development under BIM Acoustics.
+              </div>
+
+              <div class="prod-foot">
+                If you’re unsure whether this training matches your workflow goals, ask <b>Lucius</b>.
+              </div>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:14px;">
+            Questions or recommendations? Ask <b>Lucius</b>, or contact us at
+            <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>.
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        &copy; <span id="year"></span> J. Stevens BIM Acoustics
+        &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+      </footer>
+
+    </div>
+  </div>
+
+  <div id="lucius-widget"></div>
+
+  <script src="/lucius-widget.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
