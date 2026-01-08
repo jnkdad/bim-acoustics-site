@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Products | J. Stevens BIM Acoustics</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <div class="topbar">
+        <div class="brand">
+          <a href="/" style="display:flex; align-items:center; gap:14px; text-decoration:none;">
+            <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+            <div class="name">J. Stevens BIM Acoustics</div>
+          </a>
+        </div>
+
+        <!-- Traditional top nav -->
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn primary" href="/products.html">Products</a>
+          <a class="btn" href="/resources.html">Resources</a>
+          <a class="btn" href="/about.html">About</a>
+        </div>
+      </div>
+
+      <section class="card" id="products">
+        <div class="hd">
+          <h1 class="title">Products</h1>
+        </div>
+        <div class="bd">
+
+          <h2 class="title title-sm">AVTools System Designer (Standard)</h2>
+          <div class="small">Revit add-in for distributed loudspeaker system design</div>
+
+          <div class="mt-12 small">
+            <p>
+              AVTools System Designer (Standard) is a Revit add-in designed to automate and standardize the layout of
+              distributed ceiling loudspeaker systems. It focuses on speed, consistency, and repeatability across
+              multi-room projects, while keeping engineering judgment with the designer.
+            </p>
+
+            <h3 class="title title-sm" style="margin-top:14px;">What it does</h3>
+            <ul style="margin:8px 0 0 18px;">
+              <li>Automatically places ceiling-hosted loudspeakers using industry-standard spacing models</li>
+              <li>Applies rule-based spacing logic derived from accepted distributed-system practice</li>
+              <li>Produces consistent layouts across rooms without manual copy-and-paste workflows</li>
+              <li>Allows designers to specify a target SPL and receive tap-setting recommendations</li>
+              <li>Provides basic isobar (ISO-line) coverage mapping to visualize relative coverage uniformity</li>
+              <li>Exposes early design metadata (room size, surface area, quantities) directly in the model</li>
+            </ul>
+
+            <h3 class="title title-sm" style="margin-top:14px;">What it does not do (Standard)</h3>
+            <ul style="margin:8px 0 0 18px;">
+              <li>No detailed acoustic simulation</li>
+              <li>No frequency-dependent modeling</li>
+              <li>No full SPL or STI prediction</li>
+              <li>No EASE-style acoustic analysis</li>
+            </ul>
+
+            <p style="margin-top:12px;">
+              System Designer (Standard) is intentionally not a black-box acoustics engine. Its role is to automate
+              first-order layout, visualize relative coverage, and establish system intent — not to replace detailed
+              acoustic modeling or professional judgment.
+            </p>
+
+            <h3 class="title title-sm" style="margin-top:14px;">Current Status</h3>
+            <ul style="margin:8px 0 0 18px;">
+              <li><b>Edition:</b> System Designer (Standard)</li>
+              <li><b>Availability:</b> Limited early access</li>
+              <li><b>Platform:</b> Autodesk Revit (2022–2026)</li>
+              <li><b>System focus:</b> Distributed ceiling loudspeaker systems</li>
+            </ul>
+
+            <h3 class="title title-sm" style="margin-top:14px;">Planned Extensions</h3>
+            <p style="margin-top:8px;">
+              <b>AVTools System Designer Pro</b> builds on the Standard edition by extending the layout and visualization
+              model into enhanced acoustic and system analysis, including:
+            </p>
+            <ul style="margin:8px 0 0 18px;">
+              <li>Enhanced coverage mapping using manufacturer loudspeaker balloon data where available</li>
+              <li>Improved spatial coverage visualization beyond basic ISO-line mapping</li>
+              <li>Room-level acoustic metrics such as RT60 and STI for early design validation</li>
+              <li>Electrical system modeling: amplifier loading, circuiting, and line-loss analysis</li>
+            </ul>
+
+            <h3 class="title title-sm" style="margin-top:14px;">Planned Availability</h3>
+            <ul style="margin:8px 0 0 18px;">
+              <li><b>System Designer Pro:</b> Targeted for Q2 2026</li>
+            </ul>
+            <div class="note" style="margin-top:8px;">
+              Timeline is targeted and may adjust as features mature.
+            </div>
+
+            <h3 class="title title-sm" style="margin-top:14px;">Questions?</h3>
+            <p style="margin-top:8px;">
+              If you want to understand whether System Designer fits your workflow, ask <b>Lucius</b> directly,
+              or contact us at <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <footer>
+        &copy; <span id="year"></span> J. Stevens BIM Acoustics
+        &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- Floating Lucius on pages without #lucius-embed -->
+  <div id="lucius-widget"></div>
+
+  <script src="/lucius-widget.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
