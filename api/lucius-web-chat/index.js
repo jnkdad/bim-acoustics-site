@@ -3,6 +3,7 @@
 // - Reads engineering docs from: /docs/lucius (relative to this function folder)
 // - Calls OpenAI Responses API using built-in https (no fetch dependency)
 // - GET ?debug=1 lists visible files so we can diagnose deployments
+// - Optional: logs opted-in transcripts to Application Insights via context.log
 
 const fs = require("fs");
 const path = require("path");
@@ -136,12 +137,12 @@ function buildDeveloperInstructions(docs) {
     "Hard facts you MUST state correctly:",
     "- Company: BIM Acoustics (J. Stevens BIM Acoustics)",
     "- Founder: Jerrold Stevens",
-    '- Canonical product name: "AVToolsSystemDesigner add-in for Revit (Distributed Systems)"',
-    '  After first use, you may shorten to "System Designer".',
+    '- Canonical product name: \"AVToolsSystemDesigner add-in for Revit (Distributed Systems)\"',
+    '  After first use, you may shorten to \"System Designer\".',
     "",
     "Identity handling (MUST follow exactly):",
-    '- If the user says: "This is Jerrold"',
-    '  Reply with: "If you’re Jerrold Stevens (founder of BIM Acoustics), welcome back — how can I help?"',
+    '- If the user says: \"This is Jerrold\"',
+    '  Reply with: \"If you’re Jerrold Stevens (founder of BIM Acoustics), welcome back — how can I help?\"',
     "",
     "Tone rules:",
     "- Professional, informative, confident.",
@@ -223,12 +224,10 @@ function httpsJsonRequest(urlString, method, headers, bodyString) {
 function extractOutputText(data) {
   if (!data) return null;
 
-  // 1) Convenience field
   if (typeof data.output_text === "string" && data.output_text.trim()) {
     return data.output_text.trim();
   }
 
-  // 2) Walk output array: [{type:"message", content:[{type:"output_text", text:"..."}]}]
   if (Array.isArray(data.output)) {
     for (const item of data.output) {
       if (item && item.type === "message" && Array.isArray(item.content)) {
@@ -242,7 +241,6 @@ function extractOutputText(data) {
     }
   }
 
-  // 3) Some variants: output[0].content may be plain strings
   try {
     if (Array.isArray(data.output) && data.output[0] && Array.isArray(data.output[0].content)) {
       const parts = data.output[0].content
@@ -298,8 +296,27 @@ async function callOpenAI(developerText, userText) {
   const text = extractOutputText(resp.json);
   if (text) return text;
 
-  // If we get here, we received JSON but couldn’t find text
   throw new Error("OpenAI response received but no output text was found to display.");
+}
+
+// ✅ Safe transcript logging: never breaks chat
+function logTranscriptEvent(context, payload) {
+  try {
+    const safePayload = {
+      ts: payload.ts,
+      sessionId: payload.sessionId,
+      page: payload.page,
+      model: payload.model,
+      user: typeof payload.user === "string" ? payload.user.slice(0, 2000) : null,
+      lucius: typeof payload.lucius === "string" ? payload.lucius.slice(0, 4000) : null,
+    };
+    context.log("LUCIUS_TRANSCRIPT " + JSON.stringify(safePayload));
+  } catch (e) {
+    // Never fail the function due to analytics
+    try {
+      context.log.warn("Lucius transcript logging failed:", e && e.message);
+    } catch {}
+  }
 }
 
 module.exports = async function (context, req) {
@@ -379,25 +396,27 @@ module.exports = async function (context, req) {
 
     const reply = await callOpenAI(developerText, userText);
 
+    // Return response first (fast path)
     context.res = {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       body: { ok: true, reply },
     };
+
+    // Transcript logging (best-effort; never throws)
     const consentToLog = !!(req.body && req.body.consentToLog);
-const sessionId = (req.body && req.body.sessionId) ? String(req.body.sessionId) : null;
+    const sessionId = req.body && req.body.sessionId ? String(req.body.sessionId) : null;
 
-if (consentToLog) {
-  logTranscriptEvent(context, {
-    ts: new Date().toISOString(),
-    sessionId,
-    page: (req.headers && (req.headers.referer || req.headers.referrer)) || null,
-    user: userText,
-    lucius: reply,
-    model: OPENAI_MODEL
-  });
-}
-
+    if (consentToLog && reply) {
+      logTranscriptEvent(context, {
+        ts: new Date().toISOString(),
+        sessionId,
+        page: req.headers ? (req.headers.referer || req.headers.referrer || null) : null,
+        user: userText,
+        lucius: reply,
+        model: OPENAI_MODEL,
+      });
+    }
   } catch (err) {
     context.log.error("Lucius error:", err);
 
@@ -406,19 +425,5 @@ if (consentToLog) {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       body: { ok: false, error: err.message || "Unknown error" },
     };
-    const consentToLog = !!(req.body && req.body.consentToLog);
-const sessionId = (req.body && req.body.sessionId) ? String(req.body.sessionId) : null;
-
-if (consentToLog) {
-  logTranscriptEvent(context, {
-    ts: new Date().toISOString(),
-    sessionId,
-    page: (req.headers && (req.headers.referer || req.headers.referrer)) || null,
-    user: userText,
-    lucius: reply,
-    model: OPENAI_MODEL
-  });
-}
-
   }
 };

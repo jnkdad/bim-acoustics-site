@@ -227,14 +227,24 @@ module.exports = async function (context, req) {
     return;
   }
 function logTranscriptEvent(context, payload) {
-  // Application Insights captures context.log output automatically when enabled.
-  // Prefix makes it easy to query later.
   try {
-    context.log("LUCIUS_TRANSCRIPT " + JSON.stringify(payload));
-  } catch {
-    // ignore logging failures
+    // Truncate to avoid App Insights size/serialization issues
+    const safePayload = {
+      ts: payload.ts,
+      sessionId: payload.sessionId,
+      page: payload.page,
+      model: payload.model,
+      user: typeof payload.user === "string" ? payload.user.slice(0, 2000) : null,
+      lucius: typeof payload.lucius === "string" ? payload.lucius.slice(0, 4000) : null
+    };
+
+    context.log("LUCIUS_TRANSCRIPT " + JSON.stringify(safePayload));
+  } catch (e) {
+    // NEVER allow logging to break chat
+    context.log.warn("Lucius transcript logging failed:", e && e.message);
   }
 }
+
 
   try {
     const userText = parseUserMessage(req);
