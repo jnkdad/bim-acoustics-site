@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | J. Stevens BIM Acoustics</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <div class="topbar">
+        <div class="brand">
+          <a href="/" style="display:flex; align-items:center; gap:14px; text-decoration:none;">
+            <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+            <div class="name">J. Stevens BIM Acoustics</div>
+          </a>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn" href="/products.html">Products</a>
+          <a class="btn" href="/resources.html">Resources</a>
+          <a class="btn primary" href="/about.html">About</a>
+        </div>
+      </div>
+
+      <section class="card" id="about">
+        <div class="hd">
+          <h1 class="title">About BIM Acoustics</h1>
+        </div>
+
+        <div class="bd">
+
+          <div class="small" style="margin-bottom:14px;">
+            BIM Acoustics focuses on advancing AV and acoustics system design workflows through Revit-based automation,
+            practical engineering tools, and applied education. The work is grounded in real-world consulting practice,
+            with an emphasis on clarity, repeatability, and sound engineering judgment rather than black-box automation.
+          </div>
+
+          <div class="prod-grid">
+
+            <!-- JERROLD -->
+            <div class="prod-card">
+              <h2 class="prod-title">Jerrold Stevens</h2>
+              <div class="prod-sub">Founder | AV &amp; Acoustics Systems Design</div>
+
+              <div class="small" style="margin-top:10px;">
+                Jerrold Stevens is the founder of BIM Acoustics and has spent decades working at the intersection of
+                audio-video system design, acoustics, and professional education.
+              </div>
+
+              <div class="small" style="margin-top:10px;">
+                His background spans consulting practice, system design, and teaching, with a long-standing focus on
+                sound reinforcement and distributed audio systems. Jerrold has taught and developed courses for industry
+                organizations including InfoComm / AVIXA and has presented internationally across North America,
+                Europe, the Middle East, and Asia.
+              </div>
+
+              <div class="small" style="margin-top:10px;">
+                In recent years, his work has centered on applying BIM methodologies to AV design—specifically using
+                Revit to improve consistency, coordination, and efficiency in multi-room projects. BIM Acoustics tools
+                are built directly from this experience, reflecting workflows used in practice rather than abstract
+                theory.
+              </div>
+            </div>
+
+            <!-- DAVID -->
+            <div class="prod-card">
+              <h2 class="prod-title">David Marsh, FASA</h2>
+              <div class="prod-sub">Acoustics Partner | Marsh PMK</div>
+
+              <div class="small" style="margin-top:10px;">
+                David Marsh is President and Principal of Marsh PMK and a recognized leader in architectural acoustics
+                and audio-video system consulting. His professional experience spans more than three decades across
+                architectural acoustics, environmental noise, and AV systems design.
+              </div>
+
+              <div class="small" style="margin-top:10px;">
+                Mr. Marsh is a Fellow of the Acoustical Society of America (FASA) and a past president of the National
+                Council of Acoustical Consultants. He has written extensively for industry publications, presented
+                papers, chaired sessions at professional society meetings, and serves as a regular seminar instructor
+                at international conferences in the U.S. and Asia.
+              </div>
+
+              <div class="small" style="margin-top:10px;">
+                His project experience includes hotels and mega-resorts, casinos, convention centers,
+                retail/dining/entertainment venues, professional and collegiate sports facilities, theme parks and
+                attractions, museums, performing arts centers, houses of worship, universities, K–12 schools,
+                healthcare facilities, government buildings, high-rise office towers, and large-scale corporate and
+                residential developments.
+              </div>
+
+              <div class="small" style="margin-top:10px;">
+                David collaborates with BIM Acoustics on acoustics-related tools, analysis workflows, and
+                research-driven development.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="note" style="margin-top:14px;">
+            Questions about BIM Acoustics or its tools? Ask <b>Lucius</b>, or contact us at
+            <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>.
+          </div>
+
+        </div>
+      </section>
+
+      <footer>
+        &copy; <span id="year"></span> J. Stevens BIM Acoustics
+        &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- Floating Lucius on pages without #lucius-embed -->
+  <div id="lucius-widget"></div>
+
+  <script src="/lucius-widget.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
