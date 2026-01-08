@@ -18,6 +18,7 @@
       return "sess_" + Date.now();
     }
   }
+
   function getConsent() {
     try { return localStorage.getItem(CONSENT_KEY); } catch { return null; }
   }
@@ -26,7 +27,7 @@
   }
 
   const state = {
-    open: false,          // for floating mode
+    open: false,           // for floating mode
     busy: false,
     sessionId: getOrCreateSessionId(),
     consent: getConsent(), // null | yes | no
@@ -35,9 +36,12 @@
     messages: [
       {
         role: "sys",
-        text: "Hi — I’m Lucius. You can ask me anything about BIM Acoustics, including our first product: AVTools System Designer for distributed systems, Revit support (2022–2026), and early access."
+        text: "Hi — I’m Lucius. Ask me anything about BIM Acoustics, including our first product: AVToolsSystemDesigner (Distributed Systems) add-in for Revit, Revit support (2022–2026), and early access."
       }
-    ]
+    ],
+
+    // if true, after render we scroll to bottom
+    shouldScroll: true
   };
 
   function gated() {
@@ -77,13 +81,17 @@
     `;
   }
 
+  function scrollToBottom(container) {
+    const body = container.querySelector("#lw-body");
+    if (!body) return;
+    body.scrollTop = body.scrollHeight;
+  }
+
   function renderChat(container, mode) {
     const isGated = gated();
-
-    // Panel shell differs between embedded vs floating
     const panelOpen = (mode === "embedded") ? true : state.open;
 
-    container.innerHTML = mode === "embedded"
+    container.innerHTML = (mode === "embedded")
       ? `
         <div class="lw-embed-shell">
           <div class="lw-embed-hd"><div class="lw-title">Lucius</div></div>
@@ -134,7 +142,7 @@
     if (mode === "floating") {
       const fab = container.querySelector(".lw-fab");
       const close = container.querySelector(".lw-x");
-      if (fab) fab.onclick = () => { state.open = true; render(); };
+      if (fab) fab.onclick = () => { state.open = true; state.shouldScroll = true; render(); };
       if (close) close.onclick = () => { state.open = false; render(); };
     }
 
@@ -144,16 +152,15 @@
     const noBtn = container.querySelector("#lw-consent-no");
 
     if (check && yesBtn) check.onchange = () => { yesBtn.disabled = !check.checked; };
-    if (yesBtn) yesBtn.onclick = () => { setConsent("yes"); state.consent = "yes"; render(); };
-    if (noBtn)  noBtn.onclick  = () => { setConsent("no");  state.consent = "no";  render(); };
+    if (yesBtn) yesBtn.onclick = () => { setConsent("yes"); state.consent = "yes"; state.shouldScroll = true; render(); };
+    if (noBtn)  noBtn.onclick  = () => { setConsent("no");  state.consent = "no";  state.shouldScroll = true; render(); };
 
     // Send handler
     const input = container.querySelector("#lw-in");
     const send = container.querySelector("#lw-send");
-    const bodyEl = container.querySelector("#lw-body");
 
     async function sendMessage() {
-      if (!input || !bodyEl) return;
+      if (!input) return;
       if (state.busy || gated()) return;
 
       const msg = (input.value || "").trim();
@@ -163,6 +170,7 @@
       input.value = "";
 
       state.busy = true;
+      state.shouldScroll = true;
       render();
 
       try {
@@ -190,6 +198,7 @@
         state.messages.push({ role: "bot", text: "Sorry — something went wrong. Please try again." });
       } finally {
         state.busy = false;
+        state.shouldScroll = true;
         render();
       }
     }
@@ -197,6 +206,13 @@
     if (send && input) {
       send.onclick = sendMessage;
       input.onkeydown = (e) => { if (e.key === "Enter") send.click(); };
+    }
+
+    // ✅ Auto-scroll after render
+    if (state.shouldScroll) {
+      state.shouldScroll = false;
+      // defer until DOM is painted
+      setTimeout(() => scrollToBottom(container), 0);
     }
   }
 
