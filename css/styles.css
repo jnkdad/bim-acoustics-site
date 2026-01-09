@@ -980,6 +980,16 @@ textarea:focus{
   /* Prevent any accidental horizontal overflow */
   body{ overflow-x: hidden; }
 
+  @media (max-width: 520px) {
+  body.page-about .wrap,
+  body.page-about .container {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
   /* Ensure About cards never exceed viewport width */
   #about .prod-card{
     width: 100%;
