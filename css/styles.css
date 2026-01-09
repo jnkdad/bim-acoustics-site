@@ -897,3 +897,79 @@ textarea:focus{
   color: var(--accent);
   opacity: 0.95;
 }
+/* ================================
+   Mobile polish pass (phones)
+   ================================ */
+
+@media (max-width: 600px){
+
+  /* Reduce overall padding so content fits better */
+  .wrap{
+    padding: 16px 12px 18px;
+  }
+
+  /* Header / brand cleanup */
+  .brand img{
+    width: 64px;
+    height: 64px;
+  }
+
+  .brand-line1{
+    font-size: 18px;
+  }
+
+  .brand-line2{
+    font-size: 16px;
+  }
+
+  /* Top nav buttons wrap cleanly */
+  .topbar{
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .topbar .btn{
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  /* Cards feel less tall */
+  .bd{
+    padding: 12px 12px 14px;
+  }
+
+  /* Product & resource cards tighten */
+  .prod-card{
+    padding: 12px;
+  }
+
+  .prod-title{
+    font-size: 16px;
+  }
+
+  .prod-sub{
+    font-size: 13px;
+  }
+
+  /* Body text smaller but readable */
+  #products p,
+  #products li,
+  #resources p,
+  #resources li,
+  #about .small{
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Lucius button stays clear of content */
+  #lucius-widget{
+    right: 12px;
+    bottom: 12px;
+  }
+
+  #lucius-widget .lw-panel{
+    width: calc(100vw - 24px);
+    max-height: 65vh;
+  }
+
+}
