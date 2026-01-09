@@ -1,9 +1,19 @@
 // /api/lucius-web-chat/index.js
 // Lucius website chat handler (Azure Functions, Node)
-// - Reads engineering docs from: /docs/lucius (relative to this function folder)
-// - Calls OpenAI Responses API using built-in https (no fetch dependency)
-// - GET ?debug=1 lists visible files so we can diagnose deployments
-// - Optional: logs opted-in transcripts to Application Insights via context.log
+//
+// ✅ v1 Prompt Pack Centralization (runtime HTTPS fetch + TTL cache + local fallback)
+// - Fetches layered prompt packs from:
+//   https://www.bimacoustics.net/lucius/packs/core.md
+//   https://www.bimacoustics.net/lucius/packs/system-designer.md
+//   https://www.bimacoustics.net/lucius/packs/website-overlay.md
+// - Caches in-memory (default 10 minutes; configurable via LUCIUS_PACK_TTL_MS)
+// - Falls back to local copies in /docs/lucius when fetch fails
+// - GET ?debug=1 lists visible local docs (existing behavior)
+// - POST with message starting "TEST LOGGING:" returns extra debug telemetry (pack load status)
+//
+// Notes:
+// - Uses built-in https (no fetch dependency)
+// - Calls OpenAI Responses API
 
 const fs = require("fs");
 const path = require("path");
@@ -17,9 +27,29 @@ const OPENAI_API_BASE = process.env.OPENAI_API_BASE || "https://api.openai.com";
 const ENV_SYSTEM_PROMPT = process.env.LUCIUS_SYSTEM_PROMPT || "";
 const ENV_KB = process.env.LUCIUS_KB || "";
 
-// Warm cache
-let _cached = null;
-let _cachedKey = null;
+// Prompt pack URLs (Option A: public but unlinked, hosted in website repo)
+const PACK_BASE =
+  (process.env.LUCIUS_PACK_BASE || "https://www.bimacoustics.net/lucius/packs").replace(/\/+$/, "");
+
+const PACK_URLS = {
+  core: process.env.LUCIUS_PACK_CORE_URL || `${PACK_BASE}/core.md`,
+  systemDesigner: process.env.LUCIUS_PACK_SYSTEM_DESIGNER_URL || `${PACK_BASE}/system-designer.md`,
+  websiteOverlay: process.env.LUCIUS_PACK_WEBSITE_OVERLAY_URL || `${PACK_BASE}/website-overlay.md`,
+};
+
+// Cache TTL (5–15 min recommended; default 10 min)
+const PACK_TTL_MS = Number(process.env.LUCIUS_PACK_TTL_MS || 10 * 60 * 1000);
+
+// Warm caches
+let _cachedLocalDocs = null;
+let _cachedLocalKey = null;
+
+let _packCache = {
+  expiresAt: 0,
+  data: null, // { core, systemDesigner, websiteOverlay, meta }
+};
+
+// ---------- Local docs helpers (existing) ----------
 
 function safeReadUtf8(filePath) {
   try {
@@ -69,6 +99,7 @@ function loadLuciusDocs() {
   // docs live at /home/site/wwwroot/lucius-web-chat/docs/lucius
   const docsDir = path.join(__dirname, "docs", "lucius");
 
+  // You previously used two internal docs. Keep them as local fallbacks.
   const engineeringModelPath =
     findDocByKeywords(docsDir, ["system", "designer", "engineering"]) ||
     findDocByKeywords(docsDir, ["engineering", "model"]) ||
@@ -79,7 +110,7 @@ function loadLuciusDocs() {
     findDocByKeywords(docsDir, ["engineering", "response"]) ||
     null;
 
-  // Cache key based on file mtimes (so edits update without cold start)
+  // Cache key based on file mtimes
   const keyParts = [];
   for (const p of [engineeringModelPath, engineeringResponsesPath]) {
     if (!p) {
@@ -91,22 +122,24 @@ function loadLuciusDocs() {
   }
   const key = keyParts.join("|");
 
-  if (_cached && _cachedKey === key) return _cached;
+  if (_cachedLocalDocs && _cachedLocalKey === key) return _cachedLocalDocs;
 
   const engineeringModel = engineeringModelPath ? safeReadUtf8(engineeringModelPath) : null;
   const engineeringResponses = engineeringResponsesPath ? safeReadUtf8(engineeringResponsesPath) : null;
 
-  _cached = {
+  _cachedLocalDocs = {
     docsDir,
     engineeringModelPath,
     engineeringResponsesPath,
     engineeringModel,
     engineeringResponses,
   };
-  _cachedKey = key;
+  _cachedLocalKey = key;
 
-  return _cached;
+  return _cachedLocalDocs;
 }
+
+// ---------- Request parsing ----------
 
 function parseUserMessage(req) {
   const body = req.body || {};
@@ -130,58 +163,9 @@ function parseUserMessage(req) {
   return "";
 }
 
-function buildDeveloperInstructions(docs) {
-  const hardRules = [
-    "You are Lucius, the technically credible engineering explainer for the BIM Acoustics website.",
-    "",
-    "Hard facts you MUST state correctly:",
-    "- Company: BIM Acoustics (J. Stevens BIM Acoustics)",
-    "- Founder: Jerrold Stevens",
-    '- Canonical product name: \"AVToolsSystemDesigner add-in for Revit (Distributed Systems)\"',
-    '  After first use, you may shorten to \"System Designer\".',
-    "",
-    "Identity handling (MUST follow exactly):",
-    '- If the user says: \"This is Jerrold\"',
-    '  Reply with: \"If you’re Jerrold Stevens (founder of BIM Acoustics), welcome back — how can I help?\"',
-    "",
-    "Tone rules:",
-    "- Professional, informative, confident.",
-    "- Do NOT be evasive.",
-    "- Do NOT say “I can’t provide that” when the information exists in the provided references.",
-    "- Do NOT be salesy. Do not push early access unless the user asks how to buy/try/get access.",
-    "",
-    "Technical truth rules:",
-    "- Be transparent about assumptions and limits.",
-    "- Do NOT claim acoustic simulation (no SPL maps/STI/EASE prediction).",
-    "- Current v1 includes geometric layout + spacing + tap recommendation based on target SPL (design assist).",
-    "- Pro roadmap may include amplifier loading, circuiting, and line-loss modeling; do NOT imply those exist today.",
-    "",
-    "Answer behavior:",
-    "- When asked “what formula,” provide the canonical form(s) shown in the references (symbolic form is OK).",
-    "- Keep answers concise: 1–6 short paragraphs; bullets are fine.",
-  ].join("\n");
+// ---------- HTTPS helpers ----------
 
-  const engineeringModel =
-    docs.engineeringModel ||
-    ENV_KB ||
-    "(No engineering model text found. Ensure api/lucius-web-chat/docs/lucius/*.md is deployed.)";
-
-  const engineeringResponses =
-    docs.engineeringResponses ||
-    ENV_SYSTEM_PROMPT ||
-    "(No engineering responses text found. Ensure api/lucius-web-chat/docs/lucius/*.md is deployed.)";
-
-  return (
-    hardRules +
-    "\n\nREFERENCE — System Designer Engineering Model:\n---\n" +
-    engineeringModel +
-    "\n---\n\nREFERENCE — Lucius Website Engineering Responses:\n---\n" +
-    engineeringResponses +
-    "\n---"
-  );
-}
-
-function httpsJsonRequest(urlString, method, headers, bodyString) {
+function httpsRequest(urlString, method, headers, bodyString) {
   return new Promise((resolve, reject) => {
     const u = new URL(urlString);
 
@@ -199,17 +183,10 @@ function httpsJsonRequest(urlString, method, headers, bodyString) {
       res.setEncoding("utf8");
       res.on("data", (chunk) => (data += chunk));
       res.on("end", () => {
-        let json = null;
-        try {
-          json = data ? JSON.parse(data) : {};
-        } catch {
-          json = null;
-        }
-
         resolve({
           ok: res.statusCode >= 200 && res.statusCode < 300,
           status: res.statusCode,
-          json,
+          headers: res.headers || {},
           raw: data,
         });
       });
@@ -220,6 +197,163 @@ function httpsJsonRequest(urlString, method, headers, bodyString) {
     r.end();
   });
 }
+
+async function httpsTextGet(url, extraHeaders = {}) {
+  const resp = await httpsRequest(url, "GET", { "User-Agent": "lucius-web-chat/1.0", ...extraHeaders }, null);
+  if (!resp.ok) {
+    const err = new Error(`HTTP GET failed (${resp.status}) for ${url}`);
+    err.status = resp.status;
+    throw err;
+  }
+  return { text: resp.raw || "", headers: resp.headers || {} };
+}
+
+function nowMs() {
+  return Date.now();
+}
+
+// ---------- Prompt pack loading (HTTPS + TTL cache + local fallback) ----------
+
+async function loadPromptPacksWithCache(context, localDocs) {
+  // Serve cached packs if valid
+  if (_packCache.data && _packCache.expiresAt > nowMs()) {
+    return { ..._packCache.data, meta: { ..._packCache.data.meta, cache: "hit" } };
+  }
+
+  const startedAt = new Date().toISOString();
+  const meta = {
+    startedAt,
+    cache: "miss",
+    ttlMs: PACK_TTL_MS,
+    urls: { ...PACK_URLS },
+    fetched: {
+      core: { ok: false, bytes: 0, etag: null, lastModified: null, source: null, error: null },
+      systemDesigner: { ok: false, bytes: 0, etag: null, lastModified: null, source: null, error: null },
+      websiteOverlay: { ok: false, bytes: 0, etag: null, lastModified: null, source: null, error: null },
+    },
+  };
+
+  // Local fallbacks (your existing docs)
+  const localFallbackCore = localDocs.engineeringResponses || ENV_SYSTEM_PROMPT || "";
+  const localFallbackSystemDesigner = localDocs.engineeringModel || ENV_KB || "";
+  const localFallbackOverlay = ""; // If you have a local overlay file later, wire it here.
+
+  let coreText = "";
+  let systemDesignerText = "";
+  let websiteOverlayText = "";
+
+  // Try remote fetch for each pack. If any fail, fall back per-pack.
+  async function fetchOrFallback(packKey, url, localFallback, metaKey) {
+    try {
+      const { text, headers } = await httpsTextGet(url);
+      const t = (text || "").trim();
+      meta.fetched[metaKey].ok = !!t;
+      meta.fetched[metaKey].bytes = Buffer.byteLength(text || "", "utf8");
+      meta.fetched[metaKey].etag = headers.etag || null;
+      meta.fetched[metaKey].lastModified = headers["last-modified"] || null;
+      meta.fetched[metaKey].source = meta.fetched[metaKey].ok ? "https" : "fallback-empty";
+      return meta.fetched[metaKey].ok ? t : (localFallback || "").trim();
+    } catch (e) {
+      meta.fetched[metaKey].ok = false;
+      meta.fetched[metaKey].bytes = 0;
+      meta.fetched[metaKey].etag = null;
+      meta.fetched[metaKey].lastModified = null;
+      meta.fetched[metaKey].source = "local-fallback";
+      meta.fetched[metaKey].error = (e && e.message) ? String(e.message) : "fetch failed";
+      // Best-effort log (won’t break)
+      try {
+        context.log.warn(`Lucius pack fetch failed for ${packKey}: ${meta.fetched[metaKey].error}`);
+      } catch {}
+      return (localFallback || "").trim();
+    }
+  }
+
+  coreText = await fetchOrFallback("core", PACK_URLS.core, localFallbackCore, "core");
+  systemDesignerText = await fetchOrFallback(
+    "systemDesigner",
+    PACK_URLS.systemDesigner,
+    localFallbackSystemDesigner,
+    "systemDesigner"
+  );
+  websiteOverlayText = await fetchOrFallback(
+    "websiteOverlay",
+    PACK_URLS.websiteOverlay,
+    localFallbackOverlay,
+    "websiteOverlay"
+  );
+
+  // If core is still empty, ensure we always have *something*
+  if (!coreText) coreText = (ENV_SYSTEM_PROMPT || "").trim();
+
+  const data = {
+    core: coreText,
+    systemDesigner: systemDesignerText,
+    websiteOverlay: websiteOverlayText,
+    meta,
+  };
+
+  // Save to cache
+  _packCache = {
+    expiresAt: nowMs() + PACK_TTL_MS,
+    data,
+  };
+
+  return data;
+}
+
+// ---------- Prompt assembly ----------
+
+function buildDeveloperInstructionsFromPacks(packs) {
+  // Keep your hard rules, then layer packs beneath.
+  const hardRules = [
+    "You are Lucius, the technically credible engineering explainer for the BIM Acoustics website.",
+    "",
+    "Hard facts you MUST state correctly:",
+    "- Company: BIM Acoustics (J. Stevens BIM Acoustics)",
+    "- Founder: Jerrold Stevens",
+    '- Canonical product name: "AVToolsSystemDesigner add-in for Revit (Distributed Systems)"',
+    '  After first use, you may shorten to "System Designer".',
+    "",
+    "Identity handling (MUST follow exactly):",
+    '- If the user says: "This is Jerrold"',
+    '  Reply with: "If you’re Jerrold Stevens (founder of BIM Acoustics), welcome back — how can I help?"',
+    "",
+    "Tone rules:",
+    "- Professional, informative, confident.",
+    "- Do NOT be evasive.",
+    "- Do NOT be salesy. Do not push early access unless the user asks how to buy/try/get access.",
+    "",
+    "Technical truth rules:",
+    "- Be transparent about assumptions and limits.",
+    "- Do NOT claim acoustic simulation (no SPL maps/STI/EASE prediction).",
+    "- v1 includes geometric layout + spacing + tap recommendation guidance based on target SPL (design assist).",
+    "- Roadmap items are not features; never imply they exist today.",
+    "",
+    "Answer behavior:",
+    "- When asked “what formula,” provide canonical forms if available; symbolic form is OK.",
+    "- Keep answers concise: 1–6 short paragraphs; bullets are fine.",
+  ].join("\n");
+
+  // Layered prompt packs (v1)
+  const core = packs.core || "";
+  const systemDesigner = packs.systemDesigner || "";
+  const overlay = packs.websiteOverlay || "";
+
+  return [
+    hardRules,
+    "",
+    "=== CORE PACK (global) ===",
+    core ? core : "(core pack missing)",
+    "",
+    "=== PRODUCT PACK: AVToolsSystemDesigner ===",
+    systemDesigner ? systemDesigner : "(system-designer pack missing)",
+    "",
+    "=== CONTEXT OVERLAY: Website ===",
+    overlay ? overlay : "(website overlay pack missing)",
+  ].join("\n");
+}
+
+// ---------- OpenAI Responses API ----------
 
 function extractOutputText(data) {
   if (!data) return null;
@@ -273,7 +407,7 @@ async function callOpenAI(developerText, userText) {
     ],
   };
 
-  const resp = await httpsJsonRequest(
+  const resp = await httpsRequest(
     url,
     "POST",
     {
@@ -283,17 +417,24 @@ async function callOpenAI(developerText, userText) {
     JSON.stringify(payload)
   );
 
+  let json = null;
+  try {
+    json = resp.raw ? JSON.parse(resp.raw) : {};
+  } catch {
+    json = null;
+  }
+
   if (!resp.ok) {
     const msg =
-      (resp.json && resp.json.error && resp.json.error.message) ||
+      (json && json.error && json.error.message) ||
       ("OpenAI API error (" + resp.status + ")");
     const err = new Error(msg);
     err.status = resp.status;
-    err.details = resp.json || resp.raw;
+    err.details = json || resp.raw;
     throw err;
   }
 
-  const text = extractOutputText(resp.json);
+  const text = extractOutputText(json);
   if (text) return text;
 
   throw new Error("OpenAI response received but no output text was found to display.");
@@ -312,7 +453,6 @@ function logTranscriptEvent(context, payload) {
     };
     context.log("LUCIUS_TRANSCRIPT " + JSON.stringify(safePayload));
   } catch (e) {
-    // Never fail the function due to analytics
     try {
       context.log.warn("Lucius transcript logging failed:", e && e.message);
     } catch {}
@@ -331,7 +471,7 @@ module.exports = async function (context, req) {
     return;
   }
 
-  // Debug endpoint
+  // Debug endpoint (existing)
   if (req.method === "GET") {
     const docs = loadLuciusDocs();
     const debug = String((req.query && req.query.debug) || "").trim() === "1";
@@ -358,6 +498,10 @@ module.exports = async function (context, req) {
           docPaths: {
             engineeringModelPath: docs.engineeringModelPath ? path.basename(docs.engineeringModelPath) : null,
             engineeringResponsesPath: docs.engineeringResponsesPath ? path.basename(docs.engineeringResponsesPath) : null,
+          },
+          packConfig: {
+            PACK_TTL_MS,
+            PACK_URLS,
           },
         },
       };
@@ -391,16 +535,32 @@ module.exports = async function (context, req) {
       return;
     }
 
-    const docs = loadLuciusDocs();
-    const developerText = buildDeveloperInstructions(docs);
+    // Debug trigger: message starts with "TEST LOGGING:"
+    const isDebugPost = typeof userText === "string" && userText.startsWith("TEST LOGGING:");
 
+    // Load local docs (fallbacks) + remote prompt packs (preferred)
+    const localDocs = loadLuciusDocs();
+    const packs = await loadPromptPacksWithCache(context, localDocs);
+
+    const developerText = buildDeveloperInstructionsFromPacks(packs);
     const reply = await callOpenAI(developerText, userText);
 
-    // Return response first (fast path)
+    // Fast response
+    const body = { ok: true, reply };
+
+    // Attach pack telemetry only when explicitly debugging
+    if (isDebugPost) {
+      body.debug = {
+        model: OPENAI_MODEL,
+        pack: packs.meta,
+        cacheExpiresAt: _packCache.expiresAt ? new Date(_packCache.expiresAt).toISOString() : null,
+      };
+    }
+
     context.res = {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
-      body: { ok: true, reply },
+      body,
     };
 
     // Transcript logging (best-effort; never throws)
