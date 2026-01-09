@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
-<body>
+<body class="page-about">
   <div class="stars" aria-hidden="true"></div>
   <div class="moon" aria-hidden="true"></div>
   <div class="clouds" aria-hidden="true"></div>
@@ -123,3 +123,44 @@
   </script>
 </body>
 </html>
+/* === About page: mobile left-clipping / offset fix === */
+@media (max-width: 520px) {
+  body.page-about {
+    overflow-x: hidden;
+  }
+
+  /* Reset common offenders that shift content sideways */
+  body.page-about .container,
+  body.page-about .content,
+  body.page-about .wrap,
+  body.page-about main,
+  body.page-about section,
+  body.page-about .card,
+  body.page-about .panel {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  /* Force sane horizontal gutters + cancel left/transform offsets */
+  body.page-about main,
+  body.page-about .content,
+  body.page-about .wrap,
+  body.page-about .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 14px;
+    padding-right: 14px;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+
+  /* If your bio cards are the clipped elements, enforce full-width cards */
+  body.page-about .card,
+  body.page-about .panel {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
