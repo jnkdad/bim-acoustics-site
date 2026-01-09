@@ -1,5 +1,5 @@
 # System Designer Engineering Model
-
+Canonical product name: AVToolsSystemDesigner add-in for Revit (Distributed Systems).
 ## AVToolsSystemDesigner Add‑In for Revit (Distributed Systems)
 
 **Document purpose**
