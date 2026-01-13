@@ -1099,3 +1099,15 @@ textarea:focus{
 .rating input:checked ~ label{ opacity:1; }
 .rating label:hover,
 .rating label:hover ~ label{ opacity:.8; }
+/* Product CTAs / actions */
+.prod-actions{
+  margin-top:10px;
+}
+
+.prod-cta{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+  margin-bottom:6px;
+}
