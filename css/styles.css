@@ -1031,3 +1031,71 @@ textarea:focus{
 .rating input:checked ~ label{ opacity:1; }
 .rating label:hover,
 .rating label:hover ~ label{ opacity:.8; }
+/* =========================
+   Reviews panel (Products)
+   ========================= */
+.review-panel{
+  margin-top:16px;
+  padding:14px 14px 16px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+}
+
+.review-title{ font-weight:700; font-size:18px; margin-bottom:6px; }
+.review-subtitle{ font-size:13px; opacity:.9; line-height:1.35; margin-bottom:12px; }
+
+.review-form .field{ display:block; margin:10px 0; }
+.review-form .field-label{ display:block; margin-bottom:6px; opacity:.9; font-size:13px; }
+
+.review-form input[type="text"],
+.review-form input[type="email"],
+.review-form textarea{
+  width:100%;
+  box-sizing:border-box;
+  margin:0;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.18);
+  color:inherit;
+}
+
+.review-form textarea{ resize:vertical; }
+
+.review-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:12px;
+}
+
+@media (max-width: 900px){
+  .review-grid{ grid-template-columns:1fr; }
+}
+
+.req{ opacity:.85; }
+
+.consent{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin-top:10px;
+  font-size:13px;
+  opacity:.95;
+}
+.consent input{ margin-top:3px; }
+
+/* Star rating control */
+.rating-fieldset{ border:0; padding:0; margin:6px 0 10px; }
+.rating{ display:inline-flex; flex-direction:row-reverse; gap:6px; }
+.rating input{ display:none; }
+.rating label{
+  font-size:26px;
+  cursor:pointer;
+  opacity:.35;
+  user-select:none;
+  line-height:1;
+}
+.rating input:checked ~ label{ opacity:1; }
+.rating label:hover,
+.rating label:hover ~ label{ opacity:.8; }

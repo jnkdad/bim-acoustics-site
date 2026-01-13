@@ -21,8 +21,7 @@
       <div class="topbar">
         <div class="brand">
           <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
-      </div>
-
+        </div>
 
         <!-- Traditional top nav -->
         <div style="display:flex; gap:10px; align-items:center;">
@@ -66,75 +65,87 @@
               <div class="prod-foot">
                 Ask <b>Lucius</b> about spacing models, overlap intent, ISO-line mapping, and tap recommendations.
               </div>
+
+              <!-- ========================= -->
+              <!-- Leave a Review (Standard) -->
+              <!-- ========================= -->
+              <div id="write-review" class="review-panel">
+                <div class="review-head">
+                  <div class="review-title">Leave a Review</div>
+                  <div class="review-subtitle">
+                    If System Designer saved you time, a quick rating + comment helps others and helps us improve.
+                    Reviews are moderated to prevent spam.
+                  </div>
+                </div>
+
+                <form class="review-form" action="https://formspree.io/f/xkoonywn" method="POST">
+                  <input type="hidden" name="product" value="AVTools System Designer (Standard)" />
+                  <input type="hidden" name="page" value="products.html" />
+
+                  <!-- Optional: return user to this section after submit -->
+                  <input type="hidden" name="_redirect" value="https://www.bimacoustics.net/products.html#write-review" />
+
+                  <!-- Optional spam trap (harmless for humans) -->
+                  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+                  <fieldset class="rating-fieldset">
+                    <legend class="field-label">Rating <span class="req">*</span></legend>
+
+                    <div class="rating">
+                      <input type="radio" id="sd-star5" name="rating" value="5" required />
+                      <label for="sd-star5" title="5 stars">★</label>
+
+                      <input type="radio" id="sd-star4" name="rating" value="4" />
+                      <label for="sd-star4" title="4 stars">★</label>
+
+                      <input type="radio" id="sd-star3" name="rating" value="3" />
+                      <label for="sd-star3" title="3 stars">★</label>
+
+                      <input type="radio" id="sd-star2" name="rating" value="2" />
+                      <label for="sd-star2" title="2 stars">★</label>
+
+                      <input type="radio" id="sd-star1" name="rating" value="1" />
+                      <label for="sd-star1" title="1 star">★</label>
+                    </div>
+                  </fieldset>
+
+                  <label class="field">
+                    <span class="field-label">Comment <span class="req">*</span></span>
+                    <textarea name="comment" rows="4" required
+                      placeholder="What did System Designer help you do faster or better?"></textarea>
+                  </label>
+
+                  <div class="review-grid">
+                    <label class="field">
+                      <span class="field-label">Name (optional)</span>
+                      <input type="text" name="name" placeholder="Jerrold" />
+                    </label>
+
+                    <label class="field">
+                      <span class="field-label">Company / Role (optional)</span>
+                      <input type="text" name="companyRole" placeholder="AV Consultant / Integrator / Designer" />
+                    </label>
+
+                    <label class="field">
+                      <span class="field-label">Email (optional)</span>
+                      <input type="email" name="email" placeholder="you@company.com" />
+                    </label>
+
+                    <label class="field">
+                      <span class="field-label">Revit version (optional)</span>
+                      <input type="text" name="revitVersion" placeholder="2022 / 2023 / 2024 / 2025 / 2026" />
+                    </label>
+                  </div>
+
+                  <label class="consent">
+                    <input type="checkbox" name="publishConsent" value="yes" />
+                    OK to publish this review (first name + company/role only; email never shown).
+                  </label>
+
+                  <button class="btn btn-primary" type="submit">Submit review</button>
+                </form>
+              </div>
             </div>
-            <form class="review-form" action="https://formspree.io/f/xkoonywn" method="POST">
-  <input type="hidden" name="product" value="System Designer" />
-  <input type="hidden" name="page" value="products.html" />
-
-  <fieldset class="rating-fieldset">
-    <legend>Rating <span class="req">*</span></legend>
-
-    <div class="rating">
-      <input type="radio" id="sd-star5" name="rating" value="5" required />
-      <label for="sd-star5" title="5 stars">★</label>
-
-      <input type="radio" id="sd-star4" name="rating" value="4" />
-      <label for="sd-star4" title="4 stars">★</label>
-
-      <input type="radio" id="sd-star3" name="rating" value="3" />
-      <label for="sd-star3" title="3 stars">★</label>
-
-      <input type="radio" id="sd-star2" name="rating" value="2" />
-      <label for="sd-star2" title="2 stars">★</label>
-
-      <input type="radio" id="sd-star1" name="rating" value="1" />
-      <label for="sd-star1" title="1 star">★</label>
-    </div>
-  </fieldset>
-
-  <label>
-    Comment <span class="req">*</span>
-    <textarea name="comment" rows="5" required
-      placeholder="What did System Designer help you do faster or better?"></textarea>
-  </label>
-
-  <div class="review-form-row">
-    <label>
-      Name (optional)
-      <input type="text" name="name" placeholder="Jane Doe" />
-    </label>
-
-    <label>
-      Company / Role (optional)
-      <input type="text" name="companyRole" placeholder="AV Consultant / Integrator / Designer" />
-    </label>
-  </div>
-
-  <div class="review-form-row">
-    <label>
-      Email (optional)
-      <input type="email" name="email" placeholder="you@company.com" />
-    </label>
-
-    <label>
-      Revit version (optional)
-      <input type="text" name="revitVersion" placeholder="Revit 2022" />
-    </label>
-  </div>
-
-  <label class="consent">
-    <input type="checkbox" name="publishConsent" value="yes" />
-    You may publish my review (name/company optional).
-  </label>
-
-  <!-- Optional spam trap (harmless for humans) -->
-  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-  <button class="btn btn-primary" type="submit">Submit review</button>
-
-  <!-- Optional redirect after submit (change to a real thank-you page if you create one) -->
-  <!-- <input type="hidden" name="_redirect" value="https://bimacoustics.net/products.html#system-designer-reviews" /> -->
-</form>
 
             <!-- PRO -->
             <div class="prod-card">
@@ -165,12 +176,6 @@
             <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>.
           </div>
 
-          <!-- Later: PDF spec sheet link -->
-          <!--
-          <div class="note" style="margin-top:10px;">
-            Download: <a class="link" href="/downloads/SystemDesigner_SpecSheet.pdf">System Designer Spec Sheet (PDF)</a>
-          </div>
-          -->
           <div class="note" style="margin-top:14px; color:#ffffff;">
             <b>Download:</b>
             <a href="/docs/AVTools_System_Designer_Datasheet_v1.0.pdf"
