@@ -1008,3 +1008,26 @@ textarea:focus{
     word-break: break-word;
   }
 }
+.review-form{ margin-top:12px; }
+.review-form-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+}
+.req{ opacity:.85; }
+.consent{ display:flex; gap:10px; align-items:flex-start; margin-top:12px; }
+.consent input{ margin-top:3px; }
+
+/* Star rating control */
+.rating-fieldset{ border:0; padding:0; margin:8px 0 6px; }
+.rating{ display:inline-flex; flex-direction:row-reverse; gap:6px; }
+.rating input{ display:none; }
+.rating label{
+  font-size:26px;
+  cursor:pointer;
+  opacity:.35;
+  user-select:none;
+}
+.rating input:checked ~ label{ opacity:1; }
+.rating label:hover,
+.rating label:hover ~ label{ opacity:.8; }
