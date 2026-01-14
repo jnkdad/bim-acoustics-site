@@ -8,9 +8,8 @@
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://www.bimacoustics.net/css/styles.css">
-
 </head>
- 
+
 <body>
   <div class="stars" aria-hidden="true"></div>
   <div class="moon" aria-hidden="true"></div>
@@ -24,14 +23,13 @@
           <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
         </div>
 
-
         <div style="display:flex; gap:10px; align-items:center;">
           <a class="btn" href="/products.html">Products</a>
           <a class="btn" href="/resources.html">Resources</a>
           <a class="btn" href="/about.html">About</a>
           <a class="btn primary" href="#early-access">Early access</a>
+        </div>
       </div>
-  </div>
 
       <!-- Full-width video hero -->
       <section class="card" id="video">
@@ -96,6 +94,31 @@
                         <div class="span2">
                           <label class="sr-only" for="mce-COMPANY">Company</label>
                           <input type="text" name="COMPANY" class="input" id="mce-COMPANY" placeholder="Company (optional)">
+                        </div>
+
+                        <!-- How did you hear about us? (required dropdown) -->
+                        <div class="span2">
+                          <label class="sr-only" for="mce-HEARABOUT">How did you hear about us?</label>
+                          <select name="HEARABOUT" class="input" id="mce-HEARABOUT" required>
+                            <option value="" selected disabled>How did you hear about us? *</option>
+                            <option value="Facebook post">Facebook post</option>
+                            <option value="Email announcement">Email announcement</option>
+                            <option value="Friend/Colleague referral">Friend/Colleague referral</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="YouTube">YouTube</option>
+                            <option value="Vimeo">Vimeo</option>
+                            <option value="Web search">Web search</option>
+                            <option value="AVIXA / InfoComm / industry event">AVIXA / InfoComm / industry event</option>
+                            <option value="Autodesk App Store">Autodesk App Store</option>
+                            <option value="Other (please specify)">Other (please specify)</option>
+                          </select>
+                        </div>
+
+                        <!-- Other (please specify) – conditional required -->
+                        <div class="span2" id="hearabout-other-wrap" style="display:none;">
+                          <label class="sr-only" for="mce-HEAROTHER">Other (please specify)</label>
+                          <input type="text" name="HEAROTHER" class="input" id="mce-HEAROTHER"
+                                 placeholder="Other (please specify) *">
                         </div>
 
                         <div class="span2">
@@ -169,7 +192,33 @@
 
   <script src="/lucius-widget.js"></script>
   <script>
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Conditional "Other (please specify)" behavior for HEARABOUT
+    (function () {
+      const sel = document.getElementById('mce-HEARABOUT');
+      const otherWrap = document.getElementById('hearabout-other-wrap');
+      const otherInput = document.getElementById('mce-HEAROTHER');
+
+      if (!sel || !otherWrap || !otherInput) return;
+
+      function isOtherSelection(value) {
+        const v = (value || '').trim().toLowerCase();
+        return v.startsWith('other');
+      }
+
+      function syncOtherField() {
+        const other = isOtherSelection(sel.value);
+        otherWrap.style.display = other ? '' : 'none';
+        otherInput.required = other;
+
+        if (!other) otherInput.value = '';
+      }
+
+      sel.addEventListener('change', syncOtherField);
+      syncOtherField();
+    })();
   </script>
 </body>
 </html>
