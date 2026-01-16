@@ -974,40 +974,26 @@ textarea:focus{
 
 }
 /* ================================
-   Mobile fix: About page left cut-off
+   About page: mobile layout fixes
    ================================ */
+
+/* 1) Prevent any accidental horizontal scroll globally */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* 2) Make sure About content never forces overflow */
+#about, #about * { max-width: 100%; }
+#about { overflow-wrap: anywhere; word-break: break-word; }
+#about img { max-width: 100%; height: auto; }
+
+/* 3) Slightly tighter padding on small screens */
 @media (max-width: 600px){
-  /* Prevent any accidental horizontal overflow */
-  body{ overflow-x: hidden; }
-
-  @media (max-width: 520px) {
-  body.page-about .wrap,
-  body.page-about .container {
-    padding-left: 14px !important;
-    padding-right: 14px !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-}
-
-  /* Ensure About cards never exceed viewport width */
-  #about .prod-card{
-    width: 100%;
-    max-width: 100%;
-  }
-
-  /* Tighten padding slightly on About to avoid squeeze */
   #about .bd{
     padding-left: 12px;
     padding-right: 12px;
   }
-
-  /* If any long words/URLs exist, allow wrapping */
-  #about{
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
 }
+
+
 .review-form{ margin-top:12px; }
 .review-form-row{
   display:grid;
