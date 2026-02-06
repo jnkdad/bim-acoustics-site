@@ -1191,3 +1191,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
   line-height: 1.55;
   opacity: 0.95;
 }
+#products .product-demo{
+  outline: 6px solid #ff00ff !important;
+}
