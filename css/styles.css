@@ -1135,7 +1135,33 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .cta-secondary:hover{
   background: rgba(158,181,207,.12);
 }
-/* Products: demo video */
-.product-demo{ margin: 12px 0 18px; }
-.product-demo-title{ margin: 0 0 10px; font-size: 16px; font-weight: 700; }
-.product-demo-caption{ margin: 10px 0 0; font-size: 14px; line-height: 1.45; opacity: .85; }
+/* ================================
+   Products: Demo video spacing + type
+   ================================ */
+
+/* Give breathing room above and below the demo block */
+.product-demo{
+  margin-top: 22px;     /* space after intro sentence */
+  margin-bottom: 26px;  /* space before product cards */
+}
+
+/* Make the demo headline more prominent */
+.product-demo-title{
+  margin: 0 0 12px;     /* space between title and video */
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Make the caption easier to read */
+.product-demo-caption{
+  margin: 14px 0 24px;  /* space below caption before product cards */
+  font-size: 16px;
+  line-height: 1.45;
+  opacity: 0.90;
+}
+
+/* Optional: add a subtle border separation if you want */
+.product-demo .video{
+  margin-bottom: 12px;  /* space between video and caption */
+}
