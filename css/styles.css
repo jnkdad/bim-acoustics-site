@@ -1135,3 +1135,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .cta-secondary:hover{
   background: rgba(158,181,207,.12);
 }
+/* Products: demo video */
+.product-demo{ margin: 12px 0 18px; }
+.product-demo-title{ margin: 0 0 10px; font-size: 16px; font-weight: 700; }
+.product-demo-caption{ margin: 10px 0 0; font-size: 14px; line-height: 1.45; opacity: .85; }
