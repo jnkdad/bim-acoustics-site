@@ -1148,20 +1148,20 @@ html, body { max-width: 100%; overflow-x: hidden; }
 /* Make the demo headline more prominent */
 .product-demo-title{
   margin: 0 0 12px;     /* space between title and video */
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 1.2;
 }
 
 /* Make the caption easier to read */
 .product-demo-caption{
-  margin: 14px 0 24px;  /* space below caption before product cards */
-  font-size: 16px;
-  line-height: 1.45;
-  opacity: 0.90;
+  margin: 18px 0 30px;  /* space below caption before product cards */
+  font-size: 18px;
+  line-height: 1.55;
+  opacity: 0.95;
 }
 
 /* Optional: add a subtle border separation if you want */
 .product-demo .video{
-  margin-bottom: 12px;  /* space between video and caption */
+  margin-bottom: 20px;  /* space between video and caption */
 }
