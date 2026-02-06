@@ -1194,6 +1194,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
 }
 /* Products page intro sentence */
 #products .small{
-  font-size: 16px;     /* try 16–17px */
+  font-size: 20px;     /* try 16–17px */
   line-height: 1.5;
 }
