@@ -1165,3 +1165,29 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .product-demo .video{
   margin-bottom: 20px;  /* space between video and caption */
 }
+/* ================================
+   Products: Demo video final override
+   ================================ */
+
+#products .product-demo{
+  margin-top: 26px;
+  margin-bottom: 44px;  /* space before the product cards */
+}
+
+#products .product-demo .video{
+  margin-bottom: 22px;  /* space after the video frame */
+}
+
+#products .product-demo-title{
+  margin: 0 0 14px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+#products .product-demo-caption{
+  margin: 0 0 30px;     /* extra space after the caption */
+  font-size: 18px;      /* bigger caption */
+  line-height: 1.55;
+  opacity: 0.95;
+}
