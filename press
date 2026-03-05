@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Press & Industry Coverage | J. Stevens BIM Acoustics</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css?v=20260206-1">
+</head>
+
+<body>
+
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <div class="topbar">
+
+        <div class="brand">
+          <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn" href="/products.html">Products</a>
+          <a class="btn" href="/resources.html">Resources</a>
+          <a class="btn" href="/about.html">About</a>
+          <a class="btn primary" href="/press.html">Press</a>
+        </div>
+
+      </div>
+
+      <section class="card">
+
+        <div class="hd">
+          <h1 class="title">Press & Industry Coverage</h1>
+        </div>
+
+        <div class="bd">
+
+          <p class="small" style="margin-bottom:20px;">
+            Media coverage and industry announcements related to BIM Acoustics tools and AV workflow innovation.
+          </p>
+
+          <!-- INDUSTRY COVERAGE -->
+
+          <h2 style="margin-top:10px;">Industry Coverage</h2>
+
+          <div style="margin-top:12px; padding:16px; background:#111; border-radius:12px;">
+
+            <div style="font-weight:700; font-size:18px; color:#fff;">
+              ProSoundWeb — March 2026
+            </div>
+
+            <div style="margin-top:6px; font-size:15px; color:#ddd;">
+              J. Stevens BIM Acoustics Launches New System Designer
+            </div>
+
+            <p style="margin-top:10px; font-size:14px; line-height:1.6; color:#ccc;">
+              ProSoundWeb reported on the launch of AVTools System Designer, a Revit add-in designed to automate distributed ceiling loudspeaker layout directly inside BIM workflows.
+            </p>
+
+            <a class="btn"
+               href="https://www.prosoundweb.com/j-stevens-bim-acoustics-launches-new-system-designer/"
+               target="_blank"
+               rel="noopener">
+              Read the ProSoundWeb Article
+            </a>
+
+          </div>
+
+
+          <!-- MEDIA RESOURCES -->
+
+          <h2 style="margin-top:30px;">Media Resources</h2>
+
+          <div style="margin-top:12px; padding:16px; background:#111; border-radius:12px;">
+
+            <ul style="margin:0; padding-left:18px; line-height:1.8; color:#ddd;">
+
+              <li>
+                <a class="link"
+                   href="/downloads/AVTools%20System%20Designer%20Datasheet_v1.2.1.pdf"
+                   target="_blank">
+                  AVTools System Designer Datasheet (PDF)
+                </a>
+              </li>
+
+              <li>
+                <a class="link"
+                   href="/products.html">
+                  Product Overview Page
+                </a>
+              </li>
+
+              <li>
+                <a class="link"
+                   href="https://player.vimeo.com/video/1162372386"
+                   target="_blank">
+                  System Designer Demonstration Video
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+
+
+          <!-- PRESS CONTACT -->
+
+          <h2 style="margin-top:30px;">Press Contact</h2>
+
+          <div style="margin-top:12px; padding:16px; background:#111; border-radius:12px;">
+
+            <p style="margin:0; color:#ddd;">
+              <b>Jerrold W. Stevens</b><br>
+              J. Stevens BIM Acoustics<br>
+              Acoustics · AV · BIM Innovation<br><br>
+
+              <a class="link" href="mailto:info@bimacoustics.net">
+                info@bimacoustics.net
+              </a><br>
+
+              <a class="link" href="https://www.bimacoustics.net">
+                www.bimacoustics.net
+              </a>
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <footer>
+        &copy; <span id="year"></span> J. Stevens BIM Acoustics
+        &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+      </footer>
+
+    </div>
+  </div>
+
+  <div id="lucius-widget"></div>
+
+  <script src="/lucius-widget.js"></script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
