@@ -61,8 +61,11 @@ The product has two editions:
 - Homerun cable annotation in floor plans
 - Damping factor tracking with warning thresholds
 
-### MEP Coordination (Future — Separate Product)
-MEP clash detection and coordination tools are in development and will be offered as a separate product/license. Not available in the current release.
+### Interference Detection & Coordination (Pro)
+- Clash detection between speakers and MEP elements (lighting, diffusers, sprinklers)
+- Clearance presets by sensitivity level (Physical, Tight, Normal, Conservative)
+- Issue tracking with Open/Coordination/Resolved workflow
+- Export coordination reports
 
 ### Lucius AI Assistant (New — 2026)
 - Embedded conversational AI inside the Revit add-in
@@ -103,8 +106,9 @@ Most production projects use linked architectural models. Rooms come from the ar
 
 ## Editions & Pricing
 
-- **Standard**: Distributed loudspeaker layout, placement, and direct-field coverage
-- **Pro**: Adds room acoustics, circuiting with zones, and amplifier/cabling design
+- **Free (v1.2.1)**: Room selection, speaker layout, placement, direct-field coverage, Lucius chat (guidance only)
+- **Standard**: Adds room acoustics (RT60, STI, material assignment), Lucius chat (guidance only)
+- **Pro**: Adds circuiting with zones, amplifier/cabling, interference detection/coordination, Lucius AI with live Revit model integration (tool use)
 - Subscription-based (monthly and annual options available)
 - Early access program available for qualified AV consultants
 
