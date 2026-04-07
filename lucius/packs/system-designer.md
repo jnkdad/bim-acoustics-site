@@ -1,93 +1,130 @@
-# Product Pack — AVToolsSystemDesigner (Distributed Systems)
+# Product Pack — AV Tools Suite: AV Systems System Designer
 
-This pack defines **approved, technically credible response patterns** for the product:
-**AVToolsSystemDesigner add-in for Revit (Distributed Systems)**.
+This pack defines technically credible response patterns for the product:
+**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit 2025 add-in for distributed loudspeaker system design.
 
-**Anchoring rule (MUST):**
-If the user asks about distributed ceiling speaker layout, spacing, coverage overlap, edge coverage, tap recommendations, target SPL intent, or “what does System Designer do,” you must answer using the guidance in this pack (and the engineering model if referenced).  
-Do not drift into generic Revit help.
-
-**Priority rule:**
-When this product pack is applicable, it takes precedence over general acoustics or Revit knowledge.
+**Anchoring rule:** If the user asks about distributed ceiling speaker layout, spacing, coverage, acoustics, RT60, STI, circuiting, zoning, material assignment, or "what does System Designer do," answer using this pack. Do not drift into generic Revit help.
 
 ---
 
-## What this product is (one-paragraph baseline)
-AVToolsSystemDesigner is a Revit add-in that automates the layout of distributed ceiling loudspeakers using **industry-standard spacing rules and coverage assumptions**. It is designed to speed up multi-room projects, ensure consistent layouts, and reduce repetitive manual placement while keeping the designer in control of overall system intent and engineering judgment.
+## What This Product Is
+
+AV Tools Suite — AV Systems System Designer is a Revit add-in that provides a complete workflow for designing, analyzing, and documenting distributed ceiling loudspeaker systems. It works inside Revit as a dockable panel and supports both host-model and linked-model architectural coordination.
+
+The product has two editions:
+- **Standard**: Room selection, speaker layout, direct-field coverage analysis, basic circuiting
+- **Pro**: Full circuiting with zone support, amplifier/cabling design, line loss calculations, MEP clash coordination, room acoustics (RT60, STI), acoustic material assignment
 
 ---
 
-## Approved Engineering Responses (Website)
+## Core Capabilities (Current — v1.2+)
 
-### 1. What does AVToolsSystemDesigner actually do?
-**Approved response:**  
-AVToolsSystemDesigner is a Revit add-in that automates the layout of distributed ceiling loudspeakers using industry-standard spacing rules and coverage assumptions. It is designed to speed up multi-room projects, ensure consistent layouts, and reduce repetitive manual placement while keeping the designer in control of system intent.
+### Speaker Layout & Placement
+- Automated grid-based loudspeaker placement in selected rooms
+- Supports multiple spacing modes: Edge-to-Edge, Center-to-Center, Minimum Overlap
+- Tile centering for ACT ceiling grids (2x2, 2x4)
+- Corridor mode for narrow spaces (single-row layout)
+- Reference plane hosting for rooms without standard ceilings (exhibit halls, catwalks)
+- Linked model room support — rooms from the architect's model, speakers placed in the host AV model
+- Per-room speaker type selection from loaded Revit families
+- Automatic CLF/SPK acoustic data file matching for coverage and sensitivity data
 
----
+### Direct-Field Coverage Analysis
+- Per-room SPL grid computation based on placed speakers
+- Iso-field contour visualization (±2, ±4, ±6 dB bands)
+- Uniformity metrics: min/max SPL, percentile-based bands
+- Adaptive grid resolution based on room size
 
-### 2. Is this an acoustic simulation tool?
-**Approved response:**  
-No. System Designer is not an acoustic simulation or prediction engine. It does not calculate SPL maps, STI, or frequency-dependent behavior. Its strength is fast, repeatable layout and **first-order system design assistance** inside Revit, not acoustic modeling.
+### Room Acoustics (Pro)
+- Surface extraction from Revit room geometry with automatic classification (walls, ceilings, floors, doors, windows)
+- Ray casting for linked-model rooms where standard boundary detection fails
+- Operable partition detection and reclassification from Room Separation lines
+- Acoustic material assignment at the family/type level — assign once, applies everywhere that type appears
+- Built-in absorption coefficient database (125–8000 Hz octave bands)
+- RT60 calculation using three formulas: Sabine, Norris-Eyring, and Arau-Puchades
+- STI (Speech Transmission Index) estimation from RT60, background noise, speaker directivity, and room geometry
+- Critical distance and D/R ratio calculations
+- Room Acoustics schedule generation with results written to Revit Room elements
 
----
+### Circuiting & Zoning (Pro)
+- Circuit ID assignment per room
+- Zone support for rooms with dais/podium areas (e.g., 216/A for audience, 216/B for dais)
+- Tap selection based on target SPL and speaker sensitivity
+- Impedance calculations for 70V, 100V, and low-impedance systems
+- Loudspeaker Circuit Schedule generation
 
-### 3. What spacing model does it use?
-**Approved response:**  
-System Designer applies industry-standard distributed-system spacing models based on nominal loudspeaker coverage assumptions. It supports common **edge-to-edge and center-to-center spacing approaches** that experienced AV consultants already use when laying out ceiling loudspeakers.
+### Amplifier & Cabling (Pro)
+- Rack/amplifier source discovery and assignment
+- Nearest-neighbor auto-assignment algorithm
+- Cable routing with chamfer and arc wiring styles
+- Line loss calculation with wire gauge recommendations
+- Homerun cable annotation in floor plans
+- Damping factor tracking with warning thresholds
 
----
+### MEP Coordination (Pro)
+- Clash detection between speakers and lighting, diffusers, sprinklers
+- Clearance presets by sensitivity level (Physical, Tight, Normal, Conservative)
+- Issue tracking with Open/Coordination/Resolved workflow
 
-### 4. What formula is used for spacing?
-**Approved response:**  
-Spacing guidance is derived from canonical distributed-system relationships between ceiling height and nominal coverage angle. A common **edge-to-edge** form is:
-S = 2 × H × tan(θ / 2)
-
-where:
-- **S** is the recommended spacing,
-- **H** is the height above the listening plane,
-- **θ** is the nominal coverage angle.
-
-Depending on the selected spacing mode (edge-to-edge or center-to-center), this relationship is applied as a **layout rule**, not as an acoustic prediction.
-
----
-
-### 5. How does it handle overlap and edge coverage?
-**Approved response:**  
-System Designer intentionally biases toward conservative overlap and consistent edge coverage. The goal is to avoid coverage gaps and produce predictable, repeatable layouts rather than to push maximum spacing or minimize loudspeaker count.
-
----
-
-### 6. Does it calculate power or tap settings?
-**Approved response:**  
-Yes. Designers can enter a target SPL, and System Designer provides **recommended tap settings** for distributed loudspeakers based on that target. Tap selection is included in the current version as a design assist, with final control remaining with the designer.
-
----
-
-### 7. Does it calculate amplifier loading or line loss?
-**Approved response:**  
-Not in the current version. Amplifier loading, circuit-level validation, and line-loss calculations are planned for **System Designer Pro**, which extends the existing layout and tap-selection model into full electrical system design.
-
----
-
-### 8. What kinds of projects is it intended for?
-**Approved response:**  
-System Designer is optimized for multi-room distributed systems such as schools, offices, hospitality spaces, and similar projects where consistency and speed are critical.
-
----
-
-### 9. Does it replace engineering judgment?
-**Approved response:**  
-No. System Designer automates established **first-order design logic**, but engineering judgment remains essential. The tool accelerates layout and system intent; it does not replace professional decision-making.
+### Lucius AI Assistant (New — 2026)
+- Embedded conversational AI inside the Revit add-in
+- Can query live project data: rooms, speakers, configuration, acoustics results
+- Uses Claude (Anthropic) with tool use for real-time model awareness
+- Server-side context updates without client redeployment
+- Voice input via push-to-talk (Whisper STT) and text chat
+- Opt-in transcript capture for product improvement
 
 ---
 
-### 10. Versioning and roadmap questions
-**Approved response:**  
-The current version focuses on geometric layout, coverage consistency, and tap-selection assistance. System Designer Pro builds on this foundation with electrical loading, amplifier sizing, circuiting, and line-loss modeling.
+## Technical Design Principles
+
+### Spacing Formula
+Spacing is derived from the canonical distributed-system relationship:
+**S = 2 × H × tan(θ / 2)**
+where S is spacing, H is height above listening plane, θ is nominal coverage angle.
+
+This is applied as a layout rule, not an acoustic prediction. The tool uses first-order design logic; it does not replace professional engineering judgment.
+
+### Deterministic Design
+The tool is deterministic: identical inputs in the same model context produce repeatable outputs. Layout is driven by explicit user inputs and model geometry. The tool does not introduce randomization or AI-driven placement decisions.
+
+### Linked Model Workflow
+Most production projects use linked architectural models. Rooms come from the architect's linked Revit model; speakers are placed in the host AV model. The system handles coordinate transforms, ceiling detection across links, and composite room identifiers automatically.
 
 ---
 
-## Notes on “what this pack does not claim”
-- This pack must not imply SPL maps, STI, or frequency-dependent prediction.
-- This pack may discuss first-order layout relationships, spacing rules, and design intent.
-- This pack must not imply autonomous system design or performance guarantees.
+## What This Product Is NOT
+
+- It is **not** an acoustic simulation tool (not EASE, AFMG, or similar)
+- It does **not** model reflections, diffraction, or room modes
+- It does **not** replace engineering judgment
+- It does **not** guarantee code compliance or performance outcomes
+- It **does** provide first-order design assistance that experienced AV consultants use to work faster and more consistently
+
+---
+
+## Editions & Pricing
+
+- **Standard**: Distributed loudspeaker layout, placement, and direct-field coverage
+- **Pro**: Adds room acoustics, circuiting with zones, amplifier/cabling, and MEP coordination
+- Subscription-based (monthly and annual options available)
+- Early access program available for qualified AV consultants
+
+---
+
+## Common Questions
+
+**Q: What projects is it designed for?**
+Multi-room distributed systems: convention centers, corporate offices, hospitality, education, healthcare — anywhere with many rooms needing consistent ceiling speaker coverage.
+
+**Q: Does it work with linked models?**
+Yes. This is the primary workflow for most projects. Rooms come from the architect's model; speakers are placed in the host AV model.
+
+**Q: Can it handle large spaces like exhibit halls?**
+Yes. For large rooms where standard ceiling hosting fails, speakers can be placed on reference planes at specific elevations (e.g., catwalk height). The tool supports adaptive approaches for rooms over 100,000 sq ft.
+
+**Q: How does the AI assistant (Lucius) work?**
+Lucius is embedded in the Revit add-in and can read live project data — room counts, speaker configurations, acoustics results, design state. It answers questions conversationally and can explain workflows, troubleshoot issues, and summarize project status. It uses Claude (by Anthropic) with real-time tool access to the Revit model.
+
+**Q: Does it calculate RT60 and STI?**
+Yes (Pro edition). It extracts room surfaces from Revit geometry, assigns acoustic absorption materials from a built-in database, and calculates RT60 using Sabine, Eyring, and Arau-Puchades formulas. STI is estimated from the RT60 results combined with background noise and speaker directivity.
