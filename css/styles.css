@@ -1468,14 +1468,14 @@ html, body { max-width: 100%; overflow-x: hidden; }
   display: flex;
   gap: 14px;
   width: max-content;
-  animation: scroll-left 30s linear infinite;
+  animation: scroll-left 20s linear infinite !important;
   will-change: transform;
 }
 
 /* Pause on hover so people can read a tab label before clicking */
 .screenshot-strip:hover .screenshot-track,
 .screenshot-strip:focus-within .screenshot-track{
-  animation-play-state: paused;
+  animation-play-state: paused !important;
 }
 
 @keyframes scroll-left{
@@ -1483,9 +1483,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
   to   { transform: translateX(-50%); }
 }
 
-@media (prefers-reduced-motion: reduce){
-  .screenshot-track{ animation: none; }
-}
+/* NOTE: prefers-reduced-motion override intentionally omitted here
+   so the marquee always animates — it is the page's primary visual cue. */
 
 .screenshot-thumb{
   flex: 0 0 auto;
