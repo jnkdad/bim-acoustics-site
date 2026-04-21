@@ -42,69 +42,12 @@
             BIM Acoustics tools are built to accelerate real-world Revit-based AV workflows with clear engineering intent and transparent assumptions.
           </div>
 
-          <!-- ============== AUTO-SCROLL SCREENSHOT STRIP ============== -->
+          <!-- ============== AUTO-SCROLL SCREENSHOT STRIP ==============
+               Thumbs are built by JS from the SHOTS array at the bottom
+               of this file. To add/reorder/remove screenshots, edit SHOTS
+               in one place — the marquee AND lightbox both read from it. -->
           <div class="screenshot-strip" aria-label="AVTools System Designer — tab screenshots">
-            <div class="screenshot-track">
-              <!-- SET 1 -->
-              <button class="screenshot-thumb" data-shot="rooms" type="button" aria-label="Open Rooms Tab screenshot">
-                <img src="/assets/screenshots/thumb/rooms.png" alt="Rooms Tab" loading="lazy">
-                <div class="thumb-label">Rooms</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="configuration" type="button" aria-label="Open Configuration screenshot">
-                <img src="/assets/screenshots/thumb/configuration.png" alt="Configuration" loading="lazy">
-                <div class="thumb-label">Configuration</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="coverage" type="button" aria-label="Open Coverage screenshot">
-                <img src="/assets/screenshots/thumb/coverage.png" alt="Coverage" loading="lazy">
-                <div class="thumb-label">Coverage</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="rt60" type="button" aria-label="Open RT60 screenshot">
-                <img src="/assets/screenshots/thumb/rt60.png" alt="RT60" loading="lazy">
-                <div class="thumb-label">RT60</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="circuiting" type="button" aria-label="Open Circuiting screenshot">
-                <img src="/assets/screenshots/thumb/circuiting.png" alt="Circuiting" loading="lazy">
-                <div class="thumb-label">Circuiting</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="amps-cabling" type="button" aria-label="Open Amps &amp; Cabling screenshot">
-                <img src="/assets/screenshots/thumb/amps-cabling.png" alt="Amps and Cabling" loading="lazy">
-                <div class="thumb-label">Amps &amp; Cabling</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="coordination" type="button" aria-label="Open Coordination screenshot">
-                <img src="/assets/screenshots/thumb/coordination.png" alt="Coordination" loading="lazy">
-                <div class="thumb-label">Coordination</div>
-              </button>
-
-              <!-- SET 2 (duplicate for seamless loop — aria-hidden so screen readers don't repeat) -->
-              <button class="screenshot-thumb" data-shot="rooms" type="button" aria-hidden="true" tabindex="-1">
-                <img src="/assets/screenshots/thumb/rooms.png" alt="" loading="lazy">
-                <div class="thumb-label">Rooms</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="configuration" type="button" aria-hidden="true" tabindex="-1">
-                <img src="/assets/screenshots/thumb/configuration.png" alt="" loading="lazy">
-                <div class="thumb-label">Configuration</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="coverage" type="button" aria-hidden="true" tabindex="-1">
-                <img src="/assets/screenshots/thumb/coverage.png" alt="" loading="lazy">
-                <div class="thumb-label">Coverage</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="rt60" type="button" aria-hidden="true" tabindex="-1">
-                <img src="/assets/screenshots/thumb/rt60.png" alt="" loading="lazy">
-                <div class="thumb-label">RT60</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="circuiting" type="button" aria-hidden="true" tabindex="-1">
-                <img src="/assets/screenshots/thumb/circuiting.png" alt="" loading="lazy">
-                <div class="thumb-label">Circuiting</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="amps-cabling" type="button" aria-hidden="true" tabindex="-1">
-                <img src="/assets/screenshots/thumb/amps-cabling.png" alt="" loading="lazy">
-                <div class="thumb-label">Amps &amp; Cabling</div>
-              </button>
-              <button class="screenshot-thumb" data-shot="coordination" type="button" aria-hidden="true" tabindex="-1">
-                <img src="/assets/screenshots/thumb/coordination.png" alt="" loading="lazy">
-                <div class="thumb-label">Coordination</div>
-              </button>
-            </div>
+            <div class="screenshot-track" id="screenshot-track"></div>
           </div>
           <div class="screenshot-hint">Click any screenshot to enlarge &middot; hover to pause scroll</div>
 
@@ -526,6 +469,70 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // =============================================================
+    // Screenshot data — single source of truth for both marquee and lightbox.
+    // To add/remove/reorder screenshots: edit ONLY this array.
+    //   id:    matches filename in /assets/screenshots/thumb/<id>.png
+    //                          and /assets/screenshots/full/<id>.png
+    //   label: short text under the thumb in the marquee
+    //   title: headline in the lightbox
+    //   desc:  one-line description in the lightbox
+    // =============================================================
+    const SHOTS = [
+      { id: 'rooms',                         label: 'Rooms',              title: 'Rooms',                     desc: 'Room selection with area, volume, total surface, and ceiling height. Linked-model room support.' },
+      { id: 'configuration',                 label: 'Configuration',      title: 'Configuration',             desc: 'Speaker type, spacing mode, tile snap, and coverage override settings.' },
+      { id: 'coverage',                      label: 'Coverage',           title: 'Coverage',                  desc: 'Direct-field coverage analysis with iso-maps at \u00B11, \u00B12, and \u00B13 dB contours.' },
+      { id: 'coverage-mapping',              label: 'Coverage Mapping',   title: 'Coverage Mapping',          desc: 'Iso-contour coverage visualization in plan view.' },
+      { id: 'rt60',                          label: 'RT60',               title: 'RT60',                      desc: 'Room acoustics: RT60 (Sabine, Eyring, Arau-Puchades) and STI estimation.' },
+      { id: 'acoustics-schedule',            label: 'Acoustics Schedule', title: 'Acoustics Schedule',        desc: 'Exported room acoustics schedule with RT60, STI, and related metrics.' },
+      { id: 'circuiting',                    label: 'Circuiting',         title: 'Circuiting',                desc: 'Zone-based circuit assignment with impedance and wire gauge calculations.' },
+      { id: 'loudspeaker-circuit-schedule',  label: 'Circuit Schedule',   title: 'Loudspeaker Circuit Schedule', desc: 'Exported loudspeaker circuit schedule with impedance, wattage, and wire gauge.' },
+      { id: 'amps-cabling',                  label: 'Amps & Cabling',     title: 'Amps & Cabling',            desc: 'Amplifier selection, cabling design, and line-loss calculations.' },
+      { id: 'wiring-added',                  label: 'Wiring',             title: 'Wiring',                    desc: 'Completed wiring diagram with home-run and inter-speaker connections in the model.' },
+      { id: 'coordination',                  label: 'Coordination',       title: 'Coordination',              desc: 'Interference and clash list for coordination with other trades.' },
+      { id: 'clash-detection',               label: 'Clash Detection',    title: 'Clash Detection',           desc: '3D view of interference between loudspeakers and other ceiling elements.' },
+      { id: 'clash-detection-rcp',           label: 'Clash RCP',          title: 'Clash Detection (RCP)',     desc: 'Reflected ceiling plan view of clash markers for coordination with other trades.' }
+    ];
+
+    // ---------- Build marquee thumbs from SHOTS (two sets for seamless loop) ----------
+    (function () {
+      const track = document.getElementById('screenshot-track');
+      if (!track) return;
+
+      function buildThumb(shot, hidden) {
+        const btn = document.createElement('button');
+        btn.className = 'screenshot-thumb';
+        btn.type = 'button';
+        btn.dataset.shot = shot.id;
+        if (hidden) {
+          btn.setAttribute('aria-hidden', 'true');
+          btn.tabIndex = -1;
+        } else {
+          btn.setAttribute('aria-label', 'Open ' + shot.title + ' screenshot');
+        }
+
+        const img = document.createElement('img');
+        img.src = '/assets/screenshots/thumb/' + shot.id + '.png';
+        img.alt = hidden ? '' : shot.title;
+        img.loading = 'lazy';
+        btn.appendChild(img);
+
+        const lbl = document.createElement('div');
+        lbl.className = 'thumb-label';
+        lbl.textContent = shot.label;
+        btn.appendChild(lbl);
+
+        return btn;
+      }
+
+      const frag = document.createDocumentFragment();
+      // SET 1 — accessible (screen readers, keyboard)
+      SHOTS.forEach(s => frag.appendChild(buildThumb(s, false)));
+      // SET 2 — visual duplicate for seamless loop, hidden from AT
+      SHOTS.forEach(s => frag.appendChild(buildThumb(s, true)));
+      track.appendChild(frag);
+    })();
+
     // ---------- Screenshot marquee (JS-driven for reliable Edge animation) ----------
     (function () {
       const strip = document.querySelector('.screenshot-strip');
@@ -568,16 +575,6 @@
 
     // ---------- Screenshot lightbox ----------
     (function () {
-      const SHOTS = [
-        { id: 'rooms',         title: 'Rooms',          desc: 'Room selection with area, volume, total surface, and ceiling height. Linked-model room support.' },
-        { id: 'configuration', title: 'Configuration',  desc: 'Speaker type, spacing mode, tile snap, and coverage override settings.' },
-        { id: 'coverage',      title: 'Coverage',       desc: 'Direct-field coverage analysis with iso-maps at \u00B11, \u00B12, and \u00B13 dB contours.' },
-        { id: 'rt60',          title: 'RT60',           desc: 'Room acoustics: RT60 (Sabine, Eyring, Arau-Puchades) and STI estimation.' },
-        { id: 'circuiting',    title: 'Circuiting',     desc: 'Zone-based circuit assignment with impedance and wire gauge calculations.' },
-        { id: 'amps-cabling',  title: 'Amps & Cabling', desc: 'Amplifier selection, cabling design, and line-loss calculations.' },
-        { id: 'coordination',  title: 'Coordination',   desc: 'Interference and clash detection against other ceiling elements.' }
-      ];
-
       const box       = document.getElementById('lightbox');
       const img       = document.getElementById('lightbox-img');
       const titleEl   = document.getElementById('lightbox-title');
