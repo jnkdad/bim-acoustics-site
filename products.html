@@ -7,7 +7,7 @@
 
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/styles.css?v=20260206-1">
+  <link rel="stylesheet" href="/css/styles.css?v=20260420-1">
 </head>
 
 <body>
@@ -23,7 +23,6 @@
           <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
         </div>
 
-        <!-- Traditional top nav -->
         <div style="display:flex; gap:10px; align-items:center;">
           <a class="btn" href="/">Home</a>
           <a class="btn primary" href="/products.html">Products</a>
@@ -66,88 +65,91 @@
             </p>
           </section>
 
-          <!-- BLACK RELEASE BANNER (UNDER VIDEO) -->
-          <div style="margin-top:12px; margin-bottom:16px; padding:12px 16px; background:#000; color:#fff; border-radius:12px;">
-            <b>System Designer v1.2.1 is live.</b> Linked-model stability improvements + Revit 2026 compatibility + project-unit-aware reporting.
+          <!-- v2.0 RELEASE BANNER -->
+          <div class="release-banner">
+            <b>AVTools System Designer v2.0 is live.</b>
+            Room Acoustics (RT60, STI), Circuiting &amp; Electrical design, and Live Revit model integration — now available for Revit 2025.3+.
+            <div class="release-banner-teaser">
+              <b>Coming soon:</b> Revit 2027 support (currently in development).
+            </div>
           </div>
 
-          <!-- PRODUCT GRID (STANDARD + PRO SIDE BY SIDE) -->
-          <div class="prod-grid">
+          <!-- THREE TIER CARDS -->
+          <div class="prod-grid-3">
 
-            <!-- STANDARD -->
-            <div class="prod-card">
-              <div class="prod-kicker">Available Now</div>
+            <!-- ================= FREE ================= -->
+            <div class="prod-card" id="free">
+              <div class="prod-kicker">Free</div>
 
               <h2 class="prod-title">
                 AVTools System Designer
-                <span class="muted">(Standard)</span>
-                <span style="margin-left:8px; background:#000; color:#fff; font-size:11px; padding:3px 8px; border-radius:999px;">
+                <span style="margin-left:8px; background:#223250; color:#cfe3ff; font-size:11px; padding:3px 8px; border-radius:999px;">
                   v1.2.1
                 </span>
               </h2>
 
-              <div class="prod-sub">Distributed ceiling loudspeaker layout + first-order system intent in Revit</div>
+              <div class="prod-sub">Automated distributed loudspeaker layout + coverage visualization</div>
 
               <ul class="prod-list">
-                <li>Automated ceiling-hosted placement using industry-standard spacing models</li>
-                <li>Consistent multi-room layouts without manual copy/paste workflows</li>
-                <li>Target SPL input with tap-setting recommendations (designer-controlled)</li>
-                <li>Basic ISO-line coverage visualization for relative uniformity</li>
+                <li>Automated ceiling-hosted speaker placement</li>
+                <li>Direct-field coverage analysis</li>
+                <li>Iso-field contour maps</li>
+                <li>Linked model room support</li>
+                <li>Lucius AI chat &amp; voice guidance</li>
               </ul>
 
               <div class="prod-meta">
-                <div><b>Platform:</b> Autodesk Revit (2022–2026)</div>
-                <div><b>Status:</b> Limited early access</div>
-                <div><b>Trial:</b> 10-day preview begins on first use</div>
-              </div>
-
-              <div class="prod-foot">
-                Ask <b>Lucius</b> about spacing models, overlap intent, ISO-line mapping, and tap recommendations.
-              </div>
-
-              <!-- Datasheet -->
-              <a class="link"
-                href="/downloads/AVTools%20System%20Designer%20Datasheet_v1.2.1.pdf"
-                target="_blank"
-                rel="noopener"
-                style="font-weight:600; text-decoration:underline;">
-                Download: AVTools System Designer Datasheet (PDF)
-              </a>
-
-              <!-- Release Notes -->
-              <div style="margin-top:18px; padding:14px; background:#111; border-radius:12px;">
-                <div style="font-weight:700; margin-bottom:8px; color:#fff;">Release Notes — v1.2.1</div>
-                <ul style="margin:0; padding-left:18px; font-size:14px; line-height:1.6; color:#fff;">
-                  <li><b>Linked model stability:</b> Improved tile-centering reliability in linked-room workflows.</li>
-                  <li><b>Project-unit-aware reporting:</b> Column headers and numeric reporting now reflect the active Revit project length units (Imperial or Metric).</li>
-                  <li><b>Revit 2026 compatibility:</b> Updated shared-parameter binding and category handling.</li>
-                  <li><b>JSBA Control Data schedule:</b> Multi-category schedule creation and population improvements.</li>
-                </ul>
-              </div>
-
-              <!-- Download -->
-              <div class="prod-cta" style="margin-bottom:8px; margin-top:14px;">
-                <a class="btn"
-                   href="/downloads/JSBA.AVTools-System%20Designer_v1.2.1.zip"
-                   download>
-                  Download v1.2.1 (Installer + Release Notes)
-                </a>
-              </div>
-
-              <div class="note" style="margin-bottom:14px;">
-                <b>New in v1.2.1:</b> Linked model refinements, Revit 2026 compatibility, and project-unit-aware reporting.
+                <div><b>Platform:</b> Revit 2022&ndash;2024</div>
+                <div><b>Price:</b> Free</div>
               </div>
 
               <div class="prod-cta">
-                <!-- Primary: Annual -->
+                <a class="btn cta-primary"
+                   href="/downloads/JSBA.AVTools-System%20Designer_v1.2.1.zip"
+                   download>
+                  Download v1.2.1
+                </a>
+              </div>
+
+              <div class="note" style="margin-top:6px;">
+                For consultants and firms still standardized on Revit 2022&ndash;2024.
+              </div>
+            </div>
+
+            <!-- ================= STANDARD ================= -->
+            <div class="prod-card" id="standard">
+              <div class="prod-kicker">Standard</div>
+
+              <h2 class="prod-title">
+                AVTools System Designer
+                <span style="margin-left:8px; background:#1a3a5c; color:#cfe3ff; font-size:11px; padding:3px 8px; border-radius:999px;">
+                  v2.0
+                </span>
+              </h2>
+
+              <div class="prod-sub">Everything in Free, plus room acoustics analysis</div>
+
+              <ul class="prod-list">
+                <li><b>All Free features</b></li>
+                <li>RT60 calculation (Sabine, Eyring, Arau-Puchades)</li>
+                <li>STI estimation</li>
+                <li>Acoustic material assignment</li>
+                <li>Room acoustics schedule export</li>
+              </ul>
+
+              <div class="prod-meta">
+                <div><b>Platform:</b> Revit 2025.3+</div>
+                <div><b>Trial:</b> 10-day preview on first use</div>
+              </div>
+
+              <div class="prod-cta">
                 <a class="btn cta-primary"
                    href="https://buy.stripe.com/28EcMY5vocOl3cB0q62VG00"
                    target="_blank"
                    rel="noopener">
-                  Buy Early Access — $600 / year
+                  $600 / year
                 </a>
 
-                <!-- Secondary: Monthly -->
                 <a class="btn cta-secondary"
                    href="https://buy.stripe.com/14AaEQ4rk4hP00pa0G2VG01"
                    target="_blank"
@@ -159,103 +161,239 @@
               <div class="note" style="margin-top:6px;">
                 Early Access pricing. No additional fees at checkout.
               </div>
-
-              <!-- Leave a Review (Standard) -->
-              <div id="write-review" class="review-panel">
-                <div class="review-head">
-                  <div class="review-title">Leave a Review</div>
-                  <div class="review-subtitle">
-                    If System Designer saved you time, a quick rating + comment helps others and helps us improve.
-                    Reviews are moderated to prevent spam.
-                  </div>
-                </div>
-
-                <form class="review-form" action="https://formspree.io/f/xkoonywn" method="POST">
-                  <input type="hidden" name="product" value="AVTools System Designer (Standard)" />
-                  <input type="hidden" name="page" value="products.html" />
-                  <input type="hidden" name="_redirect" value="https://www.bimacoustics.net/products.html#write-review" />
-                  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-                  <fieldset class="rating-fieldset">
-                    <legend class="field-label">Rating <span class="req">*</span></legend>
-                    <div class="rating">
-                      <input type="radio" id="sd-star5" name="rating" value="5" required />
-                      <label for="sd-star5" title="5 stars">★</label>
-
-                      <input type="radio" id="sd-star4" name="rating" value="4" />
-                      <label for="sd-star4" title="4 stars">★</label>
-
-                      <input type="radio" id="sd-star3" name="rating" value="3" />
-                      <label for="sd-star3" title="3 stars">★</label>
-
-                      <input type="radio" id="sd-star2" name="rating" value="2" />
-                      <label for="sd-star2" title="2 stars">★</label>
-
-                      <input type="radio" id="sd-star1" name="rating" value="1" />
-                      <label for="sd-star1" title="1 star">★</label>
-                    </div>
-                  </fieldset>
-
-                  <label class="field">
-                    <span class="field-label">Comment <span class="req">*</span></span>
-                    <textarea name="comment" rows="4" required
-                      placeholder="What did System Designer help you do faster or better?"></textarea>
-                  </label>
-
-                  <div class="review-grid">
-                    <label class="field">
-                      <span class="field-label">Name (optional)</span>
-                      <input type="text" name="name" placeholder="Jerrold" />
-                    </label>
-
-                    <label class="field">
-                      <span class="field-label">Company / Role (optional)</span>
-                      <input type="text" name="companyRole" placeholder="AV Consultant / Integrator / Designer" />
-                    </label>
-
-                    <label class="field">
-                      <span class="field-label">Email (optional)</span>
-                      <input type="email" name="email" placeholder="you@company.com" />
-                    </label>
-
-                    <label class="field">
-                      <span class="field-label">Revit version (optional)</span>
-                      <input type="text" name="revitVersion" placeholder="2022 / 2023 / 2024 / 2025 / 2026" />
-                    </label>
-                  </div>
-
-                  <label class="consent">
-                    <input type="checkbox" name="publishConsent" value="yes" />
-                    OK to publish this review (first name + company/role only; email never shown).
-                  </label>
-
-                  <button class="btn btn-primary" type="submit">Submit review</button>
-                </form>
-              </div>
             </div>
 
-            <!-- PRO -->
-            <div class="prod-card">
-              <div class="prod-kicker">Planned</div>
-              <h2 class="prod-title">AVTools System Designer <span class="muted">(Pro)</span></h2>
-              <div class="prod-sub">Deeper coverage mapping + early acoustic metrics + electrical validation</div>
+            <!-- ================= PRO ================= -->
+            <div class="prod-card prod-card-featured" id="pro">
+              <div class="prod-badge">Most Complete</div>
+              <div class="prod-kicker">Pro</div>
+
+              <h2 class="prod-title">
+                AVTools System Designer
+                <span style="margin-left:8px; background:#3a2a5c; color:#e8d9ff; font-size:11px; padding:3px 8px; border-radius:999px;">
+                  v2.0
+                </span>
+              </h2>
+
+              <div class="prod-sub">Everything in Standard, plus electrical design &amp; live model integration</div>
 
               <ul class="prod-list">
-                <li>Enhanced coverage mapping using loudspeaker balloon data (where available)</li>
-                <li>Improved mapping beyond basic ISO-line visualization</li>
-                <li>Early design metrics: RT60 and STI (room-level)</li>
-                <li>Electrical modeling: loading, circuiting, and line-loss analysis</li>
+                <li><b>All Standard features</b></li>
+                <li>Circuit assignment with zone support</li>
+                <li>Amplifier &amp; cabling design</li>
+                <li>Line loss &amp; wire gauge calculations</li>
+                <li>Interference detection &amp; coordination</li>
+                <li>Live Revit model integration (Lucius)</li>
               </ul>
 
               <div class="prod-meta">
-                <div><b>Target availability:</b> Q2 2026 (subject to change)</div>
+                <div><b>Platform:</b> Revit 2025.3+</div>
+                <div><b>Trial:</b> 10-day preview on first use</div>
               </div>
 
-              <div class="prod-foot">
-                Pro is intended to bridge automated layout into deeper early validation while staying inside Revit.
+              <div class="prod-cta">
+                <a class="btn cta-primary"
+                   href="https://buy.stripe.com/14AbIU4rk9C9cNba0G2VG03"
+                   target="_blank"
+                   rel="noopener">
+                  $990 / year
+                </a>
+
+                <a class="btn cta-secondary"
+                   href="https://buy.stripe.com/aFadR27Dwg0x8wV7Sy2VG02"
+                   target="_blank"
+                   rel="noopener">
+                  $99 / month
+                </a>
+              </div>
+
+              <div class="note" style="margin-top:6px;">
+                Early Access pricing. No additional fees at checkout.
               </div>
             </div>
 
+          </div>
+
+          <!-- ================= FEATURE MATRIX ================= -->
+          <section class="feature-matrix" id="compare">
+            <h2 class="matrix-title">Feature Matrix</h2>
+            <p class="matrix-sub">Compare what's included in each tier.</p>
+
+            <div class="matrix-scroll">
+              <table class="matrix">
+                <thead>
+                  <tr>
+                    <th class="feat">Feature</th>
+                    <th>
+                      <div class="th-tier">Free</div>
+                      <div class="th-ver">v1.2.1 &middot; Revit 2022&ndash;2024</div>
+                    </th>
+                    <th>
+                      <div class="th-tier">Standard</div>
+                      <div class="th-ver">v2.0 &middot; Revit 2025.3+</div>
+                    </th>
+                    <th class="th-featured">
+                      <div class="th-tier">Pro</div>
+                      <div class="th-ver">v2.0 &middot; Revit 2025.3+</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr class="group"><td colspan="4">Layout &amp; Coverage</td></tr>
+                  <tr><td class="feat">Room selection &amp; speaker layout</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Automated grid placement</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Direct-field coverage analysis</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Iso-field contour maps</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Linked model room support</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+
+                  <tr class="group"><td colspan="4">Room Acoustics</td></tr>
+                  <tr><td class="feat">RT60 (Sabine, Eyring, Arau-Puchades)</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">STI estimation</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Acoustic material assignment</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Room acoustics schedule export</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+
+                  <tr class="group"><td colspan="4">Circuiting &amp; Electrical</td></tr>
+                  <tr><td class="feat">Circuit assignment with zone support</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Amplifier &amp; cabling design</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Line loss &amp; wire gauge calculations</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Interference detection &amp; coordination</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+
+                  <tr class="group"><td colspan="4">Lucius AI Assistant</td></tr>
+                  <tr><td class="feat">Chat guidance (how-to, workflow help)</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Voice input (push-to-talk)</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Live Revit model integration</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ================= RELEASE NOTES ================= -->
+          <section class="release-notes">
+            <h2 class="matrix-title">Release Notes</h2>
+
+            <div class="release-card">
+              <div class="release-head">
+                <span class="release-ver">v2.0</span>
+                <span class="release-date">Revit 2025.3+</span>
+              </div>
+              <ul>
+                <li><b>Room Acoustics module:</b> RT60 (Sabine, Eyring, Arau-Puchades), STI estimation, acoustic material assignment, schedule export.</li>
+                <li><b>Circuiting &amp; Electrical:</b> Circuit assignment with zone support, amplifier &amp; cabling design, line loss and wire gauge calculations, interference detection &amp; coordination.</li>
+                <li><b>Lucius AI upgraded:</b> Live Revit model integration — Lucius can read and act on current model context.</li>
+                <li><b>Platform:</b> Revit 2025.3+ only; includes Revit 2026 compatibility.</li>
+              </ul>
+              <a class="link"
+                 href="/downloads/AVTools%20System%20Designer%20Datasheet_v1.2.1.pdf"
+                 target="_blank"
+                 rel="noopener"
+                 style="font-weight:600; text-decoration:underline;">
+                Download: AVTools System Designer Datasheet (PDF)
+              </a>
+            </div>
+
+            <div class="release-card">
+              <div class="release-head">
+                <span class="release-ver">v1.2.1</span>
+                <span class="release-date">Revit 2022&ndash;2024 &middot; Free</span>
+              </div>
+              <ul>
+                <li><b>Linked model stability:</b> Improved tile-centering reliability in linked-room workflows.</li>
+                <li><b>Project-unit-aware reporting:</b> Column headers and numeric reporting reflect the active Revit project length units (Imperial or Metric).</li>
+                <li><b>JSBA Control Data schedule:</b> Multi-category schedule creation and population improvements.</li>
+              </ul>
+              <div class="prod-cta" style="margin-top:10px;">
+                <a class="btn"
+                   href="/downloads/JSBA.AVTools-System%20Designer_v1.2.1.zip"
+                   download>
+                  Download v1.2.1
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= REVIEWS ================= -->
+          <div id="write-review" class="review-panel">
+            <div class="review-head">
+              <div class="review-title">Leave a Review</div>
+              <div class="review-subtitle">
+                If System Designer saved you time, a quick rating + comment helps others and helps us improve.
+                Reviews are moderated to prevent spam.
+              </div>
+            </div>
+
+            <form class="review-form" action="https://formspree.io/f/xkoonywn" method="POST">
+              <input type="hidden" name="product" value="AVTools System Designer" />
+              <input type="hidden" name="page" value="products.html" />
+              <input type="hidden" name="_redirect" value="https://www.bimacoustics.net/products.html#write-review" />
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+              <fieldset class="rating-fieldset">
+                <legend class="field-label">Rating <span class="req">*</span></legend>
+                <div class="rating">
+                  <input type="radio" id="sd-star5" name="rating" value="5" required />
+                  <label for="sd-star5" title="5 stars">&#9733;</label>
+
+                  <input type="radio" id="sd-star4" name="rating" value="4" />
+                  <label for="sd-star4" title="4 stars">&#9733;</label>
+
+                  <input type="radio" id="sd-star3" name="rating" value="3" />
+                  <label for="sd-star3" title="3 stars">&#9733;</label>
+
+                  <input type="radio" id="sd-star2" name="rating" value="2" />
+                  <label for="sd-star2" title="2 stars">&#9733;</label>
+
+                  <input type="radio" id="sd-star1" name="rating" value="1" />
+                  <label for="sd-star1" title="1 star">&#9733;</label>
+                </div>
+              </fieldset>
+
+              <label class="field">
+                <span class="field-label">Which tier are you using? (optional)</span>
+                <select name="tier">
+                  <option value="">Select…</option>
+                  <option value="Free (v1.2.1)">Free (v1.2.1)</option>
+                  <option value="Standard (v2.0)">Standard (v2.0)</option>
+                  <option value="Pro (v2.0)">Pro (v2.0)</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Comment <span class="req">*</span></span>
+                <textarea name="comment" rows="4" required
+                  placeholder="What did System Designer help you do faster or better?"></textarea>
+              </label>
+
+              <div class="review-grid">
+                <label class="field">
+                  <span class="field-label">Name (optional)</span>
+                  <input type="text" name="name" placeholder="Jerrold" />
+                </label>
+
+                <label class="field">
+                  <span class="field-label">Company / Role (optional)</span>
+                  <input type="text" name="companyRole" placeholder="AV Consultant / Integrator / Designer" />
+                </label>
+
+                <label class="field">
+                  <span class="field-label">Email (optional)</span>
+                  <input type="email" name="email" placeholder="you@company.com" />
+                </label>
+
+                <label class="field">
+                  <span class="field-label">Revit version (optional)</span>
+                  <input type="text" name="revitVersion" placeholder="2022 / 2023 / 2024 / 2025 / 2026" />
+                </label>
+              </div>
+
+              <label class="consent">
+                <input type="checkbox" name="publishConsent" value="yes" />
+                OK to publish this review (first name + company/role only; email never shown).
+              </label>
+
+              <button class="btn btn-primary" type="submit">Submit review</button>
+            </form>
           </div>
 
         </div>
