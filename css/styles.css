@@ -1373,6 +1373,25 @@ html, body { max-width: 100%; overflow-x: hidden; }
               0 0 14px rgba(158, 181, 207, 0.18);
 }
 
+/* "Read release notes" link beneath download button */
+.prod-release-link{
+  margin-top: 8px;
+  text-align: center;
+  font-size: 13px;
+}
+.prod-release-link a{
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  opacity: 0.85;
+  transition: opacity .15s ease, color .15s ease;
+}
+.prod-release-link a:hover{
+  opacity: 1;
+  text-decoration: underline;
+}
+
 /* ================================
    Products v2 — three-tier layout,
    feature matrix, release notes
