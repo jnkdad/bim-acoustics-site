@@ -1358,6 +1358,49 @@ html, body { max-width: 100%; overflow-x: hidden; }
   color: #e8d9ff;
 }
 
+/* Home-page RT60 hero shot embedded in the announcement banner */
+.announce-hero{
+  display: block;
+  margin: 14px auto 0;
+  padding: 6px;
+  width: min(640px, 100%);
+  background: rgba(15, 26, 42, 0.55);
+  border: 1px solid rgba(158, 181, 207, 0.40);
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  font: inherit;
+  color: inherit;
+}
+.announce-hero img{
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+.announce-hero .shot-tag{
+  position: absolute;
+  bottom: 14px; right: 14px;
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: .3px;
+  padding: 4px 9px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.announce-hero:hover{
+  transform: translateY(-2px);
+  border-color: rgba(158, 181, 207, 0.75);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5),
+              0 0 18px rgba(158, 181, 207, 0.22);
+}
+.announce-hero:hover .shot-tag{
+  opacity: 1;
+}
+
 /* Download CTA — distinct from Stripe pricing buttons */
 .cta-download{
   width: 100%;
@@ -1425,7 +1468,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   display: flex;
   gap: 14px;
   width: max-content;
-  animation: scroll-left 70s linear infinite;
+  animation: scroll-left 30s linear infinite;
   will-change: transform;
 }
 
