@@ -1468,23 +1468,13 @@ html, body { max-width: 100%; overflow-x: hidden; }
   display: flex;
   gap: 14px;
   width: max-content;
-  animation: scroll-left 20s linear infinite !important;
+  /* Scroll is now driven by JS (see products.html) for reliable animation in Edge. */
   will-change: transform;
 }
 
-/* Pause on hover so people can read a tab label before clicking */
-.screenshot-strip:hover .screenshot-track,
-.screenshot-strip:focus-within .screenshot-track{
-  animation-play-state: paused !important;
-}
-
-@keyframes scroll-left{
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-/* NOTE: prefers-reduced-motion override intentionally omitted here
-   so the marquee always animates — it is the page's primary visual cue. */
+/* Pause on hover so people can read a tab label before clicking.
+   The JS driver reads this data attribute to pause. */
+/* (Hover pause handled by JS — no CSS needed here.) */
 
 .screenshot-thumb{
   flex: 0 0 auto;

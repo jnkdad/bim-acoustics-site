@@ -7,7 +7,7 @@
 
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/styles.css?v=20260421-scroll">
+  <link rel="stylesheet" href="/css/styles.css?v=20260421-js">
 </head>
 
 <body>
@@ -525,6 +525,46 @@
   <script src="/lucius-widget.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ---------- Screenshot marquee (JS-driven for reliable Edge animation) ----------
+    (function () {
+      const strip = document.querySelector('.screenshot-strip');
+      const track = document.querySelector('.screenshot-track');
+      if (!strip || !track) return;
+
+      const SPEED_PX_PER_SEC = 80;   // horizontal scroll speed
+      let position = 0;
+      let lastTs = null;
+      let paused = false;
+
+      // Pause on hover/focus so users can read before clicking
+      strip.addEventListener('mouseenter', () => { paused = true; });
+      strip.addEventListener('mouseleave', () => { paused = false; });
+      strip.addEventListener('focusin',    () => { paused = true; });
+      strip.addEventListener('focusout',   () => { paused = false; });
+
+      // Width of one set (track contains 2 duplicate sets for seamless loop)
+      function oneSetWidth() {
+        return track.scrollWidth / 2;
+      }
+
+      function tick(ts) {
+        if (lastTs == null) lastTs = ts;
+        const dt = (ts - lastTs) / 1000;
+        lastTs = ts;
+
+        if (!paused) {
+          position += SPEED_PX_PER_SEC * dt;
+          const w = oneSetWidth();
+          if (w > 0 && position >= w) position -= w;
+          track.style.transform = 'translateX(' + (-position).toFixed(2) + 'px)';
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    })();
 
     // ---------- Screenshot lightbox ----------
     (function () {
