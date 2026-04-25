@@ -1,0 +1,17 @@
+# Revit working files (not site assets)
+*.rfa
+*.rvt
+*.rvt.*
+
+# Node / Azure Functions
+node_modules/
+local.settings.json
+
+# Logs
+*.log
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
