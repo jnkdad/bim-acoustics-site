@@ -1,14 +1,14 @@
 # System Designer Engineering Model
 Canonical product name: BIM Acoustics AV Tools Suite — AV Systems System Designer.
 
-> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/system-designer.md` fails. It mirrors the v2.1 live system-designer pack and should be kept in sync when the live pack is updated.
+> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/system-designer.md` fails. It mirrors the v2.2 live system-designer pack and should be kept in sync when the live pack is updated.
 
 ---
 
 # Product Pack — AV Tools Suite: AV Systems System Designer
 
 This pack defines technically credible response patterns for the product:
-**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.1** (Revit 2025.3+); legacy free version v1.2.1 supports Revit 2022–2024.
+**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.2** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
 
 **Anchoring rule:** If the user asks about distributed ceiling speaker layout, spacing, coverage, acoustics, RT60, STI, materials, circuiting, zoning, racks, cabling, or "what does System Designer do," answer using this pack. Do not drift into generic Revit help.
 
@@ -16,13 +16,13 @@ This pack defines technically credible response patterns for the product:
 
 ## What This Product Is
 
-AV Tools Suite — AV Systems System Designer is a Revit add-in that provides a complete workflow for designing, analyzing, and documenting distributed ceiling loudspeaker systems. It runs as a dockable panel inside Revit 2025.3+ and supports both host-model and linked-model architectural coordination.
+AV Tools Suite — AV Systems System Designer is a Revit add-in that provides a complete workflow for designing, analyzing, and documenting distributed ceiling loudspeaker systems. It runs as a dockable panel inside Revit 2025 and 2026 and supports both host-model and linked-model architectural coordination.
 
 The product has two paid editions plus a free legacy version:
 
 - **Free (v1.2.1)** — Revit 2022–2024. Room selection, speaker layout, placement, direct-field coverage, Lucius chat (guidance only).
-- **Standard (v2.1)** — Revit 2025.3+. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
-- **Pro (v2.1)** — Revit 2025.3+. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, and Lucius AI write tools (currently material assignment).
+- **Standard (v2.2)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
+- **Pro (v2.2)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, and Lucius AI write tools (currently material assignment).
 
 Pricing: Standard $60/month or $600/year. Pro $99/month or $990/year. 10-day free trial on every paid tier.
 
@@ -32,7 +32,7 @@ Pricing: Standard $60/month or $600/year. Pro $99/month or $990/year. 10-day fre
 
 The tool is organized as a step-by-step workflow. Tabs in order:
 
-1. **Rooms** — pick which rooms are in design scope. Always first.
+1. **Rooms** — pick which rooms are in design scope. Always first. Includes Define Boundary and Add Temp Room workflows for spaces not yet bounded in the architectural model.
 2. **Configuration** — set host mode, spacing, listener height, layout, speaker selection per room. Run **Refresh Calculations** then **Commit Placement** here.
 3. **Direct-Field Coverage** — compute SPL uniformity from placed speakers. Run **Compute Results**, optionally **Draw Iso-Map**.
 4. **Room Acoustics** — assign acoustic materials to surfaces, then calculate RT60 (Sabine, Norris-Eyring, Arau-Puchades) and estimated STI.
@@ -42,6 +42,44 @@ The tool is organized as a step-by-step workflow. Tabs in order:
 8. **About** — version, licensing, transcript opt-in, support tools.
 
 Loudspeakers are placed in the host model. Rooms can come from the host or linked architectural models. Works from either Floor Plan or Reflected Ceiling Plan views.
+
+---
+
+## Rooms Tab — Source Column and Unified Link Scan
+
+The Rooms tab is the always-first entry point. Every session starts here.
+
+**Single unified scan (new in v2.2):** The previous "Host vs Linked" source dropdown has been retired. The Rooms tab now scans the host document plus every loaded Revit link in a single pass, and a new **Source** column shows which file each room came from. Rooms from unloaded links don't appear (link workset state is honored), and a duplicate-room dedup pass cleans up the case where a container model nests the same architectural link that's also loaded standalone.
+
+**Practical effect:** for most projects you click **Rescan Rooms** once and see everything. No more switching modes when a project has rooms in multiple linked files.
+
+---
+
+## Rooms Tab — Define Boundary and Add Temp Room *(new in v2.2)*
+
+Real projects regularly have rooms that aren't bounded in the architect's Revit model — large prefunction halls, open food halls, exterior plaza spaces, or rooms still being modeled by the architect when AV layout is happening. v2.2 adds two workflows for these.
+
+**Define Boundary…** — for a Revit room that exists but is unbounded (Area = 0). Select the row on the Rooms tab, click Define Boundary, trace the perimeter directly in the active plan view. AVTools stamps a Filled Region with the room number encoded in its Comments parameter. The next Rescan picks the Filled Region up as the room's layout polygon and the row becomes layout-capable. The Filled Region is an annotation — it does **not** propagate through Revit links, so other disciplines linking the AV model never see it.
+
+**Add Temp Room…** — for a space that doesn't even have a Revit Room yet. Pick a number, a name, and a ceiling height; trace the perimeter. AVTools surfaces a synthetic **Temp Room** row in the Rooms tab. All downstream features (Configuration, Direct-Field Coverage, Circuiting, Amps & Cabling, Draw Wiring) treat it like a normal room.
+
+Temp rooms are excluded from **Room Acoustics** because they're documentation-only placement scaffolds. If you want acoustic analysis on the underlying space, the real Revit room must exist and be in scope.
+
+**Temp Room → Real Room auto-association:** when speakers placed in a Temp Room polygon overlap a real Revit room (a corridor, a room with a bad centroid, etc.), AVTools auto-resolves on the next **Rescan Rooms**. Speakers are re-stamped to the real room's number, the real room's row inherits the temp's design state (Speakers Placed / Circuiting Complete / Cabling Complete — promote-only, never demote), and the Temp Room row is hidden. If the temp polygon spans multiple real rooms, AVTools shows a warning dialog and waits for the polygon to be refined. If the polygon sits in genuinely unbounded space, the temp row stays visible as a normal scaffold.
+
+---
+
+## Rooms Tab — Room-Type Heuristic
+
+When you add a room to scope (Use checkbox + Next), AVTools matches the room's name against two keyword lists and seeds Configuration-tab fields accordingly:
+
+| Category | Name tokens (any match, case-insensitive) | Seeded values |
+|---|---|---|
+| **Presentation** | classroom, instruction, training, lecture, meeting, conference, board room, ballroom, auditorium, theater, lab, library, cafeteria, cafe, restaurant, dining, food court, lounge, break room, bar, pub, tavern, bistro, club | Spacing **Minimum Overlap** · Listener **4.0 ft** (seated) · Target SPL **82 dB** |
+| **Circulation** | lobby, corridor, hallway, hall, vestibule, concourse, restroom, toilet, entry, foyer, atrium | Spacing **Edge to Edge** · Listener **6.0 ft** (standing) · Target SPL **76 dB** |
+| **Fallback** (name doesn't match either list) | — | Spacing & Listener stay at the project's **Global Defaults** · Target SPL **82 dB** |
+
+The heuristic only fires when a row is **still at the project's Global Defaults** for spacing and listener height. If you've manually edited those fields on a row, the heuristic backs off and won't overwrite your work on a re-add. These are keyword presets you can override — not magic, not AI-driven, just a starting-point convenience.
 
 ---
 
@@ -56,7 +94,7 @@ The tool derives coverage radius from ceiling height, listener height, and the s
 
 **Host modes:**
 - **Ceiling / Auto** — speaker hosted to the detected ceiling
-- **Reference Plane** — for rooms without standard ceilings (exhibit halls, catwalks, open-to-deck spaces)
+- **Reference Plane** — for rooms without standard ceilings (exhibit halls, catwalks, open-to-deck spaces). v2.2 uses a place-on-lower-side strategy that consistently brings speakers down cone-toward-listener on horizontal reference planes (the common pattern for tall ballrooms and exhibit halls).
 - **Fallback Z** — fixed elevation when neither ceiling nor reference plane is appropriate
 
 **Tile centering** is supported for ACT ceiling grids (2×2, 2×4) so speakers align to tiles rather than landing on grid lines.
@@ -65,7 +103,7 @@ The tool derives coverage radius from ceiling height, listener height, and the s
 
 **Acoustic data files for speakers** — only **`.spk`** (EASE SPK format, with optional `.lob`/`.phs`/`.fed`/`.frd`/`.fvt` siblings) and **`.clf`** (Common Loudspeaker Format, CLF1 + CLF2) are supported. `.gll`, manufacturer proprietary binary formats, and `.cf2` as balloon data are **not** supported. If a manufacturer only provides `.gll`, request CLF data from them; without supported data, the family falls back to default sensitivity (78 dB at 1W/1m) and approximate Q from manual family parameters.
 
-**Nudge tool (new in v2.1):** for fine-tuning speaker positions after auto-layout. Click Nudge on a row → AVTools selects all that room's placed speakers in Revit's UI and hands focus to the canvas → use Revit's native arrow-key nudge with Shift/Ctrl modifiers → Esc when done.
+**Nudge tool:** for fine-tuning speaker positions after auto-layout. Click Nudge on a Configuration row → AVTools selects all that room's placed speakers in Revit's UI and hands focus to the canvas → use Revit's native arrow-key nudge with Shift/Ctrl modifiers → Esc when done.
 
 **Grid θ rotation:** blank = auto-detect from room polygon's longest edge. Override per-row when auto-detect picks the wrong axis (irregular rooms, ceiling tile grid running off-axis from the room polygon, soffit-driven orientation).
 
@@ -79,11 +117,13 @@ The tool derives coverage radius from ceiling height, listener height, and the s
 - Target SPL
 - Min / Max SPL
 - Range
-- Uniformity bands: **% within ±1 dB**, **% within ±2 dB**, **% within ±3 dB**, **% > +3 dB** *(refined in v2.1 — previously ±2/4/6)*
+- Uniformity bands: **% within ±1 dB**, **% within ±2 dB**, **% within ±3 dB**, **% > +3 dB**
 
 Yellow cells flag metrics outside preferred thresholds; review by adjusting spacing, layout, target SPL, or speaker count, then re-Commit Placement and re-Compute Results.
 
 **Draw Iso-Map** draws bucketed iso-line contours on the active view at the listener plane. **Clear Map** removes them.
+
+**Coverage map line styles (new in v2.2):** the iso-coverage contour lines now use Line subcategories with built-in colors (green / yellow / red) instead of per-element view overrides. The practical effect: coverage maps render in color on the parent floor plan **and** on every dependent plan view placed on sheets. Before v2.2, the colors only appeared on the parent view.
 
 The coverage engine models **direct-field only** — no reflections, no full-room simulation. Reflections, RT60, and STI are computed separately by the Room Acoustics tab.
 
@@ -124,9 +164,11 @@ Targets: ≥ 0.50 general; ≥ 0.60 for critical-speech spaces; ≥ 0.50 mass-no
 
 **Multi-ceiling attribution:** rooms with partitioned ceilings (e.g., GYP perimeter + 2'×6' ACT field) appear as one row per ceiling type in Assign Materials, each with its own area. When a single ceiling spans multiple rooms divided by operable partitions or room-separation lines, its area is distributed proportionally across covered rooms by floor area.
 
-**Reference curve overlay (new in v2.1):** the RT60 graph supports a reference curve dropdown with preset target curves (Conference/Meeting, Classroom, Lecture Hall, Theater, Worship, Courtroom, Ballroom, Exhibit Hall) — sourced from ANSI/ASHRAE/Acoustical Society guidance. Manual reference values can also be entered per band, useful for: (1) comparing against another model (EASE, ODEON, CATT), (2) overlaying measured field data to validate prediction, or (3) tuning material assignments on renovation projects until the AVTools prediction matches measurement.
+**Reference curve overlay:** the RT60 graph supports a reference curve dropdown with preset target curves (Conference/Meeting, Classroom, Lecture Hall, Theater, Worship, Courtroom, Ballroom, Exhibit Hall) — sourced from ANSI/ASHRAE/Acoustical Society guidance. Manual reference values can also be entered per band, useful for: (1) comparing against another model (EASE, ODEON, CATT), (2) overlaying measured field data to validate prediction, or (3) tuning material assignments on renovation projects until the AVTools prediction matches measurement.
 
-**Schedule preservation (new in v2.1):** running RT60 on one level no longer wipes results for rooms at other levels. Calculations persist across runs.
+**Schedule preservation:** running RT60 on one level no longer wipes results for rooms at other levels. Calculations persist across runs.
+
+**Temp Rooms are not analyzed.** Acoustics calculations require a real Revit Room with surface geometry; Temp Rooms (placement scaffolds) are excluded from this tab.
 
 ---
 
@@ -149,29 +191,42 @@ Mismatches don't block calculation but suggest geometry to recheck. F/C mismatch
 
 ## Circuiting *(Pro)*
 
-Assigns circuit IDs per room or zone. First time on the tab: one circuit per room (e.g., `02.31.05`). **Add Zone** splits a room's circuit into sub-zones (`/A`, `/B`, `/C`), useful for divisible rooms with operable partitions or separate audience/dais areas (`216/A` for audience, `216/B` for dais).
+Assigns circuit IDs per room or zone. First time on the tab: one circuit per room (e.g., `02.31.05`). **Add Zone** splits a room's circuit into sub-zones (`/A`, `/B`, `/C`), useful for divisible rooms with operable partitions or separate audience/dais areas. The first-click zone split correctly assigns `/A` to the picked speakers and `/B` to the rest.
 
 **Modes:**
 - **70V** — North American constant-voltage; multi-tap transformers in parallel; typical paging/BGM/presentation
 - **100V** — same as 70V at 100V line voltage; European standard, also long cable runs in NA
 - **Low-Z** — direct low-impedance distribution, no transformer; high-fidelity music, single-speaker zones, theater
 
+**Apply to Selected / Apply to All** (new in v2.2): explicit-action buttons replace the previous auto-apply-on-dropdown-change for system voltage mode. Picking a new default no longer pre-emptively writes to every row — select rows, then click Apply. The Apply-button inventory is intentional: these buttons exist where they make sense (system voltage on Circuiting, wire gauge on Amps & Cabling, host/layout on Configuration) and don't exist elsewhere.
+
 **Tap selection:** nearest tap ≥ required power algorithm. Power-overload highlighting: green < ~80% Max Watts, yellow 80–100% (tight, no headroom), red > 100% (must fix before issuing documentation).
 
-**JSBA Loudspeaker Circuit Schedule** is created on first **Commit Circuiting** — a multi-category ViewSchedule with these columns: Circuit, Destination, Type, Tap (W), Qty, Spkr (Ω), Circuit (Ω), AWG, Loss (dB), Measured (Ω). The schedule is tracked by Revit UniqueId, so renaming it on a sheet doesn't break the linkage.
+**Commit Circuiting** writes circuit ID, tap setting, and rack ID to every speaker as part of a single commit transaction; the values stick on subsequent reads. **Update Schedule** does a Commit + rebuild rather than a rebuild-only, so changes to wire gauge, tap settings, or line loss show up immediately in the circuit schedule view.
 
-**Tag families** are bundled with v2.1 and auto-load on first project use — JSBA Circuit ID Tag (multi-category, circuit ID only for coordination drawings) and a variant with Tap Watts displayed (for installation drawings, eliminates installer error of default-tap-set).
+**JSBA Loudspeaker Circuit Schedule** is a multi-category ViewSchedule with these columns: Circuit, Destination, Type, Tap (W), Qty, Spkr (Ω), Circuit (Ω), AWG, Loss (dB), Measured (Ω). The schedule is tracked by Revit UniqueId, so renaming it on a sheet doesn't break the linkage.
+
+**Tag families** are bundled and auto-load on first project use — JSBA Circuit ID Tag (multi-category, circuit ID only for coordination drawings) and a variant with Tap Watts displayed (for installation drawings, eliminates installer error of default-tap-set).
 
 ---
 
 ## Amps & Cabling *(Pro)*
 
 **Rack workflow:**
-1. **Rack Locations** — scans the entire project for rack candidates (across host + linked models).
-2. **Pick Racks in Model** — fallback when category-based scan misses racks (e.g., racks modeled in Generic Models). User picks racks manually in Revit selection mode.
-3. **Assign Rack IDs** — writes the rack ID parameter per a configurable naming convention.
 
-**Nearest-rack assignment** routes each circuit to its nearest rack by room-centroid → rack-location distance (TSP nearest-neighbor). Manual override per circuit available via dropdown — useful for keeping all circuits in one room on the same rack, AV/IT separation, or dedicated VIP-room racks. **Recompute Nearest Racks** re-runs auto-assignment and is idempotent (Ctrl+Z to revert).
+1. **Rack Locations** — scans the entire project for rack candidates (across host + linked models) using keyword matches on family names: rack, cabinet, enclosure, Middle Atlantic product codes. Family names with underscores (e.g., `MAP-SR_Series`, `SR_Series_Wall_Rack`) are normalized to spaces before matching so the SR series is recognized correctly.
+
+2. **Rack Family Selection dialog (new in v2.2)** — the rack scan can pull in hundreds of false-positive matches on projects with furniture, IT racks, network cabinets, or other "rack/cabinet/enclosure" families that aren't AV equipment racks. After the scan, a selection dialog lists every keyword-matched family with its instance count and an example room, plus a tick-box to include or exclude. Your choice is **persisted per project**, so the rack selection sticks across reboots and team-member handoffs. New families appearing in subsequent scans are flagged with a **"New"** status badge so they can be reviewed without disrupting existing selections.
+
+3. **Pick Racks in Model** — fallback when the category-based scan misses racks (e.g., racks modeled in Generic Models). User picks racks manually in Revit selection mode.
+
+4. **Assign Rack IDs** — writes the rack ID parameter per a configurable naming convention.
+
+**Nearest-rack assignment** routes each circuit to its nearest rack by room-centroid → rack-location distance (TSP nearest-neighbor). Manual override per circuit available via dropdown — useful for keeping all circuits in one room on the same rack, AV/IT separation, or dedicated VIP-room racks.
+
+**Bulk rack assignment (new in v2.2):** multi-select rows in the Amps grid, choose a rack from the right-side panel, click Apply. Every selected row updates to that rack in one click — useful when the auto-nearest-rack assignment doesn't match your design intent and you want to force a block of circuits to a specific equipment room. **Recompute Nearest Racks** re-runs auto-assignment and is idempotent (Ctrl+Z to revert).
+
+**Apply to Selected / Apply to All** (new in v2.2): explicit-action buttons replace auto-apply-on-dropdown-change for wire gauge. Pick a new default, then choose how to apply it. Per-row overrides remain available.
 
 **Local Amp** flag flips a circuit from a centralized rack to an in-room amp; cable-run estimation drops dramatically.
 
@@ -243,19 +298,31 @@ It **does** produce repeatable, BIM-integrated, documentation-ready loudspeaker 
 Multi-room distributed loudspeaker systems — convention centers, corporate offices, hospitality, education, healthcare, transportation hubs, houses of worship. Anywhere with many rooms needing consistent ceiling speaker coverage and (in Pro) circuiting and acoustic analysis to support documentation.
 
 **Q: Does it work with linked models?**
-Yes — this is the primary workflow. Rooms typically come from the architect's linked model; speakers are placed in the host AV model. The tool handles host/linked coordinate transforms, ceiling detection across links, and composite room identifiers automatically.
+Yes — this is the primary workflow. Rooms typically come from the architect's linked model; speakers are placed in the host AV model. As of v2.2 the Rooms tab scans the host doc plus every loaded link in a single pass, and a Source column shows which file each room came from.
 
 **Q: Which Revit versions are supported?**
-v2.1 (current paid release): Revit 2025.3 and higher. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+v2.2 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+
+**Q: What's new in v2.2?**
+New Rooms-tab workflows — **Define Boundary** for tracing a perimeter on a Revit room that exists but is unbounded (Area = 0), and **Add Temp Room** for spaces that don't have a Revit Room at all (food halls, prefunction halls, exterior plazas, in-progress architectural areas). Both flow through the rest of the tool — Configuration, Coverage, Circuiting, Amps & Cabling. Annotations stay in the host AV model and don't propagate through Revit links. Plus a unified linked-file scan (the Host/Linked dropdown is gone, replaced by a Source column), a Rack Family Selection dialog that solves the 200+ false-positive racks problem, Apply to Selected / Apply to All buttons for explicit control over wire gauge and system voltage application, in-color coverage maps that render on every view including dependent plans on sheets, and a stack of quality-of-life fixes (tap setting + rack ID persist on Commit Circuiting, Update Schedule refreshes every column, Add Zone first-click works, reference-plane speaker orientation is correct, rack scanner recognizes SR series families).
+
+**Q: How do I lay out speakers in a room that doesn't exist in the architectural model?**
+Use **Add Temp Room** on the Rooms tab. Pick a number, name, and ceiling height, then trace the perimeter in your active plan view. AVTools creates a synthetic Temp Room row that behaves like a normal room for Configuration, Coverage, Circuiting, and Cabling. Temp rooms are excluded from Room Acoustics (placement scaffolds only). Once you place speakers, AVTools auto-resolves the underlying real Revit room (if any) on the next Rescan and re-stamps the speakers to that real room.
+
+**Q: How do I lay out speakers in a Revit room that has Area = 0 (unbounded)?**
+Use **Define Boundary…** on the Rooms tab. Select the unbounded row, click Define Boundary, trace the perimeter. AVTools stamps a Filled Region with the room number encoded in Comments; the next Rescan picks that polygon up as the room's layout boundary. The Filled Region is an annotation and does not propagate through Revit links.
+
+**Q: I placed speakers in a Temp Room but the underlying corridor still shows Not Started.**
+Click Rescan Rooms. AVTools runs the temp-to-real association pass on every Rescan — speakers in a Temp Room polygon that overlaps a real Revit room get re-stamped to the real room, and the real room's design state inherits the temp's. If the corridor still doesn't update, the temp polygon may be crossing more than one real room (watch for a warning dialog) or it may sit in genuinely unbounded space with no real room beneath.
+
+**Q: Why does my rack scan find 200 racks when I only have 6?**
+The keyword scan matches "rack" / "cabinet" / "enclosure" / Middle Atlantic product codes across every family in host + linked models. Furniture, IT racks, and network cabinets can light up. Use the Rack Family Selection dialog that appears after **Rack Locations**: tick only the families that should count as AV racks. Your choice persists per project — the dialog won't re-prompt for already-confirmed or already-rejected families. New families appearing in later scans flag with a "New" badge so they can be reviewed without disrupting existing selections.
 
 **Q: What loudspeaker data file formats are supported?**
 **`.spk`** (EASE SPK with optional sibling `.lob`/`.phs`/`.fed`/`.frd`/`.fvt`) and **`.clf`** (Common Loudspeaker Format, CLF1 + CLF2). Other formats — including `.gll`, manufacturer proprietary binary formats, and `.cf2` as balloon data — are not supported. If a manufacturer publishes `.gll` only, request CLF data from them.
 
 **Q: Does it calculate RT60 and STI?**
 Yes (Standard and Pro). Three RT60 formulas — Sabine, Norris-Eyring, Arau-Puchades — across eight octave bands (63 Hz to 8 kHz). STI is estimated from RT60, background noise, speaker Q, and N factor. Critical distance and D/R ratio are computed alongside.
-
-**Q: What's new in v2.1?**
-Refined room acoustics (better surface and partition handling for stacked finishes, operable partitions, divisible-room boundaries, and multi-ceiling attribution); the new **Nudge** tool for fine-tuning speaker placement with Revit's native arrow keys; **schedule preservation** so running RT60 on one level no longer wipes calculations for other levels; **RT60 graph reference curve** overlay (preset and manual) for comparing against EASE, ODEON, or measured field data; iso-line bands refined to **±1/2/3 dB** for finer uniformity assessment; bundled JSBA tag and coordination families that auto-load on first project use; and a comprehensively updated Lucius AI knowledge base covering every tab, formula, and family setup detail.
 
 **Q: How is this different from D-Tools or EASE?**
 D-Tools is a system integration / proposal / project-management platform — strong on procurement and BOMs, not on Revit-native distributed-loudspeaker layout or acoustic analysis. EASE is a full acoustic simulation suite — strong on auralization and ray tracing, not on Revit integration or circuiting/cabling. AVTools is BIM-native, focused on the AV consultant designing inside the architect's Revit model, and covers placement → coverage → RT60/STI → circuiting → cabling → coordination as one continuous workflow.
