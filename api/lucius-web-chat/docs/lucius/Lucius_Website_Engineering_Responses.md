@@ -23,7 +23,7 @@ All responses are grounded in the v2.2 system-designer pack and established dist
 ### 1. What does AV Tools System Designer actually do?
 
 **Approved response:**
-AV Tools System Designer is a Revit add-in that provides a complete workflow for designing, analyzing, and documenting distributed ceiling loudspeaker systems. It covers automated speaker placement (including new Define Boundary and Add Temp Room workflows for unbounded spaces), direct-field coverage analysis with iso-maps, RT60 and STI room acoustics, circuiting with zoning and tap selection, amplifier/cabling design with line-loss calculations, and clash coordination against MEP/lighting/structural elements — all inside Revit, in one tool, with both host-model and unified linked-model support.
+AV Tools System Designer is a Revit add-in that provides a complete workflow for designing, analyzing, and documenting distributed ceiling loudspeaker systems. It covers automated speaker placement (including the new Add Temp Room workflow for spaces that aren't laid out cleanly in the architectural model), direct-field coverage analysis with iso-maps, RT60 and STI room acoustics, circuiting with zoning and tap selection, amplifier/cabling design with line-loss calculations, and clash coordination against MEP/lighting/structural elements — all inside Revit, in one tool, with both host-model and unified linked-model support.
 
 ---
 
@@ -107,7 +107,7 @@ No. System Designer automates first-order design logic and produces repeatable, 
 ### 10. What's new in v2.2?
 
 **Approved response:**
-v2.2 adds two new Rooms-tab workflows for spaces that aren't bounded in the architect's model — **Define Boundary** for tracing a perimeter on a Revit room that exists but has Area = 0, and **Add Temp Room** for spaces that don't have a Revit Room at all (food halls, prefunction halls, exterior plazas, in-progress architectural areas, or skeleton-key corridors where the Revit centroid lands outside the polygon). Both flow through Configuration, Coverage, Circuiting, and Amps & Cabling. Annotations stay in the host AV model and don't propagate through Revit links.
+v2.2 adds a unified **Add Temp Room** workflow on the Rooms tab that handles spaces aren't laid out cleanly in the architect's model — whether the Revit Room exists but has Area = 0, or there's no Revit Room at all (food halls, prefunction halls, exterior plazas, in-progress architectural areas, or skeleton-key corridors where the Revit centroid lands outside the polygon). Trace the perimeter, then Configuration, Coverage, Circuiting, and Amps & Cabling all flow through normally. Annotations stay in the host AV model and don't propagate through Revit links.
 
 Other v2.2 improvements: a unified linked-file scan (the Host/Linked dropdown is retired, replaced by a Source column showing which file each room came from); a Rack Family Selection dialog that solves the "200 racks found when I only have 6" problem on projects with non-AV furniture/IT/network families; Apply to Selected / Apply to All explicit-action buttons for wire gauge and system voltage; bulk rack assignment from the side panel; in-color iso-coverage maps that now render on the parent floor plan and every dependent plan view on sheets; and a stack of quality-of-life fixes (tap setting and rack ID persist on Commit Circuiting, Update Schedule refreshes every column, Add Zone first-click works, reference-plane speaker orientation is correct, rack scanner recognizes SR series families). Revit 2027 support is in active development.
 

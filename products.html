@@ -54,7 +54,7 @@
           <!-- v2.2 RELEASE BANNER -->
           <div class="release-banner">
             <b>AVTools System Designer v2.2 is live.</b>
-            Trace unbounded rooms with the new Define Boundary and Add Temp Room workflows, unified linked-file scanning, smarter rack family selection, in-color coverage maps on every view, plus a stack of quality-of-life fixes — for Revit 2025 and 2026.
+            New Add Temp Room workflow for spaces that aren't laid out cleanly in the architectural model, unified linked-file scanning, smarter rack family selection, in-color coverage maps on every view, plus a stack of quality-of-life fixes — for Revit 2025 and 2026.
             <div class="release-banner-teaser">
               <b>Coming soon:</b> Revit 2027 support (currently in development).
             </div>
@@ -321,7 +321,7 @@
                 <span class="release-date">Revit 2025 &amp; 2026</span>
               </div>
               <ul>
-                <li><b>Define Boundary and Add Temp Room:</b> Two new Rooms-tab workflows for spaces that aren't bounded in the architect's model — trace a boundary on an existing unbounded room, or create a synthetic Temp Room from scratch. Both flow through Configuration, Coverage, Circuiting, and Amps &amp; Cabling. Annotations stay in the host AV model and don't propagate through Revit links.</li>
+                <li><b>Add Temp Room:</b> A single Rooms-tab workflow for spaces that aren't laid out cleanly in the architect's model — whether the Revit Room exists but has Area = 0, or there's no Revit Room at all. Trace the perimeter, configure / place / circuit / cable as a normal room. When a real Revit room shows up later, AVTools auto-resolves and re-stamps the speakers. Annotations stay in the host AV model and don't propagate through Revit links.</li>
                 <li><b>Unified linked-file scan:</b> The Host vs Linked source dropdown is retired; the Rooms tab now scans every loaded link simultaneously with a new <b>Source</b> column. Stale duplicate-room entries from nested container models are deduped automatically.</li>
                 <li><b>Rack Family Selection dialog:</b> The Amps &amp; Cabling rack scan no longer pulls in 200+ false-positive furniture/IT racks — a new dialog lets you tick which keyword-matched families count as AV racks. Choices persist per project; new families surface with a “New” status badge.</li>
                 <li><b>Apply to Selected / Apply to All:</b> Explicit-action buttons replace the previous auto-apply-on-dropdown-change behavior for wire gauge and system voltage mode. Picking a default no longer pre-emptively writes to every row.</li>

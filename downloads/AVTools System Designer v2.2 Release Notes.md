@@ -8,12 +8,16 @@
 
 ## What's new
 
-### Rooms tab — Define Boundary and Add Temp Room
+### Rooms tab — Add Temp Room
 
-Real-world projects regularly have rooms that aren't bounded in the architectural Revit model — large prefunction halls, open food halls, exterior plaza spaces, or rooms still being modeled by the architect when AV layout is happening. v2.2 adds two workflows for handling these:
+Real-world projects regularly have rooms that aren't bounded in the architectural Revit model — large prefunction halls, open food halls, exterior plaza spaces, or rooms still being modeled by the architect when AV layout is happening. **Add Temp Room** is a single Rooms-tab workflow that handles every variant:
 
-- **Define Boundary…** — for a Revit room that exists but is unbounded (Area = 0). Trace the perimeter directly in the active plan view; AVTools creates a stamped Filled Region that the room scan picks up as a layout boundary. The Filled Region is an annotation, so it stays inside the host AV model and does NOT propagate through Revit links — your architect's coordinated workflows are untouched.
-- **Add Temp Room…** — for a space that doesn't even have a Revit Room yet. Pick a number, a name, a ceiling height; trace the perimeter; AVTools surfaces a synthetic "Temp Room" row in the Rooms tab. All downstream features (Configuration, Direct-Field Coverage, Circuiting, Amps & Cabling, Draw Wiring) treat it like a normal room.
+- **The space has no Revit Room at all.** Pick a number, a name, and a ceiling height; trace the perimeter in the active plan view. AVTools surfaces a synthetic "Temp Room" row in the Rooms tab. All downstream features (Configuration, Direct-Field Coverage, Circuiting, Amps & Cabling, Draw Wiring) treat it like a normal room.
+- **The Revit Room exists but is unbounded (Area = 0).** Same workflow — pick the row, trace the perimeter. AVTools creates a stamped Filled Region tied to that room number that the next room scan picks up as a layout boundary.
+
+The Filled Region is an annotation, so it stays inside the host AV model and does NOT propagate through Revit links — your architect's coordinated workflows are untouched.
+
+When speakers placed inside a Temp Room polygon overlap a real Revit room (a corridor, a room with a bad centroid, etc.), AVTools auto-resolves the real room on the next Rescan. Speakers are re-stamped with the real room's number, and the real room's row inherits the temp's design state (promote-only — Speakers Placed / Circuiting Complete / Cabling Complete). The Temp Room row is hidden once association succeeds.
 
 Temp rooms are excluded from **Room Acoustics** because they're documentation-only placement scaffolds. If you want acoustics on the underlying space, select the real Revit room and uncheck the Temp Room row.
 
@@ -68,7 +72,7 @@ The iso-coverage contour lines now use Line subcategories with built-in colors (
 - Project state schema is unchanged from v2.0 / v2.1 — no migration required.
 - Existing user-defined acoustic materials carry forward unchanged.
 - Bundled JSBA family files are refreshed in each project on first launch.
-- Existing Filled Regions created by v2.1's `Define Boundary` workflow keep working — v2.2 reads the older `JSBA-RoomBoundary:<num>` Comments format alongside the new `JSBA-RoomBoundary:<num>|<name>|CH:<height_ft>` format.
+- Existing room-boundary Filled Regions from prior versions keep working — v2.2 reads the older `JSBA-RoomBoundary:<num>` Comments format alongside the new `JSBA-RoomBoundary:<num>|<name>|CH:<height_ft>` format.
 
 ---
 
