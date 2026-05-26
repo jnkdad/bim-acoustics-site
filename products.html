@@ -120,11 +120,6 @@
         return;
       }
 
-      // Respect reduced-motion users — show the banner statically.
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        return;
-      }
-
       var marquee = banner.querySelector('.infocomm-marquee');
       var track   = banner.querySelector('.infocomm-track');
       if (!marquee || !track) return;
