@@ -33,13 +33,31 @@
       width: 100%;
       overflow: hidden;
       position: relative;
-      mask-image: linear-gradient(90deg, transparent 0, #000 50px, #000 calc(100% - 50px), transparent 100%);
-      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 50px, #000 calc(100% - 50px), transparent 100%);
     }
-    /* Scroll is driven by JS (see inline script below) — CSS keyframe animations
-       on transform are unreliable in Edge (same pattern as .screenshot-track). */
+    /* Edge fade — pseudo-element gradient, same pattern as .screenshot-strip
+       (mask-image has spotty Edge support). Color stops match the amber bg. */
+    .infocomm-marquee::before,
+    .infocomm-marquee::after {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 60px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .infocomm-marquee::before {
+      left: 0;
+      background: linear-gradient(90deg, #FFD60A, rgba(255,214,10,0));
+    }
+    .infocomm-marquee::after {
+      right: 0;
+      background: linear-gradient(90deg, rgba(255,214,10,0), #FFD60A);
+    }
+    /* Scroll is driven by JS — CSS keyframe animations on transform are
+       unreliable in Edge (same pattern as .screenshot-track). */
     .infocomm-track {
-      display: inline-flex;
+      display: flex;
+      width: max-content;          /* explicit content-sizing — required for rAF wrap math */
       white-space: nowrap;
       will-change: transform;
     }
