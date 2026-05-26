@@ -9,10 +9,11 @@
 // Add new releases here; anything not listed returns 404.
 const FILES = {
   "v121":     "JSBA.AVTools-SystemDesigner_Revit2022-2024_v1.2.1.zip",
-  "v22":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.zip",
-  // v20 / v21 aliases kept so any external/bookmarked links still resolve to the latest 2.x zip
-  "v20":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.zip",
-  "v21":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.zip",
+  "v221":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.1.msi",
+  // v20 / v21 / v22 aliases kept so any external/bookmarked links still resolve to the latest 2.x installer
+  "v20":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.1.msi",
+  "v21":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.1.msi",
+  "v22":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.1.msi",
   "presskit": "AVTools-SystemDesigner-v2.0-PressKit.zip"
 };
 

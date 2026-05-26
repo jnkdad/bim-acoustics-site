@@ -51,10 +51,10 @@
           </div>
           <div class="screenshot-hint">Click any screenshot to enlarge &middot; hover to pause scroll</div>
 
-          <!-- v2.2 RELEASE BANNER -->
+          <!-- v2.2.1 RELEASE BANNER -->
           <div class="release-banner">
-            <b>AVTools System Designer v2.2 is live.</b>
-            New Add Temp Room workflow for spaces that aren't laid out cleanly in the architectural model, unified linked-file scanning, smarter rack family selection, in-color coverage maps on every view, plus a stack of quality-of-life fixes — for Revit 2025 and 2026.
+            <b>AVTools System Designer v2.2.1 is live.</b>
+            Now ships as a proper MSI installer with an in-app EULA, per-family loudspeaker filter dialog, user-level state so curated filter choices follow you across every project, cloud-delivered Lucius knowledge updates, a refreshed ribbon icon, and a Place Rack ID Tags fix that lands tags on every level — for Revit 2025 and 2026.
             <div class="release-banner-teaser">
               <b>Coming soon:</b> Revit 2027 support (currently in development).
             </div>
@@ -133,7 +133,7 @@
               <h2 class="prod-title">
                 AVTools System Designer
                 <span style="margin-left:8px; background:#1a3a5c; color:#cfe3ff; font-size:11px; padding:3px 8px; border-radius:999px;">
-                  v2.2
+                  v2.2.1
                 </span>
               </h2>
 
@@ -170,17 +170,17 @@
 
               <div class="prod-cta" style="margin-top:8px;">
                 <a class="btn cta-download"
-                   href="/api/download?key=v22"
+                   href="/api/download?key=v221"
                    download>
-                  Download v2.2 (10-day trial)
+                  Download v2.2.1 (10-day trial)
                 </a>
               </div>
 
               <div class="prod-release-link">
-                <a href="/downloads/AVTools%20System%20Designer%20v2.2%20Release%20Notes.pdf"
+                <a href="/downloads/AVTools%20System%20Designer%20v2.2.1%20Release%20Notes.pdf"
                    target="_blank"
                    rel="noopener">
-                  Read v2.2 Release Notes (PDF) &rarr;
+                  Read v2.2.1 Release Notes (PDF) &rarr;
                 </a>
               </div>
 
@@ -197,7 +197,7 @@
               <h2 class="prod-title">
                 AVTools System Designer
                 <span style="margin-left:8px; background:#3a2a5c; color:#e8d9ff; font-size:11px; padding:3px 8px; border-radius:999px;">
-                  v2.2
+                  v2.2.1
                 </span>
               </h2>
 
@@ -235,17 +235,17 @@
 
               <div class="prod-cta" style="margin-top:8px;">
                 <a class="btn cta-download"
-                   href="/api/download?key=v22"
+                   href="/api/download?key=v221"
                    download>
-                  Download v2.2 (10-day trial)
+                  Download v2.2.1 (10-day trial)
                 </a>
               </div>
 
               <div class="prod-release-link">
-                <a href="/downloads/AVTools%20System%20Designer%20v2.2%20Release%20Notes.pdf"
+                <a href="/downloads/AVTools%20System%20Designer%20v2.2.1%20Release%20Notes.pdf"
                    target="_blank"
                    rel="noopener">
-                  Read v2.2 Release Notes (PDF) &rarr;
+                  Read v2.2.1 Release Notes (PDF) &rarr;
                 </a>
               </div>
 
@@ -272,11 +272,11 @@
                     </th>
                     <th>
                       <div class="th-tier">Standard</div>
-                      <div class="th-ver">v2.2 &middot; Revit 2025 &amp; 2026</div>
+                      <div class="th-ver">v2.2.1 &middot; Revit 2025 &amp; 2026</div>
                     </th>
                     <th class="th-featured">
                       <div class="th-tier">Pro</div>
-                      <div class="th-ver">v2.2 &middot; Revit 2025 &amp; 2026</div>
+                      <div class="th-ver">v2.2.1 &middot; Revit 2025 &amp; 2026</div>
                     </th>
                   </tr>
                 </thead>
@@ -317,6 +317,41 @@
 
             <div class="release-card">
               <div class="release-head">
+                <span class="release-ver">v2.2.1</span>
+                <span class="release-date">Revit 2025 &amp; 2026 &middot; May 2026</span>
+              </div>
+              <ul>
+                <li><b>Proper MSI installer:</b> Replaces the prior sideload ZIP for the Standard / Pro builds. Clean install, clean uninstall, clean upgrade over any v2.x build. Project state, license activation, and per-room configuration are preserved across the upgrade.</li>
+                <li><b>In-app End User License Agreement:</b> First launch (and any future material EULA revision) opens a modal with the full agreement, a scrollable view, and a tick-to-accept checkbox. Acceptance is recorded per Windows user at <code>%APPDATA%\BimAcoustics\license-acceptance.json</code> with EULA version, UTC timestamp, username, and machine name.</li>
+                <li><b>Per-family loudspeaker filter dialog:</b> Scan Loudspeakers now opens a tick-box dialog of every family that survived the classifier — family name, instance count, category, and an example room. JSBA- or AVIXA-stamped families are auto-ticked. Same Shift+click range select, Space-to-toggle, and "Only New" / "Only Stamped" bulk actions as the Rack Family Selection dialog.</li>
+                <li><b>User-level state for filter choices:</b> Rack and loudspeaker family selections now live at user scope at <code>%APPDATA%\BimAcoustics\UserState.json</code> rather than per-project. Curated lists carry forward to every project you open on your machine. Existing per-project lists from v2.2 are merged in automatically.</li>
+                <li><b>Filter dialog z-order and multi-select hardening:</b> Both filter dialogs now stay reliably in front of the AVTools shell window during the initial scan. Shift-click for range selection, Space to toggle Include, and ticking any one checkbox in a multi-row selection propagates to the rest.</li>
+                <li><b>Cloud-delivered Lucius knowledge base:</b> Lucius's documentation, design guidance, and response framing rules now ship from the cloud, not the add-in DLL. Knowledge updates reach every active user the moment they're published — no installer rebuild. A local fallback still ships in the build for offline use.</li>
+                <li><b>Ribbon icon and label refresh:</b> The System Designer ribbon button has a redrawn pendant-loudspeaker icon (16- and 32-pixel native, not downsampled), the label is now <b>System Designer</b> (was "AV Design"), and the hover tooltip describes the full feature scope.</li>
+                <li><b>Place Rack ID Tags fix:</b> Face-hosted-rack defect that collapsed all rack tags onto the active view's floor plan is fixed — level resolution now uses the rack's physical Z position. The result dialog adds a per-view breakdown so you can confirm tags landed on every level plan.</li>
+                <li><b>Installer ships all required DLLs:</b> v2.2 was missing <code>JSBA.AVTools.RevitCore.dll</code> and <code>JSBA.ArrayBridge.dll</code> from the install set, surfacing as <code>FileNotFoundException</code> on clean installs. Both are now properly registered.</li>
+              </ul>
+              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
+                <a class="btn cta-primary"
+                   href="/api/download?key=v221"
+                   download>
+                  Download v2.2.1
+                </a>
+                <a class="btn"
+                   href="/downloads/AVTools%20System%20Designer%20v2.2.1%20Release%20Notes.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  Release Notes (PDF)
+                </a>
+              </div>
+              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
+                MSI SHA256: <code>2FAB3EA7060D6503A5C43F0D52438FB183626FA0A6C907C94BC68D54044DAD0F</code><br>
+                MSI is not yet code-signed (Microsoft Trusted Signing enrollment in progress, ETA mid-June 2026). Windows UAC will display "Unknown Publisher" during install until then; verify against the SHA256 above.
+              </div>
+            </div>
+
+            <div class="release-card">
+              <div class="release-head">
                 <span class="release-ver">v2.2</span>
                 <span class="release-date">Revit 2025 &amp; 2026</span>
               </div>
@@ -330,11 +365,6 @@
                 <li><b>Quality-of-life fixes:</b> Tap setting and rack ID now persist on Commit Circuiting; Update Schedule refreshes every column; Add Zone first-click works; reference-plane speaker orientation is correct; rack scanner recognizes SR series families; multiple Temp Room and linked-room regressions resolved.</li>
               </ul>
               <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v22"
-                   download>
-                  Download v2.2
-                </a>
                 <a class="btn"
                    href="/downloads/AVTools%20System%20Designer%20v2.2%20Release%20Notes.pdf"
                    target="_blank"
@@ -438,8 +468,8 @@
                 <select name="tier">
                   <option value="">Select…</option>
                   <option value="Free (v1.2.1)">Free (v1.2.1)</option>
-                  <option value="Standard (v2.2)">Standard (v2.2)</option>
-                  <option value="Pro (v2.2)">Pro (v2.2)</option>
+                  <option value="Standard (v2.2.1)">Standard (v2.2.1)</option>
+                  <option value="Pro (v2.2.1)">Pro (v2.2.1)</option>
                 </select>
               </label>
 
