@@ -20,31 +20,31 @@
       z-index: 100;
       background: linear-gradient(90deg, #FFD60A 0%, #FFB800 50%, #FFD60A 100%);
       color: #0a2540;
-      border-bottom: 3px solid #B8860B;
-      padding: 28px 0;
+      border-bottom: 2px solid #B8860B;
+      padding: 20px 0;
       overflow: hidden;
       font-family: 'Montserrat', system-ui, sans-serif;
-      font-size: 32px;
+      font-size: 24px;
       font-weight: 600;
       letter-spacing: 0.02em;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      box-shadow: 0 3px 14px rgba(0,0,0,0.5);
     }
     .infocomm-marquee {
       width: 100%;
       overflow: hidden;
       position: relative;
-      mask-image: linear-gradient(90deg, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
-      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0, #000 50px, #000 calc(100% - 50px), transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 50px, #000 calc(100% - 50px), transparent 100%);
     }
+    /* Scroll is driven by JS (see inline script below) — CSS keyframe animations
+       on transform are unreliable in Edge (same pattern as .screenshot-track). */
     .infocomm-track {
-      display: inline-flex;       /* size to content, not parent — required for marquee */
+      display: inline-flex;
       white-space: nowrap;
-      animation: infocomm-scroll 55s linear infinite;
+      will-change: transform;
     }
-    .infocomm-marquee:hover .infocomm-track,
-    .infocomm-marquee:focus-within .infocomm-track { animation-play-state: paused; }
     .infocomm-item {
-      padding-right: 128px;
+      padding-right: 96px;
       flex: 0 0 auto;
     }
     .infocomm-item b { color: #000000; font-weight: 800; }
@@ -54,15 +54,8 @@
       text-underline-offset: 2px;
     }
     .infocomm-item a:hover { color: #000000; }
-    .infocomm-pin { display: inline-block; margin-right: 14px; font-size: 36px; }
-    .infocomm-dot { opacity: 0.45; margin: 0 28px; }
-    @keyframes infocomm-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .infocomm-track { animation: none; transform: translateX(0); }
-    }
+    .infocomm-pin { display: inline-block; margin-right: 10px; font-size: 26px; }
+    .infocomm-dot { opacity: 0.45; margin: 0 22px; }
   </style>
 </head>
 
@@ -99,13 +92,60 @@
     </div>
   </div>
   <script>
-    // Hide the InfoComm banner after the event closes (2026-06-20 local).
+    // InfoComm banner: hide after event closes; otherwise drive the marquee in JS
+    // (CSS keyframe animations on transform are flaky in Edge — same reason
+    // .screenshot-track uses rAF rather than @keyframes).
     (function () {
+      var banner = document.getElementById('infocomm-banner');
+      if (!banner) return;
+
+      // Auto-hide after the event closes (2026-06-20 local).
       var endsAt = new Date(2026, 5, 20); // month is 0-indexed -> June 20
       if (Date.now() >= endsAt.getTime()) {
-        var b = document.getElementById('infocomm-banner');
-        if (b) b.style.display = 'none';
+        banner.style.display = 'none';
+        return;
       }
+
+      // Respect reduced-motion users — show the banner statically.
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
+      var marquee = banner.querySelector('.infocomm-marquee');
+      var track   = banner.querySelector('.infocomm-track');
+      if (!marquee || !track) return;
+
+      var SPEED_PX_PER_SEC = 70;
+      var position = 0;
+      var lastTs = null;
+      var paused = false;
+
+      marquee.addEventListener('mouseenter', function () { paused = true; });
+      marquee.addEventListener('mouseleave', function () { paused = false; });
+      marquee.addEventListener('focusin',    function () { paused = true; });
+      marquee.addEventListener('focusout',   function () { paused = false; });
+
+      function oneSetWidth() {
+        // The track contains 2 duplicate items; one set = half the scrollWidth.
+        return track.scrollWidth / 2;
+      }
+
+      function tick(ts) {
+        if (lastTs == null) lastTs = ts;
+        var dt = (ts - lastTs) / 1000;
+        lastTs = ts;
+
+        if (!paused) {
+          position += SPEED_PX_PER_SEC * dt;
+          var w = oneSetWidth();
+          if (w > 0 && position >= w) position -= w;
+          track.style.transform = 'translateX(' + (-position).toFixed(2) + 'px)';
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
     })();
   </script>
 
