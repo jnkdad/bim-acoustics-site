@@ -32,10 +32,9 @@
       -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
     }
     .infocomm-track {
-      display: flex;
+      display: inline-flex;       /* size to content, not parent — required for marquee */
       white-space: nowrap;
-      width: max-content;
-      animation: infocomm-scroll 38s linear infinite;
+      animation: infocomm-scroll 32s linear infinite;
     }
     .infocomm-marquee:hover .infocomm-track,
     .infocomm-marquee:focus-within .infocomm-track { animation-play-state: paused; }
@@ -77,7 +76,7 @@
           <span class="infocomm-dot">&middot;</span>
           Find me at the <b>AtlasIED booth N7132</b> (North Hall)
           <span class="infocomm-dot">&middot;</span>
-          Bring your messiest Revit project &mdash; let's give <b>AVTools System Designer</b> a test drive together
+          Come say hi
           <span class="infocomm-dot">&middot;</span>
         </span>
         <span class="infocomm-item" aria-hidden="true">
@@ -88,7 +87,7 @@
           <span class="infocomm-dot">&middot;</span>
           Find me at the <b>AtlasIED booth N7132</b> (North Hall)
           <span class="infocomm-dot">&middot;</span>
-          Bring your messiest Revit project &mdash; let's give <b>AVTools System Designer</b> a test drive together
+          Come say hi
           <span class="infocomm-dot">&middot;</span>
         </span>
       </div>
