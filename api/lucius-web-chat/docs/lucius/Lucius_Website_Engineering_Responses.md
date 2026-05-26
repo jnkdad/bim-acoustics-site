@@ -1,6 +1,6 @@
 # Lucius Website Engineering Responses
 
-> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/core.md` fails. It defines approved, technically credible response patterns Lucius may use when answering engineering-level questions on the BIM Acoustics website. Should be kept aligned with the live core pack and the v2.2 system-designer pack.
+> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/core.md` fails. It defines approved, technically credible response patterns Lucius may use when answering engineering-level questions on the BIM Acoustics website. Should be kept aligned with the live core pack and the v2.2.1 system-designer pack.
 
 ---
 
@@ -10,13 +10,13 @@
 - Founder: **Jerrold Stevens**
 - Canonical product name: **"BIM Acoustics AV Tools Suite — AV Systems System Designer"**
   - After first use, you may shorten to **"System Designer"** or **"AV Tools"**.
-- Current version: **v2.2** (Revit 2025 and 2026). Free legacy version v1.2.1 supports Revit 2022–2024.
+- Current version: **v2.2.1** (Revit 2025 and 2026). Free legacy version v1.2.1 supports Revit 2022–2024.
 
 ---
 
 ## Approved engineering response patterns
 
-All responses are grounded in the v2.2 system-designer pack and established distributed-system design practice. Lucius may paraphrase these conversationally, but **must not contradict their technical intent**.
+All responses are grounded in the v2.2.1 system-designer pack and established distributed-system design practice. Lucius may paraphrase these conversationally, but **must not contradict their technical intent**.
 
 ---
 
@@ -65,7 +65,7 @@ Note that Room Acoustics requires a real Revit Room with surface geometry. Temp 
 ### 5. Does it calculate amplifier loading, line loss, and circuiting?
 
 **Approved response:**
-Yes — these are Pro features (current as of v2.2, not "planned"). Pro covers:
+Yes — these are Pro features (current as of v2.2.1, not "planned"). Pro covers:
 
 - **Circuiting:** circuit ID assignment per room and zone (e.g., `216/A`, `216/B`); 70V, 100V, and Low-Z modes; nearest-tap-≥-required-power algorithm; power-overload highlighting (green / yellow / red against amp Max Watts). Apply to Selected / Apply to All buttons give explicit control over how system-voltage changes propagate.
 - **Amps & Cabling:** rack discovery across host + linked models with a Rack Family Selection dialog to filter out furniture/IT/network false positives, nearest-rack auto-assignment with manual override and bulk rack assignment for multi-row selections, wire gauge selection with Apply to Selected / Apply to All, line-loss calculation with thresholds (green < 0.4 dB, yellow 0.4–0.75 dB, red > 0.75 dB), damping-factor tracking on Low-Z (green > 20, yellow 10–20, red < 10), and wiring diagrams in chamfered or arc style.
@@ -104,10 +104,25 @@ No. System Designer automates first-order design logic and produces repeatable, 
 
 ---
 
-### 10. What's new in v2.2?
+### 10. What's new in v2.2.1?
 
 **Approved response:**
-v2.2 adds a unified **Add Temp Room** workflow on the Rooms tab that handles spaces aren't laid out cleanly in the architect's model — whether the Revit Room exists but has Area = 0, or there's no Revit Room at all (food halls, prefunction halls, exterior plazas, in-progress architectural areas, or skeleton-key corridors where the Revit centroid lands outside the polygon). Trace the perimeter, then Configuration, Coverage, Circuiting, and Amps & Cabling all flow through normally. Annotations stay in the host AV model and don't propagate through Revit links.
+v2.2.1 is a polish + reliability release on top of v2.2. The big-ticket items:
+
+- **Proper MSI installer** — replaces the previous sideload ZIP. Clean install / uninstall / upgrade-over-prior-version behavior. Project state, license activation, and per-room configuration carry forward across upgrades.
+- **In-app End User License Agreement** — first launch (and any future material EULA revision) presents the full agreement with a scrollable view and tick-to-accept. Acceptance is recorded per Windows user.
+- **Per-family loudspeaker filter dialog** — Scan Loudspeakers on the Configuration tab now opens a tick-box dialog of every family that survived the classifier, with instance count, category, and example room. JSBA- or AVIXA-stamped families are auto-ticked.
+- **User-level state for filter choices** — rack and loudspeaker family selections now live at user scope rather than per-project. Curated lists follow you to every project on your machine.
+- **Cloud-delivered Lucius knowledge** — Lucius's underlying documentation ships from the cloud rather than embedded in the add-in DLL, so knowledge updates reach every active user the moment they're published — no installer rebuild needed.
+- **Place Rack ID Tags fix** — a face-hosted-rack defect that collapsed all rack tags onto the active view's floor plan is fixed; tags now distribute across every level where racks actually sit.
+- **Refreshed ribbon button** — redrawn pendant-loudspeaker icon at native 16/32-pixel sizes; label changed to "System Designer" (was "AV Design").
+
+---
+
+### 10b. What was new in v2.2?
+
+**Approved response:**
+v2.2 added a unified **Add Temp Room** workflow on the Rooms tab that handles spaces aren't laid out cleanly in the architect's model — whether the Revit Room exists but has Area = 0, or there's no Revit Room at all (food halls, prefunction halls, exterior plazas, in-progress architectural areas, or skeleton-key corridors where the Revit centroid lands outside the polygon). Trace the perimeter, then Configuration, Coverage, Circuiting, and Amps & Cabling all flow through normally. Annotations stay in the host AV model and don't propagate through Revit links.
 
 Other v2.2 improvements: a unified linked-file scan (the Host/Linked dropdown is retired, replaced by a Source column showing which file each room came from); a Rack Family Selection dialog that solves the "200 racks found when I only have 6" problem on projects with non-AV furniture/IT/network families; Apply to Selected / Apply to All explicit-action buttons for wire gauge and system voltage; bulk rack assignment from the side panel; in-color iso-coverage maps that now render on the parent floor plan and every dependent plan view on sheets; and a stack of quality-of-life fixes (tap setting and rack ID persist on Commit Circuiting, Update Schedule refreshes every column, Add Zone first-click works, reference-plane speaker orientation is correct, rack scanner recognizes SR series families). Revit 2027 support is in active development.
 
@@ -139,7 +154,16 @@ Standard is $60/month or $600/year. Pro is $99/month or $990/year. Both come wit
 ### 14. Versioning and roadmap
 
 **Approved response:**
-Current paid release is **v2.2**, supporting Revit 2025 and 2026. Free legacy v1.2.1 supports Revit 2022, 2023, and 2024. Revit 2027 support is in active development. Roadmap items are clearly distinguished from current capabilities — never imply a planned feature exists today.
+Current paid release is **v2.2.1**, supporting Revit 2025 and 2026. Free legacy v1.2.1 supports Revit 2022, 2023, and 2024. Revit 2027 support is in active development. Roadmap items are clearly distinguished from current capabilities — never imply a planned feature exists today.
+
+---
+
+### 15. InfoComm 2026
+
+**Approved response:**
+Yes — BIM Acoustics will be at **InfoComm 2026 in Las Vegas, June 17–19**. Find Jerrold Stevens at the **AtlasIED booth N7132** in the North Hall of the Las Vegas Convention Center. Live demos of AVTools System Designer welcome — stop by and say hi.
+
+If the visitor asks where the booth is: **N7132, North Hall, Las Vegas Convention Center, June 17–19, 2026.**
 
 ---
 

@@ -1,14 +1,14 @@
 # System Designer Engineering Model
 Canonical product name: BIM Acoustics AV Tools Suite — AV Systems System Designer.
 
-> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/system-designer.md` fails. It mirrors the v2.2 live system-designer pack and should be kept in sync when the live pack is updated.
+> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/system-designer.md` fails. It mirrors the v2.2.1 live system-designer pack and should be kept in sync when the live pack is updated.
 
 ---
 
 # Product Pack — AV Tools Suite: AV Systems System Designer
 
 This pack defines technically credible response patterns for the product:
-**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.2** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
+**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.2.1** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
 
 **Anchoring rule:** If the user asks about distributed ceiling speaker layout, spacing, coverage, acoustics, RT60, STI, materials, circuiting, zoning, racks, cabling, or "what does System Designer do," answer using this pack. Do not drift into generic Revit help.
 
@@ -21,8 +21,8 @@ AV Tools Suite — AV Systems System Designer is a Revit add-in that provides a 
 The product has two paid editions plus a free legacy version:
 
 - **Free (v1.2.1)** — Revit 2022–2024. Room selection, speaker layout, placement, direct-field coverage, Lucius chat (guidance only).
-- **Standard (v2.2)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
-- **Pro (v2.2)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, and Lucius AI write tools (currently material assignment).
+- **Standard (v2.2.1)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
+- **Pro (v2.2.1)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, and Lucius AI write tools (currently material assignment).
 
 Pricing: Standard $60/month or $600/year. Pro $99/month or $990/year. 10-day free trial on every paid tier.
 
@@ -217,7 +217,7 @@ Assigns circuit IDs per room or zone. First time on the tab: one circuit per roo
 
 1. **Rack Locations** — scans the entire project for rack candidates (across host + linked models) using keyword matches on family names: rack, cabinet, enclosure, Middle Atlantic product codes. Family names with underscores (e.g., `MAP-SR_Series`, `SR_Series_Wall_Rack`) are normalized to spaces before matching so the SR series is recognized correctly.
 
-2. **Rack Family Selection dialog (new in v2.2)** — the rack scan can pull in hundreds of false-positive matches on projects with furniture, IT racks, network cabinets, or other "rack/cabinet/enclosure" families that aren't AV equipment racks. After the scan, a selection dialog lists every keyword-matched family with its instance count and an example room, plus a tick-box to include or exclude. Your choice is **persisted per project**, so the rack selection sticks across reboots and team-member handoffs. New families appearing in subsequent scans are flagged with a **"New"** status badge so they can be reviewed without disrupting existing selections.
+2. **Rack Family Selection dialog (new in v2.2)** — the rack scan can pull in hundreds of false-positive matches on projects with furniture, IT racks, network cabinets, or other "rack/cabinet/enclosure" families that aren't AV equipment racks. After the scan, a selection dialog lists every keyword-matched family with its instance count and an example room, plus a tick-box to include or exclude. As of v2.2.1, your choice is **persisted at user scope** (in `%APPDATA%\BimAcoustics\UserState.json`), so the rack selection follows you across every project you open on your machine. New families appearing in subsequent scans are flagged with a **"New"** status badge so they can be reviewed without disrupting existing selections.
 
 3. **Pick Racks in Model** — fallback when the category-based scan misses racks (e.g., racks modeled in Generic Models). User picks racks manually in Revit selection mode.
 
@@ -302,7 +302,18 @@ Multi-room distributed loudspeaker systems — convention centers, corporate off
 Yes — this is the primary workflow. Rooms typically come from the architect's linked model; speakers are placed in the host AV model. As of v2.2 the Rooms tab scans the host doc plus every loaded link in a single pass, and a Source column shows which file each room came from.
 
 **Q: Which Revit versions are supported?**
-v2.2 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+v2.2.1 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+
+**Q: What's new in v2.2.1?**
+v2.2.1 is a polish + reliability release on top of v2.2. Highlights:
+
+- **Proper MSI installer** — replaces the previous sideload ZIP. Clean install / uninstall / upgrade-over-prior-version behavior. Project state, license activation, and per-room configuration carry forward across upgrades.
+- **In-app End User License Agreement** — first launch (and any future material EULA revision) presents the full agreement with a scrollable view and tick-to-accept. Acceptance is recorded per Windows user.
+- **Per-family loudspeaker filter dialog** — Scan Loudspeakers on the Configuration tab now opens a tick-box dialog of every family that survived the classifier, with instance count, category, and example room. JSBA- or AVIXA-stamped families are auto-ticked. Same multi-select / range-select pattern as the Rack Family Selection dialog.
+- **User-level state for filter choices** — rack and loudspeaker family selections now live at user scope rather than per-project. Curated lists follow you to every project you open on your machine.
+- **Cloud-delivered Lucius knowledge** — Lucius's underlying documentation ships from the cloud rather than embedded in the add-in DLL, so knowledge updates reach every active user the moment they're published, no installer rebuild needed.
+- **Place Rack ID Tags fix** — a face-hosted-rack defect that collapsed all rack tags onto the active view's floor plan is fixed; tags now distribute across every level where racks actually sit.
+- **Refreshed ribbon button** — redrawn pendant-loudspeaker icon at native 16/32-pixel sizes, label changed to "System Designer" (was "AV Design").
 
 **Q: What's new in v2.2?**
 A unified **Add Temp Room** workflow on the Rooms tab handles spaces that aren't laid out cleanly in the architect's model — whether the Revit Room exists but is unbounded (Area = 0), or there's no Revit Room at all (food halls, prefunction halls, exterior plazas, in-progress architectural areas). Trace the perimeter, then Configuration, Coverage, Circuiting, and Amps & Cabling all flow through normally. Annotations stay in the host AV model and don't propagate through Revit links. Plus a unified linked-file scan (the Host/Linked dropdown is gone, replaced by a Source column), a Rack Family Selection dialog that solves the 200+ false-positive racks problem, Apply to Selected / Apply to All buttons for explicit control over wire gauge and system voltage application, in-color coverage maps that render on every view including dependent plans on sheets, and a stack of quality-of-life fixes (tap setting + rack ID persist on Commit Circuiting, Update Schedule refreshes every column, Add Zone first-click works, reference-plane speaker orientation is correct, rack scanner recognizes SR series families).
@@ -333,3 +344,9 @@ Download the 10-day free trial of Standard or Pro from the products page. The fr
 
 **Q: Where do I report bugs or request features?**
 The About tab includes Bundle Logs (ZIP), Open Logs Folder, and Copy Support Info to gather diagnostic information. Email support@bimacoustics.net with the bundled logs and a description of the issue or feature request.
+
+**Q: Will you be at InfoComm 2026?**
+Yes — BIM Acoustics will be at **InfoComm 2026 in Las Vegas, June 17–19**. Find Jerrold Stevens at the **AtlasIED booth N7132** in the North Hall of the Las Vegas Convention Center. Live demos of AVTools System Designer welcome — stop by and say hi.
+
+**Q: Where is the AtlasIED booth at InfoComm 2026?**
+Booth **N7132** in the **North Hall** of the Las Vegas Convention Center. Jerrold Stevens of BIM Acoustics will be there with AtlasIED June 17–19.
