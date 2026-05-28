@@ -1,7 +1,7 @@
 # Product Pack — AV Tools Suite: AV Systems System Designer
 
 This pack defines technically credible response patterns for the product:
-**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.2.1** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
+**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.2.2** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
 
 **Anchoring rule:** If the user asks about distributed ceiling speaker layout, spacing, coverage, acoustics, RT60, STI, materials, circuiting, zoning, racks, cabling, or "what does System Designer do," answer using this pack. Do not drift into generic Revit help.
 
@@ -14,8 +14,8 @@ AV Tools Suite — AV Systems System Designer is a Revit add-in that provides a 
 The product has two paid editions plus a free legacy version:
 
 - **Free (v1.2.1)** — Revit 2022–2024. Room selection, speaker layout, placement, direct-field coverage, Lucius chat (guidance only).
-- **Standard (v2.2.1)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
-- **Pro (v2.2.1)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, and Lucius AI write tools (currently material assignment).
+- **Standard (v2.2.2)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
+- **Pro (v2.2.2)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, and Lucius AI write tools (currently material assignment).
 
 Pricing: Standard $60/month or $600/year. Pro $99/month or $990/year. 10-day free trial on every paid tier.
 
@@ -295,7 +295,16 @@ Multi-room distributed loudspeaker systems — convention centers, corporate off
 Yes — this is the primary workflow. Rooms typically come from the architect's linked model; speakers are placed in the host AV model. As of v2.2 the Rooms tab scans the host doc plus every loaded link in a single pass, and a Source column shows which file each room came from.
 
 **Q: Which Revit versions are supported?**
-v2.2.1 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+v2.2.2 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+
+**Q: What's new in v2.2.2?**
+v2.2.2 is a **trust release**. The MSI installer and every internal DLL are now digitally signed by **J. Stevens BIM Acoustics LLC** using Microsoft Azure Trusted Signing. **No functional changes** — the product behaves identically to v2.2.1.
+
+What customers see now: the UAC prompt during install reads **Verified publisher: J. Stevens BIM Acoustics LLC** (Microsoft-anchored cert chain) instead of *Unknown Publisher*. Revit's add-in loader shows a "Signed Add-In" confirmation dialog with the same publisher name. Right-click → Properties → Digital Signatures on the MSI or any installed DLL shows the same verified publisher.
+
+This is the credibility upgrade enterprise AV consultants on managed-IT Revit workstations have been waiting for. Project state, license activation, EULA acceptance, and per-user filter selections from v2.2.1 carry forward unchanged across the upgrade.
+
+(Known limitation: Windows SmartScreen may still warn on first download for a brief period as the signed build accumulates reputation — normal for newly-signed publishers since Microsoft removed instant-trust for EV certificates in 2024. The warning dissipates with download history.)
 
 **Q: What's new in v2.2.1?**
 v2.2.1 is a polish + reliability release on top of v2.2. Highlights:

@@ -9,12 +9,15 @@
 // Add new releases here; anything not listed returns 404.
 const FILES = {
   "v121":     "JSBA.AVTools-SystemDesigner_Revit2022-2024_v1.2.1.zip",
-  // v2.2.1 ships as a ZIP containing the MSI installer + User Guide PDF.
+  // v2.2.2 (trust release): first signed MSI — verified publisher "J. Stevens BIM Acoustics LLC".
+  // ZIP contains the signed MSI installer + User Guide PDF.
+  "v222":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.2.zip",
+  // Prior 2.x bundle kept addressable for anyone who explicitly wants it.
   "v221":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.1.zip",
   // v20 / v21 / v22 aliases kept so any external/bookmarked links still resolve to the latest 2.x bundle
-  "v20":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.1.zip",
-  "v21":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.1.zip",
-  "v22":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.1.zip",
+  "v20":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.2.zip",
+  "v21":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.2.zip",
+  "v22":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.2.zip",
   "presskit": "AVTools-SystemDesigner-v2.0-PressKit.zip"
 };
 

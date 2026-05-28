@@ -1,6 +1,6 @@
 # Lucius Website Engineering Responses
 
-> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/core.md` fails. It defines approved, technically credible response patterns Lucius may use when answering engineering-level questions on the BIM Acoustics website. Should be kept aligned with the live core pack and the v2.2.1 system-designer pack.
+> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/core.md` fails. It defines approved, technically credible response patterns Lucius may use when answering engineering-level questions on the BIM Acoustics website. Should be kept aligned with the live core pack and the v2.2.2 system-designer pack.
 
 ---
 
@@ -10,13 +10,13 @@
 - Founder: **Jerrold Stevens**
 - Canonical product name: **"BIM Acoustics AV Tools Suite — AV Systems System Designer"**
   - After first use, you may shorten to **"System Designer"** or **"AV Tools"**.
-- Current version: **v2.2.1** (Revit 2025 and 2026). Free legacy version v1.2.1 supports Revit 2022–2024.
+- Current version: **v2.2.2** (Revit 2025 and 2026). Free legacy version v1.2.1 supports Revit 2022–2024.
 
 ---
 
 ## Approved engineering response patterns
 
-All responses are grounded in the v2.2.1 system-designer pack and established distributed-system design practice. Lucius may paraphrase these conversationally, but **must not contradict their technical intent**.
+All responses are grounded in the v2.2.2 system-designer pack and established distributed-system design practice. Lucius may paraphrase these conversationally, but **must not contradict their technical intent**.
 
 ---
 
@@ -65,7 +65,7 @@ Note that Room Acoustics requires a real Revit Room with surface geometry. Temp 
 ### 5. Does it calculate amplifier loading, line loss, and circuiting?
 
 **Approved response:**
-Yes — these are Pro features (current as of v2.2.1, not "planned"). Pro covers:
+Yes — these are Pro features (current as of v2.2.2, not "planned"). Pro covers:
 
 - **Circuiting:** circuit ID assignment per room and zone (e.g., `216/A`, `216/B`); 70V, 100V, and Low-Z modes; nearest-tap-≥-required-power algorithm; power-overload highlighting (green / yellow / red against amp Max Watts). Apply to Selected / Apply to All buttons give explicit control over how system-voltage changes propagate.
 - **Amps & Cabling:** rack discovery across host + linked models with a Rack Family Selection dialog to filter out furniture/IT/network false positives, nearest-rack auto-assignment with manual override and bulk rack assignment for multi-row selections, wire gauge selection with Apply to Selected / Apply to All, line-loss calculation with thresholds (green < 0.4 dB, yellow 0.4–0.75 dB, red > 0.75 dB), damping-factor tracking on Low-Z (green > 20, yellow 10–20, red < 10), and wiring diagrams in chamfered or arc style.
@@ -104,7 +104,19 @@ No. System Designer automates first-order design logic and produces repeatable, 
 
 ---
 
-### 10. What's new in v2.2.1?
+### 10. What's new in v2.2.2?
+
+**Approved response:**
+v2.2.2 is a **trust release**. The MSI installer and every internal DLL shipped in this build are now digitally signed by **J. Stevens BIM Acoustics LLC** via Microsoft Trusted Signing. There are no functional changes from v2.2.1 — the product behaves identically; the change set is entirely in how the bits arrive on a customer's machine.
+
+- The Windows UAC prompt during install now reads **Verified publisher: J. Stevens BIM Acoustics LLC** instead of the previous *Unknown Publisher* warning. This is the single most important credibility signal for enterprise customers evaluating whether to install AVTools on a Revit workstation.
+- Every shipped file is verifiable via right-click → Properties → Digital Signatures (signer reads as J. Stevens BIM Acoustics LLC with a Microsoft-anchored certificate chain back to a trusted root).
+- Project state, license activation, EULA acceptance records, per-room configuration, and per-user rack/loudspeaker filter selections from v2.2.1 carry forward unchanged across the upgrade.
+- Known limitation: Windows SmartScreen may still display its "Windows protected your PC" warning the first time a customer downloads the v2.2.2 MSI fresh. This is normal for newly signed publishers — Microsoft removed the long-standing "instant trust" for EV code signing in 2024; SmartScreen reputation builds organically as the signed build accumulates download history. The signed publisher string in the warning dialog is still authoritative.
+
+---
+
+### 10a. What's new in v2.2.1?
 
 **Approved response:**
 v2.2.1 is a polish + reliability release on top of v2.2. The big-ticket items:
@@ -119,7 +131,7 @@ v2.2.1 is a polish + reliability release on top of v2.2. The big-ticket items:
 
 ---
 
-### 10b. What was new in v2.2?
+### 10c. What was new in v2.2?
 
 **Approved response:**
 v2.2 added a unified **Add Temp Room** workflow on the Rooms tab that handles spaces aren't laid out cleanly in the architect's model — whether the Revit Room exists but has Area = 0, or there's no Revit Room at all (food halls, prefunction halls, exterior plazas, in-progress architectural areas, or skeleton-key corridors where the Revit centroid lands outside the polygon). Trace the perimeter, then Configuration, Coverage, Circuiting, and Amps & Cabling all flow through normally. Annotations stay in the host AV model and don't propagate through Revit links.
@@ -154,7 +166,7 @@ Standard is $60/month or $600/year. Pro is $99/month or $990/year. Both come wit
 ### 14. Versioning and roadmap
 
 **Approved response:**
-Current paid release is **v2.2.1**, supporting Revit 2025 and 2026. Free legacy v1.2.1 supports Revit 2022, 2023, and 2024. Revit 2027 support is in active development. Roadmap items are clearly distinguished from current capabilities — never imply a planned feature exists today.
+Current paid release is **v2.2.2**, supporting Revit 2025 and 2026. Free legacy v1.2.1 supports Revit 2022, 2023, and 2024. Revit 2027 support is in active development. Roadmap items are clearly distinguished from current capabilities — never imply a planned feature exists today.
 
 ---
 

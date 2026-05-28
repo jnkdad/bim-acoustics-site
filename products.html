@@ -198,10 +198,10 @@
           </div>
           <div class="screenshot-hint">Click any screenshot to enlarge &middot; hover to pause scroll</div>
 
-          <!-- v2.2.1 RELEASE BANNER -->
+          <!-- v2.2.2 RELEASE BANNER -->
           <div class="release-banner">
-            <b>AVTools System Designer v2.2.1 is live.</b>
-            Now ships as a proper MSI installer with an in-app EULA, per-family loudspeaker filter dialog, user-level state so curated filter choices follow you across every project, cloud-delivered Lucius knowledge updates, a refreshed ribbon icon, and a Place Rack ID Tags fix that lands tags on every level — for Revit 2025 and 2026.
+            <b>AVTools System Designer v2.2.2 is signed.</b>
+            First fully signed release. The MSI installer and every internal DLL are now digitally signed by <b>J. Stevens BIM Acoustics LLC</b> via Microsoft Trusted Signing — the UAC prompt during install now reads <b>Verified publisher: J. Stevens BIM Acoustics LLC</b> instead of the previous <i>Unknown Publisher</i> warning. No functional changes from v2.2.1; same features, signed bits. Revit 2025 and 2026.
             <div class="release-banner-teaser">
               <b>Coming soon:</b> Revit 2027 support (currently in development).
             </div>
@@ -280,7 +280,7 @@
               <h2 class="prod-title">
                 AVTools System Designer
                 <span style="margin-left:8px; background:#1a3a5c; color:#cfe3ff; font-size:11px; padding:3px 8px; border-radius:999px;">
-                  v2.2.1
+                  v2.2.2
                 </span>
               </h2>
 
@@ -317,17 +317,17 @@
 
               <div class="prod-cta" style="margin-top:8px;">
                 <a class="btn cta-download"
-                   href="/api/download?key=v221"
+                   href="/api/download?key=v222"
                    download>
-                  Download v2.2.1 (10-day trial)
+                  Download v2.2.2 (10-day trial)
                 </a>
               </div>
 
               <div class="prod-release-link">
-                <a href="/downloads/AVTools%20System%20Designer%20v2.2.1%20Release%20Notes.pdf"
+                <a href="/downloads/AVTools%20System%20Designer%20v2.2.2%20Release%20Notes.pdf"
                    target="_blank"
                    rel="noopener">
-                  Read v2.2.1 Release Notes (PDF) &rarr;
+                  Read v2.2.2 Release Notes (PDF) &rarr;
                 </a>
               </div>
 
@@ -344,7 +344,7 @@
               <h2 class="prod-title">
                 AVTools System Designer
                 <span style="margin-left:8px; background:#3a2a5c; color:#e8d9ff; font-size:11px; padding:3px 8px; border-radius:999px;">
-                  v2.2.1
+                  v2.2.2
                 </span>
               </h2>
 
@@ -382,17 +382,17 @@
 
               <div class="prod-cta" style="margin-top:8px;">
                 <a class="btn cta-download"
-                   href="/api/download?key=v221"
+                   href="/api/download?key=v222"
                    download>
-                  Download v2.2.1 (10-day trial)
+                  Download v2.2.2 (10-day trial)
                 </a>
               </div>
 
               <div class="prod-release-link">
-                <a href="/downloads/AVTools%20System%20Designer%20v2.2.1%20Release%20Notes.pdf"
+                <a href="/downloads/AVTools%20System%20Designer%20v2.2.2%20Release%20Notes.pdf"
                    target="_blank"
                    rel="noopener">
-                  Read v2.2.1 Release Notes (PDF) &rarr;
+                  Read v2.2.2 Release Notes (PDF) &rarr;
                 </a>
               </div>
 
@@ -419,11 +419,11 @@
                     </th>
                     <th>
                       <div class="th-tier">Standard</div>
-                      <div class="th-ver">v2.2.1 &middot; Revit 2025 &amp; 2026</div>
+                      <div class="th-ver">v2.2.2 &middot; Revit 2025 &amp; 2026</div>
                     </th>
                     <th class="th-featured">
                       <div class="th-tier">Pro</div>
-                      <div class="th-ver">v2.2.1 &middot; Revit 2025 &amp; 2026</div>
+                      <div class="th-ver">v2.2.2 &middot; Revit 2025 &amp; 2026</div>
                     </th>
                   </tr>
                 </thead>
@@ -465,6 +465,39 @@
           <!-- ================= RELEASE NOTES ================= -->
           <section class="release-notes">
             <h2 class="matrix-title">Release Notes</h2>
+
+            <div class="release-card">
+              <div class="release-head">
+                <span class="release-ver">v2.2.2</span>
+                <span class="release-date">Revit 2025 &amp; 2026 &middot; May 2026</span>
+              </div>
+              <ul>
+                <li><b>First fully signed release.</b> The MSI installer and every internal DLL shipped in this build are now digitally signed by <b>J. Stevens BIM Acoustics LLC</b> via Microsoft Trusted Signing. Windows can now cryptographically verify that the build came from J. Stevens BIM Acoustics LLC and hasn't been tampered with in transit.</li>
+                <li><b>UAC prompt now shows a verified publisher.</b> The install prompt reads <b>Verified publisher: J. Stevens BIM Acoustics LLC</b> instead of the previous <i>Unknown Publisher</i> warning — the credibility signal enterprise customers look for before installing on a Revit workstation.</li>
+                <li><b>Verifiable on every shipped file.</b> Right-click the MSI (or any installed DLL under <code>C:\Program Files\JSBA\System Designer\</code>) → Properties → Digital Signatures. The signer reads as <b>J. Stevens BIM Acoustics LLC</b> with a Microsoft-anchored certificate chain back to a trusted root.</li>
+                <li><b>No functional changes.</b> All features, behavior, calculations, parameter writes, schedule outputs, Lucius integration, license enforcement, and EULA acceptance scaffolding are byte-for-byte equivalent to v2.2.1. Project state, license activations, per-room configuration, EULA acceptance records, and rack/loudspeaker filter selections from v2.2.1 carry forward unchanged.</li>
+                <li><b>Known limitation:</b> Windows SmartScreen may still display its "Windows protected your PC" warning the first time a customer downloads the v2.2.2 MSI fresh. This is normal for newly signed publishers — Microsoft removed the long-standing "instant trust" for EV code signing in 2024; reputation builds organically as the signed build accumulates download history. Click <b>More info</b> → <b>Run anyway</b> to proceed; the signed publisher string in the warning dialog is still authoritative.</li>
+              </ul>
+              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
+                <a class="btn cta-primary"
+                   href="/api/download?key=v222"
+                   download>
+                  Download v2.2.2
+                </a>
+                <a class="btn"
+                   href="/downloads/AVTools%20System%20Designer%20v2.2.2%20Release%20Notes.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  Release Notes (PDF)
+                </a>
+              </div>
+              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
+                Download is a ZIP containing the signed MSI installer + User Guide PDF.<br>
+                ZIP SHA256: <code>4A0EB3D5968A085DD9E9EC7DC623AE264E97884EA493AE4796DE39B0B510EDDD</code><br>
+                MSI SHA256: <code>A1CF3E6D00F3EDECCC5A43CE65D1B32564B0C4AAB9A5144828DFA343C8F5CAEC</code><br>
+                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
+              </div>
+            </div>
 
             <div class="release-card">
               <div class="release-head">
@@ -620,8 +653,8 @@
                 <select name="tier">
                   <option value="">Select…</option>
                   <option value="Free (v1.2.1)">Free (v1.2.1)</option>
-                  <option value="Standard (v2.2.1)">Standard (v2.2.1)</option>
-                  <option value="Pro (v2.2.1)">Pro (v2.2.1)</option>
+                  <option value="Standard (v2.2.2)">Standard (v2.2.2)</option>
+                  <option value="Pro (v2.2.2)">Pro (v2.2.2)</option>
                 </select>
               </label>
 
