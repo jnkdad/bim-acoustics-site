@@ -198,10 +198,10 @@
           </div>
           <div class="screenshot-hint">Click any screenshot to enlarge &middot; hover to pause scroll</div>
 
-          <!-- v2.2.2 RELEASE BANNER -->
+          <!-- v2.3.0 RELEASE BANNER -->
           <div class="release-banner">
-            <b>AVTools System Designer v2.2.2 is signed.</b>
-            First fully signed release. The MSI installer and every internal DLL are now digitally signed by <b>J. Stevens BIM Acoustics LLC</b> via Microsoft Trusted Signing — the UAC prompt during install now reads <b>Verified publisher: J. Stevens BIM Acoustics LLC</b> instead of the previous <i>Unknown Publisher</i> warning. No functional changes from v2.2.1; same features, signed bits. Revit 2025 and 2026.
+            <b>AVTools System Designer v2.3.0 is available.</b>
+            Room Acoustics now captures every bounding surface on host-model rooms — fixing a case where walls, floors, and ceilings in the active model could report 0 ft&sup2; and drop out of the RT60 calculation. Fully signed (MSI + every internal DLL) by <b>J. Stevens BIM Acoustics LLC</b> via Microsoft Trusted Signing. Revit 2025 and 2026.
             <div class="release-banner-teaser">
               <b>Coming soon:</b> Revit 2027 support (currently in development).
             </div>
@@ -280,7 +280,7 @@
               <h2 class="prod-title">
                 AVTools System Designer
                 <span style="margin-left:8px; background:#1a3a5c; color:#cfe3ff; font-size:11px; padding:3px 8px; border-radius:999px;">
-                  v2.2.2
+                  v2.3.0
                 </span>
               </h2>
 
@@ -317,17 +317,17 @@
 
               <div class="prod-cta" style="margin-top:8px;">
                 <a class="btn cta-download"
-                   href="/api/download?key=v222"
+                   href="/api/download?key=v230"
                    download>
-                  Download v2.2.2 (10-day trial)
+                  Download v2.3.0 (10-day trial)
                 </a>
               </div>
 
               <div class="prod-release-link">
-                <a href="/downloads/AVTools%20System%20Designer%20v2.2.2%20Release%20Notes.pdf"
+                <a href="/downloads/AVTools%20System%20Designer%20v2.3.0%20Release%20Notes.pdf"
                    target="_blank"
                    rel="noopener">
-                  Read v2.2.2 Release Notes (PDF) &rarr;
+                  Read v2.3.0 Release Notes (PDF) &rarr;
                 </a>
               </div>
 
@@ -344,7 +344,7 @@
               <h2 class="prod-title">
                 AVTools System Designer
                 <span style="margin-left:8px; background:#3a2a5c; color:#e8d9ff; font-size:11px; padding:3px 8px; border-radius:999px;">
-                  v2.2.2
+                  v2.3.0
                 </span>
               </h2>
 
@@ -382,17 +382,17 @@
 
               <div class="prod-cta" style="margin-top:8px;">
                 <a class="btn cta-download"
-                   href="/api/download?key=v222"
+                   href="/api/download?key=v230"
                    download>
-                  Download v2.2.2 (10-day trial)
+                  Download v2.3.0 (10-day trial)
                 </a>
               </div>
 
               <div class="prod-release-link">
-                <a href="/downloads/AVTools%20System%20Designer%20v2.2.2%20Release%20Notes.pdf"
+                <a href="/downloads/AVTools%20System%20Designer%20v2.3.0%20Release%20Notes.pdf"
                    target="_blank"
                    rel="noopener">
-                  Read v2.2.2 Release Notes (PDF) &rarr;
+                  Read v2.3.0 Release Notes (PDF) &rarr;
                 </a>
               </div>
 
@@ -419,11 +419,11 @@
                     </th>
                     <th>
                       <div class="th-tier">Standard</div>
-                      <div class="th-ver">v2.2.2 &middot; Revit 2025 &amp; 2026</div>
+                      <div class="th-ver">v2.3.0 &middot; Revit 2025 &amp; 2026</div>
                     </th>
                     <th class="th-featured">
                       <div class="th-tier">Pro</div>
-                      <div class="th-ver">v2.2.2 &middot; Revit 2025 &amp; 2026</div>
+                      <div class="th-ver">v2.3.0 &middot; Revit 2025 &amp; 2026</div>
                     </th>
                   </tr>
                 </thead>
@@ -465,6 +465,37 @@
           <!-- ================= RELEASE NOTES ================= -->
           <section class="release-notes">
             <h2 class="matrix-title">Release Notes</h2>
+
+            <div class="release-card">
+              <div class="release-head">
+                <span class="release-ver">v2.3.0</span>
+                <span class="release-date">Revit 2025 &amp; 2026 &middot; June 2026</span>
+              </div>
+              <ul>
+                <li><b>Room Acoustics &mdash; complete surface capture on host-model rooms.</b> Fixed a case where rooms bounded by walls in the <b>active model</b> (rather than a linked architectural model) could omit wall, floor, and ceiling areas from the Assign Materials surface list &mdash; affected surfaces reported 0 ft&sup2; and dropped out of the RT60 calculation. All bounding surfaces are now captured and areased correctly. Linked-model projects were unaffected and behave exactly as before.</li>
+                <li><b>Fully signed.</b> MSI installer and every internal DLL digitally signed by <b>J. Stevens BIM Acoustics LLC</b> via Microsoft Trusted Signing (continued from v2.2.2).</li>
+                <li><b>No migration.</b> Project state, license activation, and per-project configuration carry forward unchanged; existing projects open as-is. Revit 2025 / 2026.</li>
+              </ul>
+              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
+                <a class="btn cta-primary"
+                   href="/api/download?key=v230"
+                   download>
+                  Download v2.3.0
+                </a>
+                <a class="btn"
+                   href="/downloads/AVTools%20System%20Designer%20v2.3.0%20Release%20Notes.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  Release Notes (PDF)
+                </a>
+              </div>
+              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
+                Download is a ZIP containing the signed MSI installer + User Guide PDF.<br>
+                ZIP SHA256: <code>CF44D3E12AC8DA272D7B680FBD7298C7985CC35653C9D181F292A4BCA8A55CD9</code><br>
+                MSI SHA256: <code>62AF3025C3C6535B5B98110452B21E79B303D7151BC764D332D0433A3FEA8E2A</code><br>
+                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
+              </div>
+            </div>
 
             <div class="release-card">
               <div class="release-head">
@@ -653,8 +684,8 @@
                 <select name="tier">
                   <option value="">Select…</option>
                   <option value="Free (v1.2.1)">Free (v1.2.1)</option>
-                  <option value="Standard (v2.2.2)">Standard (v2.2.2)</option>
-                  <option value="Pro (v2.2.2)">Pro (v2.2.2)</option>
+                  <option value="Standard (v2.3.0)">Standard (v2.3.0)</option>
+                  <option value="Pro (v2.3.0)">Pro (v2.3.0)</option>
                 </select>
               </label>
 
