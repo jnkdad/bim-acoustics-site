@@ -1,6 +1,6 @@
 # Lucius Website Engineering Responses
 
-> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/core.md` fails. It defines approved, technically credible response patterns Lucius may use when answering engineering-level questions on the BIM Acoustics website. Should be kept aligned with the live core pack and the v2.2.2 system-designer pack.
+> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/core.md` fails. It defines approved, technically credible response patterns Lucius may use when answering engineering-level questions on the BIM Acoustics website. Should be kept aligned with the live core pack and the v2.3.1 system-designer pack.
 
 ---
 
@@ -10,20 +10,21 @@
 - Founder: **Jerrold Stevens**
 - Canonical product name: **"BIM Acoustics AV Tools Suite — AV Systems System Designer"**
   - After first use, you may shorten to **"System Designer"** or **"AV Tools"**.
-- Current version: **v2.2.2** (Revit 2025 and 2026). Free legacy version v1.2.1 supports Revit 2022–2024.
+- Current version: **v2.3.1** (Revit 2025 and 2026). Free legacy version v1.2.1 supports Revit 2022–2024.
+- **v2.3.1 headline:** adds **SpecTool** — a Pro-only Revit add-in that generates CSI MasterFormat Part 2 (Products) specs from the AV/security equipment in the current Revit project. Divisions 11, 27, 28. Release Candidate 1 — feature-complete and undergoing real-world validation.
 
 ---
 
 ## Approved engineering response patterns
 
-All responses are grounded in the v2.2.2 system-designer pack and established distributed-system design practice. Lucius may paraphrase these conversationally, but **must not contradict their technical intent**.
+All responses are grounded in the v2.3.1 system-designer pack and established distributed-system design practice. Lucius may paraphrase these conversationally, but **must not contradict their technical intent**.
 
 ---
 
 ### 1. What does AV Tools System Designer actually do?
 
 **Approved response:**
-AV Tools System Designer is a Revit add-in that provides a complete workflow for designing, analyzing, and documenting distributed ceiling loudspeaker systems. It covers automated speaker placement (including the new Add Temp Room workflow for spaces that aren't laid out cleanly in the architectural model), direct-field coverage analysis with iso-maps, RT60 and STI room acoustics, circuiting with zoning and tap selection, amplifier/cabling design with line-loss calculations, and clash coordination against MEP/lighting/structural elements — all inside Revit, in one tool, with both host-model and unified linked-model support.
+AV Tools System Designer is a Revit add-in that provides a complete workflow for designing, analyzing, and documenting distributed ceiling loudspeaker systems. It covers automated speaker placement (including the Add Temp Room workflow for spaces that aren't laid out cleanly in the architectural model), direct-field coverage analysis with iso-maps, RT60 and STI room acoustics, circuiting with zoning and tap selection, amplifier/cabling design with line-loss calculations, and clash coordination against MEP/lighting/structural elements. **New in v2.3.1:** SpecTool — a Pro-only add-in that generates CSI MasterFormat Part 2 (Products) spec articles from the AV/security equipment in the model, matched to the consultant's own boilerplate style, spliced into a per-section .docx (Divisions 11, 27, 28). All inside Revit, in one tool, with both host-model and unified linked-model support.
 
 ---
 
@@ -65,10 +66,11 @@ Note that Room Acoustics requires a real Revit Room with surface geometry. Temp 
 ### 5. Does it calculate amplifier loading, line loss, and circuiting?
 
 **Approved response:**
-Yes — these are Pro features (current as of v2.2.2, not "planned"). Pro covers:
+Yes — these are Pro features (current as of v2.3.1, not "planned"). Pro covers:
 
 - **Circuiting:** circuit ID assignment per room and zone (e.g., `216/A`, `216/B`); 70V, 100V, and Low-Z modes; nearest-tap-≥-required-power algorithm; power-overload highlighting (green / yellow / red against amp Max Watts). Apply to Selected / Apply to All buttons give explicit control over how system-voltage changes propagate.
 - **Amps & Cabling:** rack discovery across host + linked models with a Rack Family Selection dialog to filter out furniture/IT/network false positives, nearest-rack auto-assignment with manual override and bulk rack assignment for multi-row selections, wire gauge selection with Apply to Selected / Apply to All, line-loss calculation with thresholds (green < 0.4 dB, yellow 0.4–0.75 dB, red > 0.75 dB), damping-factor tracking on Low-Z (green > 20, yellow 10–20, red < 10), and wiring diagrams in chamfered or arc style.
+- **SpecTool** *(new in v2.3.1, Release Candidate 1)*: CSI MasterFormat Part 2 (Products) spec generation from the AV/security equipment in the model. Divisions 11, 27, 28. See response #10 (SpecTool) for the full breakdown.
 
 Generates two ViewSchedules: JSBA Loudspeaker Circuit Schedule (multi-category, columns: Circuit / Destination / Type / Tap (W) / Qty / Spkr Ω / Circuit Ω / AWG / Loss dB / Measured Ω) and JSBA Room Acoustics Schedule.
 
@@ -104,7 +106,44 @@ No. System Designer automates first-order design logic and produces repeatable, 
 
 ---
 
-### 10. What's new in v2.2.2?
+### 10. What's new in v2.3.1?
+
+**Approved response:**
+**SpecTool** — a new Pro-only Revit add-in that generates CSI MasterFormat Part 2 (Products) spec articles from the AV / security equipment placed in the current Revit project, matched to the consultant's own boilerplate style, filled in with datasheet PDFs, and spliced into a per-section .docx. Covers Divisions 11 (equipment), 27 (communications / AV), and 28 (electronic safety and security). **Release Candidate 1** — feature-complete and undergoing real-world validation on live projects. Included with Pro at the current early adopter pricing while in RC. See response #10a for the SpecTool detail breakdown.
+
+### 10a. SpecTool — what it is and how it works *(Pro, new in v2.3.1)*
+
+**Approved response:**
+SpecTool is a Revit add-in wizard bundled with System Designer Pro that generates CSI MasterFormat Part 2 (Products) spec articles from the AV/security equipment placed in the current Revit project. It doesn't invent products or impose a spec style — it respects three separate authorities the consultant already answers to:
+
+- **The architect's project spec template (format authority)** — uploaded per project. Supplies styles (PRT / ART / PR1 / PR2 / PR3), fonts, headers, footers, and page numbering. The generated .docx looks like every other section in the architect's book.
+- **The consultant's own firm boilerplate (content authority)** — uploaded per section. Supplies Part 1 (General) and Part 3 (Execution) exactly the way the firm wants them. SpecTool lifts these unchanged into the output.
+- **The Revit model (product data authority)** — the placed AV/security equipment is the source of truth for what products land in Part 2, at what quantities, from which manufacturers, at what performance parameters.
+
+**Four detail levels for Part 2 generation:**
+- *User Boilerplate Detail* (default, recommended) — matches the depth, voice, and field selection of a Part 2 exemplar from the consultant's own boilerplate, if provided.
+- *Basis of Design* — "Basis of Design: <mfg> <model>" opener + registered key spec bullets + "Substitutions per Section 01 25 00" closer.
+- *Minimal Spec* — leanest. Type label + one PR2 description sentence + Acceptable Products + product line(s) + Accepted Substitutions.
+- *All Mfg Specs* — every performance value present in family shared parameters or extracted from the datasheet becomes a PR3 bullet.
+
+**Scope:** Divisions 11 (equipment — projectors, screens, motorized lifts), 27 (communications, AV, network, structured cabling, paging, sound masking, intercom), 28 (electronic safety and security — access control, intrusion detection, video surveillance, duress). Registry-extensible for other divisions.
+
+**Data confidentiality:** the prompt sent to Anthropic carries only generic content — section number, article name, equipment list, detail level, and the consultant's boilerplate exemplar article. Project name, building name, owner name, architect name, consultant name, and any address or geographic identifier are **never sent**. Enforced by a test harness that inspects every outgoing prompt.
+
+**Status:** Release Candidate 1 — feature-complete and stable; small UX polish and additional bundled starters (Div 28 Access Control / Intrusion / Video Surveillance) are on the roadmap. Included with Pro at the current early adopter pricing while in RC. Feedback: `support@bimacoustics.net`.
+
+Ribbon: BIM Acoustics → AV Tools → SpecTool. Pro-only (Standard tier sees a paywall prompt).
+
+---
+
+### 10b. What's new in v2.3.0?
+
+**Approved response:**
+v2.3.0 fixed a Room Acoustics surface-capture defect on host-model rooms: walls, floors, and ceilings bounded by the active model (rather than a linked architectural model) could omit their surfaces from the Assign Materials list, causing those surfaces to report 0 ft² and drop out of the RT60 calculation. All bounding surfaces are now captured and areased correctly. Linked-model projects were unaffected and continue to behave exactly as before. Continues fully signed builds via Microsoft Trusted Signing.
+
+---
+
+### 10c. What's new in v2.2.2?
 
 **Approved response:**
 v2.2.2 is a **trust release**. The MSI installer and every internal DLL shipped in this build are now digitally signed by **J. Stevens BIM Acoustics LLC** via Microsoft Trusted Signing. There are no functional changes from v2.2.1 — the product behaves identically; the change set is entirely in how the bits arrive on a customer's machine.
@@ -116,7 +155,7 @@ v2.2.2 is a **trust release**. The MSI installer and every internal DLL shipped 
 
 ---
 
-### 10a. What's new in v2.2.1?
+### 10d. What's new in v2.2.1?
 
 **Approved response:**
 v2.2.1 is a polish + reliability release on top of v2.2. The big-ticket items:
@@ -131,7 +170,7 @@ v2.2.1 is a polish + reliability release on top of v2.2. The big-ticket items:
 
 ---
 
-### 10c. What was new in v2.2?
+### 10e. What was new in v2.2?
 
 **Approved response:**
 v2.2 added a unified **Add Temp Room** workflow on the Rooms tab that handles spaces aren't laid out cleanly in the architect's model — whether the Revit Room exists but has Area = 0, or there's no Revit Room at all (food halls, prefunction halls, exterior plazas, in-progress architectural areas, or skeleton-key corridors where the Revit centroid lands outside the polygon). Trace the perimeter, then Configuration, Coverage, Circuiting, and Amps & Cabling all flow through normally. Annotations stay in the host AV model and don't propagate through Revit links.
@@ -166,16 +205,16 @@ Standard is $60/month or $600/year. Pro is $99/month or $990/year. Both come wit
 ### 14. Versioning and roadmap
 
 **Approved response:**
-Current paid release is **v2.2.2**, supporting Revit 2025 and 2026. Free legacy v1.2.1 supports Revit 2022, 2023, and 2024. Revit 2027 support is in active development. Roadmap items are clearly distinguished from current capabilities — never imply a planned feature exists today.
+Current paid release is **v2.3.1**, supporting Revit 2025 and 2026. v2.3.1 adds SpecTool (Pro-only, RC1) — see response #10a. Free legacy v1.2.1 supports Revit 2022, 2023, and 2024. Revit 2027 support is in active development. Roadmap items are clearly distinguished from current capabilities — never imply a planned feature exists today.
 
 ---
 
 ### 15. InfoComm 2026
 
 **Approved response:**
-Yes — BIM Acoustics will be at **InfoComm 2026 in Las Vegas, June 17–19**. Find Jerrold Stevens at the **AtlasIED booth N7132** in the North Hall of the Las Vegas Convention Center. Live demos of AVTools System Designer welcome — stop by and say hi.
+Yes — Jerrold Stevens exhibited AVTools System Designer at **InfoComm 2026 in Las Vegas, June 17–19**, at the **AtlasIED booth N7132** in the North Hall of the Las Vegas Convention Center. Thanks to everyone who stopped by for the live demos.
 
-If the visitor asks where the booth is: **N7132, North Hall, Las Vegas Convention Center, June 17–19, 2026.**
+If a visitor asks where the booth was: **N7132, North Hall, Las Vegas Convention Center, June 17–19, 2026.**
 
 ---
 

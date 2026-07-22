@@ -1,14 +1,16 @@
 # System Designer Engineering Model
 Canonical product name: BIM Acoustics AV Tools Suite — AV Systems System Designer.
 
-> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/system-designer.md` fails. It mirrors the v2.2.2 live system-designer pack and should be kept in sync when the live pack is updated.
+> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/system-designer.md` fails. It mirrors the v2.3.1 live system-designer pack and should be kept in sync when the live pack is updated.
 
 ---
 
 # Product Pack — AV Tools Suite: AV Systems System Designer
 
 This pack defines technically credible response patterns for the product:
-**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.2.2** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
+**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.3.1** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
+
+**v2.3.1 headline:** adds **SpecTool** — a Pro-only Revit add-in that generates CSI MasterFormat **Part 2 (Products)** specs from the AV/security equipment in the current Revit project. Divisions 11, 27, 28. **Release Candidate 1** — feature-complete and undergoing real-world validation. See the dedicated SpecTool section below.
 
 **Anchoring rule:** If the user asks about distributed ceiling speaker layout, spacing, coverage, acoustics, RT60, STI, materials, circuiting, zoning, racks, cabling, or "what does System Designer do," answer using this pack. Do not drift into generic Revit help.
 
@@ -21,8 +23,8 @@ AV Tools Suite — AV Systems System Designer is a Revit add-in that provides a 
 The product has two paid editions plus a free legacy version:
 
 - **Free (v1.2.1)** — Revit 2022–2024. Room selection, speaker layout, placement, direct-field coverage, Lucius chat (guidance only).
-- **Standard (v2.2.2)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
-- **Pro (v2.2.2)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, and Lucius AI write tools (currently material assignment).
+- **Standard (v2.3.1)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
+- **Pro (v2.3.1)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, Lucius AI write tools (currently material assignment), and **SpecTool** (CSI Part 2 spec generator, RC1).
 
 Pricing: Standard $60/month or $600/year. Pro $99/month or $990/year. 10-day free trial on every paid tier.
 
@@ -258,6 +260,105 @@ Lighting specifically uses 0" / 3" / 6" / 12" tiers per industry convention.
 
 ---
 
+## SpecTool — CSI Spec Generator *(Pro, new in v2.3.1, Release Candidate 1)*
+
+**SpecTool** is a Pro-only Revit add-in wizard that reads the AV/security equipment in the current project, generates CSI MasterFormat **Part 2 (Products)** articles via Claude matched to the consultant's own house format, fills gaps from manufacturer datasheet PDFs, and splices the result into a per-section boilerplate .docx with an audit-friendly Create-or-Update flow.
+
+**Audience:** AV consultants, security integrators, and spec writers using Revit.
+**Scope:** Divisions **11** (equipment), **27** (communications / AV), **28** (electronic safety and security). Registry-extensible for other divisions.
+**Ribbon location:** BIM Acoustics → AV Tools → SpecTool. Standard-tier users see the ribbon button but hit a paywall prompt.
+**Status:** RC1 — feature-complete and stable; small UX polish items and additional bundled starters are on the roadmap. Report issues to support@bimacoustics.net.
+
+### How SpecTool respects the consultant's authority
+
+SpecTool does not impose a spec style. It respects three separate authorities the consultant already answers to:
+
+1. **The architect's project spec template (format authority)** — uploaded per project. Supplies styles (PRT / ART / PR1 / PR2 / PR3), fonts, headers, footers, and page numbering. The generated .docx looks like every other section in the architect's book.
+2. **The consultant's own boilerplate (content authority)** — uploaded per section. Supplies Part 1 (General) and Part 3 (Execution) exactly the way the firm wants them. SpecTool lifts these unchanged into the output.
+3. **The Revit model (product data authority)** — the placed AV/security equipment is the source of truth for what products land in Part 2, at what quantities, from which manufacturers.
+
+SpecTool fills in **only Part 2 (Products)**, matched to the firm's own style. It doesn't invent products, doesn't override the architect's format, and doesn't rewrite Part 1 or Part 3.
+
+### The wizard at a glance — five ordered steps plus Home
+
+**Home (Sections)** — landing screen listing every CSI section the project needs, based on the equipment scan and any prior issues on disk.
+
+1. **Setup** — section identity (division, section number, phase like "35% CD" or "100% CD Rev 1"), Detail Level pick, upload the project spec template + firm boilerplate + datasheet folder + output folder.
+2. **Products** — the AV/security equipment inventory. Grid of one row per family+Type instance from the model, with editable Category. Include / exclude per row. `+ Add device` for software/licenses (no Revit instance). `+ Add from model` to pull in families the scan filtered out.
+3. **Data & Datasheets** — associate each product with its manufacturer datasheet PDF. Four-tier ladder in locked order: (1) datasheet folder auto-match on filenames containing the Model string, (2) family URL parameter auto-download, (3) manual From URL dialog with a Search-web launcher, (4) file-picker Attach. Plus an AI web-hunt button for the leftover rows.
+4. **Categories & Articles** — deliberate review step: same editable Category column as step 2 but grouped by section → article, unclassified rows on top. Correct misclassifications before generation.
+5. **Review & Generate** — mode indicator shows CREATE (splice into template) or UPDATE (splice into last-issued .docx). Click **Generate with AI (preview)** — one Claude Sonnet call per Part 2 article. Every generated paragraph appears as an editable row in the preview grid with an Include checkbox. Click **Create / Update spec** to write the .docx. Click **Open document** to review in Word.
+
+Non-destructive navigation: moving between steps never re-runs the Revit scan, re-calls the AI, or loses ticks/edits/datasheet attachments. Those fire only on explicit buttons.
+
+### Detail levels (four modes)
+
+Structure (Type label → description → Acceptable Products → substitutions) is the same across all four; density and framing differ.
+
+- **User Boilerplate Detail** *(default, recommended)* — matches the depth, voice, and field selection of a Part 2 article from the consultant's own boilerplate, if provided. If the boilerplate has a Part 2 exemplar article, SpecTool uses it to teach Claude the house style. If not, this level falls back to a sensible middle ground.
+- **Basis of Design** — CSI open-proprietary convention. Each Type block opens with `Basis of Design: <manufacturer> <model>` and closes with `Substitutions: per Section 01 25 00.` Every registered key spec becomes a PR3 bullet; absent values read "as scheduled on the Drawings." Use when the drawings/schedule govern absolute values and the spec is the enforceability layer.
+- **Minimal Spec** — leanest. Type label + ONE PR2 description sentence + Acceptable Products + product line(s) + Accepted Substitutions. Nothing else. No performance bullets. Use for quick specs, back-of-house scope, or when the model is the authoritative document.
+- **All Mfg Specs** — every performance value present in the family's shared parameters (plus web-hunted fields from any datasheet) becomes its own PR3 bullet. Use for federal / spec-heavy work where the spec is the primary enforceability document.
+
+### Bundled UFGS starter
+
+If a firm doesn't have their own boilerplate for a given section, SpecTool ships a bundled starter for **Section 27 41 00 (Audio-Visual Systems)** — the verbatim NAVFAC UFGS 27 41 00 (February 2026) Part 1 (11 articles) and Part 3 (15 articles), plus a curated AVIXA supplement (ANSI/AVIXA V201.01, V202.01, F202.01, and RP-C303.01) merged into the REFERENCES article. Loaded via a **Use bundled starter…** button on Setup step 1 that only appears when a bundle exists for the current section.
+
+Div 11 and Div 28 don't have bundled starters yet — UFGS coverage exists for Access Control, Intrusion, and Video Surveillance but hasn't been packaged. Users can drop UFGS SEC XML files into the boilerplates folder to extend.
+
+### Prerequisites — model and family state drive spec quality
+
+SpecTool does not invent product data. Every value that lands in the generated spec traces back to one of three sources: a **Revit family Type parameter**, a **placed instance count**, or a **PDF datasheet**. Garbage in, garbage out — but very fixable garbage once the input sources are named. If a user reports that a generated spec feels "thin," "generic," or "wrong," walk them back through this chain before proposing document edits:
+
+1. **Family loading.** The AV Products scan reads from a whitelist of Revit categories (Audio Visual Devices, Communication Devices, Data Devices, Speciality Equipment, Generic Model, Electrical Fixtures, Electrical Equipment). Wrong category → invisible to the scan; use `+ Add from model` on Products step 2 to pull it in anyway.
+2. **Type parameters.** Each Product row's technical values are read from Type-level parameters, in priority order: **Model** (row identity — missing = row skipped), **Manufacturer** ("Basis of Design" line), **Description** (fills SYSTEM DESCRIPTION prose, drives AI generation when no datasheet), **Datasheet URL** (family-URL auto-download tier), **Type/Sub codes** (AVIXA drawing type identity).
+3. **Live parameter-count check on Setup step 1.** The model-parameters section shows a live count of family Types carrying a value for each picked parameter. A count of 0 means either no Types have that value or the wrong parameter name is picked.
+4. **Custom parameter names.** For firms whose families use different names (e.g., `MFG` instead of `Manufacturer`, `Cat #` instead of `Model`): Setup step 1 → **Model parameters** — six pickers remap SpecTool's logical roles onto the actual family parameter names in the current project.
+5. **JSBA_ shared parameters on Types (highest-leverage investment).** SpecTool looks for category key_specs (impedance, wattage, dispersion, mount type, etc.) in this order: (a) `JSBA_` shared parameters on the Type — deterministic, no datasheet needed; (b) PDF datasheet extraction; (c) AI generation from family Description; (d) "as scheduled on the Drawings" (spec still issues; value deferred). **Stamping shared parameters at family-authoring time makes every future spec for that product deterministic.**
+6. **Boilerplate .docx state.** Styles must exist as PRT / ART / PR1 / PR2 / PR3. Placeholder text (`ARTICLE`, `SUBPART`, `PARAGRAPH`) will appear in output verbatim; delete or replace by hand.
+7. **Datasheet folder organization.** Auto-match searches filenames for the Model string, recursively. `Cohesion_CO10.pdf`, `CO10 Data Sheet.pdf`, `co10-spec.pdf` all match model `CO10`. Manufacturer subfolders help but aren't required.
+
+### Update mode carries edits forward
+
+When a section has a prior issued .docx, Create/Update runs in **UPDATE** mode by default:
+- Source = the last issued .docx (not the project template).
+- Part 1 and Part 3 are re-lifted from the current boilerplate (so a boilerplate change propagates).
+- Part 2 articles named in the current run are replaced in place. Part 2 articles NOT in the current run are preserved (a hand-written article between phases stays).
+
+**Consequence:** hand edits *inside* tool-owned Part 2 articles are overwritten on Update; edits *outside* them survive. To preserve tool-owned-article edits across issues, use **Start Fresh** on Review step 5 to fork a new record.
+
+### Data confidentiality
+
+The prompt sent to Anthropic carries ONLY generic content:
+
+**SENT:** section number and title, article name, category prompt guidance, equipment list (manufacturer, model, quantity, Type/Sub codes, spec params, description, doc URL), detail level, the consultant's boilerplate exemplar article.
+
+**NEVER SENT — asserted by a test harness before every request:** project name, building name, owner name, architect name, consultant name, any address or geographic identifier.
+
+Diagnostic dumps of every prompt and response land in `%APPDATA%\BimAcoustics\SpecTool\` for audit.
+
+### Lucius capability surface for SpecTool
+
+**What Lucius CAN do for SpecTool:**
+- Explain the wizard's workflow, each step, each button, what happens on Create vs Update, what Start Fresh means, when to use which Detail Level.
+- Explain a status message — what a "Strays in Part 2" warning means, why a 529 happened, why SYSTEM DESCRIPTION timed out.
+- Explain the registry — how categories map to sections, how key_specs drive the datasheet extractor, how keywords drive classification.
+- Explain the UFGS bundled starter — what's in it, when to use it vs a firm boilerplate.
+- Diagnose "why is my spec thin/generic/wrong?" — walk the user back through the prerequisites chain (family loading → Type parameters → shared parameters → datasheets → boilerplate styles) and identify which link is empty. **Do this before proposing document edits.**
+- Explain cross-section overrides — the "I don't want a separate 27 21 00 spec — how do I keep my network switches in the 27 41 00 AV spec?" question. Answer: `+ Add from model` on step 2, set the picker's Category combo to a 27 41 00 article, pick the switch families. Same trick works for keeping projectors/screens in an AV spec instead of separate Div 11 specs.
+
+**What Lucius CANNOT do for SpecTool (no tools):**
+- Trigger the wizard or advance a step. Direct the user to the ribbon: BIM Acoustics → AV Tools → SpecTool.
+- Read wizard session state (what's entered in the wizard). Ask the user to describe what they see.
+- Read family Type parameters directly. Ask the user to open Family Types or a schedule and describe the Manufacturer / Model / Description / JSBA_ values.
+- Trigger Generate or Create/Update. Direct the user to the button by name.
+- Read the generated .docx. Direct the user to open it in Word.
+- Add / edit / remove registry categories. Direct the user to Add Category on step 4; explain the reserved-name guardrail (article names matching CSI Part 1 / Part 3 names like SUMMARY / EXECUTION / SUBMITTALS are blocked).
+
+**Lucius phrasing conventions for SpecTool:** Prefer "the wizard" or "SpecTool" as the subject; avoid saying "I" as if Lucius runs the tool. Refer to steps by number + name ("Setup step 1", "Review step 5"). Refer to buttons by their exact UI label (`Generate with AI (preview)`, `Create / Update spec`, `+ Add from model`, `Use bundled starter…`). Refer to Detail Levels by their full name.
+
+---
+
 ## Lucius AI Assistant (Inside the Add-In)
 
 Lucius is embedded inside Revit as a chat panel. Powered by Claude Sonnet (Anthropic). Voice input via push-to-talk (Whisper STT) plus text. Lucius reads your live project state via tool use rather than guessing.
@@ -302,7 +403,31 @@ Multi-room distributed loudspeaker systems — convention centers, corporate off
 Yes — this is the primary workflow. Rooms typically come from the architect's linked model; speakers are placed in the host AV model. As of v2.2 the Rooms tab scans the host doc plus every loaded link in a single pass, and a Source column shows which file each room came from.
 
 **Q: Which Revit versions are supported?**
-v2.2.2 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+v2.3.1 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+
+**Q: What's new in v2.3.1?**
+**SpecTool.** A new Pro-only Revit add-in that generates CSI MasterFormat **Part 2 (Products)** specs directly from the AV / security equipment placed in the current Revit project — matched to the consultant's own boilerplate style, filled in with datasheet PDFs, and spliced into a per-section .docx. Divisions 11 / 27 / 28. **Release Candidate 1** — feature-complete and undergoing real-world validation on live projects. Included with Pro at the current early adopter pricing while in RC. See the dedicated SpecTool section above for the full breakdown. Reach support@bimacoustics.net with feedback from your firm's spec templates and boilerplates.
+
+**Q: What's new in v2.3.0?**
+Room Acoustics now captures every bounding surface on host-model rooms — fixing a case where rooms bounded by walls in the *active model* (rather than a linked architectural model) could omit wall, floor, and ceiling areas from the Assign Materials surface list, causing those surfaces to report 0 ft² and drop out of the RT60 calculation. Linked-model projects were unaffected and continue to behave exactly as before. Continues fully signed builds via Microsoft Trusted Signing.
+
+**Q: What is SpecTool?**
+SpecTool is a Pro-only Revit add-in (new in v2.3.1) that generates CSI MasterFormat Part 2 (Products) spec articles from the AV/security equipment placed in the current Revit project. It respects three separate authorities: the architect's project spec template (uploaded per project — supplies styles, fonts, headers, footers, page numbering), the consultant's own firm boilerplate (uploaded per section — supplies Part 1 General and Part 3 Execution), and the Revit model itself (supplies the product data — placed families, Type parameters, JSBA_ shared parameters, and datasheet PDFs). SpecTool fills in only Part 2 into the format and voice the consultant already uses. Covers Divisions 11 (equipment), 27 (communications / AV), and 28 (electronic safety and security). Currently Release Candidate 1.
+
+**Q: How do I generate a spec with SpecTool?**
+Open the wizard from the BIM Acoustics ribbon → AV Tools → SpecTool. On **Home**, click **Scan AV Products** (first time only). Pick a section row → **Work on it**. On **Setup step 1**: confirm the section number and phase, pick a Detail Level, upload the project spec template (from the architect), your firm's boilerplate (Part 1 + Part 3), the datasheet folder, and the output folder. On **Products step 2**: untick anything not in scope; edit the Category column for anything the classifier missed. On **Data & Datasheets step 3**: attach datasheets for the products the folder auto-match and family URL didn't cover. On **Categories & Articles step 4**: review the per-article grouping and correct misclassifications. On **Review & Generate step 5**: click **Generate with AI (preview)**, review and edit the paragraphs in the preview grid (tick / untick Include per row, edit Style + Text inline), then click **Create / Update spec**. Click **Open document** to review the .docx in Word.
+
+**Q: Why does my generated spec feel thin or generic?**
+Almost always a model-state problem, not a tool problem. Walk back through the prerequisites chain: (1) Are Type-level Manufacturer / Model / Description populated on your AV families? Setup step 1 shows a live parameter-count check that reads 0 when data is missing. (2) Are the JSBA_ shared parameters that carry key performance values (impedance, wattage, dispersion, etc.) stamped on the Types the spec cares about? Missing values fall through to datasheet extraction, then to AI generation from the Description, then to "as scheduled on the Drawings." (3) Are datasheet PDFs in your datasheet folder with the Model number in the filename? (4) Are your boilerplate's paragraph styles named PRT / ART / PR1 / PR2 / PR3? Fix in the model, then re-run — the spec is a derived artifact; hand-editing the .docx directly gets overwritten on the next Update issue.
+
+**Q: Is my project data sent to Anthropic when I use SpecTool?**
+No. The prompt sent to Anthropic carries only generic content: section number and title, article name, equipment list (manufacturer / model / quantity / Type codes / spec params / description / doc URL), detail level, and the consultant's boilerplate exemplar article. **Project name, building name, owner name, architect name, consultant name, and any address or geographic identifier are never sent.** This is asserted by a test harness that inspects every outgoing prompt before it leaves the machine. Diagnostic dumps of every prompt and response land in `%APPDATA%\BimAcoustics\SpecTool\` for audit.
+
+**Q: What if my Revit families use different parameter names — MFG instead of Manufacturer, Cat # instead of Model?**
+Setup step 1 → **Model parameters** (advanced) has six pickers that remap SpecTool's logical roles onto the actual parameter names in the current project — Drawing Type code, Sub designation, Manufacturer, Model, Datasheet URL, Description. The live parameter-count check next to each picker reads the number of family Types carrying a value for that parameter, so a wrong pick reads 0.
+
+**Q: What if I want to keep network switches (or projectors, or screens) in my AV spec instead of a separate section?**
+Use **+ Add from model** on Products step 2. Set the picker's **Category** combo at the top of the dialog to any article that belongs to the section you want the products to live in (e.g., MISCELLANEOUS in the 27 41 00 AV workflow). The label on each category option shows its target section, so you can see whether a choice keeps the product in the current section or sends it elsewhere. Same mechanism works for keeping projection screens or projectors in an AV spec instead of separate Div 11 specs.
 
 **Q: What's new in v2.2.2?**
 v2.2.2 is a **trust release**. The MSI installer and every internal DLL shipped in this build are now digitally signed by **J. Stevens BIM Acoustics LLC** via Microsoft Trusted Signing. There are no functional changes from v2.2.1 — the product behaves identically; the change set is entirely in how the bits arrive on a customer's machine. The UAC prompt during install now reads **Verified publisher: J. Stevens BIM Acoustics LLC** instead of the previous *Unknown Publisher* warning — the single most important credibility signal for enterprise customers evaluating whether to install AVTools on a Revit workstation. Verifiable on every shipped file via right-click → Properties → Digital Signatures (signer reads as J. Stevens BIM Acoustics LLC with a Microsoft-anchored certificate chain). Project state, license activation, EULA acceptance, per-room configuration, and filter selections from v2.2.1 carry forward unchanged across the upgrade. Note: Windows SmartScreen may still warn on first download for a short period — this is normal for newly signed publishers and dissipates as the signed build accumulates download history.
@@ -348,8 +473,5 @@ Download the 10-day free trial of Standard or Pro from the products page. The fr
 **Q: Where do I report bugs or request features?**
 The About tab includes Bundle Logs (ZIP), Open Logs Folder, and Copy Support Info to gather diagnostic information. Email support@bimacoustics.net with the bundled logs and a description of the issue or feature request.
 
-**Q: Will you be at InfoComm 2026?**
-Yes — BIM Acoustics will be at **InfoComm 2026 in Las Vegas, June 17–19**. Find Jerrold Stevens at the **AtlasIED booth N7132** in the North Hall of the Las Vegas Convention Center. Live demos of AVTools System Designer welcome — stop by and say hi.
-
-**Q: Where is the AtlasIED booth at InfoComm 2026?**
-Booth **N7132** in the **North Hall** of the Las Vegas Convention Center. Jerrold Stevens of BIM Acoustics will be there with AtlasIED June 17–19.
+**Q: Were you at InfoComm 2026?**
+Yes — Jerrold Stevens exhibited AVTools System Designer at **InfoComm 2026 in Las Vegas, June 17–19**, at the **AtlasIED booth N7132** in the North Hall. Thanks to everyone who stopped by to see the live demos.
