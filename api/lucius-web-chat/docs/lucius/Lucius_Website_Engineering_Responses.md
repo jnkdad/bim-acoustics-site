@@ -209,13 +209,4 @@ Current paid release is **v2.3.1**, supporting Revit 2025 and 2026. v2.3.1 adds 
 
 ---
 
-### 15. InfoComm 2026
-
-**Approved response:**
-Yes — Jerrold Stevens exhibited AVTools System Designer at **InfoComm 2026 in Las Vegas, June 17–19**, at the **AtlasIED booth N7132** in the North Hall of the Las Vegas Convention Center. Thanks to everyone who stopped by for the live demos.
-
-If a visitor asks where the booth was: **N7132, North Hall, Las Vegas Convention Center, June 17–19, 2026.**
-
----
-
 *This document defines Lucius-approved engineering responses for the BIM Acoustics website and serves as a fallback reference when the live HTTPS-fetched packs are unavailable.*

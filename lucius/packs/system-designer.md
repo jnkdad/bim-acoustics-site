@@ -471,6 +471,3 @@ Download the 10-day free trial of Standard or Pro from the products page. The fr
 
 **Q: Where do I report bugs or request features?**
 The About tab includes Bundle Logs (ZIP), Open Logs Folder, and Copy Support Info to gather diagnostic information. Email support@bimacoustics.net with the bundled logs and a description of the issue or feature request.
-
-**Q: Were you at InfoComm 2026?**
-Yes — Jerrold Stevens exhibited AVTools System Designer at **InfoComm 2026 in Las Vegas, June 17–19**, at the **AtlasIED booth N7132** in the North Hall. Thanks to everyone who stopped by to see the live demos.
