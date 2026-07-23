@@ -1,0 +1,110 @@
+FOR IMMEDIATE RELEASE
+
+SpecTool Brings Revit-Native CSI Spec Generation to the AV Vertical
+
+New Pro add-in generates CSI MasterFormat Part 2 (Products) articles
+directly from AV and security equipment in the Revit model — matched
+to the consultant's own boilerplate voice.
+
+WALHALLA, S.C. — July 22, 2026 — BIM Acoustics today released SpecTool,
+a new Revit add-in that generates CSI MasterFormat Part 2 (Products)
+specifications directly from the AV and security equipment placed in
+a Revit model. SpecTool ships as Release Candidate 1 in AVTools System
+Designer v2.3.1 Pro, covering CSI Divisions 11 (equipment), 27
+(communications / audiovisual) and 28 (electronic safety and security).
+
+Revit and specification integration is not a new category — Deltek
+e-SPECS, RIB SpecLink, Deltek Specpoint, and Chalkline VisiSpecs have
+served the architectural side for years — but none of those tools
+target the AV vertical, ship with UFGS 27 41 00 and AVIXA standards
+bundled, or generate spec language in the consultant's own firm voice
+rather than pulling from a subscription library.
+
+Rather than imposing a spec style, SpecTool respects three separate
+authorities the consultant already answers to. The architect's project
+spec template, uploaded once per project, supplies styles, fonts,
+headers, footers, and page numbering — the generated .docx ends up
+looking like every other section in the architect's book. The
+consultant's own firm boilerplate, uploaded per section, supplies
+Part 1 (General) and Part 3 (Execution) exactly as the firm writes
+them. The Revit model itself is the product data source: the equipment
+placed in the model determines what products land in Part 2, at what
+quantities, from which manufacturers, at what performance parameters.
+
+SpecTool fills in only Part 2, matched to the depth, voice, and field
+selection of a Part 2 exemplar from the consultant's own boilerplate.
+It does not invent products, override the architect's format, or
+rewrite Part 1 or Part 3.
+
+The wizard offers four detail levels for Part 2 generation: User
+Boilerplate Detail (the default — mirrors the depth and voice of the
+consultant's own articles), Basis of Design (open-proprietary CSI
+convention with "Basis of Design: <manufacturer> <model>" openers and
+"Substitutions per Section 01 25 00" closers), Minimal Spec (leanest
+— Type + one PR2 sentence + Acceptable Products), and All Manufacturer
+Specs (every performance value as a PR3 bullet). If a firm has no
+boilerplate for a given section, SpecTool ships a bundled starter for
+27 41 00 (Audio-Visual Systems) built from the verbatim NAVFAC UFGS
+27 41 00 (February 2026) Part 1 and Part 3 plus a curated AVIXA
+supplement (ANSI/AVIXA V201.01, V202.01, F202.01, and RP-C303.01).
+
+Data confidentiality is enforced by a test harness that inspects every
+outgoing prompt: project name, building name, owner, architect,
+consultant, and any address or geographic identifier are never sent
+to Anthropic's Claude API. Only generic content — section number,
+article name, equipment list, and the consultant's boilerplate
+exemplar — leaves the machine.
+
+"Every Revit AV tool up to now — including mine, until this release —
+has been about the drawings and the model. Layout, coverage, acoustics,
+circuiting, cabling. All useful. But nobody has touched the other half
+of the AV documentation deliverable — the spec itself — in a way that
+respects how AV consultants actually work," said Jerrold Stevens,
+founder of BIM Acoustics. "SpecTool doesn't ask consultants to adopt
+a new spec library or change their voice. It reads the model they've
+already built, respects the boilerplate they already wrote, and fills
+in only Part 2. That's the whole idea."
+
+SpecTool operates as a wizard on the BIM Acoustics ribbon in Revit
+(BIM Acoustics → AV Tools → SpecTool) with five ordered steps plus a
+Home screen, and supports both create and update workflows — first
+issue creates a spec against the project template; subsequent issues
+update the last-issued .docx in place, with tool-owned Part 2 articles
+re-generated and hand-edited content elsewhere preserved.
+
+AVTools System Designer v2.3.1 with SpecTool is available now for
+Revit 2025 and 2026, with a 10-day free trial. SpecTool is included
+with Pro at current early adopter pricing while in Release Candidate
+— existing Pro subscribers receive SpecTool at no additional cost.
+The Standard tier is unchanged, and the legacy free tier (v1.2.1)
+continues to support Revit 2022–2024.
+
+SpecTool is currently Release Candidate 1 — feature-complete, stable,
+and running on live projects. BIM Acoustics is actively soliciting
+feedback from AV consultants using the tool against their own firm
+templates and boilerplates before finalizing 1.0. Feedback:
+support@bimacoustics.net.
+
+About BIM Acoustics
+
+BIM Acoustics (J. Stevens BIM Acoustics LLC) develops Revit add-ins
+for AV consultants, acousticians, and system integrators. The company
+was founded by Jerrold Stevens, an AV design consultant and
+acoustician, and is based in Walhalla, South Carolina. Its products
+include AVTools System Designer, RoomExchange (Revit-to-EASE geometry
+export), and SpeakerExchange (manufacturer speaker placement import).
+
+Contact
+
+Jerrold Stevens
+Founder, J. Stevens BIM Acoustics
+support@bimacoustics.net
+https://www.bimacoustics.net
+
+Download SpecTool User Guide (PDF):
+https://www.bimacoustics.net/downloads/SpecTool_User_Guide.pdf
+
+Try v2.3.1 Pro (10-day trial):
+https://www.bimacoustics.net/products.html#pro
+
+# # #
