@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Download AVTools System Designer v2.3.1 &mdash; BIM Acoustics</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css?v=20260421-js">
+</head>
+<body>
+
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <div class="topbar">
+        <div class="brand">
+          <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn" href="/products.html">Products</a>
+          <a class="btn" href="/resources.html">Resources</a>
+          <a class="btn" href="/press.html">Press</a>
+          <a class="btn" href="/about.html">About</a>
+        </div>
+      </div>
+
+      <section class="card" id="download">
+        <div class="hd">
+          <h1 class="title">Download AVTools System Designer v2.3.1</h1>
+        </div>
+
+        <div class="bd">
+
+          <!-- =========== FORM STATE (default) =========== -->
+          <div id="form-state">
+            <div style="margin-bottom:18px;">
+              <div style="font-size:15px; line-height:1.6; color:#cfd6df;">
+                <b style="color:#f0f4f8;">10-day trial &mdash; no credit card required.</b> Includes <b>SpecTool</b> (CSI Part 2 spec generator, RC1) with the Pro tier. Fully signed MSI installer; Revit 2025 and 2026.
+              </div>
+              <div style="font-size:13px; line-height:1.55; color:#9aa3ad; margin-top:8px;">
+                A few quick details so we know who&apos;s trying it and can follow up on RC feedback. Your download starts as soon as you submit.
+              </div>
+            </div>
+
+            <form id="download-form" autocomplete="on" novalidate>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+                <div>
+                  <label for="fname" style="display:block; font-size:12px; color:#cfd6df; margin-bottom:4px; letter-spacing:0.3px;">First name <span style="color:#e57373;">*</span></label>
+                  <input type="text" id="fname" name="fname" required autocomplete="given-name" class="input"
+                         style="width:100%; box-sizing:border-box; padding:10px 12px; font-size:15px; background:rgba(255,255,255,0.06); border:1px solid rgba(220,223,228,0.25); border-radius:6px; color:#f0f4f8;" />
+                </div>
+                <div>
+                  <label for="lname" style="display:block; font-size:12px; color:#cfd6df; margin-bottom:4px; letter-spacing:0.3px;">Last name <span style="color:#e57373;">*</span></label>
+                  <input type="text" id="lname" name="lname" required autocomplete="family-name" class="input"
+                         style="width:100%; box-sizing:border-box; padding:10px 12px; font-size:15px; background:rgba(255,255,255,0.06); border:1px solid rgba(220,223,228,0.25); border-radius:6px; color:#f0f4f8;" />
+                </div>
+              </div>
+
+              <div style="margin-bottom:12px;">
+                <label for="email" style="display:block; font-size:12px; color:#cfd6df; margin-bottom:4px; letter-spacing:0.3px;">Email <span style="color:#e57373;">*</span></label>
+                <input type="email" id="email" name="email" required autocomplete="email" class="input"
+                       style="width:100%; box-sizing:border-box; padding:10px 12px; font-size:15px; background:rgba(255,255,255,0.06); border:1px solid rgba(220,223,228,0.25); border-radius:6px; color:#f0f4f8;" />
+              </div>
+
+              <div style="margin-bottom:16px;">
+                <label for="company" style="display:block; font-size:12px; color:#cfd6df; margin-bottom:4px; letter-spacing:0.3px;">Company <span style="color:#8a95a2; font-weight:normal;">(optional)</span></label>
+                <input type="text" id="company" name="company" autocomplete="organization" class="input"
+                       style="width:100%; box-sizing:border-box; padding:10px 12px; font-size:15px; background:rgba(255,255,255,0.06); border:1px solid rgba(220,223,228,0.25); border-radius:6px; color:#f0f4f8;" />
+              </div>
+
+              <div id="form-error" role="alert" style="display:none; padding:10px 12px; background:rgba(229,115,115,0.12); border:1px solid rgba(229,115,115,0.35); border-radius:6px; color:#f5b3b3; font-size:14px; margin-bottom:12px;"></div>
+
+              <button type="submit" id="submit-btn" class="btn cta-primary" style="width:100%; padding:12px 18px; font-size:15px; font-weight:600;">
+                Download v2.3.1 (10-day trial)
+              </button>
+
+              <div style="font-size:12px; line-height:1.55; color:#8a95a2; margin-top:14px;">
+                By submitting, you agree to receive occasional product updates from BIM Acoustics. Unsubscribe anytime with one click. We don&apos;t share your info with anyone else.
+              </div>
+            </form>
+          </div>
+
+          <!-- =========== SUCCESS STATE (hidden until submit) =========== -->
+          <div id="success-state" style="display:none;">
+            <div style="font-size:20px; font-weight:700; color:#f0f4f8; margin-bottom:10px;">
+              Thanks, <span id="success-name">there</span>! Your download is starting.
+            </div>
+            <div style="font-size:15px; line-height:1.6; color:#cfd6df; margin-bottom:16px;">
+              If it doesn&apos;t start automatically in a few seconds, <a href="#" id="manual-download-link" style="color:#ffd166; text-decoration:underline;">click here</a>.
+            </div>
+            <div style="font-size:14px; line-height:1.6; color:#cfd6df; padding:14px 16px; background:rgba(255,255,255,0.04); border-left:3px solid #1f3b5c; border-radius:4px;">
+              <b style="color:#f0f4f8;">What&apos;s next:</b><br>
+              &bull; Extract the ZIP. Run the MSI installer &mdash; verified publisher: <i>J. Stevens BIM Acoustics LLC</i>.<br>
+              &bull; Open a Revit 2025 or 2026 project. Look for the <b>BIM Acoustics</b> ribbon.<br>
+              &bull; SpecTool (Pro-only, RC1) is on the ribbon under BIM Acoustics &rarr; AV Tools &rarr; SpecTool.<br>
+              &bull; SpecTool User Guide (PDF) is included in the ZIP, or read it <a href="/downloads/SpecTool_User_Guide.pdf" target="_blank" style="color:#ffd166;">here</a>.
+            </div>
+            <div style="margin-top:20px;">
+              <a class="btn" href="/products.html">Back to Products</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const form         = document.getElementById('download-form');
+      const submitBtn    = document.getElementById('submit-btn');
+      const errorBox     = document.getElementById('form-error');
+      const formState    = document.getElementById('form-state');
+      const successState = document.getElementById('success-state');
+      const successName  = document.getElementById('success-name');
+      const manualLink   = document.getElementById('manual-download-link');
+
+      // Fallback direct download URL — used if the /api/RegisterDownload call fails,
+      // so the user still gets the file even if lead capture is broken.
+      const FALLBACK_DOWNLOAD = '/api/download?key=v231';
+
+      function showError(msg) {
+        errorBox.textContent = msg;
+        errorBox.style.display = 'block';
+      }
+
+      function hideError() {
+        errorBox.style.display = 'none';
+        errorBox.textContent = '';
+      }
+
+      function validateEmail(email) {
+        // Simple, permissive email regex — mailchimp will do the strict check
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      function beginDownload(url, firstName) {
+        // Swap UI to success state, then trigger the download
+        successName.textContent = firstName || 'there';
+        manualLink.setAttribute('href', url);
+        formState.style.display    = 'none';
+        successState.style.display = 'block';
+
+        // Trigger the download by setting window.location — this is a redirect
+        // to the /downloads/... file (via the /api/download function), which
+        // browsers handle as a download because of the Content-Disposition header
+        // and the .zip extension.
+        setTimeout(function () { window.location.href = url; }, 600);
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        hideError();
+
+        const fname   = document.getElementById('fname').value.trim();
+        const lname   = document.getElementById('lname').value.trim();
+        const email   = document.getElementById('email').value.trim();
+        const company = document.getElementById('company').value.trim();
+
+        if (!fname) { showError('Please enter your first name.'); return; }
+        if (!lname) { showError('Please enter your last name.'); return; }
+        if (!email || !validateEmail(email)) { showError('Please enter a valid email address.'); return; }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Preparing your download\u2026';
+
+        try {
+          const resp = await fetch('/api/RegisterDownload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fname: fname,
+              lname: lname,
+              email: email,
+              company: company,
+              version: 'v2.3.1',
+              product: 'AVTools System Designer',
+              source: 'download.html'
+            })
+          });
+
+          if (resp.ok) {
+            const data = await resp.json();
+            beginDownload(data.download_url || FALLBACK_DOWNLOAD, fname);
+          } else {
+            // Fail open — always give them the download
+            console.warn('RegisterDownload returned', resp.status);
+            beginDownload(FALLBACK_DOWNLOAD, fname);
+          }
+        } catch (err) {
+          // Network error — still give them the download
+          console.warn('RegisterDownload failed:', err);
+          beginDownload(FALLBACK_DOWNLOAD, fname);
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
