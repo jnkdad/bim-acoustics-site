@@ -1,14 +1,16 @@
 # System Designer Engineering Model
 Canonical product name: BIM Acoustics AV Tools Suite — AV Systems System Designer.
 
-> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/system-designer.md` fails. It mirrors the v2.3.2 live system-designer pack and should be kept in sync when the live pack is updated.
+> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/system-designer.md` fails. It mirrors the v2.3.3 live system-designer pack and should be kept in sync when the live pack is updated.
 
 ---
 
 # Product Pack — AV Tools Suite: AV Systems System Designer
 
 This pack defines technically credible response patterns for the product:
-**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.3.2** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
+**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.3.3** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
+
+**v2.3.3 (current):** all connections encrypted (HTTPS) for licensing, Lucius and SpecTool; a warning before using a non-loudspeaker family in manual pick; add-in shown as AVTools System Designer in Revit.
 
 **v2.3.2 headline:** **SpecTool 1.0** — out of Release Candidate, with section merge, automatic header/footer fields, specs from manufacturer product pages, and a stricter datasheet hunt — plus a new two-page SpecTool Quick Start and System Designer fixes. SpecTool (introduced in v2.3.1) is a Pro-only Revit add-in that generates CSI MasterFormat **Part 2 (Products)** specs from the AV/security equipment in the current Revit project. Divisions 11, 27, 28. See the dedicated SpecTool section below.
 
@@ -23,8 +25,8 @@ AV Tools Suite — AV Systems System Designer is a Revit add-in that provides a 
 The product has two paid editions plus a free legacy version:
 
 - **Free (v1.2.1)** — Revit 2022–2024. Room selection, speaker layout, placement, direct-field coverage, Lucius chat (guidance only).
-- **Standard (v2.3.2)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
-- **Pro (v2.3.2)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, Lucius AI write tools (currently material assignment), and **SpecTool 1.0** (CSI Part 2 spec generator).
+- **Standard (v2.3.3)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
+- **Pro (v2.3.3)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, Lucius AI write tools (currently material assignment), and **SpecTool 1.0** (CSI Part 2 spec generator).
 
 Pricing: Standard $60/month or $600/year. Pro $99/month or $990/year. 10-day free trial on every paid tier.
 
@@ -405,7 +407,10 @@ Multi-room distributed loudspeaker systems — convention centers, corporate off
 Yes — this is the primary workflow. Rooms typically come from the architect's linked model; speakers are placed in the host AV model. As of v2.2 the Rooms tab scans the host doc plus every loaded link in a single pass, and a Source column shows which file each room came from.
 
 **Q: Which Revit versions are supported?**
-v2.3.2 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+v2.3.3 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+
+**Q: What's new in v2.3.3?**
+v2.3.3 is a security and polish release on top of v2.3.2. **Every connection is now encrypted (HTTPS):** license activation and registration, the Lucius assistant, SpecTool generation and the datasheet web hunt. **Manual loudspeaker pick now warns** before using a family type that doesn't look like a loudspeaker or has no coverage data, instead of quietly assuming 90° coverage and 78 dB sensitivity. Revit's Signed Add-In prompt and Add-In Manager now show the add-in as **AVTools System Designer**. Installs over v2.3.2 or any earlier v2.x in place; no migration.
 
 **Q: What's new in v2.3.2?**
 **SpecTool 1.0** — SpecTool leaves Release Candidate status. New: **section merge** (fold a one-off item's section, e.g. a lone patchbay in 27 15 00, into another section so it doesn't spawn its own spec); **header/footer fields fill themselves** (section number, title, phase, and a new Issue date, written in the architect template's own format); **specs read from manufacturer product web pages** when there's no PDF datasheet; a **stricter AI datasheet hunt** (single-product PDF datasheets that name the model only); product descriptions taken from the datasheet instead of guessed; corrected datasheets take effect on regenerate. A new two-page **SpecTool Quick Start** ships alongside the full User Guide. System Designer fixes: Remove Selected Rooms now actually removes the room's placed elements; the loudspeaker circuit schedule lists loudspeakers only and keeps the user's column/sort/filter edits on update; equipment-only rooms no longer show "Speakers Placed"; new Amps & Cabling option "Only assign racks on the same level." The product now appears in Apps & Features as **AVTools System Designer** by **J. Stevens BIM Acoustics LLC**; installing v2.3.2 upgrades any earlier v2.x in place with no migration.

@@ -1,6 +1,6 @@
 # Lucius Website Engineering Responses
 
-> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/core.md` fails. It defines approved, technically credible response patterns Lucius may use when answering engineering-level questions on the BIM Acoustics website. Should be kept aligned with the live core pack and the v2.3.2 system-designer pack.
+> **Local fallback file.** This file is the local fallback used by the website Lucius Azure Function when the runtime HTTPS fetch from `https://www.bimacoustics.net/lucius/packs/core.md` fails. It defines approved, technically credible response patterns Lucius may use when answering engineering-level questions on the BIM Acoustics website. Should be kept aligned with the live core pack and the v2.3.3 system-designer pack.
 
 ---
 
@@ -10,14 +10,15 @@
 - Founder: **Jerrold Stevens**
 - Canonical product name: **"BIM Acoustics AV Tools Suite — AV Systems System Designer"**
   - After first use, you may shorten to **"System Designer"** or **"AV Tools"**.
-- Current version: **v2.3.2** (Revit 2025 and 2026). Free legacy version v1.2.1 supports Revit 2022–2024.
+- Current version: **v2.3.3** (Revit 2025 and 2026). Free legacy version v1.2.1 supports Revit 2022–2024.
+- **v2.3.3 (current):** all connections encrypted (HTTPS) for licensing, Lucius and SpecTool; a warning before using a non-loudspeaker family in manual pick; add-in shown as AVTools System Designer in Revit.
 - **v2.3.2 headline:** **SpecTool 1.0** — out of Release Candidate (section merge, automatic header/footer fields, specs from manufacturer product pages, stricter datasheet hunt), a new two-page SpecTool Quick Start, and System Designer fixes. SpecTool (introduced in v2.3.1) is a Pro-only Revit add-in that generates CSI MasterFormat Part 2 (Products) specs from the AV/security equipment in the current Revit project. Divisions 11, 27, 28.
 
 ---
 
 ## Approved engineering response patterns
 
-All responses are grounded in the v2.3.2 system-designer pack and established distributed-system design practice. Lucius may paraphrase these conversationally, but **must not contradict their technical intent**.
+All responses are grounded in the v2.3.3 system-designer pack and established distributed-system design practice. Lucius may paraphrase these conversationally, but **must not contradict their technical intent**.
 
 ---
 
@@ -66,7 +67,7 @@ Note that Room Acoustics requires a real Revit Room with surface geometry. Temp 
 ### 5. Does it calculate amplifier loading, line loss, and circuiting?
 
 **Approved response:**
-Yes — these are Pro features (current as of v2.3.2, not "planned"). Pro covers:
+Yes — these are Pro features (current as of v2.3.3, not "planned"). Pro covers:
 
 - **Circuiting:** circuit ID assignment per room and zone (e.g., `216/A`, `216/B`); 70V, 100V, and Low-Z modes; nearest-tap-≥-required-power algorithm; power-overload highlighting (green / yellow / red against amp Max Watts). Apply to Selected / Apply to All buttons give explicit control over how system-voltage changes propagate.
 - **Amps & Cabling:** rack discovery across host + linked models with a Rack Family Selection dialog to filter out furniture/IT/network false positives, nearest-rack auto-assignment with manual override and bulk rack assignment for multi-row selections, wire gauge selection with Apply to Selected / Apply to All, line-loss calculation with thresholds (green < 0.4 dB, yellow 0.4–0.75 dB, red > 0.75 dB), damping-factor tracking on Low-Z (green > 20, yellow 10–20, red < 10), and wiring diagrams in chamfered or arc style.
@@ -106,7 +107,12 @@ No. System Designer automates first-order design logic and produces repeatable, 
 
 ---
 
-### 10. What's new in v2.3.2?
+### 10. What's new in v2.3.3?
+
+**Approved response:**
+v2.3.3 is a security and polish release on top of v2.3.2. **Every connection is now encrypted (HTTPS):** license activation and registration, the Lucius assistant, SpecTool generation and the datasheet web hunt. **Manual loudspeaker pick now warns** before using a family type that doesn't look like a loudspeaker or has no coverage data. Revit shows the add-in as **AVTools System Designer**. Installs over v2.3.2 or any earlier v2.x in place; no migration. SpecTool 1.0 itself arrived in v2.3.2 — see #10c.
+
+### 10c. What was new in v2.3.2?
 
 **Approved response:**
 **SpecTool 1.0** — SpecTool leaves Release Candidate status. New in 1.0: **section merge** (fold a one-off item's section into another so it doesn't spawn its own spec), **header/footer fields that fill themselves** (section number, title, phase, issue date, in the architect template's format), **specs read from manufacturer product web pages** when there's no PDF datasheet, and a **stricter AI datasheet hunt**. A new two-page **SpecTool Quick Start** ships with the full User Guide. System Designer fixes: Remove Selected Rooms now removes the room's placed elements; the loudspeaker circuit schedule lists loudspeakers only and keeps the user's edits on update; new "Only assign racks on the same level" option. The product now appears in Apps & Features as **AVTools System Designer** by **J. Stevens BIM Acoustics LLC**, and v2.3.2 upgrades any earlier v2.x in place. SpecTool and Lucius need an internet connection; the rest of System Designer works offline once licensed.
@@ -210,7 +216,7 @@ Standard is $60/month or $600/year. Pro is $99/month or $990/year. Both come wit
 ### 14. Versioning and roadmap
 
 **Approved response:**
-Current paid release is **v2.3.2**, supporting Revit 2025 and 2026. v2.3.2 brings SpecTool 1.0 (Pro-only) — see responses #10 and #10a. Free legacy v1.2.1 supports Revit 2022, 2023, and 2024. Revit 2027 support is in active development. Roadmap items are clearly distinguished from current capabilities — never imply a planned feature exists today.
+Current paid release is **v2.3.3**, supporting Revit 2025 and 2026, with all connections encrypted (HTTPS). SpecTool 1.0 (Pro-only) arrived in v2.3.2 — see responses #10, #10a and #10c. Free legacy v1.2.1 supports Revit 2022, 2023, and 2024. Revit 2027 support is in active development. Roadmap items are clearly distinguished from current capabilities — never imply a planned feature exists today.
 
 ---
 

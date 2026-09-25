@@ -9,18 +9,19 @@
 // Add new releases here; anything not listed returns 404.
 const FILES = {
   "v121":     "JSBA.AVTools-SystemDesigner_Revit2022-2024_v1.2.1.zip",
-  // v2.3.2 (current): signed MSI — verified publisher "J. Stevens BIM Acoustics LLC".
-  // SpecTool 1.0 (out of RC). ZIP contains the signed MSI + SpecTool Quick Start + User Guide PDFs + release notes PDF.
-  "v232":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.2.zip",
+  // v2.3.3 (current): signed MSI — verified publisher "J. Stevens BIM Acoustics LLC".
+  // All traffic HTTPS (licensing + Lucius). ZIP: signed MSI + SpecTool Quick Start + User Guide PDFs + release notes PDF.
+  "v233":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.3.zip",
   // Prior bundles kept addressable for anyone who explicitly wants them.
+  "v232":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.2.zip",
   "v231":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.1.zip",
   "v230":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.0.zip",
   "v222":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.2.zip",
   "v221":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.1.zip",
-  // v20 / v21 / v22 aliases resolve to the latest 2.x bundle (currently v2.3.2)
-  "v20":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.2.zip",
-  "v21":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.2.zip",
-  "v22":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.2.zip",
+  // v20 / v21 / v22 aliases resolve to the latest 2.x bundle (currently v2.3.3)
+  "v20":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.3.zip",
+  "v21":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.3.zip",
+  "v22":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.3.zip",
   "presskit": "AVTools-SystemDesigner-v2.0-PressKit.zip"
 };
 
