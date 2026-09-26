@@ -43,10 +43,10 @@ function safeString(s, max) {
   return max ? trimmed.slice(0, max) : trimmed;
 }
 
-// The download URL we hand back. Kept in sync with /api/Download for v2.3.3.
+// The download URL we hand back. Kept in sync with /api/Download for v2.3.5.
 // Points at the /api/download function so we still get the App Insights hit
 // on the actual file fetch too.
-const DOWNLOAD_URL = "/api/download?key=v233";
+const DOWNLOAD_URL = "/api/download?key=v235";
 
 // -------- Mailchimp calls --------
 
@@ -160,7 +160,7 @@ module.exports = async function (context, req) {
   const lname   = safeString(payload.lname,   80);
   const email   = safeString(payload.email,   254);
   const company = safeString(payload.company, 200);
-  const version = safeString(payload.version, 20)  || "v2.3.3";
+  const version = safeString(payload.version, 20)  || "v2.3.5";
   const product = safeString(payload.product, 80)  || "AVTools System Designer";
   const source  = safeString(payload.source,  80)  || "download.html";
 

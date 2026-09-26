@@ -1,11 +1,13 @@
 # Product Pack — AV Tools Suite: AV Systems System Designer
 
 This pack defines technically credible response patterns for the product:
-**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.3.3** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
+**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.3.5** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
 
-**v2.3.3 (current):** all connections encrypted (HTTPS) for licensing, Lucius and SpecTool; a warning before using a non-loudspeaker family in manual pick; add-in shown as AVTools System Designer in Revit.
+**v2.3.5 (current):** the 14-day free trial unlocks every Pro feature (including SpecTool and the Lucius tools), one trial per computer; license validation fixes on the About tab (changing the email, clear server messages).
 
-**v2.3.2 headline:** **SpecTool 1.0** — out of Release Candidate, with section merge, automatic header/footer fields, specs from manufacturer product pages, and a stricter datasheet hunt — plus a new two-page SpecTool Quick Start and System Designer fixes. SpecTool (introduced in v2.3.1) is a Pro-only Revit add-in that generates CSI MasterFormat **Part 2 (Products)** specs from the AV/security equipment in the current Revit project. Divisions 11, 27, 28. See the dedicated SpecTool section below.
+**v2.3.3:** all connections encrypted (HTTPS) for licensing, Lucius and SpecTool; a warning before using a non-loudspeaker family in manual pick; add-in shown as AVTools System Designer in Revit.
+
+**v2.3.2 headline:** **SpecTool 1.0** — out of Release Candidate, with section merge, automatic header/footer fields, specs from manufacturer product pages, and a stricter datasheet hunt — plus a new two-page SpecTool Quick Start and System Designer fixes. SpecTool (introduced in v2.3.1) is a Pro-only Revit add-in that generates CSI MasterFormat **Part 2 (Products)** specs from the AV equipment in the current Revit project. Divisions 11 and 27. See the dedicated SpecTool section below.
 
 **Anchoring rule:** If the user asks about distributed ceiling speaker layout, spacing, coverage, acoustics, RT60, STI, materials, circuiting, zoning, racks, cabling, or "what does System Designer do," answer using this pack. Do not drift into generic Revit help.
 
@@ -18,10 +20,10 @@ AV Tools Suite — AV Systems System Designer is a Revit add-in that provides a 
 The product has two paid editions plus a free legacy version:
 
 - **Free (v1.2.1)** — Revit 2022–2024. Room selection, speaker layout, placement, direct-field coverage, Lucius chat (guidance only).
-- **Standard (v2.3.3)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
-- **Pro (v2.3.3)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, Lucius AI write tools (currently material assignment), and **SpecTool 1.0** (CSI Part 2 spec generator).
+- **Standard (v2.3.5)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
+- **Pro (v2.3.5)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, Lucius AI write tools (currently material assignment), and **SpecTool 1.0** (CSI Part 2 spec generator).
 
-Pricing: Standard $60/month or $600/year. Pro $99/month or $990/year. 10-day free trial on every paid tier.
+Pricing: Standard $60/month or $600/year. Pro $99/month or $990/year. 14-day free trial that unlocks every Pro feature (SpecTool and the Lucius tools included), one trial per computer.
 
 ---
 
@@ -257,7 +259,7 @@ Lighting specifically uses 0" / 3" / 6" / 12" tiers per industry convention.
 
 ## SpecTool — CSI Spec Generator *(Pro; introduced in v2.3.1, version 1.0 since v2.3.2)*
 
-**SpecTool** is a Pro-only Revit add-in wizard that reads the AV/security equipment in the current project, generates CSI MasterFormat **Part 2 (Products)** articles via Claude matched to the consultant's own house format, fills gaps from manufacturer datasheet PDFs, and splices the result into a per-section boilerplate .docx with an audit-friendly Create-or-Update flow.
+**SpecTool** is a Pro-only Revit add-in wizard that reads the AV equipment in the current project, generates CSI MasterFormat **Part 2 (Products)** articles via Claude matched to the consultant's own house format, fills gaps from manufacturer datasheet PDFs, and splices the result into a per-section boilerplate .docx with an audit-friendly Create-or-Update flow.
 
 **Audience:** AV consultants, security integrators, and spec writers using Revit.
 **Scope:** Divisions **11** (equipment), **27** (communications / AV), **28** (electronic safety and security). Registry-extensible for other divisions.
@@ -272,7 +274,7 @@ SpecTool does not impose a spec style. It respects three separate authorities th
 
 1. **The architect's project spec template (format authority)** — uploaded per project. Supplies styles (PRT / ART / PR1 / PR2 / PR3), fonts, headers, footers, and page numbering. The generated .docx looks like every other section in the architect's book.
 2. **The consultant's own boilerplate (content authority)** — uploaded per section. Supplies Part 1 (General) and Part 3 (Execution) exactly the way the firm wants them. SpecTool lifts these unchanged into the output.
-3. **The Revit model (product data authority)** — the placed AV/security equipment is the source of truth for what products land in Part 2, at what quantities, from which manufacturers.
+3. **The Revit model (product data authority)** — the placed AV equipment is the source of truth for what products land in Part 2, at what quantities, from which manufacturers.
 
 SpecTool fills in **only Part 2 (Products)**, matched to the firm's own style. It doesn't invent products, doesn't override the architect's format, and doesn't rewrite Part 1 or Part 3.
 
@@ -281,7 +283,7 @@ SpecTool fills in **only Part 2 (Products)**, matched to the firm's own style. I
 **Home (Sections)** — landing screen listing every CSI section the project needs, based on the equipment scan and any prior issues on disk.
 
 1. **Setup** — section identity (division, section number, phase like "35% CD" or "100% CD Rev 1"), Detail Level pick, upload the project spec template + firm boilerplate + datasheet folder + output folder.
-2. **Products** — the AV/security equipment inventory. Grid of one row per family+Type instance from the model, with editable Category. Include / exclude per row. `+ Add device` for software/licenses (no Revit instance). `+ Add from model` to pull in families the scan filtered out.
+2. **Products** — the AV equipment inventory. Grid of one row per family+Type instance from the model, with editable Category. Include / exclude per row. `+ Add device` for software/licenses (no Revit instance). `+ Add from model` to pull in families the scan filtered out.
 3. **Data & Datasheets** — associate each product with its manufacturer datasheet PDF. Four-tier ladder in locked order: (1) datasheet folder auto-match on filenames containing the Model string, (2) family URL parameter auto-download, (3) manual From URL dialog with a Search-web launcher, (4) file-picker Attach. Plus an AI web-hunt button for the leftover rows.
 4. **Categories & Articles** — deliberate review step: same editable Category column as step 2 but grouped by section → article, unclassified rows on top. Correct misclassifications before generation.
 5. **Review & Generate** — mode indicator shows CREATE (splice into template) or UPDATE (splice into last-issued .docx). Click **Generate with AI (preview)** — one Claude Sonnet call per Part 2 article. Every generated paragraph appears as an editable row in the preview grid with an Include checkbox. Click **Create / Update spec** to write the .docx. Click **Open document** to review in Word.
@@ -301,7 +303,7 @@ Structure (Type label → description → Acceptable Products → substitutions)
 
 If a firm doesn't have their own boilerplate for a given section, SpecTool ships a bundled starter for **Section 27 41 00 (Audio-Visual Systems)** — the verbatim NAVFAC UFGS 27 41 00 (February 2026) Part 1 (11 articles) and Part 3 (15 articles), plus a curated AVIXA supplement (ANSI/AVIXA V201.01, V202.01, F202.01, and RP-C303.01) merged into the REFERENCES article. Loaded via a **Use bundled starter…** button on Setup step 1 that only appears when a bundle exists for the current section.
 
-Div 11 and Div 28 don't have bundled starters yet — UFGS coverage exists for Access Control, Intrusion, and Video Surveillance but hasn't been packaged. Users can drop UFGS SEC XML files into the boilerplates folder to extend.
+Div 11 doesn't have a bundled starter yet. Users can drop their own UFGS XML files into the boilerplates folder to extend.
 
 ### Prerequisites — model and family state drive spec quality
 
@@ -400,9 +402,12 @@ Multi-room distributed loudspeaker systems — convention centers, corporate off
 Yes — this is the primary workflow. Rooms typically come from the architect's linked model; speakers are placed in the host AV model. As of v2.2 the Rooms tab scans the host doc plus every loaded link in a single pass, and a Source column shows which file each room came from.
 
 **Q: Which Revit versions are supported?**
-v2.3.3 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+v2.3.5 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
 
-**Q: What's new in v2.3.3?**
+**Q: What's new in v2.3.5?**
+v2.3.5 (which includes v2.3.4, not released separately) makes the **14-day free trial unlock every Pro feature** — circuiting, amps & cabling, coordination, SpecTool and the Lucius tools — so evaluators see the whole workflow before choosing a plan. One trial per computer. It also fixes license validation: changing the license email on the About tab now checks that email on its own; if the license server turns a license down, the About tab says so and shows the reason; and connection problems give a clear message and are saved to the support logs. Installs over v2.3.3 or any earlier v2.x in place; no migration.
+
+**Q: What was new in v2.3.3?**
 v2.3.3 is a security and polish release on top of v2.3.2. **Every connection is now encrypted (HTTPS):** license activation and registration, the Lucius assistant, SpecTool generation and the datasheet web hunt. **Manual loudspeaker pick now warns** before using a family type that doesn't look like a loudspeaker or has no coverage data, instead of quietly assuming 90° coverage and 78 dB sensitivity. Revit's Signed Add-In prompt and Add-In Manager now show the add-in as **AVTools System Designer**. Installs over v2.3.2 or any earlier v2.x in place; no migration.
 
 **Q: What's new in v2.3.2?**
@@ -412,13 +417,13 @@ v2.3.3 is a security and polish release on top of v2.3.2. **Every connection is 
 Mostly. SpecTool and Lucius need an internet connection — both run through the BIM Acoustics cloud service (SpecTool for Generate, Classify unknowns, the datasheet web hunt, and From URL downloads). Everything else in System Designer works offline once the license has been activated; license activation itself needs a connection.
 
 **Q: What's new in v2.3.1?**
-**SpecTool.** A new Pro-only Revit add-in that generates CSI MasterFormat **Part 2 (Products)** specs directly from the AV / security equipment placed in the current Revit project — matched to the consultant's own boilerplate style, filled in with datasheet PDFs, and spliced into a per-section .docx. Divisions 11 / 27 / 28. Shipped as Release Candidate 1; graduated to SpecTool 1.0 in v2.3.2. Included with Pro at the current early adopter pricing. See the dedicated SpecTool section above for the full breakdown. Reach support@bimacoustics.net with feedback from your firm's spec templates and boilerplates.
+**SpecTool.** A new Pro-only Revit add-in that generates CSI MasterFormat **Part 2 (Products)** specs directly from the AV equipment placed in the current Revit project — matched to the consultant's own boilerplate style, filled in with datasheet PDFs, and spliced into a per-section .docx. Divisions 11 / 27. Generally available as SpecTool 1.0 since v2.3.2. Included with Pro at the current early adopter pricing. See the dedicated SpecTool section above for the full breakdown. Reach support@bimacoustics.net with feedback from your firm's spec templates and boilerplates.
 
 **Q: What's new in v2.3.0?**
 Room Acoustics now captures every bounding surface on host-model rooms — fixing a case where rooms bounded by walls in the *active model* (rather than a linked architectural model) could omit wall, floor, and ceiling areas from the Assign Materials surface list, causing those surfaces to report 0 ft² and drop out of the RT60 calculation. Linked-model projects were unaffected and continue to behave exactly as before. Continues fully signed builds via Microsoft Trusted Signing.
 
 **Q: What is SpecTool?**
-SpecTool is a Pro-only Revit add-in (new in v2.3.1) that generates CSI MasterFormat Part 2 (Products) spec articles from the AV/security equipment placed in the current Revit project. It respects three separate authorities: the architect's project spec template (uploaded per project — supplies styles, fonts, headers, footers, page numbering), the consultant's own firm boilerplate (uploaded per section — supplies Part 1 General and Part 3 Execution), and the Revit model itself (supplies the product data — placed families, Type parameters, JSBA_ shared parameters, and datasheet PDFs). SpecTool fills in only Part 2 into the format and voice the consultant already uses. Covers Divisions 11 (equipment), 27 (communications / AV), and 28 (electronic safety and security). SpecTool 1.0 since v2.3.2. New users: start with the two-page SpecTool Quick Start.
+SpecTool is a Pro-only Revit add-in (new in v2.3.1) that generates CSI MasterFormat Part 2 (Products) spec articles from the AV equipment placed in the current Revit project. It respects three separate authorities: the architect's project spec template (uploaded per project — supplies styles, fonts, headers, footers, page numbering), the consultant's own firm boilerplate (uploaded per section — supplies Part 1 General and Part 3 Execution), and the Revit model itself (supplies the product data — placed families, Type parameters, JSBA_ shared parameters, and datasheet PDFs). SpecTool fills in only Part 2 into the format and voice the consultant already uses. Covers Divisions 11 (equipment), 27 (communications / AV), and 28 (electronic safety and security). SpecTool 1.0 since v2.3.2. New users: start with the two-page SpecTool Quick Start.
 
 **Q: How do I generate a spec with SpecTool?**
 Open the wizard from the BIM Acoustics ribbon → AV Tools → SpecTool. **Home** scans the model automatically the first time it opens and lists the sections the project needs (use **Merge…** on a row to fold a one-off section into another). Pick a section row → **Work on it**. On **Setup step 1**: confirm the section number, phase and issue date, pick a Detail Level, upload the project spec template (from the architect), your firm's boilerplate (Part 1 + Part 3), the datasheet folder, and the output folder. On **Products step 2**: untick anything not in scope; edit the Category column for anything the classifier missed. On **Data & Datasheets step 3**: attach datasheets for the products the folder auto-match and family URL didn't cover. On **Categories & Articles step 4**: review the per-article grouping and correct misclassifications. On **Review & Generate step 5**: click **Generate with AI (preview)**, review and edit the paragraphs in the preview grid (tick / untick Include per row, edit Style + Text inline), then click **Create / Update spec**. Click **Open document** to review the .docx in Word.
@@ -480,7 +485,7 @@ Yes (Standard and Pro). Three RT60 formulas — Sabine, Norris-Eyring, Arau-Puch
 D-Tools is a system integration / proposal / project-management platform — strong on procurement and BOMs, not on Revit-native distributed-loudspeaker layout or acoustic analysis. EASE is a full acoustic simulation suite — strong on auralization and ray tracing, not on Revit integration or circuiting/cabling. AVTools is BIM-native, focused on the AV consultant designing inside the architect's Revit model, and covers placement → coverage → RT60/STI → circuiting → cabling → coordination as one continuous workflow.
 
 **Q: How do I get started?**
-Download the 10-day free trial of Standard or Pro from the products page. The free v1.2.1 (Revit 2022–2024) is available as a permanent free download for the core layout and coverage workflow. Both run as a dockable panel inside Revit; no external dependencies.
+Download the 14-day free trial from the products page; it unlocks every Pro feature. The free v1.2.1 (Revit 2022–2024) is available as a permanent free download for the core layout and coverage workflow. Both run as a dockable panel inside Revit; no external dependencies.
 
 **Q: Where do I report bugs or request features?**
 The About tab includes Bundle Logs (ZIP), Open Logs Folder, and Copy Support Info to gather diagnostic information. Email support@bimacoustics.net with the bundled logs and a description of the issue or feature request.

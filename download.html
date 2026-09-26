@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Download AVTools System Designer v2.3.3 &mdash; BIM Acoustics</title>
+  <title>Download AVTools System Designer v2.3.5 &mdash; BIM Acoustics</title>
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css?v=20260421-js">
@@ -33,7 +33,7 @@
 
       <section class="card" id="download">
         <div class="hd">
-          <h1 class="title">Download AVTools System Designer v2.3.3</h1>
+          <h1 class="title">Download AVTools System Designer v2.3.5</h1>
         </div>
 
         <div class="bd">
@@ -42,7 +42,7 @@
           <div id="form-state">
             <div style="margin-bottom:18px;">
               <div style="font-size:15px; line-height:1.6; color:#cfd6df;">
-                <b style="color:#f0f4f8;">10-day trial &mdash; no credit card required.</b> Includes <b>SpecTool 1.0</b> (CSI Part 2 spec generator) with the Pro tier. Fully signed MSI installer; Revit 2025 and 2026.
+                <b style="color:#f0f4f8;">14-day trial with every Pro feature &mdash; no credit card required.</b> Includes <b>SpecTool 1.0</b> (CSI Part 2 spec generator), circuiting, amps &amp; cabling, coordination and the Lucius tools. Fully signed MSI installer; Revit 2025 and 2026.
               </div>
               <div style="font-size:13px; line-height:1.55; color:#9aa3ad; margin-top:8px;">
                 A few quick details so we know who&apos;s trying it and can follow up on your feedback. Your download starts as soon as you submit.
@@ -79,7 +79,7 @@
               <div id="form-error" role="alert" style="display:none; padding:10px 12px; background:rgba(229,115,115,0.12); border:1px solid rgba(229,115,115,0.35); border-radius:6px; color:#f5b3b3; font-size:14px; margin-bottom:12px;"></div>
 
               <button type="submit" id="submit-btn" class="btn cta-primary" style="width:100%; padding:12px 18px; font-size:15px; font-weight:600;">
-                Download v2.3.3 (10-day trial)
+                Download v2.3.5 (14-day trial)
               </button>
 
               <div style="font-size:12px; line-height:1.55; color:#8a95a2; margin-top:14px;">
@@ -100,8 +100,8 @@
               <b style="color:#f0f4f8;">What&apos;s next:</b><br>
               &bull; Extract the ZIP. Run the MSI installer &mdash; verified publisher: <i>J. Stevens BIM Acoustics LLC</i>.<br>
               &bull; Open a Revit 2025 or 2026 project. If Revit asks about a signed add-in from <i>J. Stevens BIM Acoustics LLC</i>, choose <b>Always Load</b>. Look for the <b>BIM Acoustics</b> ribbon.<br>
-              &bull; SpecTool (Pro-only) is on the ribbon under BIM Acoustics &rarr; AV Tools &rarr; SpecTool.<br>
-              &bull; The ZIP includes the <a href="/downloads/AVTools%20System%20Designer%20v2.3.3%20User%20Guide.pdf" target="_blank" style="color:#ffd166;">System Designer User Guide</a>, the 2-page <a href="/downloads/SpecTool_Quick_Start.pdf" target="_blank" style="color:#ffd166;">SpecTool Quick Start</a> (start here if you're new to SpecTool) and the full <a href="/downloads/SpecTool_User_Guide.pdf" target="_blank" style="color:#ffd166;">SpecTool User Guide</a>.
+              &bull; SpecTool (Pro; included in the trial) is on the ribbon under BIM Acoustics &rarr; AV Tools &rarr; SpecTool.<br>
+              &bull; The ZIP includes the <a href="/downloads/AVTools%20System%20Designer%20v2.3.5%20User%20Guide.pdf" target="_blank" style="color:#ffd166;">System Designer User Guide</a>, the 2-page <a href="/downloads/SpecTool_Quick_Start.pdf" target="_blank" style="color:#ffd166;">SpecTool Quick Start</a> (start here if you're new to SpecTool) and the full <a href="/downloads/SpecTool_User_Guide.pdf" target="_blank" style="color:#ffd166;">SpecTool User Guide</a>.
             </div>
             <div style="margin-top:20px;">
               <a class="btn" href="/products.html">Back to Products</a>
@@ -126,7 +126,7 @@
 
       // Fallback direct download URL — used if the /api/RegisterDownload call fails,
       // so the user still gets the file even if lead capture is broken.
-      const FALLBACK_DOWNLOAD = '/api/download?key=v233';
+      const FALLBACK_DOWNLOAD = '/api/download?key=v235';
 
       function showError(msg) {
         errorBox.textContent = msg;
@@ -182,7 +182,7 @@
               lname: lname,
               email: email,
               company: company,
-              version: 'v2.3.3',
+              version: 'v2.3.5',
               product: 'AVTools System Designer',
               source: 'download.html'
             })
