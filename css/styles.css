@@ -1915,3 +1915,21 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .release-card li{
   margin-bottom: 6px;
 }
+
+/* ================================
+   2026-10-29 quick design fixes
+   ================================ */
+
+/* Remove the glowing "moon" decoration (distracting, top-right) */
+.moon{ display:none; }
+
+/* Top nav: let the button row wrap instead of squeezing labels
+   onto 2-3 lines on narrow screens */
+.topbar > div{ flex-wrap: wrap; justify-content: flex-end; }
+.topbar .btn{ white-space: nowrap; }
+
+@media (max-width: 760px){
+  .topbar{ flex-wrap: wrap; gap: 12px; }
+  .topbar > div{ justify-content: flex-start; gap: 8px !important; }
+  .topbar .btn{ padding: 8px 12px; font-size: 13px; }
+}
