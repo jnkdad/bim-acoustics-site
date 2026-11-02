@@ -7,156 +7,11 @@
 
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/styles.css?v=20261029">
+  <link rel="stylesheet" href="/css/styles.css?v=20261102">
 
-  <!-- InfoComm 2026 marquee banner — auto-hides after June 20, 2026 -->
-  <style>
-    .infocomm-banner {
-      position: relative;
-      z-index: 100;
-      background: linear-gradient(90deg, #FFD60A 0%, #FFB800 50%, #FFD60A 100%);
-      color: #0a2540;
-      border-bottom: 2px solid #B8860B;
-      padding: 20px 0;
-      overflow: hidden;
-      font-family: 'Montserrat', system-ui, sans-serif;
-      font-size: 24px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      box-shadow: 0 3px 14px rgba(0,0,0,0.5);
-    }
-    .infocomm-marquee {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-    /* Edge fade — pseudo-element gradient, same pattern as .screenshot-strip
-       (mask-image has spotty Edge support). Color stops match the amber bg. */
-    .infocomm-marquee::before,
-    .infocomm-marquee::after {
-      content: "";
-      position: absolute;
-      top: 0; bottom: 0;
-      width: 60px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .infocomm-marquee::before {
-      left: 0;
-      background: linear-gradient(90deg, #FFD60A, rgba(255,214,10,0));
-    }
-    .infocomm-marquee::after {
-      right: 0;
-      background: linear-gradient(90deg, rgba(255,214,10,0), #FFD60A);
-    }
-    /* Scroll is driven by JS — CSS keyframe animations on transform are
-       unreliable in Edge (same pattern as .screenshot-track). */
-    .infocomm-track {
-      display: flex;
-      width: max-content;          /* explicit content-sizing — required for rAF wrap math */
-      white-space: nowrap;
-      will-change: transform;
-    }
-    .infocomm-item {
-      padding-right: 96px;
-      flex: 0 0 auto;
-    }
-    .infocomm-item b { color: #000000; font-weight: 800; }
-    .infocomm-item a {
-      color: #0a2540;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-    .infocomm-item a:hover { color: #000000; }
-    .infocomm-pin { display: inline-block; margin-right: 10px; font-size: 26px; }
-    .infocomm-dot { opacity: 0.45; margin: 0 22px; }
-  </style>
 </head>
 
 <body>
-  <!-- ============ INFOCOMM 2026 BANNER ============
-       Auto-hides via inline script (below) after 2026-06-20. To pull
-       earlier, just delete this block + the matching <style> in <head>. -->
-  <div id="infocomm-banner" class="infocomm-banner" role="region" aria-label="InfoComm 2026 announcement">
-    <div class="infocomm-marquee" tabindex="0">
-      <div class="infocomm-track">
-        <span class="infocomm-item">
-          <span class="infocomm-pin" aria-hidden="true">&#128205;</span>
-          <b>Going to InfoComm 2026?</b>
-          <span class="infocomm-dot">&middot;</span>
-          June 17&ndash;19, Las Vegas Convention Center
-          <span class="infocomm-dot">&middot;</span>
-          Find me at the <b>AtlasIED booth N7132</b> (North Hall)
-          <span class="infocomm-dot">&middot;</span>
-          Come say hi
-          <span class="infocomm-dot">&middot;</span>
-        </span>
-        <span class="infocomm-item" aria-hidden="true">
-          <span class="infocomm-pin">&#128205;</span>
-          <b>Going to InfoComm 2026?</b>
-          <span class="infocomm-dot">&middot;</span>
-          June 17&ndash;19, Las Vegas Convention Center
-          <span class="infocomm-dot">&middot;</span>
-          Find me at the <b>AtlasIED booth N7132</b> (North Hall)
-          <span class="infocomm-dot">&middot;</span>
-          Come say hi
-          <span class="infocomm-dot">&middot;</span>
-        </span>
-      </div>
-    </div>
-  </div>
-  <script>
-    // InfoComm banner: hide after event closes; otherwise drive the marquee in JS
-    // (CSS keyframe animations on transform are flaky in Edge — same reason
-    // .screenshot-track uses rAF rather than @keyframes).
-    (function () {
-      var banner = document.getElementById('infocomm-banner');
-      if (!banner) return;
-
-      // Auto-hide after the event closes (2026-06-20 local).
-      var endsAt = new Date(2026, 5, 20); // month is 0-indexed -> June 20
-      if (Date.now() >= endsAt.getTime()) {
-        banner.style.display = 'none';
-        return;
-      }
-
-      var marquee = banner.querySelector('.infocomm-marquee');
-      var track   = banner.querySelector('.infocomm-track');
-      if (!marquee || !track) return;
-
-      var SPEED_PX_PER_SEC = 70;
-      var position = 0;
-      var lastTs = null;
-      var paused = false;
-
-      marquee.addEventListener('mouseenter', function () { paused = true; });
-      marquee.addEventListener('mouseleave', function () { paused = false; });
-      marquee.addEventListener('focusin',    function () { paused = true; });
-      marquee.addEventListener('focusout',   function () { paused = false; });
-
-      function oneSetWidth() {
-        // The track contains 2 duplicate items; one set = half the scrollWidth.
-        return track.scrollWidth / 2;
-      }
-
-      function tick(ts) {
-        if (lastTs == null) lastTs = ts;
-        var dt = (ts - lastTs) / 1000;
-        lastTs = ts;
-
-        if (!paused) {
-          position += SPEED_PX_PER_SEC * dt;
-          var w = oneSetWidth();
-          if (w > 0 && position >= w) position -= w;
-          track.style.transform = 'translateX(' + (-position).toFixed(2) + 'px)';
-        }
-
-        requestAnimationFrame(tick);
-      }
-
-      requestAnimationFrame(tick);
-    })();
-  </script>
 
   <div class="stars" aria-hidden="true"></div>
   <div class="moon" aria-hidden="true"></div>
@@ -190,20 +45,70 @@
             BIM Acoustics tools are built to accelerate real-world Revit-based AV workflows with clear design intent and transparent assumptions.
           </div>
 
-          <!-- ================= SPECTOOL HERO ================= -->
+          <!-- ================= ROOM EXCHANGE HERO (v3.0.0) ================= -->
           <div class="release-banner" style="padding:24px 26px;">
             <div style="font-size:1.6rem; font-weight:700; line-height:1.3; margin-bottom:14px; color:#f0f4f8;">
-              Introducing the new <span style="color:#ffd166;">SpecTool</span> add-in.
+              New in v3.0.0: <span style="color:#ffd166;">Room Exchange</span> &mdash; Revit rooms to EASE 5.
             </div>
             <div style="font-size:15px; line-height:1.65;">
-              SpecTool generates CSI MasterFormat <b>Part 2 (Products)</b> spec articles directly from the AV equipment in your Revit model &mdash; matched to your firm's own boilerplate style, filled in with datasheet PDFs, and spliced into a per-section .docx. You upload the architect's project spec template (formatting authority) and your own firm boilerplate (Part 1 &amp; Part 3 the way you want them); SpecTool fills in Part 2. Four detail levels &mdash; <i>User Boilerplate Detail</i> (matches your own article style), <i>Basis of Design</i>, <i>Minimal Spec</i>, or <i>All Mfg Specs</i>. Divisions 11 / 27. Included with AVTools System Designer Pro (v2.3.5) at the current early adopter pricing. <b>SpecTool 1.0</b> &mdash; now generally available; we want your feedback on how it handles your firm's spec templates and boilerplates. Revit 2025 and 2026.
+              Tick the rooms, click Export, and open a closed EASE 5 room model with one layer per surface material. Room Exchange fills each room's air and finds every surface the air touches &mdash; floors, walls, ceilings, roofs, glass, doors, columns, stairs, curtain walls and operable partitions, in the model and in its links &mdash; and seals the small gaps. Curved ceilings and roofs go out as flat panels of a size you set. <b>Custom Perimeter</b> handles the spaces no room describes: open lobbies, atriums, stadium bowls. <b>Import Loudspeakers</b> brings positions and aims from EASE back into Revit. The same engine now reads the rooms for System Designer's RT60, so the acoustics get every surface and the true air volume. Available on its own as the <b>RoomExchange</b> plan or in <b>AVTools Suite Pro</b>. Revit 2025 and 2026. <b>Requires AutoCAD</b> on the same machine &mdash; Room Exchange uses it only to convert the exported DXF to the DWG that EASE 5 imports. Supported with EASE 5; the DXF and DWG files also appear to import into Bose Modeler and ODEON, and may work in other applications that read 3D polylines or 3D faces, but those are not fully tested or supported.
             </div>
           </div>
+
+          <!-- ================= ROOM EXCHANGE GALLERY ================= -->
+          <section class="spectool-gallery" id="room-exchange-gallery" style="margin:22px 0 8px 0;">
+            <h2 class="matrix-title">Room Exchange in action</h2>
+            <p class="matrix-sub">A beta tester's church, a high school theater and a gym, each exported from Revit and opened in EASE 5. Click any screenshot to enlarge.</p>
+
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px; margin-top:16px;">
+
+              <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(220,223,228,0.20); border-radius:10px; overflow:hidden;">
+                <a href="/assets/screenshots/full/room-exchange-revit.png" target="_blank" rel="noopener" style="display:block; line-height:0;">
+                  <img src="/assets/screenshots/thumb/room-exchange-revit.png" alt="Church sanctuary in Revit before export" style="width:100%; height:200px; object-fit:cover; display:block;">
+                </a>
+                <div style="padding:10px 12px 12px 12px;">
+                  <div style="font-size:10px; color:#c48b00; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:3px;">Revit</div>
+                  <div style="font-size:13px; line-height:1.45; color:#cfd6df;">The sanctuary as modeled: curved ceiling, balcony, stepped floor.</div>
+                </div>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(220,223,228,0.20); border-radius:10px; overflow:hidden;">
+                <a href="/assets/screenshots/full/room-exchange-ease.png" target="_blank" rel="noopener" style="display:block; line-height:0;">
+                  <img src="/assets/screenshots/thumb/room-exchange-ease.png" alt="The same sanctuary imported in EASE 5 as a closed room model" style="width:100%; height:200px; object-fit:cover; display:block;">
+                </a>
+                <div style="padding:10px 12px 12px 12px;">
+                  <div style="font-size:10px; color:#c48b00; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:3px;">EASE 5</div>
+                  <div style="font-size:13px; line-height:1.45; color:#cfd6df;">The exported DWG opened in EASE 5 as a closed volume, one Selection Set per material layer.</div>
+                </div>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(220,223,228,0.20); border-radius:10px; overflow:hidden;">
+                <a href="/assets/screenshots/full/room-exchange-theater.png" target="_blank" rel="noopener" style="display:block; line-height:0;">
+                  <img src="/assets/screenshots/thumb/room-exchange-theater.png" alt="High school theater exported by Room Exchange and opened in EASE 5" style="width:100%; height:200px; object-fit:cover; display:block;">
+                </a>
+                <div style="padding:10px 12px 12px 12px;">
+                  <div style="font-size:10px; color:#c48b00; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:3px;">High school theater &mdash; EASE 5</div>
+                  <div style="font-size:13px; line-height:1.45; color:#cfd6df;">Raked seating, balcony, fly loft and stage house, from one room selection.</div>
+                </div>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(220,223,228,0.20); border-radius:10px; overflow:hidden;">
+                <a href="/assets/screenshots/full/room-exchange-gym.png" target="_blank" rel="noopener" style="display:block; line-height:0;">
+                  <img src="/assets/screenshots/thumb/room-exchange-gym.png" alt="High school gym exported by Room Exchange and opened in EASE 5" style="width:100%; height:200px; object-fit:cover; display:block;">
+                </a>
+                <div style="padding:10px 12px 12px 12px;">
+                  <div style="font-size:10px; color:#c48b00; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:3px;">High school gym &mdash; EASE 5</div>
+                  <div style="font-size:13px; line-height:1.45; color:#cfd6df;">Bleachers, CMU, acoustic panels and the mezzanine, each on its own material layer.</div>
+                </div>
+              </div>
+
+            </div>
+          </section>
 
           <!-- ================= SPECTOOL GALLERY ================= -->
           <section class="spectool-gallery" id="spectool-gallery" style="margin:22px 0 8px 0;">
             <h2 class="matrix-title">SpecTool in action</h2>
-            <p class="matrix-sub">A tour of the wizard workflow and the final .docx output. Click any screenshot to enlarge.</p>
+            <p class="matrix-sub">SpecTool generates CSI MasterFormat <b>Part 2 (Products)</b> spec articles from the AV equipment in your Revit model, matched to your firm's own boilerplate and spliced into a per-section .docx. Included with AVTools Suite Pro. Click any screenshot to enlarge.</p>
 
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px; margin-top:16px;">
 
@@ -255,7 +160,7 @@
             AVTools System Designer
           </h2>
           <p class="matrix-sub" style="margin:0 0 14px;">
-            The complete Revit add-in for distributed loudspeaker system design &mdash; room selection, speaker layout, coverage analysis, RT60 / STI acoustics, circuiting, amps &amp; cabling, and clash coordination. SpecTool is included with the Pro tier.
+            The complete Revit add-in for distributed loudspeaker system design &mdash; room selection, speaker layout, coverage analysis, RT60 / STI acoustics, circuiting, amps &amp; cabling, and clash coordination. Room Exchange and SpecTool are included with AVTools Suite Pro.
           </p>
 
           <!-- ============== AUTO-SCROLL SCREENSHOT STRIP ==============
@@ -279,8 +184,8 @@
             <b>Coming soon:</b> Revit 2027 support (currently in development).
           </div>
 
-          <!-- THREE TIER CARDS -->
-          <div class="prod-grid-3">
+          <!-- FOUR TIER CARDS -->
+          <div class="prod-grid-4">
 
             <!-- ================= FREE ================= -->
             <div class="prod-card" id="free">
@@ -337,7 +242,7 @@
               <h2 class="prod-title">
                 AVTools System Designer
                 <span style="margin-left:8px; background:#1a3a5c; color:#cfe3ff; font-size:11px; padding:3px 8px; border-radius:999px;">
-                  v2.3.5
+                  v3.0.0
                 </span>
               </h2>
 
@@ -347,7 +252,8 @@
                 <li><b>All Free features</b></li>
                 <li>RT60 calculation (Sabine, Eyring, Arau-Puchades)</li>
                 <li>STI estimation</li>
-                <li>Acoustic material assignment</li>
+                <li>Acoustic material assignment, one row per material</li>
+                <li>Rooms read as closed shells by the Room Exchange engine</li>
                 <li>Room acoustics schedule export</li>
               </ul>
 
@@ -376,36 +282,102 @@
               <div class="prod-cta" style="margin-top:8px;">
                 <a class="btn cta-download"
                    href="/download.html">
-                  Download v2.3.5 (14-day trial)
+                  Download v3.0.0 (14-day trial)
                 </a>
               </div>
 
               <div class="prod-release-link">
-                <a href="/downloads/AVTools%20System%20Designer%20v2.3.5%20Release%20Notes.pdf"
+                <a href="/downloads/AVTools%20System%20Designer%20v3.0.0%20Release%20Notes.pdf"
                    target="_blank"
                    rel="noopener">
-                  Read v2.3.5 Release Notes (PDF) &rarr;
+                  Read v3.0.0 Release Notes (PDF) &rarr;
                 </a>
               </div>
 
               <div class="note" style="margin-top:6px;">
-                Early Access pricing. No additional fees at checkout.
+                Annual plans are two months free. No additional fees at checkout.
+              </div>
+            </div>
+
+            <!-- ================= ROOMEXCHANGE ================= -->
+            <div class="prod-card" id="roomexchange">
+              <div class="prod-kicker">RoomExchange</div>
+
+              <h2 class="prod-title">
+                Room Exchange
+                <span style="margin-left:8px; background:#1f5c3a; color:#c8f5d8; font-size:11px; padding:3px 8px; border-radius:999px;">
+                  v3.0.0
+                </span>
+              </h2>
+
+              <div class="prod-sub">Revit rooms to EASE 5, and loudspeakers back</div>
+
+              <ul class="prod-list">
+                <li>Closed EASE 5 room models from the rooms you tick</li>
+                <li>One layer per surface material, named from the model</li>
+                <li>Curved ceilings and roofs as flat panels (size you set)</li>
+                <li>Custom Perimeter for lobbies, atriums, stadium bowls</li>
+                <li>Checklist before export; choices remembered per project</li>
+                <li>Import Loudspeakers from EASE into Revit</li>
+                <li>Lucius chat guidance</li>
+              </ul>
+
+              <div class="prod-meta">
+                <div><b>Platform:</b> Revit 2025 &amp; 2026</div>
+                <div><b>Requires:</b> AutoCAD on the same machine (DXF&rarr;DWG conversion only)</div>
+                <div><b>Trial:</b> 14 days, every Pro feature unlocked</div>
+                <div><b>Internet:</b> required for the Lucius AI assistant</div>
+              </div>
+
+              <div class="prod-cta">
+                <a class="btn cta-primary"
+                   href="https://buy.stripe.com/4gM6oA0b429H28xc8O2VG05"
+                   target="_blank"
+                   rel="noopener">
+                  $800 / year
+                </a>
+
+                <a class="btn cta-secondary"
+                   href="https://buy.stripe.com/6oU7sEf5YdSpaF37Sy2VG04"
+                   target="_blank"
+                   rel="noopener">
+                  $80 / month
+                </a>
+              </div>
+
+              <div class="prod-cta" style="margin-top:8px;">
+                <a class="btn cta-download"
+                   href="/download.html">
+                  Download v3.0.0 (14-day trial)
+                </a>
+              </div>
+
+              <div class="prod-release-link">
+                <a href="/downloads/Room%20Exchange%20v3.0.0%20User%20Guide.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  Read the Room Exchange User Guide (PDF) &rarr;
+                </a>
+              </div>
+
+              <div class="note" style="margin-top:6px;">
+                Supported with EASE 5. The DXF/DWG files also appear to import into Bose Modeler and ODEON (not fully tested, not supported). Annual plans are two months free.
               </div>
             </div>
 
             <!-- ================= PRO ================= -->
             <div class="prod-card prod-card-featured" id="pro">
               <div class="prod-badge">Most Complete</div>
-              <div class="prod-kicker">Pro</div>
+              <div class="prod-kicker">AVTools Suite Pro</div>
 
               <h2 class="prod-title">
-                AVTools System Designer
+                System Designer Pro + Room Exchange + SpecTool
                 <span style="margin-left:8px; background:#3a2a5c; color:#e8d9ff; font-size:11px; padding:3px 8px; border-radius:999px;">
-                  v2.3.5
+                  v3.0.0
                 </span>
               </h2>
 
-              <div class="prod-sub">Everything in Standard, plus electrical design, live model integration, and <b>SpecTool</b> (CSI spec generator)</div>
+              <div class="prod-sub">Everything in Standard, plus electrical design, live model integration, <b>Room Exchange</b> and <b>SpecTool</b></div>
 
               <ul class="prod-list">
                 <li><b>All Standard features</b></li>
@@ -414,11 +386,13 @@
                 <li>Line loss &amp; wire gauge calculations</li>
                 <li>Interference detection &amp; coordination</li>
                 <li>Live Revit model integration (Lucius)</li>
+                <li style="margin-top:6px; padding-top:6px; border-top:1px solid #3a2a5c;"><b>Room Exchange &mdash; Revit rooms to EASE 5</b><br><span style="font-size:12px; opacity:0.85;">Closed room models with one layer per material, Custom Perimeter, Import Loudspeakers.</span></li>
                 <li style="margin-top:6px; padding-top:6px; border-top:1px solid #3a2a5c;"><b>SpecTool 1.0 &mdash; CSI Part 2 spec generator</b><br><span style="font-size:12px; opacity:0.85;">Reads your Revit model's AV equipment, matches your firm's own boilerplate style, splices Part 2 into a per-section .docx. Divisions 11 / 27.</span></li>
               </ul>
 
               <div class="prod-meta">
                 <div><b>Platform:</b> Revit 2025 &amp; 2026</div>
+                <div><b>Requires:</b> AutoCAD on the same machine for Room Exchange (DXF&rarr;DWG conversion only)</div>
                 <div><b>Trial:</b> 14 days, every Pro feature unlocked</div>
                 <div><b>Internet:</b> required for Lucius and SpecTool</div>
               </div>
@@ -442,10 +416,24 @@
               <div class="prod-cta" style="margin-top:8px;">
                 <a class="btn cta-download"
                    href="/download.html">
-                  Download v2.3.5 (14-day trial)
+                  Download v3.0.0 (14-day trial)
                 </a>
               </div>
 
+              <div class="prod-release-link">
+                <a href="/downloads/AVTools%20System%20Designer%20v3.0.0%20Release%20Notes.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  Read v3.0.0 Release Notes (PDF) &rarr;
+                </a>
+              </div>
+              <div class="prod-release-link">
+                <a href="/downloads/Room%20Exchange%20v3.0.0%20User%20Guide.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  Room Exchange User Guide (PDF) &rarr;
+                </a>
+              </div>
               <div class="prod-release-link">
                 <a href="/downloads/SpecTool_Quick_Start.pdf"
                    target="_blank"
@@ -453,16 +441,9 @@
                   SpecTool Quick Start (PDF, 2 pages) &rarr;
                 </a>
               </div>
-              <div class="prod-release-link">
-                <a href="/downloads/SpecTool_User_Guide.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Read the SpecTool User Guide (PDF) &rarr;
-                </a>
-              </div>
 
               <div class="note" style="margin-top:6px;">
-                Early Access pricing. No additional fees at checkout. SpecTool is included with Pro.
+                Annual plans are two months free. No additional fees at checkout. Room Exchange and SpecTool are included with Suite Pro.
               </div>
             </div>
 
@@ -484,53 +465,72 @@
                     </th>
                     <th>
                       <div class="th-tier">Standard</div>
-                      <div class="th-ver">v2.3.5 &middot; Revit 2025 &amp; 2026</div>
+                      <div class="th-ver">v3.0.0 &middot; Revit 2025 &amp; 2026</div>
+                    </th>
+                    <th>
+                      <div class="th-tier">RoomExchange</div>
+                      <div class="th-ver">v3.0.0 &middot; Revit 2025 &amp; 2026</div>
                     </th>
                     <th class="th-featured">
-                      <div class="th-tier">Pro</div>
-                      <div class="th-ver">v2.3.5 &middot; Revit 2025 &amp; 2026</div>
+                      <div class="th-tier">Suite Pro</div>
+                      <div class="th-ver">v3.0.0 &middot; Revit 2025 &amp; 2026</div>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
 
-                  <tr class="group"><td colspan="4">Layout &amp; Coverage</td></tr>
-                  <tr><td class="feat">Room selection &amp; speaker layout</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Automated grid placement</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Direct-field coverage analysis</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Iso-field contour maps</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Linked model room support</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Loudspeaker family selection dialog</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr class="group"><td colspan="5">Layout &amp; Coverage</td></tr>
+                  <tr><td class="feat">Room selection &amp; speaker layout</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Automated grid placement</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Direct-field coverage analysis</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Iso-field contour maps</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Linked model room support</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Loudspeaker family selection dialog</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
 
-                  <tr class="group"><td colspan="4">Room Acoustics</td></tr>
-                  <tr><td class="feat">RT60 (Sabine, Eyring, Arau-Puchades)</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">STI estimation</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Acoustic material assignment</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Room acoustics schedule export</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr class="group"><td colspan="5">Room Acoustics</td></tr>
+                  <tr><td class="feat">RT60 (Sabine, Eyring, Arau-Puchades)</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">STI estimation</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Rooms read as closed shells (Room Exchange engine)</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Acoustic material assignment, one row per material</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Room acoustics schedule export</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
 
-                  <tr class="group"><td colspan="4">Circuiting &amp; Electrical</td></tr>
-                  <tr><td class="feat">Circuit assignment with zone support</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Amplifier &amp; cabling design</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Line loss &amp; wire gauge calculations</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Rack family selection dialog</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Interference detection &amp; coordination</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr class="group"><td colspan="5">Room Exchange &mdash; Revit to EASE 5</td></tr>
+                  <tr><td class="feat">Closed EASE 5 room model (DWG) from ticked rooms</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">One layer per surface material, named from the model</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Curved ceilings &amp; roofs as flat panels (size you set)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Glass railings, structural steel, stair &amp; atrium openings</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Checklist before export (remembered per project)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Custom Perimeter for lobbies, atriums, stadium bowls</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Connected rooms offered when a space opens into them</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Origin marker for EASE origin &amp; orientation</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Import Loudspeakers from EASE into Revit</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Export built in a separate process (fast on big models)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Zip Support Files (logs + room snapshot)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
 
-                  <tr class="group"><td colspan="4">SpecTool &mdash; CSI Spec Generator</td></tr>
-                  <tr><td class="feat">CSI Part 2 (Products) article generation from Revit model</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Matches your firm's own boilerplate style (User Boilerplate Detail)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Multiple detail levels (BoD, Minimal, All Mfg Specs)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Datasheet PDF auto-match &amp; extraction (plus manufacturer product pages)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Section merge (fold one-off items into another section)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Automatic header/footer fields (section, title, phase, date)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Bundled UFGS 27 41 00 starter (Div 27 AV)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Divisions 11 (equipment) and 27 (AV/comm)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Create-or-Update splice mode (preserves hand edits)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr class="group"><td colspan="5">Circuiting &amp; Electrical</td></tr>
+                  <tr><td class="feat">Circuit assignment with zone support</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Amplifier &amp; cabling design</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Line loss &amp; wire gauge calculations</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Rack family selection dialog</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Interference detection &amp; coordination</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
 
-                  <tr class="group"><td colspan="4">Lucius AI Assistant</td></tr>
-                  <tr><td class="feat">Chat guidance (how-to, workflow help)</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Voice input (push-to-talk)</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Cloud-delivered knowledge (always current)</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Live Revit model integration</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr class="group"><td colspan="5">SpecTool &mdash; CSI Spec Generator</td></tr>
+                  <tr><td class="feat">CSI Part 2 (Products) article generation from Revit model</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Matches your firm's own boilerplate style (User Boilerplate Detail)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Multiple detail levels (BoD, Minimal, All Mfg Specs)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Datasheet PDF auto-match &amp; extraction (plus manufacturer product pages)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Section merge (fold one-off items into another section)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Automatic header/footer fields (section, title, phase, date)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Bundled UFGS 27 41 00 starter (Div 27 AV)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Divisions 11 (equipment) and 27 (AV/comm)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Create-or-Update splice mode (preserves hand edits)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+
+                  <tr class="group"><td colspan="5">Lucius AI Assistant &amp; Licensing</td></tr>
+                  <tr><td class="feat">Chat guidance (how-to, workflow help)</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Voice input (push-to-talk)</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Cloud-delivered knowledge (always current)</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Live Revit model integration</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">License Manager (plan, Validate Now, Manage or Upgrade)</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
 
                 </tbody>
               </table>
@@ -540,6 +540,62 @@
           <!-- ================= RELEASE NOTES ================= -->
           <section class="release-notes">
             <h2 class="matrix-title">Release Notes</h2>
+
+            <div class="release-card">
+              <div class="release-head">
+                <span class="release-ver">v3.0.0</span>
+                <span class="release-date">Revit 2025 &amp; 2026 &middot; November 2026</span>
+                <span style="background:#1f5c3a; color:#c8f5d8; font-size:11px; padding:3px 8px; border-radius:999px; margin-left:8px; font-weight:600;">Room Exchange</span>
+              </div>
+              <ul>
+                <li><b>New: Room Exchange &mdash; Revit rooms to EASE 5.</b> Tick the rooms and export a DWG of closed faces, one layer per surface material, which EASE 5 imports as a closed volume with one Selection Set per layer. Room Exchange fills each room's air and finds every surface the air touches &mdash; floors, walls, ceilings, roofs, glass, doors, columns, stairs, curtain walls and operable partitions, in the model and in its links. Small gaps are sealed and the result tells you whether each volume is closed.</li>
+                <li><b>Curved ceilings and roofs</b> go out as flat panels of a size you set (default 4 ft). Glass railings come out as glass panels; structural steel becomes one panel per member; stair and atrium openings are kept open; demolished elements are left out.</li>
+                <li><b>Checklist before export.</b> Untick scenery and suspect floors, or send elements to the plan image (PNG) only. Choices are remembered per project.</li>
+                <li><b>Custom Perimeter.</b> Trace a boundary in plan for spaces no room describes &mdash; open lobbies, atriums, stadium bowls. Perimeters are saved in the project, can be adjusted in 3D against the real floor and roof, and several perimeters (one per level) can export as one model.</li>
+                <li><b>Connected rooms, origin marker, Import Loudspeakers.</b> When a space opens into rooms you did not tick, the result offers to add them. The JSBA Room Ref Origin family sets EASE's origin and orientation. Import Loudspeakers brings positions and aims from an EASE project back into Revit as your loudspeaker families.</li>
+                <li><b>Faster big exports.</b> The EASE model is built in a separate process beside Revit, many times faster than inside it. If one or two very heavy elements made a read slow, Room Exchange names them and offers to leave them out. Zip Support Files packs the logs and room snapshot for support.</li>
+                <li><b>System Designer: Room Acoustics uses the Room Exchange engine.</b> Each room is read as a closed shell, so the RT60 gets every surface, which way it faces, and the true air volume; a room the engine cannot close falls back to the earlier method, with a note. Assign Materials lists one row per surface material with a <i>Leave out</i> column; Refresh re-reads and recalculates; Occupancy and People columns on the Rooms tab; Reset All Design State also removes what AVTools placed, after asking.</li>
+                <li><b>License Manager and new RoomExchange plan.</b> BIM Acoustics tab &rarr; Utilities shows your plan, buy links, <b>Validate Now</b> and <b>Manage or Upgrade Subscription</b>, and works with no project open. Plans: Standard $60/month or $600/year; RoomExchange $80/month or $800/year; AVTools Suite Pro $99/month or $990/year. The 14-day trial unlocks every Pro feature and shows as &quot;Free trial&quot;.</li>
+                <li><b>Lucius.</b> New Lucius button on the Utilities panel; Lucius no longer opens by itself. The model's name, linked models' names, folder paths and file names are replaced with short aliases before anything is sent to the assistant. Lucius knows Room Exchange.</li>
+                <li><b>Installing.</b> v3.0.0 replaces v2.3.x and the 2.4.0 beta builds. Project state, license activation and EULA acceptance carry forward. Lucius and SpecTool need an internet connection; everything else, Room Exchange included, works offline once your license is activated. Room Exchange is supported with EASE 5. The exported DXF and DWG files also appear to import into Bose Modeler and ODEON, but this has not been fully tested and is not supported; they may work in other applications that import DXF or DWG files containing 3D polylines and/or 3D faces. <b>Room Exchange requires AutoCAD</b> on the same machine &mdash; it is used only to convert the exported DXF to DWG.</li>
+              </ul>
+              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
+                <a class="btn cta-primary"
+                   href="/download.html">
+                  Download v3.0.0
+                </a>
+                <a class="btn"
+                   href="/downloads/AVTools%20System%20Designer%20v3.0.0%20Release%20Notes.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  Release Notes (PDF)
+                </a>
+                <a class="btn"
+                   href="/downloads/AVTools%20System%20Designer%20v3.0.0%20User%20Guide.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  System Designer User Guide (PDF)
+                </a>
+                <a class="btn"
+                   href="/downloads/Room%20Exchange%20v3.0.0%20User%20Guide.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  Room Exchange User Guide (PDF)
+                </a>
+                <a class="btn"
+                   href="/downloads/SpecTool_Quick_Start.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  SpecTool Quick Start (PDF)
+                </a>
+              </div>
+              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
+                Download is a ZIP containing the signed MSI installer, the System Designer User Guide, the Room Exchange User Guide, the SpecTool Quick Start and User Guide, and these release notes (all PDF).<br>
+                ZIP SHA256: <code>1972DC266D210ABD4D6A243B84F16E15A7A82E22365674F6329BE6127CCB23BD</code><br>
+                MSI SHA256: <code>0759C03DFFDCDA98211116E477A2A44B2E9CAB10424E09B75CA0CCAFC8F2FCCC</code><br>
+                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
+              </div>
+            </div>
 
             <div class="release-card">
               <div class="release-head">
@@ -554,7 +610,8 @@
               </ul>
               <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
                 <a class="btn cta-primary"
-                   href="/download.html">
+                   href="/api/download?key=v235"
+                   download>
                   Download v2.3.5
                 </a>
                 <a class="btn"
@@ -934,8 +991,9 @@
                 <select name="tier">
                   <option value="">Select…</option>
                   <option value="Free (v1.2.1)">Free (v1.2.1)</option>
-                  <option value="Standard (v2.3.5)">Standard (v2.3.5)</option>
-                  <option value="Pro (v2.3.5)">Pro (v2.3.5)</option>
+                  <option value="Standard (v3.0.0)">Standard (v3.0.0)</option>
+                  <option value="RoomExchange (v3.0.0)">RoomExchange (v3.0.0)</option>
+                  <option value="AVTools Suite Pro (v3.0.0)">AVTools Suite Pro (v3.0.0)</option>
                 </select>
               </label>
 
@@ -1019,6 +1077,10 @@
     //   desc:  one-line description in the lightbox
     // =============================================================
     const SHOTS = [
+      { id: 'room-exchange-ease',            label: 'Room Exchange',      title: 'Room Exchange — EASE 5',  desc: 'A church sanctuary exported from Revit and opened in EASE 5 as a closed volume, one Selection Set per material layer.' },
+      { id: 'room-exchange-revit',           label: 'Room Exchange (Revit)', title: 'Room Exchange — Revit', desc: 'The same sanctuary as modeled in Revit: curved ceiling, balcony, stepped floor.' },
+      { id: 'room-exchange-theater',         label: 'Theater in EASE 5',  title: 'Room Exchange — High School Theater', desc: 'Raked seating, balcony, fly loft and stage house exported from Revit and opened in EASE 5.' },
+      { id: 'room-exchange-gym',             label: 'Gym in EASE 5',      title: 'Room Exchange — High School Gym', desc: 'Bleachers, CMU, acoustic panels and mezzanine, each on its own material layer in EASE 5.' },
       { id: 'rooms',                         label: 'Rooms',              title: 'Rooms',                     desc: 'Room selection with area, volume, total surface, and ceiling height. Linked-model room support.' },
       { id: 'configuration',                 label: 'Configuration',      title: 'Configuration',             desc: 'Speaker type, spacing mode, tile snap, and coverage override settings.' },
       { id: 'coverage',                      label: 'Coverage',           title: 'Coverage',                  desc: 'Direct-field coverage analysis with iso-maps at \u00B11, \u00B12, and \u00B13 dB contours.' },

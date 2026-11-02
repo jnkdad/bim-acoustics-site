@@ -11,156 +11,11 @@
 
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/styles.css?v=20261029">
+  <link rel="stylesheet" href="/css/styles.css?v=20261102">
 
-  <!-- InfoComm 2026 marquee banner — auto-hides after June 20, 2026 -->
-  <style>
-    .infocomm-banner {
-      position: relative;
-      z-index: 100;
-      background: linear-gradient(90deg, #FFD60A 0%, #FFB800 50%, #FFD60A 100%);
-      color: #0a2540;
-      border-bottom: 2px solid #B8860B;
-      padding: 20px 0;
-      overflow: hidden;
-      font-family: 'Montserrat', system-ui, sans-serif;
-      font-size: 24px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      box-shadow: 0 3px 14px rgba(0,0,0,0.5);
-    }
-    .infocomm-marquee {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-    /* Edge fade — pseudo-element gradient, same pattern as .screenshot-strip
-       (mask-image has spotty Edge support). Color stops match the amber bg. */
-    .infocomm-marquee::before,
-    .infocomm-marquee::after {
-      content: "";
-      position: absolute;
-      top: 0; bottom: 0;
-      width: 60px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .infocomm-marquee::before {
-      left: 0;
-      background: linear-gradient(90deg, #FFD60A, rgba(255,214,10,0));
-    }
-    .infocomm-marquee::after {
-      right: 0;
-      background: linear-gradient(90deg, rgba(255,214,10,0), #FFD60A);
-    }
-    /* Scroll is driven by JS — CSS keyframe animations on transform are
-       unreliable in Edge (same pattern as .screenshot-track). */
-    .infocomm-track {
-      display: flex;
-      width: max-content;          /* explicit content-sizing — required for rAF wrap math */
-      white-space: nowrap;
-      will-change: transform;
-    }
-    .infocomm-item {
-      padding-right: 96px;
-      flex: 0 0 auto;
-    }
-    .infocomm-item b { color: #000000; font-weight: 800; }
-    .infocomm-item a {
-      color: #0a2540;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-    .infocomm-item a:hover { color: #000000; }
-    .infocomm-pin { display: inline-block; margin-right: 10px; font-size: 26px; }
-    .infocomm-dot { opacity: 0.45; margin: 0 22px; }
-  </style>
 </head>
 
 <body>
-  <!-- ============ INFOCOMM 2026 BANNER ============
-       Auto-hides via inline script (below) after 2026-06-20. To pull
-       earlier, just delete this block + the matching <style> in <head>. -->
-  <div id="infocomm-banner" class="infocomm-banner" role="region" aria-label="InfoComm 2026 announcement">
-    <div class="infocomm-marquee" tabindex="0">
-      <div class="infocomm-track">
-        <span class="infocomm-item">
-          <span class="infocomm-pin" aria-hidden="true">&#128205;</span>
-          <b>Going to InfoComm 2026?</b>
-          <span class="infocomm-dot">&middot;</span>
-          June 17&ndash;19, Las Vegas Convention Center
-          <span class="infocomm-dot">&middot;</span>
-          Find me at the <b>AtlasIED booth N7132</b> (North Hall)
-          <span class="infocomm-dot">&middot;</span>
-          Come say hi
-          <span class="infocomm-dot">&middot;</span>
-        </span>
-        <span class="infocomm-item" aria-hidden="true">
-          <span class="infocomm-pin">&#128205;</span>
-          <b>Going to InfoComm 2026?</b>
-          <span class="infocomm-dot">&middot;</span>
-          June 17&ndash;19, Las Vegas Convention Center
-          <span class="infocomm-dot">&middot;</span>
-          Find me at the <b>AtlasIED booth N7132</b> (North Hall)
-          <span class="infocomm-dot">&middot;</span>
-          Come say hi
-          <span class="infocomm-dot">&middot;</span>
-        </span>
-      </div>
-    </div>
-  </div>
-  <script>
-    // InfoComm banner: hide after event closes; otherwise drive the marquee in JS
-    // (CSS keyframe animations on transform are flaky in Edge — same reason
-    // .screenshot-track uses rAF rather than @keyframes).
-    (function () {
-      var banner = document.getElementById('infocomm-banner');
-      if (!banner) return;
-
-      // Auto-hide after the event closes (2026-06-20 local).
-      var endsAt = new Date(2026, 5, 20); // month is 0-indexed -> June 20
-      if (Date.now() >= endsAt.getTime()) {
-        banner.style.display = 'none';
-        return;
-      }
-
-      var marquee = banner.querySelector('.infocomm-marquee');
-      var track   = banner.querySelector('.infocomm-track');
-      if (!marquee || !track) return;
-
-      var SPEED_PX_PER_SEC = 70;
-      var position = 0;
-      var lastTs = null;
-      var paused = false;
-
-      marquee.addEventListener('mouseenter', function () { paused = true; });
-      marquee.addEventListener('mouseleave', function () { paused = false; });
-      marquee.addEventListener('focusin',    function () { paused = true; });
-      marquee.addEventListener('focusout',   function () { paused = false; });
-
-      function oneSetWidth() {
-        // The track contains 2 duplicate items; one set = half the scrollWidth.
-        return track.scrollWidth / 2;
-      }
-
-      function tick(ts) {
-        if (lastTs == null) lastTs = ts;
-        var dt = (ts - lastTs) / 1000;
-        lastTs = ts;
-
-        if (!paused) {
-          position += SPEED_PX_PER_SEC * dt;
-          var w = oneSetWidth();
-          if (w > 0 && position >= w) position -= w;
-          track.style.transform = 'translateX(' + (-position).toFixed(2) + 'px)';
-        }
-
-        requestAnimationFrame(tick);
-      }
-
-      requestAnimationFrame(tick);
-    })();
-  </script>
 
   <div class="stars" aria-hidden="true"></div>
   <div class="moon" aria-hidden="true"></div>
@@ -186,19 +41,19 @@
 
       <div class="announce">
         <div class="announce-text">
-          <b><span style="color:#ffd166;">SpecTool 1.0</span> &mdash; now generally available.</b><br>
-          SpecTool generates CSI MasterFormat <b>Part 2 (Products)</b> spec articles directly from the AV equipment in your Revit model &mdash; matched to your firm's own boilerplate style, filled in with datasheet PDFs, and spliced into a per-section .docx. You upload the architect's project spec template (formatting authority) and your own boilerplate spec (Part 1 &amp; Part 3 the way you want them); SpecTool fills in Part 2. Included in AVTools System Designer Pro (v2.3.5) at the current early adopter pricing. <b>New in 1.0:</b> section merge, automatic header/footer fields, and specs read from manufacturer web pages when there's no PDF datasheet. Revit 2025 and 2026.
+          <b>New in v3.0.0: <span style="color:#ffd166;">Room Exchange</span> &mdash; Revit rooms to EASE 5.</b><br>
+          Tick the rooms, click Export, and open a closed EASE 5 room model with one layer per surface material. Room Exchange fills each room's air and finds every surface the air touches &mdash; in the model and in its links &mdash; and seals the small gaps. Curved ceilings and roofs go out as flat panels; <b>Custom Perimeter</b> handles lobbies, atriums and stadium bowls; <b>Import Loudspeakers</b> brings positions and aims from EASE back into Revit. The same engine now reads the rooms for System Designer's RT60. Available on its own as the <b>RoomExchange</b> plan ($80/month) or in <b>AVTools Suite Pro</b> with SpecTool. Revit 2025 and 2026; Room Exchange requires AutoCAD on the same machine (used only to convert DXF to DWG).
         </div>
-        <a class="btn announce-cta primary" href="/products.html">Explore SpecTool</a>
+        <a class="btn announce-cta primary" href="/products.html">Explore Room Exchange</a>
         <div class="announce-teaser">
           <b>Coming soon:</b> Revit 2027 support
         </div>
         <div class="announce-sub">
           Still on Revit 2022&ndash;2024? <a class="link" href="/products.html#free">Download v1.2.1 (Free)</a>
         </div>
-        <button class="announce-hero" data-shot="spectool-review" type="button" aria-label="Open SpecTool Review page screenshot">
-          <img src="/assets/screenshots/thumb/spectool-review.png" alt="SpecTool wizard Review page — AI-generated Part 2 spec preview with per-row edit and Include control">
-          <span class="shot-tag">Click to enlarge &mdash; SpecTool Review</span>
+        <button class="announce-hero" data-shot="room-exchange-ease" type="button" aria-label="Open Room Exchange EASE 5 screenshot">
+          <img src="/assets/screenshots/thumb/room-exchange-ease.png" alt="A church sanctuary exported from Revit by Room Exchange and opened in EASE 5 as a closed room model">
+          <span class="shot-tag">Click to enlarge &mdash; Room Exchange in EASE 5</span>
         </button>
       </div>
       
@@ -409,6 +264,10 @@
     // ---------- Lightbox for SpecTool hero ----------
     (function () {
       const SHOTS = {
+        'room-exchange-ease': {
+          title: 'Room Exchange — EASE 5',
+          desc:  'A beta tester’s church sanctuary exported from Revit by Room Exchange and opened in EASE 5 as a closed volume, one Selection Set per material layer.'
+        },
         'spectool-review': {
           title: 'SpecTool — Review & Generate',
           desc:  'Wizard step 5. Preview grid of the AI-generated CSI Part 2 (Products) content with per-row Include control, inline Style + Text editing, and CREATE / UPDATE mode indicator.'

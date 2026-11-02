@@ -1725,6 +1725,22 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .prod-grid-3{ grid-template-columns: 1fr 1fr 1fr; }
 }
 
+/* 4-column tier grid (Free / Standard / RoomExchange / Pro), v3.0.0 */
+.prod-grid-4{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+@media (min-width: 760px){
+  .prod-grid-4{ grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1180px){
+  .prod-grid-4{ grid-template-columns: 1fr 1fr 1fr 1fr; }
+}
+
 /* Featured (Pro) card */
 .prod-card-featured{
   position: relative;
