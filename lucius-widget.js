@@ -36,7 +36,7 @@
     messages: [
       {
         role: "sys",
-        text: "Hi — I’m Lucius. Ask me anything about BIM Acoustics, including our first product: AVToolsSystemDesigner (Distributed Systems) add-in for Revit, Revit support (2022–2026), and early access."
+        text: "Hi — I’m Lucius. Ask me anything about BIM Acoustics and the AVTools suite for Revit: System Designer (distributed loudspeaker design), Room Exchange (Revit rooms to EASE 5), SpecTool (CSI Part 2 specs), Revit support (2022–2026), plans and the 14-day trial."
       }
     ],
 

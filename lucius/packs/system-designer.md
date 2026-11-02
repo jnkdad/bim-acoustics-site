@@ -1,9 +1,11 @@
 # Product Pack — AV Tools Suite: AV Systems System Designer
 
 This pack defines technically credible response patterns for the product:
-**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v2.3.5** (Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
+**BIM Acoustics AV Tools Suite — AV Systems System Designer**, a Revit add-in for distributed loudspeaker system design. Current version: **v3.0.0** (November 2026; Revit 2025 and 2026); legacy free version v1.2.1 supports Revit 2022–2024.
 
-**v2.3.5 (current):** the 14-day free trial unlocks every Pro feature (including SpecTool and the Lucius tools), one trial per computer; license validation fixes on the About tab (changing the email, clear server messages).
+**v3.0.0 (current):** **Room Exchange** is released (Revit rooms to EASE 5 room models; see the separate Room Exchange pack), the Room Exchange engine now reads the rooms for System Designer's Room Acoustics (RT60 gets every surface, which way it faces, and the true air volume; one row per surface material in Assign Materials, with a Leave out column; Refresh re-reads and recalculates), a **License Manager** (BIM Acoustics tab → Utilities; subscription settings moved there from the About tab; works with no project open; shows the plan, buy links, Validate Now, Manage or Upgrade Subscription), a new **RoomExchange plan**, Occupancy and People columns on the Rooms tab, Reset All Design State also removes what AVTools placed (after asking), a Lucius button on the Utilities panel (Lucius no longer opens by itself), and Lucius privacy aliases (model names, linked model names, folder paths and file names are replaced with short aliases before anything is sent). Room Exchange requires AutoCAD on the same machine (used only to convert the exported DXF to DWG). Installs over v2.3.x and the 2.4.0 betas; project state, license activation and EULA acceptance carry forward.
+
+**v2.3.5:** the 14-day free trial unlocks every Pro feature (including SpecTool and the Lucius tools), one trial per computer; license validation fixes on the About tab (changing the email, clear server messages).
 
 **v2.3.3:** all connections encrypted (HTTPS) for licensing, Lucius and SpecTool; a warning before using a non-loudspeaker family in manual pick; add-in shown as AVTools System Designer in Revit.
 
@@ -17,13 +19,14 @@ This pack defines technically credible response patterns for the product:
 
 AV Tools Suite — AV Systems System Designer is a Revit add-in that provides a complete workflow for designing, analyzing, and documenting distributed ceiling loudspeaker systems. It runs as a dockable panel inside Revit 2025 and 2026 and supports both host-model and linked-model architectural coordination.
 
-The product has two paid editions plus a free legacy version:
+There are three paid plans plus a free legacy version (as of v3.0.0):
 
 - **Free (v1.2.1)** — Revit 2022–2024. Room selection, speaker layout, placement, direct-field coverage, Lucius chat (guidance only).
-- **Standard (v2.3.5)** — Revit 2025 and 2026. Adds room acoustics (RT60, STI, material assignment), Lucius AI chat with read tools.
-- **Pro (v2.3.5)** — Revit 2025 and 2026. Adds circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, Lucius AI write tools (currently material assignment), and **SpecTool 1.0** (CSI Part 2 spec generator).
+- **Standard (v3.0.0)** — $60/month or $600/year. Revit 2025 and 2026. System Designer layout, coverage and room acoustics (RT60, STI, material assignment; rooms read as closed shells by the Room Exchange engine), Lucius AI chat with read tools. Does not include Room Exchange or SpecTool.
+- **RoomExchange (v3.0.0)** — $80/month or $800/year. Revit 2025 and 2026. Room Exchange only (Revit rooms to EASE 5, Custom Perimeter, Import Loudspeakers) plus Lucius chat. Does not include System Designer's paid features or SpecTool. Requires AutoCAD on the same machine (DXF→DWG conversion only).
+- **AVTools Suite Pro (v3.0.0)** — $99/month or $990/year. Revit 2025 and 2026. Everything: System Designer Pro (circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, Lucius AI write tools), **Room Exchange**, and **SpecTool 1.0** (CSI Part 2 spec generator).
 
-Pricing: Standard $60/month or $600/year. Pro $99/month or $990/year. 14-day free trial that unlocks every Pro feature (SpecTool and the Lucius tools included), one trial per computer.
+Annual plans are two months free. 14-day free trial that unlocks every Pro feature (Room Exchange, SpecTool and the Lucius tools included), one trial per computer; the trial shows as "Free trial" in the License Manager. Buy links and plan changes are in the License Manager (BIM Acoustics tab → Utilities) and on the Products page; "Manage or Upgrade Subscription" moves between plans and upgrading credits unused time on the current plan.
 
 ---
 
@@ -402,7 +405,13 @@ Multi-room distributed loudspeaker systems — convention centers, corporate off
 Yes — this is the primary workflow. Rooms typically come from the architect's linked model; speakers are placed in the host AV model. As of v2.2 the Rooms tab scans the host doc plus every loaded link in a single pass, and a Source column shows which file each room came from.
 
 **Q: Which Revit versions are supported?**
-v2.3.5 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+v3.0.0 (current paid release): Revit 2025 and 2026. Revit 2027 support is in active development; no release date to give. v1.2.1 (free legacy): Revit 2022, 2023, 2024.
+
+**Q: What's new in v3.0.0?**
+v3.0.0 (November 2026) brings **Room Exchange** to everyone: tick Revit rooms and export a closed EASE 5 room model (DWG, one layer per surface material, every layer an EASE Selection Set), with Custom Perimeter for spaces no room describes, a checklist before export, connected-room suggestions, an origin marker, Import Loudspeakers from EASE back into Revit, and the EASE model built in a separate process beside Revit for speed. Room Exchange is supported with EASE 5 and requires AutoCAD on the same machine (used only to convert the exported DXF to DWG). **System Designer's Room Acoustics now uses the Room Exchange engine**: each room is read as a closed shell, so the RT60 gets every surface, which way it faces, and the true air volume; a room the engine cannot close falls back to the earlier method with a note. Assign Materials lists one row per surface material with a Leave out column; Refresh re-reads and recalculates; Occupancy and People columns on the Rooms tab; Reset All Design State also removes what AVTools placed, after asking. **License Manager** (BIM Acoustics tab → Utilities) replaces the About tab's subscription settings and works with no project open. **New RoomExchange plan** ($80/month or $800/year) alongside Standard ($60/$600) and AVTools Suite Pro ($99/$990). Lucius has its own button on the Utilities panel and no longer opens by itself; model names, linked model names, folder paths and file names are replaced with short aliases before anything is sent to the assistant. Installs over v2.3.x and the 2.4.0 beta builds; project state, license activation and EULA acceptance carry forward. Lucius and SpecTool need an internet connection; everything else, Room Exchange included, works offline once licensed.
+
+**Q: Does Room Exchange work with Bose Modeler, ODEON, CATT or other programs?**
+Room Exchange is supported with EASE 5. The exported DXF and DWG files also appear to import into Bose Modeler and ODEON, but this has not been fully tested and is not supported. They may work in other applications that import DXF or DWG files containing 3D polylines and/or 3D faces. Say exactly that; do not promise more.
 
 **Q: What's new in v2.3.5?**
 v2.3.5 (which includes v2.3.4, not released separately) makes the **14-day free trial unlock every Pro feature** — circuiting, amps & cabling, coordination, SpecTool and the Lucius tools — so evaluators see the whole workflow before choosing a plan. One trial per computer. It also fixes license validation: changing the license email on the About tab now checks that email on its own; if the license server turns a license down, the About tab says so and shows the reason; and connection problems give a clear message and are saved to the support logs. Installs over v2.3.3 or any earlier v2.x in place; no migration.
@@ -482,10 +491,10 @@ The keyword scan matches "rack" / "cabinet" / "enclosure" / Middle Atlantic prod
 Yes (Standard and Pro). Three RT60 formulas — Sabine, Norris-Eyring, Arau-Puchades — across eight octave bands (63 Hz to 8 kHz). STI is estimated from RT60, background noise, speaker Q, and N factor. Critical distance and D/R ratio are computed alongside.
 
 **Q: How is this different from D-Tools or EASE?**
-D-Tools is a system integration / proposal / project-management platform — strong on procurement and BOMs, not on Revit-native distributed-loudspeaker layout or acoustic analysis. EASE is a full acoustic simulation suite — strong on auralization and ray tracing, not on Revit integration or circuiting/cabling. AVTools is BIM-native, focused on the AV consultant designing inside the architect's Revit model, and covers placement → coverage → RT60/STI → circuiting → cabling → coordination as one continuous workflow.
+D-Tools is a system integration / proposal / project-management platform — strong on procurement and BOMs, not on Revit-native distributed-loudspeaker layout or acoustic analysis. EASE is a full acoustic simulation suite — strong on auralization and ray tracing, not on Revit integration or circuiting/cabling. AVTools is BIM-native, focused on the AV consultant designing inside the architect's Revit model, and covers placement → coverage → RT60/STI → circuiting → cabling → coordination as one continuous workflow. AVTools complements EASE rather than competing with it: System Designer gives a quick statistical RT60/STI check in Revit, and Room Exchange hands the room to EASE 5 for the deep analysis.
 
 **Q: How do I get started?**
-Download the 14-day free trial from the products page; it unlocks every Pro feature. The free v1.2.1 (Revit 2022–2024) is available as a permanent free download for the core layout and coverage workflow. Both run as a dockable panel inside Revit; no external dependencies.
+Download the 14-day free trial from the products page; it unlocks every Pro feature, Room Exchange and SpecTool included. The free v1.2.1 (Revit 2022–2024) is available as a permanent free download for the core layout and coverage workflow. Both run as a dockable panel inside Revit. Room Exchange additionally needs AutoCAD on the same machine (for the DXF→DWG conversion only) and EASE 5 to open the result.
 
 **Q: Where do I report bugs or request features?**
 The About tab includes Bundle Logs (ZIP), Open Logs Folder, and Copy Support Info to gather diagnostic information. Email support@bimacoustics.net with the bundled logs and a description of the issue or feature request.

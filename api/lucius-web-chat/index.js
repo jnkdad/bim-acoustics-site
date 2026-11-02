@@ -35,6 +35,7 @@ const PACK_URLS = {
   core: process.env.LUCIUS_PACK_CORE_URL || `${PACK_BASE}/core.md`,
   systemDesigner: process.env.LUCIUS_PACK_SYSTEM_DESIGNER_URL || `${PACK_BASE}/system-designer.md`,
   websiteOverlay: process.env.LUCIUS_PACK_WEBSITE_OVERLAY_URL || `${PACK_BASE}/website-overlay.md`,
+  roomExchange: process.env.LUCIUS_PACK_ROOM_EXCHANGE_URL || `${PACK_BASE}/room-exchange.md`,
 };
 
 // Cache TTL (5–15 min recommended; default 10 min)
@@ -230,6 +231,7 @@ async function loadPromptPacksWithCache(context, localDocs) {
       core: { ok: false, bytes: 0, etag: null, lastModified: null, source: null, error: null },
       systemDesigner: { ok: false, bytes: 0, etag: null, lastModified: null, source: null, error: null },
       websiteOverlay: { ok: false, bytes: 0, etag: null, lastModified: null, source: null, error: null },
+      roomExchange: { ok: false, bytes: 0, etag: null, lastModified: null, source: null, error: null },
     },
   };
 
@@ -281,6 +283,12 @@ async function loadPromptPacksWithCache(context, localDocs) {
     localFallbackOverlay,
     "websiteOverlay"
   );
+  const roomExchangeText = await fetchOrFallback(
+    "roomExchange",
+    PACK_URLS.roomExchange,
+    "",
+    "roomExchange"
+  );
 
   // If core is still empty, ensure we always have *something*
   if (!coreText) coreText = (ENV_SYSTEM_PROMPT || "").trim();
@@ -289,6 +297,7 @@ async function loadPromptPacksWithCache(context, localDocs) {
     core: coreText,
     systemDesigner: systemDesignerText,
     websiteOverlay: websiteOverlayText,
+    roomExchange: roomExchangeText,
     meta,
   };
 
@@ -327,8 +336,9 @@ function buildDeveloperInstructionsFromPacks(packs) {
     "- Be transparent about assumptions and limits.",
     "- The product is NOT a full acoustic simulation tool (no ray tracing, room modes, or diffraction).",
     "- It DOES calculate RT60 (Sabine/Eyring/Arau-Puchades), STI, direct-field SPL coverage, and critical distance.",
-    "- Three tiers: Free (layout+coverage), Standard (adds room acoustics/RT60/STI/materials), Pro (adds circuiting+zones, amps/cabling, interference detection, Lucius AI with live model tools).",
-    "- Roadmap items are not features; never imply they exist today.",
+    "- Current release: AVTools v3.0.0 (Revit 2025 and 2026). Plans: Free v1.2.1 (Revit 2022-2024; layout+coverage), Standard $60/mo or $600/yr (adds room acoustics/RT60/STI/materials), RoomExchange $80/mo or $800/yr (Room Exchange: Revit rooms to EASE 5), AVTools Suite Pro $99/mo or $990/yr (System Designer Pro: circuiting+zones, amps/cabling, interference detection, Lucius live model tools; plus Room Exchange and SpecTool). 14-day free trial unlocks every Pro feature.",
+    "- Room Exchange is supported with EASE 5 and requires AutoCAD on the same machine (used only to convert the exported DXF to DWG). Exported DXF/DWG files also appear to import into Bose Modeler and ODEON but that is not fully tested or supported.",
+    "- Roadmap items are not features; never imply they exist today. Revit 2027 support is in development with no date.",
     "",
     "Answer behavior:",
     "- When asked “what formula,” provide canonical forms if available; symbolic form is OK.",
@@ -339,6 +349,7 @@ function buildDeveloperInstructionsFromPacks(packs) {
   const core = packs.core || "";
   const systemDesigner = packs.systemDesigner || "";
   const overlay = packs.websiteOverlay || "";
+  const roomExchange = packs.roomExchange || "";
 
   return [
     hardRules,
@@ -348,6 +359,9 @@ function buildDeveloperInstructionsFromPacks(packs) {
     "",
     "=== PRODUCT PACK: AVToolsSystemDesigner ===",
     systemDesigner ? systemDesigner : "(system-designer pack missing)",
+    "",
+    "=== PRODUCT PACK: Room Exchange ===",
+    roomExchange ? roomExchange : "(room-exchange pack missing)",
     "",
     "=== CONTEXT OVERLAY: Website ===",
     overlay ? overlay : "(website overlay pack missing)",
