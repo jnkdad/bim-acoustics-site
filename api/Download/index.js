@@ -9,9 +9,10 @@
 // Add new releases here; anything not listed returns 404.
 const FILES = {
   "v121":     "JSBA.AVTools-SystemDesigner_Revit2022-2024_v1.2.1.zip",
-  // v3.0.0 (current): signed MSI — verified publisher "J. Stevens BIM Acoustics LLC".
-  // Room Exchange (Revit rooms to EASE 5), License Manager, RoomExchange plan. ZIP: signed MSI + System
-  // Designer User Guide + Room Exchange User Guide + SpecTool Quick Start + User Guide PDFs + release notes PDF.
+  // v3.1.0 (current): one signed MSI for Revit 2025, 2026 and 2027. F1 help, Room Exchange loudspeaker
+  // targets, iso-map fixes. ZIP: signed MSI + System Designer, Room Exchange and SpecTool guides + release notes.
+  "v310":     "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.1.0.zip",
+  // v3.0.0: Room Exchange (Revit rooms to EASE 5), License Manager, RoomExchange plan. Revit 2025/2026 only.
   "v300":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v3.0.0.zip",
   // Prior bundles kept addressable for anyone who explicitly wants them. (v2.3.4 was never released.)
   "v235":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.5.zip",
@@ -21,11 +22,13 @@ const FILES = {
   "v230":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.3.0.zip",
   "v222":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.2.zip",
   "v221":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v2.2.1.zip",
-  // v20 / v21 / v22 / v30 aliases resolve to the latest Revit 2025/2026 bundle (currently v3.0.0)
-  "v20":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v3.0.0.zip",
-  "v21":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v3.0.0.zip",
-  "v22":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v3.0.0.zip",
-  "v30":      "JSBA.AVTools-SystemDesigner_Revit2025-2026_v3.0.0.zip",
+  // v20 / v21 / v22 / v30 / v31 / latest aliases resolve to the current bundle (v3.1.0)
+  "v20":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.1.0.zip",
+  "v21":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.1.0.zip",
+  "v22":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.1.0.zip",
+  "v30":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.1.0.zip",
+  "v31":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.1.0.zip",
+  "latest":   "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.1.0.zip",
   "presskit": "AVTools-SystemDesigner-v2.0-PressKit.zip"
 };
 
