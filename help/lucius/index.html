@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lucius | Help | J. Stevens BIM Acoustics</title>
+  <meta name="description" content="Lucius help: the AI assistant inside AVTools, what it can read and write in your Revit project, and what is sent." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css?v=20261102c">
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <div class="topbar">
+        <div class="brand">
+          <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn" href="/products.html">Products</a>
+          <a class="btn" href="/resources.html">Resources</a>
+          <a class="btn primary" href="/help/">Help</a>
+          <a class="btn" href="/about.html">About</a>
+          <a class="btn" href="https://bookings.cloud.microsoft/book/BIMAcousticsLLCMeetingRequests@bimacoustics.net/" target="_blank" rel="noopener">Book a demo</a>
+        </div>
+      </div>
+
+      <section class="card" id="help">
+        <div class="hd">
+          <h1 class="title">Lucius</h1>
+        </div>
+
+        <div class="bd">
+<h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">What it does</h2><p style="margin:0 0 12px 0; line-height:1.6;">Lucius is the AI assistant embedded inside Revit as a chat panel, powered by Claude (Anthropic). Ask by text or by voice (push-to-talk). Lucius reads your live project state through tools rather than guessing, explains the workflow, the calculations and the column meanings, and knows Room Exchange, so it can answer questions about the last export. Lucius needs an internet connection.</p><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">How to open it</h2><p style="margin:0 0 12px 0; line-height:1.6;">Revit ribbon: <b>BIM Acoustics</b> tab &rarr; <b>Utilities</b> panel &rarr; <b>Lucius</b>.</p><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">What Lucius can read (Standard and Pro)</h2><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li>Project info (the model is named by a short alias)</li><li>Rooms in AV scope, or all rooms, with per-room metadata</li><li>Placed speakers per room</li><li>Rooms needing attention (unmapped materials, coverage gaps)</li><li>Surface-to-material mappings, and the acoustic material database</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">What Lucius can write (Pro only)</h2><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li>Assign an acoustic material to a surface</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">What Lucius does not do</h2><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li>Place speakers &mdash; that is done on the Configuration tab</li><li>Commit circuits, run RT60 or coverage calculations, or modify the model beyond the one material write</li><li>Read circuit, cabling, coordination or RT60 results &mdash; you run the calculations and read the results in the panel</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">What is sent</h2><p style="margin:0 0 12px 0; line-height:1.6;">Before anything goes to the assistant, the model's name and the names of linked models are replaced with short aliases computed on your computer, and folder paths and file names are removed. Room numbers and names are sent as they are. The connection is encrypted (HTTPS).</p><div class="prod-cta" style="margin-top:14px; gap:10px; flex-wrap:wrap;"><a class="btn cta-primary" href="/downloads/AVTools%20System%20Designer%20v3.0.0%20User%20Guide.pdf" target="_blank" rel="noopener">System Designer User Guide (PDF)</a></div>
+          <div class="note" style="margin-top:18px;">
+            Related: <a class="link" href="/help/system-designer/">System Designer</a> &middot; <a class="link" href="/help/room-exchange/">Room Exchange</a>.<br>
+            Questions? Ask <b>Lucius</b> (bottom right), or email
+            <a class="link" href="mailto:support@bimacoustics.net">support@bimacoustics.net</a>.
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        &copy; <span id="year"></span> J. Stevens BIM Acoustics
+        &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+      </footer>
+
+    </div>
+  </div>
+
+  <div id="lucius-widget"></div>
+
+  <script src="/lucius-widget.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

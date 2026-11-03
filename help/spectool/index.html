@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpecTool | Help | J. Stevens BIM Acoustics</title>
+  <meta name="description" content="SpecTool help: generate CSI MasterFormat Part 2 (Products) spec articles from the AV equipment placed in your Revit model." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css?v=20261102c">
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <div class="topbar">
+        <div class="brand">
+          <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn" href="/products.html">Products</a>
+          <a class="btn" href="/resources.html">Resources</a>
+          <a class="btn primary" href="/help/">Help</a>
+          <a class="btn" href="/about.html">About</a>
+          <a class="btn" href="https://bookings.cloud.microsoft/book/BIMAcousticsLLCMeetingRequests@bimacoustics.net/" target="_blank" rel="noopener">Book a demo</a>
+        </div>
+      </div>
+
+      <section class="card" id="help">
+        <div class="hd">
+          <h1 class="title">SpecTool</h1>
+        </div>
+
+        <div class="bd">
+<h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">What it does</h2><p style="margin:0 0 12px 0; line-height:1.6;">SpecTool generates CSI MasterFormat <b>Part 2 (Products)</b> spec articles from the AV equipment placed in the current Revit project, matched to your firm's own boilerplate style, filled in from datasheet PDFs, and spliced into a per-section .docx. You supply the architect's project spec template (the format: styles, fonts, headers, footers, numbering) and your own boilerplate with Part 1 and Part 3; SpecTool fills in Part 2. Divisions 11 and 27. Included with AVTools Suite Pro and in the trial; needs an internet connection.</p><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">How to open it</h2><p style="margin:0 0 12px 0; line-height:1.6;">Revit ribbon: <b>BIM Acoustics</b> tab &rarr; <b>AV Tools</b> panel &rarr; <b>SpecTool</b>.</p><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">Before you start</h2><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li>AV families <b>placed</b> in the model, each Type with a <b>Model</b> value (ideally Manufacturer too). Loaded but unplaced families are ignored.</li><li>The architect's spec template (.docx) and your boilerplate spec (.docx) with Part 1 and Part 3. No boilerplate for 27 41 00? Use the bundled UFGS starter.</li><li>A folder of datasheet PDFs with the model number in each filename, and an output folder.</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">Your first spec in six screens</h2><ol style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li><b>Home</b> &mdash; SpecTool scans the model and lists the spec sections your equipment needs. Click <b>Work on it &rarr;</b>. A one-off item that created its own section can be folded into your main section with <b>Merge&hellip;</b>.</li><li><b>Setup</b> &mdash; pick the Section, enter the Phase and Issue date, leave Detail level on <i>User Boilerplate Detail</i>, and choose the template, boilerplate, datasheet folder and output folder. All remembered for the project.</li><li><b>Products</b> &mdash; untick anything that doesn't belong, fix the Category on unclassified rows (or <b>Classify unknowns (AI)</b>). Missing items: check the Skipped banner, <b>+ Add from model&hellip;</b> or <b>+ Add manually&hellip;</b>.</li><li><b>Data &amp; Datasheets</b> &mdash; only products missing key specs appear; most match a PDF in your datasheet folder automatically. Otherwise <b>From URL&hellip;</b>, <b>Attach&hellip;</b> or <b>Find datasheets on the web (AI)</b>.</li><li><b>Categories &amp; Articles</b> &mdash; confirm each product lands in the right Part 2 article. Corrections are remembered.</li><li><b>Review &amp; Generate</b> &mdash; <b>Generate with AI (preview)</b>, read it, untick or edit paragraphs, then <b>Create / Update spec</b> and <b>Open document</b>.</li></ol><p style="margin:0 0 12px 0; line-height:1.6;">You get a .docx in the template's format: Part 1 and Part 3 from your boilerplate, generated Part 2 highlighted yellow for review, and the header/footer fields filled in. On the next issue, run SpecTool again: it updates the last issued document and keeps your hand edits outside the Part 2 articles.</p><div class="prod-cta" style="margin-top:14px; gap:10px; flex-wrap:wrap;"><a class="btn cta-primary" href="/downloads/SpecTool_Quick_Start.pdf" target="_blank" rel="noopener">SpecTool Quick Start (PDF)</a><a class="btn cta-primary" href="/downloads/SpecTool_User_Guide.pdf" target="_blank" rel="noopener">SpecTool User Guide (PDF)</a></div>
+          <div class="note" style="margin-top:18px;">
+            Related: <a class="link" href="/help/system-designer/">System Designer</a> &middot; <a class="link" href="/help/license-manager/">License Manager</a>.<br>
+            Questions? Ask <b>Lucius</b> (bottom right), or email
+            <a class="link" href="mailto:support@bimacoustics.net">support@bimacoustics.net</a>.
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        &copy; <span id="year"></span> J. Stevens BIM Acoustics
+        &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+      </footer>
+
+    </div>
+  </div>
+
+  <div id="lucius-widget"></div>
+
+  <script src="/lucius-widget.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

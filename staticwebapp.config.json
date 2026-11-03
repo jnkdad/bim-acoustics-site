@@ -1,0 +1,17 @@
+{
+  "routes": [
+    { "route": "/help", "redirect": "/help/", "statusCode": 301 },
+    { "route": "/help/system-designer", "redirect": "/help/system-designer/", "statusCode": 301 },
+    { "route": "/help/spectool", "redirect": "/help/spectool/", "statusCode": 301 },
+    { "route": "/help/room-exchange", "redirect": "/help/room-exchange/", "statusCode": 301 },
+    { "route": "/help/lucius", "redirect": "/help/lucius/", "statusCode": 301 },
+    { "route": "/help/license-manager", "redirect": "/help/license-manager/", "statusCode": 301 },
+    { "route": "/help/", "rewrite": "/help/index.html" },
+    { "route": "/help/system-designer/", "rewrite": "/help/system-designer/index.html" },
+    { "route": "/help/spectool/", "rewrite": "/help/spectool/index.html" },
+    { "route": "/help/room-exchange/", "rewrite": "/help/room-exchange/index.html" },
+    { "route": "/help/lucius/", "rewrite": "/help/lucius/index.html" },
+    { "route": "/help/license-manager/", "rewrite": "/help/license-manager/index.html" },
+    { "route": "/help/*", "redirect": "/help/", "statusCode": 302 }
+  ]
+}

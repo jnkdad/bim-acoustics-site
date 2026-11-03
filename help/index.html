@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AVTools Help | Help | J. Stevens BIM Acoustics</title>
+  <meta name="description" content="Help pages for the AVTools Suite Revit add-in: System Designer, SpecTool, Room Exchange, Lucius and License Manager." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css?v=20261102c">
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <div class="topbar">
+        <div class="brand">
+          <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn" href="/products.html">Products</a>
+          <a class="btn" href="/resources.html">Resources</a>
+          <a class="btn primary" href="/help/">Help</a>
+          <a class="btn" href="/about.html">About</a>
+          <a class="btn" href="https://bookings.cloud.microsoft/book/BIMAcousticsLLCMeetingRequests@bimacoustics.net/" target="_blank" rel="noopener">Book a demo</a>
+        </div>
+      </div>
+
+      <section class="card" id="help">
+        <div class="hd">
+          <h1 class="title">AVTools Help</h1>
+        </div>
+
+        <div class="bd">
+<p style="margin:0 0 12px 0; line-height:1.6;">Help for the AVTools Suite add-in for Revit 2025 and 2026. These are the pages Revit opens when you press <b>F1</b> on a BIM Acoustics ribbon button.</p><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">AV Tools panel</h2><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li><a class="link" href="/help/system-designer/"><b>System Designer</b></a> &mdash; distributed loudspeaker layout, coverage, room acoustics, circuiting, amps &amp; cabling, coordination.</li><li><a class="link" href="/help/spectool/"><b>SpecTool</b></a> &mdash; CSI Part 2 (Products) spec articles from the equipment in your model.</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">Utilities panel</h2><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li><a class="link" href="/help/room-exchange/"><b>Room Exchange</b></a> &mdash; Revit rooms to an EASE 5 room model, and EASE loudspeakers back into Revit.</li><li><a class="link" href="/help/lucius/"><b>Lucius</b></a> &mdash; the AI assistant inside the add-in.</li><li><a class="link" href="/help/license-manager/"><b>License Manager</b></a> &mdash; plan, trial, Validate Now, buying and changing plans.</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">User guides</h2><div class="prod-cta" style="margin-top:14px; gap:10px; flex-wrap:wrap;"><a class="btn cta-primary" href="/downloads/AVTools%20System%20Designer%20v3.0.0%20User%20Guide.pdf" target="_blank" rel="noopener">System Designer User Guide (PDF)</a><a class="btn cta-primary" href="/downloads/Room%20Exchange%20v3.0.0%20User%20Guide.pdf" target="_blank" rel="noopener">Room Exchange User Guide (PDF)</a><a class="btn cta-primary" href="/downloads/SpecTool_Quick_Start.pdf" target="_blank" rel="noopener">SpecTool Quick Start (PDF)</a><a class="btn cta-primary" href="/downloads/SpecTool_User_Guide.pdf" target="_blank" rel="noopener">SpecTool User Guide (PDF)</a></div>
+          <div class="note" style="margin-top:18px;">
+            Download the add-in from the <a class="link" href="/products.html">Products page</a>.<br>
+            Questions? Ask <b>Lucius</b> (bottom right), or email
+            <a class="link" href="mailto:support@bimacoustics.net">support@bimacoustics.net</a>.
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        &copy; <span id="year"></span> J. Stevens BIM Acoustics
+        &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+      </footer>
+
+    </div>
+  </div>
+
+  <div id="lucius-widget"></div>
+
+  <script src="/lucius-widget.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

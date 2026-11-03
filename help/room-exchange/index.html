@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Room Exchange | Help | J. Stevens BIM Acoustics</title>
+  <meta name="description" content="Room Exchange help: export Revit rooms as a closed EASE 5 room model with one layer per surface material, and bring EASE loudspeakers back into Revit." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css?v=20261102c">
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <div class="topbar">
+        <div class="brand">
+          <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn" href="/products.html">Products</a>
+          <a class="btn" href="/resources.html">Resources</a>
+          <a class="btn primary" href="/help/">Help</a>
+          <a class="btn" href="/about.html">About</a>
+          <a class="btn" href="https://bookings.cloud.microsoft/book/BIMAcousticsLLCMeetingRequests@bimacoustics.net/" target="_blank" rel="noopener">Book a demo</a>
+        </div>
+      </div>
+
+      <section class="card" id="help">
+        <div class="hd">
+          <h1 class="title">Room Exchange</h1>
+        </div>
+
+        <div class="bd">
+<h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">What it does</h2><p style="margin:0 0 12px 0; line-height:1.6;">Room Exchange turns the rooms of a Revit model into an EASE 5 room model: a DWG of closed faces, one layer per surface material, that EASE imports as a closed volume. You tick the rooms, Room Exchange fills their air, finds every surface the air touches, names each face by the material on the room side, and writes the drawing. Every layer becomes a Selection Set in EASE, so materials are assigned per layer. The <b>Import Loudspeakers</b> tab brings loudspeakers designed in EASE back into Revit at their position and aim.</p><p style="margin:0 0 12px 0; line-height:1.6;">Part of AVTools Suite Pro, also sold on its own as the RoomExchange plan, and included in the 14-day trial. Supported with EASE 5. Requires AutoCAD on the same machine, used only to convert the exported DXF to DWG. Works offline once the license is activated.</p><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">How to open it</h2><p style="margin:0 0 12px 0; line-height:1.6;">Revit ribbon: <b>BIM Acoustics</b> tab &rarr; <b>Utilities</b> panel &rarr; <b>Room Exchange</b>.</p><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">The main steps</h2><ol style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li><b>Check the rooms.</b> The ticked room or rooms must together reach every surface of the acoustic space: the lowest floor, the deck or roof above, and every wall. Where a room stops short, EASE gets a flat boundary face instead of the real surface. For a space no room describes (an open lobby, an atrium, a stadium bowl), trace a <b>Custom Perimeter&hellip;</b> in a plan view.</li><li><b>Place the origin marker</b> (JSBA Room Ref Origin family) where you want EASE's origin and orientation. Room Exchange loads the family into the project for you.</li><li><b>Tick the rooms and press Export.</b> Rooms that touch go out as one file; rooms with no connection go out separately. <b>Export for</b> DWG (EASE 5) is the normal choice.</li><li><b>The checklist</b> lists elements inside the rooms that are not plain building envelope. Untick scenery and suspect floors, or send an element to the plan image (PNG) only. Choices are remembered per project.</li><li><b>Read the result dialog.</b> Each volume reports faces, cubic feet, and whether it is <b>closed</b>. When the space opens into rooms you did not tick, the dialog offers to add them and choose again.</li><li><b>Open the DWG in EASE 5</b> (File &rarr; Load). Green beside the volume on the Acoustic Parameters page means closed; yellow means small open edges; red means not closed, and Hole Outlines shows where.</li></ol><p style="margin:0 0 12px 0; line-height:1.6;">If something looks wrong, <b>Options &rarr; Zip Support Files</b> packs the logs and room snapshot for <a class="link" href="mailto:support@bimacoustics.net">support@bimacoustics.net</a>.</p><div class="prod-cta" style="margin-top:14px; gap:10px; flex-wrap:wrap;"><a class="btn cta-primary" href="/downloads/Room%20Exchange%20v3.0.0%20User%20Guide.pdf" target="_blank" rel="noopener">Room Exchange User Guide (PDF)</a></div>
+          <div class="note" style="margin-top:18px;">
+            Related: <a class="link" href="/help/system-designer/">System Designer</a> &middot; <a class="link" href="/help/lucius/">Lucius</a> &middot; <a class="link" href="/help/license-manager/">License Manager</a>.<br>
+            Questions? Ask <b>Lucius</b> (bottom right), or email
+            <a class="link" href="mailto:support@bimacoustics.net">support@bimacoustics.net</a>.
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        &copy; <span id="year"></span> J. Stevens BIM Acoustics
+        &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+      </footer>
+
+    </div>
+  </div>
+
+  <div id="lucius-widget"></div>
+
+  <script src="/lucius-widget.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
