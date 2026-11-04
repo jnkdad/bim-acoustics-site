@@ -226,7 +226,7 @@
               </div>
 
               <div class="note" style="margin-top:6px;">
-                For consultants and firms still standardized on Revit 2022&ndash;2024.
+                End of life. v1.2.1 is no longer updated or supported; it stays available for firms still on Revit 2022&ndash;2024. New work belongs on v3.1.0.
               </div>
             </div>
 
@@ -584,60 +584,28 @@
           </section>
 
           <!-- ================= RELEASE NOTES ================= -->
-          <section class="release-notes">
+          <section class="release-notes" id="releases">
             <h2 class="matrix-title">Release Notes</h2>
 
             <div class="release-card">
               <div class="release-head">
                 <span class="release-ver">v3.1.0</span>
                 <span class="release-date">Revit 2025, 2026 &amp; 2027 &middot; November 2026</span>
-                <span style="background:#1f5c3a; color:#c8f5d8; font-size:11px; padding:3px 8px; border-radius:999px; margin-left:8px; font-weight:600;">Revit 2027</span>
+                <span style="background:#1f5c3a; color:#c8f5d8; font-size:11px; padding:3px 8px; border-radius:999px; margin-left:8px; font-weight:600;">Current</span>
               </div>
               <ul>
-                <li><b>Revit 2027.</b> System Designer, SpecTool and Room Exchange now run in Revit 2027 as well as 2025 and 2026, from one installer.</li>
-                <li><b>F1 help.</b> Hover over any button on the BIM Acoustics tab and press F1 to open its help page on bimacoustics.net. <b>Two panels:</b> AV Tools holds System Designer and SpecTool; Utilities holds Room Exchange, Lucius and License Manager.</li>
-                <li><b>Room Exchange: include loudspeakers.</b> A tick box beside Export to adds the System Designer loudspeakers in the ticked rooms to the export. EASE 5 cannot import loudspeakers from a drawing, so each one is written as a small target face on the <code>AVTOOLS-SPEAKER-TARGETS</code> layer, flat one inch under the ceiling so it can be picked in plan; place an EASE loudspeaker at each target, then delete that selection set before calculating. Room Exchange explains this before the export and offers to exclude the loudspeakers.</li>
-                <li><b>Room Exchange: .NET check.</b> The separate program that builds the EASE model needs the .NET 8 Desktop Runtime 8.0.32 or later on Revit 2025 and 2026. If the PC's .NET is older, Room Exchange shows what is installed and what is needed, with a link to Microsoft's download page, or builds the model inside Revit instead.</li>
-                <li><b>System Designer.</b> Iso-map coverage is sampled on a grid no coarser than a quarter of the loudspeaker spacing, so each loudspeaker gets its own contour (checked against EASE 5 at the same listener height). Drawing a room's iso-map in a second view no longer stops with a "type name already in use" error. Messages open in front of the System Designer window. The "JSBA Circuit ID Tag w Tap" family is no longer installed; use "JSBA Circuit ID Tag w Watts".</li>
-                <li><b>Lucius.</b> Transcript opt-in is off unless you turn it on; the first time you open Lucius you are asked once, with No as the default. A "Share anonymous transcripts" tick box in the Lucius window is kept in step with the About tab.</li>
-                <li><b>Security.</b> System.IO.Packaging updated to 8.0.1; an unused component (Microsoft.Bcl.HashCode 6.0.0) is no longer installed; every AVTools DLL and EXE in the installer is signed by J. Stevens BIM Acoustics LLC.</li>
-                <li><b>Installing.</b> v3.1.0 replaces v3.0.0 and earlier. Project state, license activation, settings and EULA acceptance carry forward. Close Revit before installing. Lucius and SpecTool need an internet connection; everything else, Room Exchange included, works offline once your license is activated. Room Exchange's DWG export for EASE 5 still needs AutoCAD on the same machine.</li>
+                <li><b>Revit 2027.</b> System Designer, SpecTool and Room Exchange run in Revit 2027 as well as 2025 and 2026, from one installer.</li>
+                <li><b>F1 help.</b> Hover over any button on the BIM Acoustics tab and press F1 for its help page. Two panels: AV Tools (System Designer, SpecTool) and Utilities (Room Exchange, Lucius, License Manager).</li>
+                <li><b>Room Exchange loudspeaker targets.</b> Tick <i>Include loudspeakers</i> and each System Designer loudspeaker goes to EASE 5 as a small target face on the <code>AVTOOLS-SPEAKER-TARGETS</code> layer, ready to place an EASE loudspeaker on. On Revit 2025 and 2026 the separate build process now needs the .NET 8 Desktop Runtime 8.0.32 or later; Room Exchange checks and links to the download.</li>
+                <li><b>Sharper iso-maps and fixes.</b> Each loudspeaker gets its own coverage contour (checked against EASE 5); iso-maps draw in a second view; messages open in front of the window; Lucius transcript sharing is off unless you turn it on.</li>
+                <li><b>Security.</b> System.IO.Packaging 8.0.1, an unused .NET 6 component removed, and every DLL and EXE in the installer signed by J. Stevens BIM Acoustics LLC. File hashes are on the <a class="link" href="/download.html">download page</a>.</li>
               </ul>
               <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/download.html">
-                  Download v3.1.0
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v3.1.0%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v3.1.0%20User%20Guide.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  System Designer User Guide (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/Room%20Exchange%20v3.1.0%20User%20Guide.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Room Exchange User Guide (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/SpecTool_Quick_Start.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  SpecTool Quick Start (PDF)
-                </a>
-              </div>
-              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
-                Download is a ZIP containing the signed MSI installer (Revit 2025, 2026 and 2027), the System Designer User Guide, the Room Exchange User Guide, the SpecTool Quick Start and User Guide, and these release notes (all PDF).<br>
-                ZIP SHA256: <code>BCC71FB4266C01F688D076837BE146AB4095B6FD105692218986D1B1C6DA5BD3</code><br>
-                MSI SHA256: <code>1A630DC5A7DABEFF0B0116AD7CFB38378BCD7412DBFD7E95679EE95A417E5268</code><br>
-                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
+                <a class="btn cta-primary" href="/download.html">Download v3.1.0</a>
+                <a class="btn" href="/downloads/AVTools%20System%20Designer%20v3.1.0%20Release%20Notes.pdf" target="_blank" rel="noopener">Release Notes (PDF)</a>
+                <a class="btn" href="/downloads/AVTools%20System%20Designer%20v3.1.0%20User%20Guide.pdf" target="_blank" rel="noopener">System Designer User Guide (PDF)</a>
+                <a class="btn" href="/downloads/Room%20Exchange%20v3.1.0%20User%20Guide.pdf" target="_blank" rel="noopener">Room Exchange User Guide (PDF)</a>
+                <a class="btn" href="/downloads/SpecTool_Quick_Start.pdf" target="_blank" rel="noopener">SpecTool Quick Start (PDF)</a>
               </div>
             </div>
 
@@ -648,406 +616,31 @@
                 <span style="background:#1f5c3a; color:#c8f5d8; font-size:11px; padding:3px 8px; border-radius:999px; margin-left:8px; font-weight:600;">Room Exchange</span>
               </div>
               <ul>
-                <li><b>New: Room Exchange &mdash; Revit rooms to EASE 5.</b> Tick the rooms and export a DWG of closed faces, one layer per surface material, which EASE 5 imports as a closed volume with one Selection Set per layer. Room Exchange fills each room's air and finds every surface the air touches &mdash; floors, walls, ceilings, roofs, glass, doors, columns, stairs, curtain walls and operable partitions, in the model and in its links. Small gaps are sealed and the result tells you whether each volume is closed.</li>
-                <li><b>Curved ceilings and roofs</b> go out as flat panels of a size you set (default 4 ft). Glass railings come out as glass panels; structural steel becomes one panel per member; stair and atrium openings are kept open; demolished elements are left out.</li>
-                <li><b>Checklist before export.</b> Untick scenery and suspect floors, or send elements to the plan image (PNG) only. Choices are remembered per project.</li>
-                <li><b>Custom Perimeter.</b> Trace a boundary in plan for spaces no room describes &mdash; open lobbies, atriums, stadium bowls. Perimeters are saved in the project, can be adjusted in 3D against the real floor and roof, and several perimeters (one per level) can export as one model.</li>
-                <li><b>Connected rooms, origin marker, Import Loudspeakers.</b> When a space opens into rooms you did not tick, the result offers to add them. The JSBA Room Ref Origin family sets EASE's origin and orientation. Import Loudspeakers brings positions and aims from an EASE project back into Revit as your loudspeaker families.</li>
-                <li><b>Faster big exports.</b> The EASE model is built in a separate process beside Revit, many times faster than inside it. If one or two very heavy elements made a read slow, Room Exchange names them and offers to leave them out. Zip Support Files packs the logs and room snapshot for support.</li>
-                <li><b>System Designer: Room Acoustics uses the Room Exchange engine.</b> Each room is read as a closed shell, so the RT60 gets every surface, which way it faces, and the true air volume; a room the engine cannot close falls back to the earlier method, with a note. Assign Materials lists one row per surface material with a <i>Leave out</i> column; Refresh re-reads and recalculates; Occupancy and People columns on the Rooms tab; Reset All Design State also removes what AVTools placed, after asking.</li>
-                <li><b>License Manager and new RoomExchange plan.</b> BIM Acoustics tab &rarr; Utilities shows your plan, buy links, <b>Validate Now</b> and <b>Manage or Upgrade Subscription</b>, and works with no project open. Plans: Standard $60/month or $600/year; RoomExchange $80/month or $800/year; AVTools Suite Pro $99/month or $990/year. The 14-day trial unlocks every Pro feature and shows as &quot;Free trial&quot;.</li>
-                <li><b>Lucius.</b> New Lucius button on the Utilities panel; Lucius no longer opens by itself. The model's name, linked models' names, folder paths and file names are replaced with short aliases before anything is sent to the assistant. Lucius knows Room Exchange.</li>
-                <li><b>Installing.</b> v3.0.0 replaces v2.3.x and the 2.4.0 beta builds. Project state, license activation and EULA acceptance carry forward. Lucius and SpecTool need an internet connection; everything else, Room Exchange included, works offline once your license is activated. Room Exchange is supported with EASE 5. The exported DXF and DWG files also appear to import into Bose Modeler and ODEON, but this has not been fully tested and is not supported; they may work in other applications that import DXF or DWG files containing 3D polylines and/or 3D faces. <b>Room Exchange requires AutoCAD</b> on the same machine &mdash; it is used only to convert the exported DXF to DWG.</li>
+                <li><b>Room Exchange released.</b> Revit rooms to EASE 5 as closed room models with one layer per surface material, Custom Perimeter for open spaces, and loudspeakers imported back from EASE into Revit. The Room Exchange engine also reads the rooms for System Designer's room acoustics.</li>
               </ul>
               <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v300"
-                   download>
-                  Download v3.0.0
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v3.0.0%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v3.0.0%20User%20Guide.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  System Designer User Guide (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/Room%20Exchange%20v3.0.0%20User%20Guide.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Room Exchange User Guide (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/SpecTool_Quick_Start.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  SpecTool Quick Start (PDF)
-                </a>
-              </div>
-              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
-                Download is a ZIP containing the signed MSI installer, the System Designer User Guide, the Room Exchange User Guide, the SpecTool Quick Start and User Guide, and these release notes (all PDF).<br>
-                ZIP SHA256: <code>1972DC266D210ABD4D6A243B84F16E15A7A82E22365674F6329BE6127CCB23BD</code><br>
-                MSI SHA256: <code>0759C03DFFDCDA98211116E477A2A44B2E9CAB10424E09B75CA0CCAFC8F2FCCC</code><br>
-                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
+                <a class="btn" href="/downloads/AVTools%20System%20Designer%20v3.0.0%20Release%20Notes.pdf" target="_blank" rel="noopener">Release Notes (PDF)</a>
+                <a class="btn" href="/api/download?key=v300" download>Download v3.0.0</a>
               </div>
             </div>
 
             <div class="release-card">
               <div class="release-head">
-                <span class="release-ver">v2.3.5</span>
-                <span class="release-date">Revit 2025 &amp; 2026 &middot; September 2026</span>
+                <span class="release-ver">Earlier releases</span>
+                <span class="release-date">Revit 2025 &amp; 2026 unless noted</span>
               </div>
               <ul>
-                <li><b>The free trial includes every Pro feature.</b> For 14 days you get the whole workflow: room scanning, placement and coverage, room acoustics, circuiting, amps &amp; cabling, coordination, <b>SpecTool</b> and the Lucius tools. After the trial, subscribe to Standard or Pro and click <b>Validate Now</b> on the About tab. One trial per computer.</li>
-                <li><b>License validation fixes.</b> Changing the license email on the About tab now checks that email on its own. When the license server turns a license down, the About tab says so and shows the reason, and connection problems give a clear message and are saved to the support logs.</li>
-                <li><b>Updated guides in the download.</b> The ZIP includes the updated System Designer User Guide, the SpecTool Quick Start and the SpecTool User Guide.</li>
-                <li><b>Upgrades in place.</b> Installs over v2.3.3 or any earlier v2.x; license activation, project state and configuration carry forward unchanged. SpecTool and Lucius need an internet connection; the rest of System Designer works offline once licensed.</li>
+                <li><b>v2.3.5</b> &middot; September 2026 &middot; the 14-day trial unlocks every Pro feature; license validation fixes. <a class="link" href="/downloads/AVTools%20System%20Designer%20v2.3.5%20Release%20Notes.pdf" target="_blank" rel="noopener">Notes (PDF)</a></li>
+                <li><b>v2.3.3</b> &middot; September 2026 &middot; encrypted connections for licensing, Lucius and SpecTool. <a class="link" href="/downloads/AVTools%20System%20Designer%20v2.3.3%20Release%20Notes.pdf" target="_blank" rel="noopener">Notes (PDF)</a></li>
+                <li><b>v2.3.2</b> &middot; September 2026 &middot; SpecTool 1.0, out of Release Candidate. <a class="link" href="/downloads/AVTools%20System%20Designer%20v2.3.2%20Release%20Notes.pdf" target="_blank" rel="noopener">Notes (PDF)</a></li>
+                <li><b>v2.3.1</b> &middot; July 2026 &middot; SpecTool debut: CSI Part 2 spec generator (Pro). <a class="link" href="/downloads/SpecTool_User_Guide.pdf" target="_blank" rel="noopener">SpecTool User Guide (PDF)</a></li>
+                <li><b>v2.3.0</b> &middot; June 2026 &middot; complete surface capture for room acoustics on host-model rooms. <a class="link" href="/downloads/AVTools%20System%20Designer%20v2.3.0%20Release%20Notes.pdf" target="_blank" rel="noopener">Notes (PDF)</a></li>
+                <li><b>v2.2.2</b> &middot; May 2026 &middot; first fully signed release. <a class="link" href="/downloads/AVTools%20System%20Designer%20v2.2.2%20Release%20Notes.pdf" target="_blank" rel="noopener">Notes (PDF)</a></li>
+                <li><b>v2.2.1</b> &middot; May 2026 &middot; MSI installer replaces the sideload ZIP. <a class="link" href="/downloads/AVTools%20System%20Designer%20v2.2.1%20Release%20Notes.pdf" target="_blank" rel="noopener">Notes (PDF)</a></li>
+                <li><b>v2.2</b> &middot; Add Temp Room for spaces without a usable Revit room. <a class="link" href="/downloads/AVTools%20System%20Designer%20v2.2%20Release%20Notes.pdf" target="_blank" rel="noopener">Notes (PDF)</a></li>
+                <li><b>v2.1</b> &middot; Revit 2025.3+ &middot; room-acoustics refinements. <a class="link" href="/downloads/AVTools%20System%20Designer%20v2.1%20Release%20Notes.pdf" target="_blank" rel="noopener">Notes (PDF)</a></li>
+                <li><b>v1.2.1</b> &middot; Revit 2022&ndash;2024 &middot; Free &middot; <b>end of life, no longer supported</b> &middot; linked-model stability, project-unit-aware reporting. <a class="link" href="/downloads/AVTools%20System%20Designer%20v1.2.1%20Release%20Notes.pdf" target="_blank" rel="noopener">Notes (PDF)</a> &middot; <a class="link" href="/api/download?key=v121" download>Download</a></li>
               </ul>
-              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v235"
-                   download>
-                  Download v2.3.5
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v2.3.5%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v2.3.5%20User%20Guide.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  User Guide (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/SpecTool_Quick_Start.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  SpecTool Quick Start (PDF)
-                </a>
-              </div>
-              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
-                Download is a ZIP containing the signed MSI installer, the System Designer User Guide, the SpecTool Quick Start and User Guide, and these release notes (all PDF).<br>
-                ZIP SHA256: <code>C046F776A6D50ECCA393C2F0C470E30FE34CE26B20FB92E2C5F2533888BBD046</code><br>
-                MSI SHA256: <code>1A18FE7A38292B9497D3ACD42C1E058E2C3E040B6DD62391B617FACACA255C59</code><br>
-                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
-              </div>
-            </div>
-
-            <div class="release-card">
-              <div class="release-head">
-                <span class="release-ver">v2.3.3</span>
-                <span class="release-date">Revit 2025 &amp; 2026 &middot; September 2026</span>
-              </div>
-              <ul>
-                <li><b>Encrypted connections.</b> License activation and registration, the Lucius assistant, SpecTool generation and the datasheet web hunt now all connect over <b>HTTPS</b>. Your name, email and company, your questions, and the model context Lucius reads are encrypted in transit.</li>
-                <li><b>A warning before using a non-loudspeaker family.</b> The manual loudspeaker pick lists every loaded family type. System Designer now asks before using one that doesn't look like a loudspeaker or has no coverage data, instead of quietly assuming 90&deg; coverage and 78 dB sensitivity.</li>
-                <li><b>Add-in name in Revit.</b> Revit's Signed Add-In prompt and Add-In Manager now show <b>AVTools System Designer</b>, matching the installer and the digital signature.</li>
-                <li><b>Upgrades in place.</b> Installs over v2.3.2 or any earlier v2.x; license activation, project state and configuration carry forward unchanged. SpecTool and Lucius need an internet connection; the rest of System Designer works offline once licensed.</li>
-              </ul>
-              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v233"
-                   download>
-                  Download v2.3.3
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v2.3.3%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v2.3.3%20User%20Guide.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  User Guide (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/SpecTool_Quick_Start.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  SpecTool Quick Start (PDF)
-                </a>
-              </div>
-              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
-                Download is a ZIP containing the signed MSI installer, the System Designer User Guide, the SpecTool Quick Start and User Guide, and these release notes (all PDF).<br>
-                ZIP SHA256: <code>22EA234FF5BEAF0529D4A3703A5A778E9D5ED2B821E32BD4AED78C5AD08FC8A6</code><br>
-                MSI SHA256: <code>1D8DDC53B78A4FB7D1C53B615F836BE5722E40B22B59E917C00FECE363BC8A26</code><br>
-                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
-              </div>
-            </div>
-
-            <div class="release-card">
-              <div class="release-head">
-                <span class="release-ver">v2.3.2</span>
-                <span class="release-date">Revit 2025 &amp; 2026 &middot; September 2026</span>
-                <span style="background:#1f5c3a; color:#c8f5d8; font-size:11px; padding:3px 8px; border-radius:999px; margin-left:8px; font-weight:600;">SpecTool 1.0</span>
-              </div>
-              <ul>
-                <li><b>SpecTool 1.0 &mdash; out of Release Candidate.</b> Feedback from live projects since v2.3.1 is built in.</li>
-                <li><b>Section merge.</b> A one-off item (e.g. a lone patchbay in 27 15 00) no longer forces its own spec section. <i>Merge&hellip;</i> on the Sections page folds it into another section, where it keeps its own article. Saved per project and reversible.</li>
-                <li><b>Header and footer fields fill themselves.</b> Create / Update refreshes the section number, title, phase and issue date in headers and footers, in the architect template's own format &mdash; no more hand-editing every issue. New <i>Issue date</i> field on Setup.</li>
-                <li><b>New: SpecTool Quick Start.</b> A two-page guide from an open project to your first issued spec &mdash; what to have ready, the six screens in order, and the five most common snags.</li>
-                <li><b>Better datasheets, better specs.</b> Specs are read from manufacturer web pages when there's no PDF datasheet (common for displays). The AI datasheet hunt accepts only single-product PDF datasheets that name the model, and rejects manuals, catalogs and reseller pages. Product descriptions come from the datasheet instead of a guess, and a corrected datasheet takes effect on regenerate.</li>
-                <li><b>System Designer fixes.</b> <i>Remove Selected Rooms</i> now actually removes the room's placed elements. The loudspeaker circuit schedule lists loudspeakers only and keeps your column, sort and filter edits on update. Equipment-only rooms no longer show &quot;Speakers Placed&quot;. New Amps &amp; Cabling option: <i>Only assign racks on the same level</i>.</li>
-                <li><b>New product name, same install.</b> Apps &amp; Features now shows <b>AVTools System Designer</b> by <b>J. Stevens BIM Acoustics LLC</b>. Installing v2.3.2 upgrades any earlier v2.x in place; license activation, project state and configuration carry forward unchanged. On first launch choose <i>Always Load</i> when Revit asks about the signed add-in.</li>
-                <li><b>Internet connection.</b> SpecTool and the Lucius assistant need an internet connection; both run through the BIM Acoustics cloud service. The rest of System Designer works offline once your license has been activated.</li>
-                <li><b>Fully signed.</b> MSI installer and add-in assemblies digitally signed by <b>J. Stevens BIM Acoustics LLC</b> via Microsoft Trusted Signing. Revit 2025 / 2026.</li>
-              </ul>
-              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v232"
-                   download>
-                  Download v2.3.2
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v2.3.2%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/SpecTool_Quick_Start.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  SpecTool Quick Start (PDF)
-                </a>
-                <a class="btn"
-                   href="/downloads/SpecTool_User_Guide.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  SpecTool User Guide (PDF)
-                </a>
-              </div>
-              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
-                Download is a ZIP containing the signed MSI installer, the SpecTool Quick Start and User Guide PDFs, and these release notes (PDF).<br>
-                ZIP SHA256: <code>84F84D6B560ADC3A2A09250CFA09B0263C5C16DCF9E6223BC82E55442B8A1719</code><br>
-                MSI SHA256: <code>81E0CFEB138424C7846E9C58AAB06397C6DA2072CFDDE9D4C0ADF8698C685C39</code><br>
-                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
-              </div>
-            </div>
-
-            <div class="release-card">
-              <div class="release-head">
-                <span class="release-ver">v2.3.1</span>
-                <span class="release-date">Revit 2025 &amp; 2026 &middot; July 2026</span>
-                <span style="background:#8b5c00; color:#ffe6a0; font-size:11px; padding:3px 8px; border-radius:999px; margin-left:8px; font-weight:600;">SpecTool debut</span>
-              </div>
-              <ul>
-                <li><b>New: SpecTool &mdash; CSI Part 2 (Products) spec generator.</b> A new Pro-only Revit add-in that reads the AV / security equipment placed in your project, generates CSI MasterFormat <b>Part 2 (Products)</b> articles matched to your firm's own boilerplate style, fills gaps from datasheet PDFs, and splices the result into a per-section .docx. Covers Divisions <b>11</b> (equipment), <b>27</b> (communications / AV), and <b>28</b> (electronic safety and security).</li>
-                <li><b>You supply the format authority.</b> Upload the architect's project spec template (styles, fonts, header/footer, page numbering) and your own firm boilerplate (Part 1 General + Part 3 Execution the way you want them); SpecTool fills in Part 2 into your template's style and splices the result into your firm's Part 1 &amp; 3 scaffold.</li>
-                <li><b>Four detail levels.</b> <i>User Boilerplate Detail</i> (default &mdash; matches the depth, voice, and field selection of a Part 2 article from your own boilerplate, if provided), <i>Basis of Design</i> (Basis of Design + &quot;Substitutions per Section 01 25 00&quot; convention), <i>Minimal Spec</i> (leanest &mdash; Type + one PR2 sentence + Acceptable Products), <i>All Mfg Specs</i> (every performance value as a bullet).</li>
-                <li><b>Bundled UFGS starter for Div 27 AV.</b> If you don't have a firm boilerplate for a section, SpecTool can drop in the verbatim NAVFAC UFGS 27 41 00 (February 2026) Part 1/3 plus a curated AVIXA supplement (V201.01, V202.01, F202.01, RP-C303.01) as a starter.</li>
-                <li><b>Audit-friendly Create / Update flow.</b> First issue creates a spec against the project template. Subsequent issues update the last issued .docx in place &mdash; tool-owned Part 2 articles get re-generated; anything you hand-edited outside those articles is preserved. Phase progresses via a Phase field on Setup (e.g. 35% CD, 100% CD Rev 1) and is written into the output filename.</li>
-                <li><b>Data confidentiality.</b> Only generic content is sent to Anthropic &mdash; section number, article name, equipment list (manufacturer / model / quantity / spec params), your own boilerplate exemplar. <b>Never sent:</b> project name, building name, owner name, architect name, consultant name, or any address / geographic identifier. Enforced by a test harness that inspects every outgoing prompt.</li>
-                <li><b>Early access.</b> SpecTool shipped here as a release candidate for real-world validation on live projects, and became SpecTool 1.0 in v2.3.2. <b>Report issues and share your experience:</b> <a href="mailto:support@bimacoustics.net">support@bimacoustics.net</a></li>
-                <li><b>No migration required.</b> Project state, license activation, per-project configuration, and existing spec output files carry forward unchanged. Existing v2.3.0 users can install v2.3.1 in place; SpecTool becomes available on the ribbon under BIM Acoustics &rarr; AV Tools &rarr; SpecTool.</li>
-                <li><b>Continues fully signed builds.</b> MSI installer and every internal DLL digitally signed by <b>J. Stevens BIM Acoustics LLC</b> via Microsoft Trusted Signing. Revit 2025 / 2026.</li>
-              </ul>
-              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v231"
-                   download>
-                  Download v2.3.1
-                </a>
-                <a class="btn"
-                   href="/downloads/SpecTool_User_Guide.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  SpecTool User Guide (PDF)
-                </a>
-              </div>
-              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
-                Download is a ZIP containing the signed MSI installer + SpecTool User Guide PDF.<br>
-                ZIP SHA256: <code>48BC23CC7EBDF9087703A854BD5966778541514363C64855592E155A3076164D</code><br>
-                MSI SHA256: <code>9D55504B6EDA41A5CB51671E7F60630A6F819CD565081C136E7CADB53C4AD916</code><br>
-                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
-              </div>
-            </div>
-
-            <div class="release-card">
-              <div class="release-head">
-                <span class="release-ver">v2.3.0</span>
-                <span class="release-date">Revit 2025 &amp; 2026 &middot; June 2026</span>
-              </div>
-              <ul>
-                <li><b>Room Acoustics &mdash; complete surface capture on host-model rooms.</b> Fixed a case where rooms bounded by walls in the <b>active model</b> (rather than a linked architectural model) could omit wall, floor, and ceiling areas from the Assign Materials surface list &mdash; affected surfaces reported 0 ft&sup2; and dropped out of the RT60 calculation. All bounding surfaces are now captured and areased correctly. Linked-model projects were unaffected and behave exactly as before.</li>
-                <li><b>Fully signed.</b> MSI installer and every internal DLL digitally signed by <b>J. Stevens BIM Acoustics LLC</b> via Microsoft Trusted Signing (continued from v2.2.2).</li>
-                <li><b>No migration.</b> Project state, license activation, and per-project configuration carry forward unchanged; existing projects open as-is. Revit 2025 / 2026.</li>
-              </ul>
-              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v230"
-                   download>
-                  Download v2.3.0
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v2.3.0%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-              </div>
-              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
-                Download is a ZIP containing the signed MSI installer + User Guide PDF.<br>
-                ZIP SHA256: <code>CF44D3E12AC8DA272D7B680FBD7298C7985CC35653C9D181F292A4BCA8A55CD9</code><br>
-                MSI SHA256: <code>62AF3025C3C6535B5B98110452B21E79B303D7151BC764D332D0433A3FEA8E2A</code><br>
-                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
-              </div>
-            </div>
-
-            <div class="release-card">
-              <div class="release-head">
-                <span class="release-ver">v2.2.2</span>
-                <span class="release-date">Revit 2025 &amp; 2026 &middot; May 2026</span>
-              </div>
-              <ul>
-                <li><b>First fully signed release.</b> The MSI installer and every internal DLL shipped in this build are now digitally signed by <b>J. Stevens BIM Acoustics LLC</b> via Microsoft Trusted Signing. Windows can now cryptographically verify that the build came from J. Stevens BIM Acoustics LLC and hasn't been tampered with in transit.</li>
-                <li><b>UAC prompt now shows a verified publisher.</b> The install prompt reads <b>Verified publisher: J. Stevens BIM Acoustics LLC</b> instead of the previous <i>Unknown Publisher</i> warning — the credibility signal enterprise customers look for before installing on a Revit workstation.</li>
-                <li><b>Verifiable on every shipped file.</b> Right-click the MSI (or any installed DLL under <code>C:\Program Files\JSBA\System Designer\</code>) → Properties → Digital Signatures. The signer reads as <b>J. Stevens BIM Acoustics LLC</b> with a Microsoft-anchored certificate chain back to a trusted root.</li>
-                <li><b>No functional changes.</b> All features, behavior, calculations, parameter writes, schedule outputs, Lucius integration, license enforcement, and EULA acceptance scaffolding are byte-for-byte equivalent to v2.2.1. Project state, license activations, per-room configuration, EULA acceptance records, and rack/loudspeaker filter selections from v2.2.1 carry forward unchanged.</li>
-                <li><b>Known limitation:</b> Windows SmartScreen may still display its "Windows protected your PC" warning the first time a customer downloads the v2.2.2 MSI fresh. This is normal for newly signed publishers — Microsoft removed the long-standing "instant trust" for EV code signing in 2024; reputation builds organically as the signed build accumulates download history. Click <b>More info</b> → <b>Run anyway</b> to proceed; the signed publisher string in the warning dialog is still authoritative.</li>
-              </ul>
-              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v222"
-                   download>
-                  Download v2.2.2
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v2.2.2%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-              </div>
-              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
-                Download is a ZIP containing the signed MSI installer + User Guide PDF.<br>
-                ZIP SHA256: <code>3AF89302D14A23C4D1F3A6F31D35C423C28411E27C54D6A12BBE5D65C35DC90C</code><br>
-                MSI SHA256: <code>A1CF3E6D00F3EDECCC5A43CE65D1B32564B0C4AAB9A5144828DFA343C8F5CAEC</code><br>
-                MSI signer: <code>CN=J. Stevens BIM Acoustics LLC, O=J. Stevens BIM Acoustics LLC, L=Walhalla, S=South Carolina, C=US</code>
-              </div>
-            </div>
-
-            <div class="release-card">
-              <div class="release-head">
-                <span class="release-ver">v2.2.1</span>
-                <span class="release-date">Revit 2025 &amp; 2026 &middot; May 2026</span>
-              </div>
-              <ul>
-                <li><b>Proper MSI installer:</b> Replaces the prior sideload ZIP for the Standard / Pro builds. Clean install, clean uninstall, clean upgrade over any v2.x build. Project state, license activation, and per-room configuration are preserved across the upgrade.</li>
-                <li><b>In-app End User License Agreement:</b> First launch (and any future material EULA revision) opens a modal with the full agreement, a scrollable view, and a tick-to-accept checkbox. Acceptance is recorded per Windows user at <code>%APPDATA%\BimAcoustics\license-acceptance.json</code> with EULA version, UTC timestamp, username, and machine name.</li>
-                <li><b>Per-family loudspeaker filter dialog:</b> Scan Loudspeakers now opens a tick-box dialog of every family that survived the classifier — family name, instance count, category, and an example room. JSBA- or AVIXA-stamped families are auto-ticked. Same Shift+click range select, Space-to-toggle, and "Only New" / "Only Stamped" bulk actions as the Rack Family Selection dialog.</li>
-                <li><b>User-level state for filter choices:</b> Rack and loudspeaker family selections now live at user scope at <code>%APPDATA%\BimAcoustics\UserState.json</code> rather than per-project. Curated lists carry forward to every project you open on your machine. Existing per-project lists from v2.2 are merged in automatically.</li>
-                <li><b>Filter dialog z-order and multi-select hardening:</b> Both filter dialogs now stay reliably in front of the AVTools shell window during the initial scan. Shift-click for range selection, Space to toggle Include, and ticking any one checkbox in a multi-row selection propagates to the rest.</li>
-                <li><b>Cloud-delivered Lucius knowledge base:</b> Lucius's documentation, design guidance, and response framing rules now ship from the cloud, not the add-in DLL. Knowledge updates reach every active user the moment they're published — no installer rebuild. A local fallback still ships in the build for offline use.</li>
-                <li><b>Ribbon icon and label refresh:</b> The System Designer ribbon button has a redrawn pendant-loudspeaker icon (16- and 32-pixel native, not downsampled), the label is now <b>System Designer</b> (was "AV Design"), and the hover tooltip describes the full feature scope.</li>
-                <li><b>Place Rack ID Tags fix:</b> Face-hosted-rack defect that collapsed all rack tags onto the active view's floor plan is fixed — level resolution now uses the rack's physical Z position. The result dialog adds a per-view breakdown so you can confirm tags landed on every level plan.</li>
-                <li><b>Installer ships all required DLLs:</b> v2.2 was missing <code>JSBA.AVTools.RevitCore.dll</code> and <code>JSBA.ArrayBridge.dll</code> from the install set, surfacing as <code>FileNotFoundException</code> on clean installs. Both are now properly registered.</li>
-              </ul>
-              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v221"
-                   download>
-                  Download v2.2.1
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v2.2.1%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-              </div>
-              <div class="note" style="margin-top:6px; font-size:11px; opacity:0.7;">
-                Download is a ZIP containing the MSI installer + User Guide PDF.<br>
-                ZIP SHA256: <code>DC910ADD3A5A69FA7DF2C56834B035F370200CF2328F82755B7555B2C4A5F4C9</code><br>
-                MSI is not yet code-signed (Microsoft Trusted Signing enrollment in progress, ETA mid-June 2026). Windows UAC will display "Unknown Publisher" during install until then; verify against the SHA256 above.
-              </div>
-            </div>
-
-            <div class="release-card">
-              <div class="release-head">
-                <span class="release-ver">v2.2</span>
-                <span class="release-date">Revit 2025 &amp; 2026</span>
-              </div>
-              <ul>
-                <li><b>Add Temp Room:</b> A single Rooms-tab workflow for spaces that aren't laid out cleanly in the architect's model — whether the Revit Room exists but has Area = 0, or there's no Revit Room at all. Trace the perimeter, configure / place / circuit / cable as a normal room. When a real Revit room shows up later, AVTools auto-resolves and re-stamps the speakers. Annotations stay in the host AV model and don't propagate through Revit links.</li>
-                <li><b>Unified linked-file scan:</b> The Host vs Linked source dropdown is retired; the Rooms tab now scans every loaded link simultaneously with a new <b>Source</b> column. Stale duplicate-room entries from nested container models are deduped automatically.</li>
-                <li><b>Rack Family Selection dialog:</b> The Amps &amp; Cabling rack scan no longer pulls in 200+ false-positive furniture/IT racks — a new dialog lets you tick which keyword-matched families count as AV racks. Choices persist per project; new families surface with a “New” status badge.</li>
-                <li><b>Apply to Selected / Apply to All:</b> Explicit-action buttons replace the previous auto-apply-on-dropdown-change behavior for wire gauge and system voltage mode. Picking a default no longer pre-emptively writes to every row.</li>
-                <li><b>Bulk rack assignment:</b> Multi-select rows in the Amps grid, pick a rack from the side panel, click Apply — every selected circuit updates to that rack in one click.</li>
-                <li><b>Color iso-coverage on every view:</b> Coverage maps now render in green/yellow/red on the parent floor plan <i>and</i> on every dependent plan view placed on sheets (previously colors only appeared on the parent view).</li>
-                <li><b>Quality-of-life fixes:</b> Tap setting and rack ID now persist on Commit Circuiting; Update Schedule refreshes every column; Add Zone first-click works; reference-plane speaker orientation is correct; rack scanner recognizes SR series families; multiple Temp Room and linked-room regressions resolved.</li>
-              </ul>
-              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v2.2%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-              </div>
-            </div>
-
-            <div class="release-card">
-              <div class="release-head">
-                <span class="release-ver">v2.1</span>
-                <span class="release-date">Revit 2025.3+</span>
-              </div>
-              <ul>
-                <li><b>Room Acoustics refinements:</b> Improved surface discovery for stacked floor finishes, operable partitions in linked models, and divisible-room boundaries; cleaner Assign Materials grid; reference curve overlay on the RT60 graph for comparison with EASE / ODEON / measured field data.</li>
-                <li><b>Schedule preservation:</b> Running RT60 on rooms at one level no longer wipes calculations for rooms at other levels.</li>
-                <li><b>Configuration tab:</b> New per-room Nudge button for fine-tuning speaker placement using Revit's native arrow-key nudge.</li>
-                <li><b>Setup &amp; families:</b> Bundled JSBA tag and coordination families auto-load on first project use; new Circuit ID + Tap tag variant for installation drawings.</li>
-                <li><b>Lucius AI:</b> Comprehensive knowledge-base update covering every tab, calculation formula, and family setup detail.</li>
-              </ul>
-              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v21"
-                   download>
-                  Download v2.1
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v2.1%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-              </div>
-            </div>
-
-            <div class="release-card">
-              <div class="release-head">
-                <span class="release-ver">v1.2.1</span>
-                <span class="release-date">Revit 2022&ndash;2024 &middot; Free</span>
-              </div>
-              <ul>
-                <li><b>Linked model stability:</b> Improved tile-centering reliability in linked-room workflows.</li>
-                <li><b>Project-unit-aware reporting:</b> Column headers and numeric reporting reflect the active Revit project length units (Imperial or Metric).</li>
-                <li><b>JSBA Control Data schedule:</b> Multi-category schedule creation and population improvements.</li>
-              </ul>
-              <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
-                <a class="btn cta-primary"
-                   href="/api/download?key=v121"
-                   download>
-                  Download v1.2.1
-                </a>
-                <a class="btn"
-                   href="/downloads/AVTools%20System%20Designer%20v1.2.1%20Release%20Notes.pdf"
-                   target="_blank"
-                   rel="noopener">
-                  Release Notes (PDF)
-                </a>
-              </div>
             </div>
           </section>
 
