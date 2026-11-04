@@ -21,12 +21,13 @@ This pack defines technically credible response patterns for the product:
 
 AV Tools Suite — AV Systems System Designer is a Revit add-in that provides a complete workflow for designing, analyzing, and documenting distributed ceiling loudspeaker systems. It runs as a dockable panel inside Revit 2025 and 2026 and supports both host-model and linked-model architectural coordination.
 
-There are three paid plans plus a free legacy version (as of v3.0.0):
+There are three paid individual plans, a team plan for firms, and a free legacy version (as of v3.1.0):
 
 - **Free (v1.2.1)** — Revit 2022–2024. Room selection, speaker layout, placement, direct-field coverage, Lucius chat (guidance only).
 - **Standard (v3.1.0)** — $60/month or $600/year. Revit 2025, 2026 and 2027. System Designer layout, coverage and room acoustics (RT60, STI, material assignment; rooms read as closed shells by the Room Exchange engine), Lucius AI chat with read tools. Does not include Room Exchange or SpecTool.
 - **RoomExchange (v3.1.0)** — $80/month or $800/year. Revit 2025, 2026 and 2027. Room Exchange only (Revit rooms to EASE 5, Custom Perimeter, Import Loudspeakers) plus Lucius chat. Does not include System Designer's paid features or SpecTool. Requires AutoCAD on the same machine (DXF→DWG conversion only).
 - **AVTools Suite Pro (v3.1.0)** — $99/month or $990/year. Revit 2025, 2026 and 2027. Everything: System Designer Pro (circuiting with zones, amps & cabling, coordination/clash detection, advanced rack workflow, Lucius AI write tools), **Room Exchange**, and **SpecTool 1.0** (CSI Part 2 spec generator).
+- **AVTools Suite Pro Team (v3.1.0)** — $990 per seat per year, 2 to 99 seats on one subscription, for firms. Every seat gets everything in Suite Pro. Named seats: each team member registers in License Manager with their own work email (up to 2 machines each); seats are matched to the firm's email domain; seats can be added or removed on the subscription; one invoice for the firm, by card or on account. Bought from the Products page (Teams and firms section); after checkout BIM Acoustics confirms the firm's email domain shortly after checkout, then each member presses Validate Now. The same installer and trial apply. For purchase orders or larger teams, email info@bimacoustics.net.
 
 Annual plans are two months free. 14-day free trial that unlocks every Pro feature (Room Exchange, SpecTool and the Lucius tools included), one trial per computer; the trial shows as "Free trial" in the License Manager. Buy links and plan changes are in the License Manager (BIM Acoustics tab → Utilities) and on the Products page; "Manage or Upgrade Subscription" moves between plans and upgrading credits unused time on the current plan.
 
