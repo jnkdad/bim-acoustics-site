@@ -1,11 +1,36 @@
 {
   "routes": [
-    { "route": "/help/", "rewrite": "/help/index.html" },
-    { "route": "/help/system-designer/", "rewrite": "/help/system-designer/index.html" },
-    { "route": "/help/spectool/", "rewrite": "/help/spectool/index.html" },
-    { "route": "/help/room-exchange/", "rewrite": "/help/room-exchange/index.html" },
-    { "route": "/help/lucius/", "rewrite": "/help/lucius/index.html" },
-    { "route": "/help/license-manager/", "rewrite": "/help/license-manager/index.html" },
-    { "route": "/help/*", "redirect": "/help/", "statusCode": 302 }
-  ]
+    {
+      "route": "/help/",
+      "rewrite": "/help/index.html"
+    },
+    {
+      "route": "/help/system-designer/",
+      "rewrite": "/help/system-designer/index.html"
+    },
+    {
+      "route": "/help/spectool/",
+      "rewrite": "/help/spectool/index.html"
+    },
+    {
+      "route": "/help/room-exchange/",
+      "rewrite": "/help/room-exchange/index.html"
+    },
+    {
+      "route": "/help/lucius/",
+      "rewrite": "/help/lucius/index.html"
+    },
+    {
+      "route": "/help/license-manager/",
+      "rewrite": "/help/license-manager/index.html"
+    },
+    {
+      "route": "/help/*",
+      "redirect": "/help/",
+      "statusCode": 302
+    }
+  ],
+  "mimeTypes": {
+    ".msi": "application/x-msi"
+  }
 }
