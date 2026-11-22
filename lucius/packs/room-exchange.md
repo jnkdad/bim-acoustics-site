@@ -1,19 +1,19 @@
-# Product Pack - Room Exchange (Revit rooms to EASE 5)
+# Product Pack - Room Exchange (Revit rooms to acoustic room models)
 
 **Release status: Room Exchange is generally available since AVTools v3.0.0; current release v3.1.0 (November 2026; Revit 2025, 2026 and 2027), included in AVTools Suite Pro and sold on its own as the RoomExchange plan. Report issues to support@bimacoustics.net.**
 
-Use this guide for any question about **Room Exchange**, the AV Tools Suite command that turns Revit rooms into an EASE 5 room model (a DWG of closed faces, one layer per surface material). On the website you cannot see the user's model or export; answer from this guide. Inside Revit the user opens Room Exchange from BIM Acoustics tab → Utilities → Room Exchange, and Lucius from BIM Acoustics tab → Utilities → Lucius. F1 on the Room Exchange button opens bimacoustics.net/help/room-exchange/. When the user describes a result, use the "What the result means" and "Reading the EASE import" sections. Do not invent settings, buttons or layer names that are not listed here. If something is outside this guide, say so and point the user to Zip Support Files and support@bimacoustics.net. The Room Exchange User Guide (PDF) is on the Products page and in the download ZIP.
+Use this guide for any question about **Room Exchange**, the AV Tools Suite command that turns Revit rooms into an EASE® 5 room model (a DWG of closed faces, one layer per surface material). On the website you cannot see the user's model or export; answer from this guide. Inside Revit the user opens Room Exchange from BIM Acoustics tab → Utilities → Room Exchange, and Lucius from BIM Acoustics tab → Utilities → Lucius. F1 on the Room Exchange button opens bimacoustics.net/help/room-exchange/. When the user describes a result, use the "What the result means" and "Reading the import" sections. Do not invent settings, buttons or layer names that are not listed here. If something is outside this guide, say so and point the user to Zip Support Files and support@bimacoustics.net. The Room Exchange User Guide (PDF) is on the Products page and in the download ZIP.
 
 ## What it does, in one paragraph
 
-The user ticks one or more Revit rooms. Room Exchange captures the model around them (walls, floors, ceilings, roofs, columns, structure, stairs, ramps, doors, windows, curtain walls, generic models; operable partitions and curtains by name), fills the room's air on a fine lattice, finds every surface the air touches, flattens those into faces, names each face by the material on the room side, and writes a DWG that EASE 5 imports as a closed volume. Every layer in the DWG becomes a Selection Set in EASE, so materials are assigned per layer.
+The user ticks one or more Revit rooms. Room Exchange captures the model around them (walls, floors, ceilings, roofs, columns, structure, stairs, ramps, doors, windows, curtain walls, generic models; operable partitions and curtains by name), fills the room's air on a fine lattice, finds every surface the air touches, flattens those into faces, names each face by the material on the room side, and writes a DWG that EASE® 5 imports as a closed volume. Every layer in the DWG becomes a Selection Set in EASE® 5, so materials are assigned per layer.
 
 ## Requirements and supported programs (say these plainly when asked)
 
 - **Revit 2025, 2026 or 2027** (one installer).
-- **.NET 8 Desktop Runtime 8.0.32 or later** on Revit 2025 and 2026, for the separate program that builds the EASE model. If the PC's .NET is older, Room Exchange shows what is installed and what is needed, with a link to Microsoft's download page, or builds the model inside Revit instead (slower, same result).
-- **AutoCAD must be installed on the same machine.** Room Exchange writes the model as a DXF and uses AutoCAD only to convert that DXF to the DWG that EASE 5 imports; nothing else is done in AutoCAD. The DXF export does not use AutoCAD.
-- **Supported target: EASE 5.** The exported DXF and DWG files also appear to import into Bose Modeler and ODEON, but this has not been fully tested and is not supported. They may work in other applications that import DXF or DWG files containing 3D polylines and/or 3D faces. If asked about any program other than EASE 5, say exactly that.
+- **.NET 8 Desktop Runtime 8.0.32 or later** on Revit 2025 and 2026, for the separate program that builds the EASE® 5 model. If the PC's .NET is older, Room Exchange shows what is installed and what is needed, with a link to Microsoft's download page, or builds the model inside Revit instead (slower, same result).
+- **AutoCAD must be installed on the same machine.** Room Exchange writes the model as a DXF and uses AutoCAD only to convert that DXF to the DWG that EASE® 5 imports; nothing else is done in AutoCAD. The DXF export does not use AutoCAD.
+- **Supported target: EASE® 5.** The exported DXF and DWG files may also import into other acoustic simulation software that reads DXF or DWG files containing 3D polylines and/or 3D faces, but this has not been fully tested and is not supported. If asked about any program other than EASE® 5, say exactly that.
 - Room Exchange works offline once the license is activated; only Lucius needs an internet connection.
 - The same engine reads the rooms for System Designer's Room Acoustics (RT60) in v3.0.0, so the RT60 gets every surface, which way it faces and the true air volume.
 
@@ -31,10 +31,10 @@ The user ticks one or more Revit rooms. Room Exchange captures the model around 
 **Rooms tab**
 - A list of the rooms in the model and in linked models (linked rooms are marked by their document). The filter box narrows the list by number or name.
 - Tick rooms and press **Export**. Several ticked rooms that share an open connection export as one volume; rooms with no connection export as separate files.
-- After the model is read in Revit, a small window shows **Building the EASE model … in a separate process** with the time so far and **Cancel**. The EASE model is built by a separate program beside the add-in, many times faster than inside Revit; Revit waits. Cancel stops the export and writes nothing. If that program cannot run, the model is built inside Revit (slower, same result) and the result dialog says why.
+- After the model is read in Revit, a small window shows **Building the room model … in a separate process** with the time so far and **Cancel**. The room model is built by a separate program beside the add-in, many times faster than inside Revit; Revit waits. Cancel stops the export and writes nothing. If that program cannot run, the model is built inside Revit (slower, same result) and the result dialog says why.
 - **File name**: optional. Empty names the files after the room numbers, with the suffix `_fill`. A typed name is used as given (illegal characters replaced). When one export writes several files, the room numbers are appended.
-- **Include loudspeakers** (v3.1.0): a tick box beside Export to adds the System Designer loudspeakers in the ticked rooms to the export and shows how many the model holds; remembered for the next export. EASE 5 cannot import loudspeakers from a drawing, so each one is written as a small target face on the `AVTOOLS-SPEAKER-TARGETS` layer; a ceiling loudspeaker's target lies flat one inch under the ceiling, inside the room, so it can be picked in plan. Before an EASE 5 export with loudspeakers, Room Exchange says that EASE 5 will import the targets as surfaces and warn that they sit on the ceiling face: **Continue** exports with the targets, **Exclude loudspeakers** exports the room only. In EASE, place a loudspeaker at each target, then delete the `AVTOOLS-SPEAKER-TARGETS` selection set before calculating.
-- **Export for**: DWG (EASE 5, other) is the normal choice for EASE 5. DWG needs AutoCAD on the machine (used only for the DXF→DWG conversion). DXF (Bose Modeler, EASE 4, other) is for Bose Modeler, which reads DXF only, and for EASE 4. Room Exchange is supported with EASE 5; the files also appear to import into Bose Modeler and ODEON but that is not fully tested or supported (see Requirements above).
+- **Include loudspeakers** (v3.1.0): a tick box beside Export to adds the System Designer loudspeakers in the ticked rooms to the export and shows how many the model holds; remembered for the next export. EASE® 5 cannot import loudspeakers from a drawing, so each one is written as a small target face on the `AVTOOLS-SPEAKER-TARGETS` layer; a ceiling loudspeaker's target lies flat one inch under the ceiling, inside the room, so it can be picked in plan. Before an EASE® 5 export with loudspeakers, Room Exchange says that EASE® 5 will import the targets as surfaces and warn that they sit on the ceiling face: **Continue** exports with the targets, **Exclude loudspeakers** exports the room only. In EASE® 5, place a loudspeaker at each target, then delete the `AVTOOLS-SPEAKER-TARGETS` selection set before calculating.
+- **Export for**: DWG is the normal choice for EASE® 5. DWG needs AutoCAD on the machine (used only for the DXF→DWG conversion). DXF is for acoustic simulation software that reads DXF only. Room Exchange is supported with EASE® 5; the files may also import into other acoustic simulation software that reads 3D polylines and 3D faces, but that is not fully tested or supported (see Requirements above).
 - **Custom Perimeter…**: trace a boundary by clicking in a plan view when no placed room describes the space (open lobbies, atriums, stadium bowls). The user gives a number, name, base and top (level plus offset). The perimeter is saved in the project as a Filled Region with a see-through volume, listed in the room list (Source: Perimeter), and exported through the same engine as a room. **Edit Perimeter…** changes its number, name, base or top; **Adjust in 3D…** sets base and top against the real floor and roof. Save the model after tracing, or the perimeter is lost.
 - A perimeter takes in every space inside its outline that the air reaches: rooms inside it do not stop the air, and an open doorway into a back-of-house room lets the air in there too. Trace along the space's own edge to keep such rooms out.
 - **One perimeter per level** (an atrium whose edge changes floor to floor): in each level's plan, Custom Perimeter → **Trace & Save** (saves without exporting and returns to the room list with it ticked, plus earlier ticks). The base starts at the plan's level and the top at the next level up, which can be a mezzanine level; check it. With 2+ perimeters ticked, Export asks **Merge Perimeters**: Yes (default) = one model, No = each separately. In one model a perimeter stops at the floor of the one above where that floor is solid; through an open floor (atrium void, stair opening) the air runs on. Ticked rooms export apart from the perimeters.
@@ -51,14 +51,14 @@ The user ticks one or more Revit rooms. Room Exchange captures the model around 
 **Workflow tab**: the short version of this guide. **About tab**: versions, file locations, Email support.
 
 
-**Import Loudspeakers tab**: brings EASE loudspeaker positions and aims back into Revit as families, using the origin file written beside each drawing. Not covered further here.
+**Import Loudspeakers tab**: brings EASE® 5 loudspeaker positions and aims back into Revit as families, using the origin file written beside each drawing. Not covered further here.
 
 ## The checklist (the dialog that appears before an export)
 
 Before capturing, Room Exchange lists the elements inside the ticked rooms that are not plain building envelope: generic models, stairs, ramps, casework, specialty equipment, and floors it suspects. Walls, ceilings, roofs and columns are the envelope and are not listed.
 
 - **Ticked** = in the acoustic model. **Unticked** = treated as absent (a pit filler platform, a flat finish floor drawn over a raked slab, scenery).
-- **PNG** column = seen but not heard: the element's lines go into the transparent plan image for EASE's Drawings (basketball court lines, roof steel for loudspeaker placement), and the element is not in the acoustic model.
+- **PNG** column = seen but not heard: the element's lines go into the transparent plan image for the Drawings in EASE® 5 (basketball court lines, roof steel for loudspeaker placement), and the element is not in the acoustic model.
 - Rows with ⚠ are suspect floors: two substantial floors overlapping at different heights (a finish plane over a raked slab, a filler over a pit). The tool only flags; the user decides.
 - Rows with ⛔ were **auto-excluded**: thin finish films (a floor whose whole thickness is under about 2 inches) and floors named "rendering only". They are hidden by default; the **Show auto-excluded (N)** tick lists them so one can be restored.
 - Choices are remembered per project. Unticked rows come back unticked next time; tick one to restore it. **Include All** reticks everything visible.
@@ -70,7 +70,7 @@ Before capturing, Room Exchange lists the elements inside the ticked rooms that 
 
 Each exported volume gets one block of lines:
 
-- `faces, panel(s), cf, closed/open edge(s), attribution %, s`: face count, two-sided panel count (clouds, pads, curtains, bleacher boards), the volume in cubic feet, whether the shell is closed, how much of the surface area is named from a real element (the rest is boundary or seal), and the time. A room that says **closed** will import green in EASE.
+- `faces, panel(s), cf, closed/open edge(s), attribution %, s`: face count, two-sided panel count (clouds, pads, curtains, bleacher boards), the volume in cubic feet, whether the shell is closed, how much of the surface area is named from a real element (the rest is boundary or seal), and the time. A room that says **closed** will import green in EASE® 5.
 - **`N opening(s) sealed — locations in the log`**: small gaps in the model (under about 2.5 ft) that the fill closed with a seal face. Normal; dozens on a big room are fine. The seals are on `…_BOUNDARY_SEAL` layers.
 - **`► The air reaches the limit of the ticked rooms toward room X over N sf with no surface there`**: the ticked rooms open into room X with nothing between. Either tick room X as well (the spaces are one volume), or the model is missing a wall, door or ceiling there. The area says how big the opening is: 50 sf is a doorway, 5,000 sf is a missing ceiling or a whole shared wall.
 - **`► N sf of opening to room X across a room separation line`**: the rooms touch across a separation line only. Tick X if it is part of the space; otherwise the opening is on the `OPENING` layer for the user to give an opening material.
@@ -78,7 +78,7 @@ Each exported volume gets one block of lines:
 - **`• Room X stops N ft below the deck at Z: the region was raised to the deck`**: the Revit room's upper limit is below the real ceiling or deck, so the fill was allowed to rise to the deck. If the room truly stops lower, a ceiling in the model will stop it.
 - **`► Perimeter X: the export stops at N ft above the base …`** (or **Room X** …): the top is below the real ceiling or roof, and part of the export's top is a flat lid with nothing above it. Raise the top (Edit Perimeter, or the room's Upper Limit in Revit), or use the link **Extend … and export again**, which lifts the top for that export only (the saved perimeter or room is not changed). If the message returns, the roof over that part is not in the loaded models.
 - **`• N demolished element(s) (a Phase Demolished set, or created in a Demo phase) were left out: … in <model>`**: the count per model of elements left out as demolished (see the checklist section).
-- **`• The fill ran inside Revit, which is much slower: <reason>`**: the separate program that builds the EASE model was not used (not installed, or the snapshot was not saved). Same result, slower.
+- **`• The fill ran inside Revit, which is much slower: <reason>`**: the separate program that builds the EASE® 5 model was not used (not installed, or the snapshot was not saved). Same result, slower.
 - **`• The origin marker used is more than 1 ft outside the captured rooms`**: the drawing's origin comes from the nearest "Room Ref Origin" marker family, which is in another room. Place a marker inside this room for a clean origin, or ignore if the offset does not matter.
 - **`• … the outline of room X is N % off its Revit area`**: a linked room's boundary could not be read cleanly. Trace the room with Custom Perimeter, or place a host room over it.
 
@@ -86,23 +86,23 @@ Command links at the bottom: **Zip the support files**, **Open the export folder
 
 A slow export: when the capture of the rooms took more than a minute and a half, mostly for one or two heavy elements (a Direct Shape of hundreds of thousands of triangles, often a piece of equipment or a model of the building skin that stands outside the rooms), a window opens after the result dialog. It names each element, says whether it is inside or outside the rooms, and has a **Show in Revit** button so you can see what it is. **Leave out and export again** adds it to this model's exclusion list and exports once more, which is much faster; **Keep it** leaves everything as it was. An element outside the rooms does not change their surfaces; one inside a room stays in the checklist, unticked, so you can put it back.
 
-## Reading the EASE import
+## Reading the import
 
 - **Green** volume on the Acoustic Parameters page: closed, use it.
-- **Yellow**: small open edges only. EASE shows them with Hole Outlines in the 3D view. Hairline seams where a floor meets many wall bases are harmless. Long straight yellow lines across a face mean a face was written twice or is missing; send the support zip.
-- **Red**: not closed. Hole Outlines shows where. Usual causes: a room that opens into an unticked neighbour (the result dialog's ► lines), or a face EASE refused (see the Import Log tab, which exists only while the project is open).
-- **Import Log tab missing** = EASE refused nothing. Then yellow or red is geometry, not a rejected face.
-- Volume: EASE's number should be within about 1 % of the result dialog's cf. A big difference means part of the room is missing or an extra space was swallowed.
+- **Yellow**: small open edges only. EASE® 5 shows them with Hole Outlines in the 3D view. Hairline seams where a floor meets many wall bases are harmless. Long straight yellow lines across a face mean a face was written twice or is missing; send the support zip.
+- **Red**: not closed. Hole Outlines shows where. Usual causes: a room that opens into an unticked neighbour (the result dialog's ► lines), or a face EASE® 5 refused (see the Import Log tab, which exists only while the project is open).
+- **Import Log tab missing** = EASE® 5 refused nothing. Then yellow or red is geometry, not a rejected face.
+- Volume: the number EASE® 5 reports should be within about 1 % of the result dialog's cf. A big difference means part of the room is missing or an extra space was swallowed.
 
-## Layer names (every layer is an EASE Selection Set)
+## Layer names
 
-**The layer name is not the EASE material.** Room Exchange names each layer after the Revit material or family it found on the room side of the surface, so you can tell the surfaces apart. Which acoustic material each layer gets in EASE is your decision when you assign materials there; Room Exchange assigns nothing. A layer called WALL_GYPSUM tells you those faces are gypsum board in the model; you choose the gypsum-on-studs data set that fits.
+Every layer is a Selection Set in EASE® 5. **The layer name is not the EASE® 5 material.** Room Exchange names each layer after the Revit material or family it found on the room side of the surface, so you can tell the surfaces apart. Which acoustic material each layer gets in EASE® 5 is your decision when you assign materials there; Room Exchange assigns nothing. A layer called WALL_GYPSUM tells you those faces are gypsum board in the model; you choose the gypsum-on-studs data set that fits.
 
 - `EASE-$WALL_<material>`, `EASE-$FLOOR_<material>`, `EASE-$CEILING_<material>`: a surface of the room, named by the material on the room side (a compound wall's room-side layer, or the family name for a loadable family).
 - `EASE-$DOOR_<material>`, `EASE-$DOOR_FRAME`, `EASE-$WINDOW`, `EASE-$STAIR_<type>`, `EASE-$COLUMN_<material>`: the same for those elements.
 - `EASE-$WALL_CURTAIN_WALL`, `EASE-$CEILING_CURTAIN_WALL`: curtain wall panels and mullions.
 - `EASE-$WALL_OPERABLE_PARTITION`, `EASE-$CEILING_OPERABLE_PARTITION`: an operable partition, its track, and any thin wall or glazed leaf standing on its line.
-- `EASE-$CLOUD_<material>` / `EASE-$CLOUDTOP_<material>`: a floating ceiling or cloud. CLOUD is its underside facing the room; CLOUDTOP is its back facing the plenum. Both carry the cloud's own Revit material in the name. In EASE the user gives CLOUDTOP the material of whatever lies on the back of the cloud: the insulation blanket if there is one, otherwise the cloud's bare back (gypsum, metal pan). Do not say the material comes from Revit; only the name does.
+- `EASE-$CLOUD_<material>` / `EASE-$CLOUDTOP_<material>`: a floating ceiling or cloud. CLOUD is its underside facing the room; CLOUDTOP is its back facing the plenum. Both carry the cloud's own Revit material in the name. In EASE® 5 the user gives CLOUDTOP the material of whatever lies on the back of the cloud: the insulation blanket if there is one, otherwise the cloud's bare back (gypsum, metal pan). Do not say the material comes from Revit; only the name does.
 - `EASE-$RAILING_<material>`: a railing's panels (glass guards), each a closed slab of the pane's thickness, cut where it enters a stair or wall; rails, posts and balusters are left out as detail.
 - `EASE-$FRAMING_<material>`: structural framing in the room's air, each member one two-sided panel along its web, the member's depth tall, cut where it leaves the room. Untick the type in the checklist to leave it out, or tick PNG to see it in the plan image only.
 - A hole in a room's footprint that nothing stands in (a stair or atrium opening the room is drawn round) is part of the room's air, closed at floor level; a hole a column or core stands in stays out.
@@ -120,21 +120,21 @@ Only these matter to a user; the rest are engine knobs.
 - `SkipLinkTitles`: linked models, or categories within them, to leave out. `"FURN"` leaves out the whole furniture model; `"FURN: Walls"` leaves out only its walls (a furniture model that carries event-layout partitions drawn as walls). Comma-separated.
 - `OperablePartitionKeywords`: words in a family or type name that mark an operable partition. Built-in: operable, hufcor, kwik-wall, modernfold, skyfold, moderco, folding partition, movable wall, movable partition. Set this when a project's partitions are named differently.
 - `FoldedSheetKeywords`: words that mark a curtain, drape or pleated panel to be drawn flat as one sheet. Built-in: pleat, curtain, drape.
-- `RefMarkerFamilyNameContains`: the origin marker family ("Room Ref Origin"). Room Exchange loads the JSBA Room Ref Origin family into the project the first time it runs there and tells the user once; the user places one instance per venue at the point they want as EASE's origin, green axis (+Y) upstage, red axis (+X) house right, never mirrored. Without a marker the export is in Revit's own coordinates and the result dialog says so.
+- `RefMarkerFamilyNameContains`: the origin marker family ("Room Ref Origin"). Room Exchange loads the JSBA Room Ref Origin family into the project the first time it runs there and tells the user once; the user places one instance per venue at the point they want as the EASE® 5 origin, green axis (+Y) upstage, red axis (+X) house right, never mirrored. Without a marker the export is in Revit's own coordinates and the result dialog says so.
 - `ShortExportFileNames`: short file names (default true).
 
 ## Known limits (say these plainly)
 
-- Open-air spaces (stadium bowls, terraces) get a synthetic lid at the room's upper limit; there is no open-room mode yet, and EASE 5 has no open-room calculation.
-- Very large spaces take a while: a four-level atrium of about 10.7 million cf took about 15 minutes (about 10 reading the model in Revit, 5 building the EASE model); a ballroom a few minutes; a meeting room under a minute. Heavy detail (structural steel, escalators, detailed ceilings) is what makes the read slow and the face count high; untick what the acoustic model does not need.
+- Open-air spaces (stadium bowls, terraces) get a synthetic lid at the room's upper limit; there is no open-room mode yet, and EASE® 5 has no open-room calculation.
+- Very large spaces take a while: a four-level atrium of about 10.7 million cf took about 15 minutes (about 10 reading the model in Revit, 5 building the EASE® 5 model); a ballroom a few minutes; a meeting room under a minute. Heavy detail (structural steel, escalators, detailed ceilings) is what makes the read slow and the face count high; untick what the acoustic model does not need.
 - Furniture and seating are not exported.
 - Trace draws straight lines only; for curved walls, edit the perimeter's Filled Region boundary in Revit (see Curved walls in a perimeter).
 - A perimeter has no openings at the edges of rooms inside it; it takes in whatever the air reaches inside the outline.
 - A linked room whose boundary cannot be read cleanly gets a warning; place a host room or use Custom Perimeter.
-- Narrow angled ledges can produce a few stacked faces that EASE outlines; harmless.
+- Narrow angled ledges can produce a few stacked faces that EASE® 5 outlines; harmless.
 
 ## Sending a problem
 
 1. Options → Zip Support Files (or the command link on the result dialog). The zip is in the `support` folder under the export folder, named `RoomExchange_support_<date>_<time>.zip`.
-2. Email the zip to support@bimacoustics.net with a sentence on what looked wrong and, if possible, a screenshot of the EASE 3D view with Hole Outlines on.
+2. Email the zip to support@bimacoustics.net with a sentence on what looked wrong and, if possible, a screenshot of the EASE® 5 3D view with Hole Outlines on.
 3. The zip contains no model geometry beyond the rooms exported; the snapshot is what lets support re-run the export without the Revit model. It holds the remembered checklist choices of the exported model only. The model's name and the room numbers are inside, never in the zip's file name or the report form's link.

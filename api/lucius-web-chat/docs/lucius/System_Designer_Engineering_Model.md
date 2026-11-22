@@ -108,7 +108,7 @@ The tool derives coverage radius from ceiling height, listener height, and the s
 
 **Linked model rooms:** rooms from the architect's linked model are fully supported. Speakers are placed in the host AV model. Copy/Monitor is not required.
 
-**Acoustic data files for speakers** — only **`.spk`** (EASE SPK format, with optional `.lob`/`.phs`/`.fed`/`.frd`/`.fvt` siblings) and **`.clf`** (Common Loudspeaker Format, CLF1 + CLF2) are supported. `.gll`, manufacturer proprietary binary formats, and `.cf2` as balloon data are **not** supported. If a manufacturer only provides `.gll`, request CLF data from them; without supported data, the family falls back to default sensitivity (78 dB at 1W/1m) and approximate Q from manual family parameters.
+**Acoustic data files for speakers** — only **`.spk`** (EASE® SPK format, with optional `.lob`/`.phs`/`.fed`/`.frd`/`.fvt` siblings) and **`.clf`** (Common Loudspeaker Format, CLF1 + CLF2) are supported. `.gll`, manufacturer proprietary binary formats, and `.cf2` as balloon data are **not** supported. If a manufacturer only provides `.gll`, request CLF data from them; without supported data, the family falls back to default sensitivity (78 dB at 1W/1m) and approximate Q from manual family parameters.
 
 **Nudge tool:** for fine-tuning speaker positions after auto-layout. Click Nudge on a Configuration row → AVTools selects all that room's placed speakers in Revit's UI and hands focus to the canvas → use Revit's native arrow-key nudge with Shift/Ctrl modifiers → Esc when done.
 
@@ -171,7 +171,7 @@ Targets: ≥ 0.50 general; ≥ 0.60 for critical-speech spaces; ≥ 0.50 mass-no
 
 **Multi-ceiling attribution:** rooms with partitioned ceilings (e.g., GYP perimeter + 2'×6' ACT field) appear as one row per ceiling type in Assign Materials, each with its own area. When a single ceiling spans multiple rooms divided by operable partitions or room-separation lines, its area is distributed proportionally across covered rooms by floor area.
 
-**Reference curve overlay:** the RT60 graph supports a reference curve dropdown with preset target curves (Conference/Meeting, Classroom, Lecture Hall, Theater, Worship, Courtroom, Ballroom, Exhibit Hall) — sourced from ANSI/ASHRAE/Acoustical Society guidance. Manual reference values can also be entered per band, useful for: (1) comparing against another model (EASE, ODEON, CATT), (2) overlaying measured field data to validate prediction, or (3) tuning material assignments on renovation projects until the AVTools prediction matches measurement.
+**Reference curve overlay:** the RT60 graph supports a reference curve dropdown with preset target curves (Conference/Meeting, Classroom, Lecture Hall, Theater, Worship, Courtroom, Ballroom, Exhibit Hall) — sourced from ANSI/ASHRAE/Acoustical Society guidance. Manual reference values can also be entered per band, useful for: (1) comparing against another simulation model, (2) overlaying measured field data to validate prediction, or (3) tuning material assignments on renovation projects until the AVTools prediction matches measurement.
 
 **Schedule preservation:** running RT60 on one level no longer wipes results for rooms at other levels. Calculations persist across runs.
 
@@ -181,7 +181,7 @@ Targets: ≥ 0.50 general; ≥ 0.60 for critical-speech spaces; ≥ 0.50 mass-no
 
 ## Material Assignment
 
-Click **Assign Materials** to open the picker. Built-in material database covers ~2,500 records sourced from a published German absorption-coefficient study, plus support for user EASE `.mat` folders and custom user materials. Mappings are made at the **family/type level** — assign once, applies everywhere that type appears across the project.
+Click **Assign Materials** to open the picker. Built-in material database covers ~2,500 records sourced from a published German absorption-coefficient study, plus support for user EASE® `.mat` folders and custom user materials. Mappings are made at the **family/type level** — assign once, applies everywhere that type appears across the project.
 
 **Surface Area Diagnostics** panel shows per-axis areas (E/W/N/S/F/C) with three pair checks:
 - **E/W pair:** OK if matched within 20%
@@ -190,7 +190,7 @@ Click **Assign Materials** to open the picker. Built-in material database covers
 
 Mismatches don't block calculation but suggest geometry to recheck. F/C mismatch specifically often points to stacked or partitioned ceilings that only partially cover the room.
 
-**User materials:** Add Material (new entry), Add User Folder (bulk import, supports EASE .mat and JSON conforming to schema), Edit (only enabled for user materials), Duplicate (any material), Delete (with confirmation; orphans existing assignments).
+**User materials:** Add Material (new entry), Add User Folder (bulk import, supports EASE® .mat and JSON conforming to schema), Edit (only enabled for user materials), Duplicate (any material), Delete (with confirmation; orphans existing assignments).
 
 **Common workflow for missing-band values:** find closest library match → Duplicate → fill in missing bands from manufacturer cut sheet or hand-calc → adjust name → Save → Assign.
 
@@ -392,7 +392,7 @@ This is intentional: AVTools is **deterministic**, and Lucius guides the user th
 
 ## What This Product Is NOT
 
-- **Not a full acoustic simulation tool.** No ray tracing, no diffraction, no room modes. Compare to EASE/AFMG/Treble for full acoustic simulation; AVTools is a faster, BIM-integrated first-order design tool used by AV consultants.
+- **Not a full acoustic simulation tool.** No ray tracing, no diffraction, no room modes. For full acoustic simulation, use dedicated simulation software (Room Exchange hands the room to EASE® 5); AVTools is a faster, BIM-integrated first-order design tool used by AV consultants.
 - **Not a replacement for engineering judgment.** First-order design assistance, not a guarantee of code compliance or measured performance.
 - **Not a substitute for measured field data** on critical-speech or life-safety spaces.
 
@@ -477,13 +477,13 @@ Click Rescan Rooms. AVTools runs the temp-to-real association pass on every Resc
 The keyword scan matches "rack" / "cabinet" / "enclosure" / Middle Atlantic product codes across every family in host + linked models. Furniture, IT racks, and network cabinets can light up. Use the Rack Family Selection dialog that appears after **Rack Locations**: tick only the families that should count as AV racks. Your choice persists per project — the dialog won't re-prompt for already-confirmed or already-rejected families. New families appearing in later scans flag with a "New" badge so they can be reviewed without disrupting existing selections.
 
 **Q: What loudspeaker data file formats are supported?**
-**`.spk`** (EASE SPK with optional sibling `.lob`/`.phs`/`.fed`/`.frd`/`.fvt`) and **`.clf`** (Common Loudspeaker Format, CLF1 + CLF2). Other formats — including `.gll`, manufacturer proprietary binary formats, and `.cf2` as balloon data — are not supported. If a manufacturer publishes `.gll` only, request CLF data from them.
+**`.spk`** (EASE® SPK with optional sibling `.lob`/`.phs`/`.fed`/`.frd`/`.fvt`) and **`.clf`** (Common Loudspeaker Format, CLF1 + CLF2). Other formats — including `.gll`, manufacturer proprietary binary formats, and `.cf2` as balloon data — are not supported. If a manufacturer publishes `.gll` only, request CLF data from them.
 
 **Q: Does it calculate RT60 and STI?**
 Yes (Standard and Pro). Three RT60 formulas — Sabine, Norris-Eyring, Arau-Puchades — across eight octave bands (63 Hz to 8 kHz). STI is estimated from RT60, background noise, speaker Q, and N factor. Critical distance and D/R ratio are computed alongside.
 
-**Q: How is this different from D-Tools or EASE?**
-D-Tools is a system integration / proposal / project-management platform — strong on procurement and BOMs, not on Revit-native distributed-loudspeaker layout or acoustic analysis. EASE is a full acoustic simulation suite — strong on auralization and ray tracing, not on Revit integration or circuiting/cabling. AVTools is BIM-native, focused on the AV consultant designing inside the architect's Revit model, and covers placement → coverage → RT60/STI → circuiting → cabling → coordination as one continuous workflow.
+**Q: How is this different from D-Tools or full acoustic simulation software?**
+D-Tools is a system integration / proposal / project-management platform — strong on procurement and BOMs, not on Revit-native distributed-loudspeaker layout or acoustic analysis. Full acoustic simulation software is strong on auralization and ray tracing, not on Revit integration or circuiting/cabling. AVTools is BIM-native, focused on the AV consultant designing inside the architect's Revit model, and covers placement → coverage → RT60/STI → circuiting → cabling → coordination as one continuous workflow.
 
 **Q: How do I get started?**
 Download the 14-day free trial from the products page; it unlocks every Pro feature. The free v1.2.1 (Revit 2022–2024) is available as a permanent free download for the core layout and coverage workflow. Both run as a dockable panel inside Revit; no external dependencies.
