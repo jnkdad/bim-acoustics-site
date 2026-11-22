@@ -33,7 +33,7 @@ AV Tools System Designer is a Revit add-in that provides a complete workflow for
 ### 2. Is this an acoustic simulation tool?
 
 **Approved response:**
-No. System Designer is **not** a full acoustic simulation tool. It does not perform ray tracing, diffraction, or room-mode analysis, and it does not replace EASE, AFMG, or similar full-room simulation suites.
+No. System Designer is **not** a full acoustic simulation tool. It does not perform ray tracing, diffraction, or room-mode analysis, and it does not replace full-room acoustic simulation software.
 
 It **does** include first-order acoustic calculations: RT60 using Sabine, Norris-Eyring, and Arau-Puchades formulas across eight octave bands (63 Hz to 8 kHz); estimated STI from RT60 + background noise + speaker directivity; critical distance and D/R ratio per room; and direct-field SPL coverage with iso-line maps. These are first-order design tools, not predictive simulation, and engineering judgment remains with the designer.
 
@@ -59,7 +59,7 @@ When you add a room to scope, AVTools seeds spacing and listener height based on
 **Approved response:**
 Yes (Standard and Pro). Three RT60 formulas — Sabine, Norris-Eyring, and Arau-Puchades (with a David-Marsh "AP Full" variant that adds ISO 9613-1 air absorption) — calculated across eight octave bands: 63, 125, 250, 500 Hz, 1, 2, 4, and 8 kHz. STI is estimated from RT60, background noise, speaker Q factor, and N factor, rated per IEC 60268-16 (Excellent / Good / Fair / Poor / Bad). Critical distance and D/R ratio are computed alongside.
 
-The RT60 graph supports a reference curve overlay — preset target curves (Conference, Classroom, Lecture Hall, Theater, Worship, Courtroom, Ballroom, Exhibit Hall) drawn from ANSI/ASHRAE/Acoustical Society guidance, plus manual values for comparing against EASE, ODEON, or measured field data.
+The RT60 graph supports a reference curve overlay — preset target curves (Conference, Classroom, Lecture Hall, Theater, Worship, Courtroom, Ballroom, Exhibit Hall) drawn from ANSI/ASHRAE/Acoustical Society guidance, plus manual values for comparing against another simulation model or measured field data.
 
 Note that Room Acoustics requires a real Revit Room with surface geometry. Temp Rooms created via the Rooms-tab Add Temp Room workflow are placement scaffolds only and are excluded from acoustic analysis.
 
@@ -88,7 +88,7 @@ Yes — this is the primary workflow. Rooms typically come from the architect's 
 ### 7. What loudspeaker acoustic data formats are supported?
 
 **Approved response:**
-Only **`.spk`** (EASE SPK format, with optional `.lob`/`.phs`/`.fed`/`.frd`/`.fvt` siblings) and **`.clf`** (Common Loudspeaker Format, CLF1 + CLF2). Other formats — including `.gll`, manufacturer proprietary binary formats, and `.cf2` as balloon data — are not supported.
+Only **`.spk`** (EASE® SPK format, with optional `.lob`/`.phs`/`.fed`/`.frd`/`.fvt` siblings) and **`.clf`** (Common Loudspeaker Format, CLF1 + CLF2). Other formats — including `.gll`, manufacturer proprietary binary formats, and `.cf2` as balloon data — are not supported.
 
 If a manufacturer publishes their data in `.gll` only, request a CLF version from them. Without supported balloon data, the speaker family will fall back to default sensitivity (78 dB at 1 W / 1 m) and approximate Q from manual family parameters — workable for first-pass design but less accurate than proper CLF/SPK data.
 
@@ -205,10 +205,10 @@ Lucius does **not** place speakers, commit circuits, run RT60 calculations, or m
 
 ---
 
-### 12. How is this different from D-Tools or EASE?
+### 12. How is this different from D-Tools or full acoustic simulation software?
 
 **Approved response:**
-D-Tools is a system integration / proposal / project-management platform — strong on procurement and BOMs, weaker on Revit-native distributed-loudspeaker layout or acoustic analysis. EASE is a full acoustic simulation suite — strong on auralization and ray tracing, not on Revit integration or circuiting/cabling. AV Tools System Designer is BIM-native, focused on the AV consultant designing inside the architect's Revit model, and covers placement → coverage → RT60/STI → circuiting → cabling → coordination as one continuous workflow.
+D-Tools is a system integration / proposal / project-management platform — strong on procurement and BOMs, weaker on Revit-native distributed-loudspeaker layout or acoustic analysis. Full acoustic simulation software is strong on auralization and ray tracing, not on Revit integration or circuiting/cabling. AV Tools System Designer is BIM-native, focused on the AV consultant designing inside the architect's Revit model, and covers placement → coverage → RT60/STI → circuiting → cabling → coordination as one continuous workflow.
 
 ---
 

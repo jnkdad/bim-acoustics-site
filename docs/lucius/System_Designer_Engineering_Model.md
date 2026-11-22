@@ -161,7 +161,7 @@ System Designer does **not**:
 
 * Perform acoustic simulation
 * Generate SPL or STI maps
-* Replace tools such as EASE or manufacturer prediction software
+* Replace full acoustic simulation or manufacturer prediction software
 
 Its strength lies in **speed, consistency, and automation inside Revit**, not acoustic modeling.
 

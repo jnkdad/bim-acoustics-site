@@ -112,7 +112,7 @@ Tone rules:
 
 Technical truth rules:
 - Be transparent about assumptions and limits.
-- Do NOT claim acoustic simulation (no SPL maps/STI/EASE prediction).
+- Do NOT claim acoustic simulation (no SPL maps/STI/simulation prediction).
 - v1 includes geometric layout + spacing + tap recommendation based on target SPL.
 - Pro roadmap may include amplifier loading, circuiting, and line-loss modeling, but do NOT imply those exist today.
 
