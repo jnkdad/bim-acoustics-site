@@ -56,13 +56,13 @@
             <ul style="font-size:14px; line-height:1.6; margin:12px 0 0 0; padding-left:20px;">
               <li><b>Per seat and per frequency band:</b> reverberation (EDT, T20, T30), clarity (C50, C80, D50), speech intelligibility (STI, ALcons), level (direct level, direct-to-reverberant ratio, sound strength G) and spaciousness (LF, LFC, IACC).</li>
               <li><b>Rooms straight from Revit</b>, including rooms in linked models and Room Exchange Custom Perimeters. Several rooms ticked together are read as one space, with a 3D preview coloured by material.</li>
-              <li><b>Sources and receivers:</b> an omnidirectional source where the talker stands, or the model's loudspeakers with CLF or EASE loudspeaker data; picked seats and points, listener seats, a binaural listener, and audience areas drawn over the seating. Gain, EQ and delay per loudspeaker group.</li>
+              <li><b>Sources and receivers:</b> an omnidirectional source where the talker stands, or the model's loudspeakers with CLF or EASE&reg; loudspeaker data; picked seats and points, listener seats, a binaural listener, and audience areas drawn over the seating. Gain, EQ and delay per loudspeaker group.</li>
               <li><b>See the sound:</b> the reflections arriving at a seat as a &ldquo;hedgehog&rdquo;, single reflection paths, and an animation of the sound spreading through the room that can be saved as a video. Maps over the audience or the room's surfaces, drawn in a Revit 3D view or written to the model.</li>
               <li><b>Runs:</b> save a run and reopen it without tracing again, compare runs, export tables as CSV, and export the room as DXF or DWG. A Sabine, Eyring and Arau-Puchades check runs before tracing.</li>
               <li><b>Listen</b> to a clip as it would sound at a seat, for one or two ears. This is the least finished part of the Beta.</li>
             </ul>
             <div style="font-size:14px; line-height:1.6; margin-top:12px; color:#cfd6df;">
-              <b style="color:#f0f4f8;">This is a Beta.</b> Echea has been checked against a reference in two rooms only: a church compared with EASE 5 AURA, where EDT, T30, C80, D50, G and STI agree closely, and a measured auditorium from a public benchmark, where T30 came out about 12 percent longer than measured and C80 within about 1 dB. Other kinds of room have not been compared. IACC uses a simple model of the head, so its figures are for comparing seats and runs. Listen has not been checked by ear. Use Echea's results for trying rooms and reporting what you find, not yet for basing a design decision on, and send your findings to <a class="link" href="mailto:support@bimacoustics.net?subject=Echea%20Beta">support@bimacoustics.net</a>.
+              <b style="color:#f0f4f8;">This is a Beta.</b> Echea has been checked against a reference in two rooms only: a church compared with EASE&reg; 5 AURA, where EDT, T30, C80, D50, G and STI agree closely, and a measured auditorium from a public benchmark, where T30 came out about 12 percent longer than measured and C80 within about 1 dB. Other kinds of room have not been compared. IACC uses a simple model of the head, so its figures are for comparing seats and runs. Listen has not been checked by ear. Use Echea's results for trying rooms and reporting what you find, not yet for basing a design decision on, and send your findings to <a class="link" href="mailto:support@bimacoustics.net?subject=Echea%20Beta">support@bimacoustics.net</a>.
             </div>
             <div style="font-size:14px; line-height:1.6; margin-top:10px; color:#cfd6df;">
               Echea installs with AVTools System Designer v3.2.0 from the same installer (Revit 2025, 2026 and 2027). A <b>14-day free trial</b> of Echea starts the first time it is opened on a PC, separate from System Designer's own trial. After the trial, Echea is available on the <a class="link" href="#studio">Echea plan</a>, which includes Room Exchange, or in BIM Acoustics Studio. <i>The name:</i> echea (Greek, &ldquo;sounders&rdquo;) were the bronze vessels the Roman architect Vitruvius describes in ancient theatres, set among the seats and tuned to ring with the performers' voices.
@@ -76,17 +76,17 @@
           <!-- ================= ROOM EXCHANGE HERO (v3.0.0) ================= -->
           <div class="release-banner" style="padding:24px 26px;">
             <div style="font-size:1.6rem; font-weight:700; line-height:1.3; margin-bottom:14px; color:#f0f4f8;">
-              <span style="color:#ffd166;">Room Exchange</span> &mdash; Revit rooms to EASE 5. v3.2.0 writes simpler, lighter drawings.
+              <span style="color:#ffd166;">Room Exchange</span> &mdash; Revit rooms to acoustic room models. v3.2.0 writes simpler, lighter drawings.
             </div>
             <div style="font-size:15px; line-height:1.65;">
-              Tick the rooms, click Export, and open a closed EASE 5 room model with one layer per surface material. Room Exchange fills each room's air and finds every surface the air touches &mdash; floors, walls, ceilings, roofs, glass, doors, columns, stairs, curtain walls and operable partitions, in the model and in its links &mdash; and seals the small gaps. Curved walls, ceilings and roofs go out as flat panels of a size you set, and detail too small to matter acoustically is left out, so the drawing has fewer faces and fewer slivers. <b>Custom Perimeter</b> handles the spaces no room describes: open lobbies, atriums, stadium bowls. <b>Import Loudspeakers</b> brings positions and aims from EASE back into Revit. The same engine now reads the rooms for System Designer's RT60, so the acoustics get every surface and the true air volume. Available on its own as the <b>RoomExchange</b> plan or in <b>AVTools Suite Pro</b>. One installer for Revit 2025, 2026 and 2027; press F1 on any ribbon button for help. <b>Requires AutoCAD</b> on the same machine &mdash; Room Exchange uses it only to convert the exported DXF to the DWG that EASE 5 imports. Supported with EASE 5: open the DWG in EASE 5. DXF is also written for programs that read only DXF; other programs that read DXF or DWG have been tried but are not supported.
+              Tick the rooms, click Export, and open a closed EASE&reg; 5 room model with one layer per surface material. Room Exchange fills each room's air and finds every surface the air touches &mdash; floors, walls, ceilings, roofs, glass, doors, columns, stairs, curtain walls and operable partitions, in the model and in its links &mdash; and seals the small gaps. Curved walls, ceilings and roofs go out as flat panels of a size you set, and detail too small to matter acoustically is left out, so the drawing has fewer faces and fewer slivers. <b>Custom Perimeter</b> handles the spaces no room describes: open lobbies, atriums, stadium bowls. <b>Import Loudspeakers</b> brings positions and aims from EASE&reg; 5 back into Revit. The same engine now reads the rooms for System Designer's RT60, so the acoustics get every surface and the true air volume. Available on its own as the <b>RoomExchange</b> plan or in <b>AVTools Suite Pro</b>. One installer for Revit 2025, 2026 and 2027; press F1 on any ribbon button for help. <b>Requires AutoCAD</b> on the same machine &mdash; Room Exchange uses it only to convert the exported DXF to the DWG that EASE&reg; 5 imports. Supported with EASE&reg; 5: open the DWG in EASE&reg; 5. DXF is also written for programs that read only DXF; other programs that read DXF or DWG have been tried but are not supported.
             </div>
           </div>
 
           <!-- ================= ROOM EXCHANGE GALLERY ================= -->
           <section class="spectool-gallery" id="room-exchange-gallery" style="margin:22px 0 8px 0;">
             <h2 class="matrix-title">Room Exchange in action</h2>
-            <p class="matrix-sub">A beta tester's church, a high school theater and a gym, each exported from Revit and opened in EASE 5. Click any screenshot to enlarge.</p>
+            <p class="matrix-sub">A beta tester's church, a high school theater and a gym, each exported from Revit and opened in EASE&reg; 5. Click any screenshot to enlarge.</p>
 
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px; margin-top:16px;">
 
@@ -102,30 +102,30 @@
 
               <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(220,223,228,0.20); border-radius:10px; overflow:hidden;">
                 <a href="/assets/screenshots/full/room-exchange-ease.png" target="_blank" rel="noopener" style="display:block; line-height:0;">
-                  <img src="/assets/screenshots/thumb/room-exchange-ease.png" alt="The same sanctuary imported in EASE 5 as a closed room model" style="width:100%; height:200px; object-fit:cover; display:block;">
+                  <img src="/assets/screenshots/thumb/room-exchange-ease.png" alt="The same sanctuary imported in EASE (R) 5 as a closed room model" style="width:100%; height:200px; object-fit:cover; display:block;">
                 </a>
                 <div style="padding:10px 12px 12px 12px;">
-                  <div style="font-size:10px; color:#c48b00; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:3px;">EASE 5</div>
-                  <div style="font-size:13px; line-height:1.45; color:#cfd6df;">The exported DWG opened in EASE 5 as a closed volume, one Selection Set per material layer.</div>
+                  <div style="font-size:10px; color:#c48b00; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:3px;">Exported room model</div>
+                  <div style="font-size:13px; line-height:1.45; color:#cfd6df;">The exported DWG opened in EASE&reg; 5 as a closed volume, one Selection Set per material layer.</div>
                 </div>
               </div>
 
               <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(220,223,228,0.20); border-radius:10px; overflow:hidden;">
                 <a href="/assets/screenshots/full/room-exchange-theater.png" target="_blank" rel="noopener" style="display:block; line-height:0;">
-                  <img src="/assets/screenshots/thumb/room-exchange-theater.png" alt="High school theater exported by Room Exchange and opened in EASE 5" style="width:100%; height:200px; object-fit:cover; display:block;">
+                  <img src="/assets/screenshots/thumb/room-exchange-theater.png" alt="High school theater exported by Room Exchange and opened in EASE (R) 5" style="width:100%; height:200px; object-fit:cover; display:block;">
                 </a>
                 <div style="padding:10px 12px 12px 12px;">
-                  <div style="font-size:10px; color:#c48b00; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:3px;">High school theater &mdash; EASE 5</div>
+                  <div style="font-size:10px; color:#c48b00; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:3px;">High school theater</div>
                   <div style="font-size:13px; line-height:1.45; color:#cfd6df;">Raked seating, balcony, fly loft and stage house, from one room selection.</div>
                 </div>
               </div>
 
               <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(220,223,228,0.20); border-radius:10px; overflow:hidden;">
                 <a href="/assets/screenshots/full/room-exchange-gym.png" target="_blank" rel="noopener" style="display:block; line-height:0;">
-                  <img src="/assets/screenshots/thumb/room-exchange-gym.png" alt="High school gym exported by Room Exchange and opened in EASE 5" style="width:100%; height:200px; object-fit:cover; display:block;">
+                  <img src="/assets/screenshots/thumb/room-exchange-gym.png" alt="High school gym exported by Room Exchange and opened in EASE (R) 5" style="width:100%; height:200px; object-fit:cover; display:block;">
                 </a>
                 <div style="padding:10px 12px 12px 12px;">
-                  <div style="font-size:10px; color:#c48b00; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:3px;">High school gym &mdash; EASE 5</div>
+                  <div style="font-size:10px; color:#c48b00; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:3px;">High school gym</div>
                   <div style="font-size:13px; line-height:1.45; color:#cfd6df;">Bleachers, CMU, acoustic panels and the mezzanine, each on its own material layer.</div>
                 </div>
               </div>
@@ -269,17 +269,13 @@
                 </span>
               </h2>
 
-              <div class="prod-sub">Everything in Free, plus room acoustics analysis</div>
+              <div class="prod-sub">Loudspeaker layout and coverage for Revit 2025, 2026 &amp; 2027</div>
 
               <ul class="prod-list">
                 <li><b>All Free features</b></li>
                 <li>SPL coverage map in 2D and 3D (coverage carpet), 1, 2 or 3 dB iso-lines, optional heat-map fill</li>
                 <li>Narrow, curved and multi-ceiling room layouts <span style="font-size:12px; opacity:0.85;">(new, still being tested)</span></li>
-                <li>RT60 calculation (Sabine, Eyring, Arau-Puchades)</li>
-                <li>STI estimation</li>
-                <li>Acoustic material assignment, one row per material</li>
-                <li>Rooms read as closed shells by the Room Exchange engine</li>
-                <li>Room acoustics schedule export</li>
+                <li>Room acoustics (RT60, STI) is in Suite Pro</li>
               </ul>
 
               <div class="prod-meta">
@@ -335,16 +331,16 @@
                 </span>
               </h2>
 
-              <div class="prod-sub">Revit rooms to EASE 5, and loudspeakers back</div>
+              <div class="prod-sub">Revit rooms to acoustic room models, and loudspeakers back</div>
 
               <ul class="prod-list">
-                <li>Closed EASE 5 room models from the rooms you tick</li>
+                <li>Closed EASE&reg; 5 room models from the rooms you tick</li>
                 <li>One layer per surface material, named from the model</li>
                 <li>Curved walls, ceilings and roofs as flat panels (size you set)</li>
                 <li>Simpler drawings: detail too small to matter acoustically is left out</li>
                 <li>Custom Perimeter for lobbies, atriums, stadium bowls</li>
                 <li>Checklist before export; choices remembered per project</li>
-                <li>Import Loudspeakers from EASE into Revit</li>
+                <li>Import Loudspeakers from EASE&reg; 5 into Revit</li>
                 <li>Lucius chat guidance</li>
               </ul>
 
@@ -387,7 +383,7 @@
               </div>
 
               <div class="note" style="margin-top:6px;">
-                Supported with EASE 5. Other programs that read DXF or DWG have been tried but are not supported. Annual plans are two months free.
+                Supported with EASE&reg; 5. The DXF/DWG files may also import into other acoustic simulation software that reads 3D polylines and 3D faces (not fully tested, not supported). Annual plans are two months free.
               </div>
             </div>
 
@@ -402,17 +398,20 @@
                 </span>
               </h2>
 
-              <div class="prod-sub">Everything in Standard, plus STI mapping, electrical design, live model integration, <b>Room Exchange</b> and <b>SpecTool</b></div>
+              <div class="prod-sub">Everything in Standard, plus room acoustics, STI mapping, electrical design, live model integration, <b>Room Exchange</b> and <b>SpecTool</b></div>
 
               <ul class="prod-list">
                 <li><b>All Standard features</b></li>
                 <li>STI map in 2D and 3D, with a target and the share of the floor that meets it</li>
+                <li>RT60 calculation (Sabine, Eyring, Arau-Puchades) and STI estimation</li>
+                <li>Acoustic material assignment; rooms read as closed shells by the Room Exchange engine</li>
+                <li>Room acoustics schedule export</li>
                 <li>Circuit assignment with zone support</li>
                 <li>Amplifier &amp; cabling design</li>
                 <li>Line loss &amp; wire gauge calculations</li>
                 <li>Interference detection &amp; coordination</li>
                 <li>Live Revit model integration (Lucius)</li>
-                <li style="margin-top:6px; padding-top:6px; border-top:1px solid #3a2a5c;"><b>Room Exchange &mdash; Revit rooms to EASE 5</b><br><span style="font-size:12px; opacity:0.85;">Closed room models with one layer per material, Custom Perimeter, Import Loudspeakers.</span></li>
+                <li style="margin-top:6px; padding-top:6px; border-top:1px solid #3a2a5c;"><b>Room Exchange &mdash; Revit rooms to acoustic room models</b><br><span style="font-size:12px; opacity:0.85;">Closed room models with one layer per material, Custom Perimeter, Import Loudspeakers.</span></li>
                 <li style="margin-top:6px; padding-top:6px; border-top:1px solid #3a2a5c;"><b>SpecTool 1.0 &mdash; CSI Part 2 spec generator</b><br><span style="font-size:12px; opacity:0.85;">Reads your Revit model's AV equipment, matches your firm's own boilerplate style, splices Part 2 into a per-section .docx. Divisions 11 / 27.</span></li>
               </ul>
 
@@ -493,11 +492,11 @@
                 <ul class="prod-list">
                   <li>Ray tracing per seat and per band: EDT, T20, T30, C50, C80, D50, STI, ALcons, G, LF, LFC, IACC</li>
                   <li>Hedgehogs, reflection paths and sound-spreading animation (saved as video)</li>
-                  <li>Omnidirectional source or the model's loudspeakers (CLF or EASE data)</li>
+                  <li>Omnidirectional source or the model's loudspeakers (CLF or EASE&reg; data)</li>
                   <li>Statistical RT (Sabine, Eyring, Arau-Puchades) and STI</li>
                   <li>Maps over the audience or the room's surfaces</li>
                   <li>Save, reopen and compare runs; CSV, DXF and DWG export</li>
-                  <li style="margin-top:6px; padding-top:6px; border-top:1px solid rgba(220,223,228,0.20);"><b>Room Exchange included:</b> the same rooms to EASE 5</li>
+                  <li style="margin-top:6px; padding-top:6px; border-top:1px solid rgba(220,223,228,0.20);"><b>Room Exchange included:</b> the same rooms to EASE&reg; 5</li>
                 </ul>
                 <div class="prod-meta">
                   <div><b>Platform:</b> Revit 2025, 2026 &amp; 2027 (installs with System Designer)</div>
@@ -540,7 +539,7 @@
                 <div class="prod-sub">Everything in AVTools Suite Pro, plus <b>Echea</b> (Beta)</div>
                 <ul class="prod-list">
                   <li><b>System Designer Pro:</b> layout, SPL and STI maps in 2D and 3D, room acoustics, circuiting, amps &amp; cabling, coordination</li>
-                  <li><b>Room Exchange:</b> Revit rooms to EASE 5</li>
+                  <li><b>Room Exchange:</b> Revit rooms to EASE&reg; 5</li>
                   <li><b>SpecTool:</b> CSI Part 2 spec generator</li>
                   <li><b>Echea (Beta):</b> ray-traced room acoustics, hedgehogs and animation</li>
                   <li>Lucius chat, voice and live model integration</li>
@@ -675,30 +674,30 @@
                   <tr><td class="feat">Loudspeaker family selection dialog</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
 
                   <tr class="group"><td colspan="7">Room Acoustics</td></tr>
-                  <tr><td class="feat">RT60 (Sabine, Eyring, Arau-Puchades)</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">STI estimation</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Rooms read as closed shells (Room Exchange engine)</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Acoustic material assignment, one row per material</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Room acoustics schedule export</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">RT60 (Sabine, Eyring, Arau-Puchades)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">STI estimation</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Rooms read as closed shells (Room Exchange engine)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Acoustic material assignment, one row per material</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Room acoustics schedule export</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="n">&mdash;</td><td class="y">&#10003;</td></tr>
 
                   <tr class="group"><td colspan="7">Echea &mdash; ray-traced room acoustics (Beta)</td></tr>
                   <tr><td class="feat">Ray tracing per seat and band: EDT, T20, T30, C50, C80, D50, STI, ALcons, G, LF, LFC, IACC</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Omnidirectional source or the model's loudspeakers (CLF or EASE data)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Omnidirectional source or the model's loudspeakers (CLF or EASE&reg; data)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Hedgehogs, reflection paths and animation (saved as video)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Maps over the audience or the room's surfaces</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Save, reopen and compare runs; CSV, DXF and DWG export</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Listen at a seat (least finished part of the Beta)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
 
-                  <tr class="group"><td colspan="7">Room Exchange &mdash; Revit to EASE 5</td></tr>
-                  <tr><td class="feat">Closed EASE 5 room model (DWG) from ticked rooms</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr class="group"><td colspan="7">Room Exchange &mdash; Revit rooms to acoustic room models</td></tr>
+                  <tr><td class="feat">Closed EASE&reg; 5 room model (DWG) from ticked rooms</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">One layer per surface material, named from the model</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Curved ceilings &amp; roofs as flat panels (size you set)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Glass railings, structural steel, stair &amp; atrium openings</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Checklist before export (remembered per project)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Custom Perimeter for lobbies, atriums, stadium bowls</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Connected rooms offered when a space opens into them</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Origin marker for EASE origin &amp; orientation</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
-                  <tr><td class="feat">Import Loudspeakers from EASE into Revit</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Origin marker for the EASE&reg; 5 origin &amp; orientation</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
+                  <tr><td class="feat">Import Loudspeakers from EASE&reg; 5 into Revit</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Export built in a separate process (fast on big models)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
                   <tr><td class="feat">Zip Support Files (logs + room snapshot)</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="y">&#10003;</td></tr>
 
@@ -755,7 +754,7 @@
               <ul>
                 <li><b>Simpler drawings:</b> detail too small to matter acoustically is left out, for about 40 percent fewer faces on a room with a lot of curved geometry and 10 to 15 percent on a mostly flat room. The room stays closed.</li>
                 <li><b>Curved walls</b> go out as flat strips along their curve; Custom Perimeters and the left-out list are shared with System Designer and Echea; room heights follow the level's height.</li>
-                <li>Supported with EASE 5: open the DWG in EASE 5. DXF is also written for programs that read only DXF.</li>
+                <li>Supported with EASE&reg; 5: open the DWG in EASE&reg; 5. DXF is also written for programs that read only DXF.</li>
               </ul>
               <p style="margin:10px 0 4px; font-weight:700;">Echea (Beta)</p>
               <ul>
@@ -780,8 +779,8 @@
               <ul>
                 <li><b>Revit 2027.</b> System Designer, SpecTool and Room Exchange run in Revit 2027 as well as 2025 and 2026, from one installer.</li>
                 <li><b>F1 help.</b> Hover over any button on the BIM Acoustics tab and press F1 for its help page. Two panels: AV Tools (System Designer, SpecTool) and Utilities (Room Exchange, Lucius, License Manager).</li>
-                <li><b>Room Exchange loudspeaker targets.</b> Tick <i>Include loudspeakers</i> and each System Designer loudspeaker goes to EASE 5 as a small target face on the <code>AVTOOLS-SPEAKER-TARGETS</code> layer, ready to place an EASE loudspeaker on. On Revit 2025 and 2026 the separate build process now needs the .NET 8 Desktop Runtime 8.0.32 or later; Room Exchange checks and links to the download.</li>
-                <li><b>Sharper iso-maps and fixes.</b> Each loudspeaker gets its own coverage contour (checked against EASE 5); iso-maps draw in a second view; messages open in front of the window; Lucius transcript sharing is off unless you turn it on.</li>
+                <li><b>Room Exchange loudspeaker targets.</b> Tick <i>Include loudspeakers</i> and each System Designer loudspeaker goes to EASE&reg; 5 as a small target face on the <code>AVTOOLS-SPEAKER-TARGETS</code> layer, ready to place an EASE&reg; 5 loudspeaker on. On Revit 2025 and 2026 the separate build process now needs the .NET 8 Desktop Runtime 8.0.32 or later; Room Exchange checks and links to the download.</li>
+                <li><b>Sharper iso-maps and fixes.</b> Each loudspeaker gets its own coverage contour (checked against EASE&reg; 5); iso-maps draw in a second view; messages open in front of the window; Lucius transcript sharing is off unless you turn it on.</li>
                 <li><b>Security.</b> System.IO.Packaging 8.0.1, an unused .NET 6 component removed, and every DLL and EXE in the installer signed by J. Stevens BIM Acoustics LLC. File hashes are on the <a class="link" href="/download.html">download page</a>.</li>
               </ul>
               <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
@@ -797,7 +796,7 @@
                 <span style="background:#1f5c3a; color:#c8f5d8; font-size:11px; padding:3px 8px; border-radius:999px; margin-left:8px; font-weight:600;">Room Exchange</span>
               </div>
               <ul>
-                <li><b>Room Exchange released.</b> Revit rooms to EASE 5 as closed room models with one layer per surface material, Custom Perimeter for open spaces, and loudspeakers imported back from EASE into Revit. The Room Exchange engine also reads the rooms for System Designer's room acoustics.</li>
+                <li><b>Room Exchange released.</b> Revit rooms to EASE&reg; 5 as closed room models with one layer per surface material, Custom Perimeter for open spaces, and loudspeakers imported back from EASE&reg; 5 into Revit. The Room Exchange engine also reads the rooms for System Designer's room acoustics.</li>
               </ul>
               <div class="prod-cta" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
                 <a class="btn" href="/downloads/AVTools%20System%20Designer%20v3.0.0%20Release%20Notes.pdf" target="_blank" rel="noopener">Release Notes (PDF)</a>
@@ -917,6 +916,7 @@
       <footer>
         &copy; <span id="year"></span> J. Stevens BIM Acoustics
         &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+        <br>EASE&reg; is a registered trademark of AFMG Technologies GmbH. J. Stevens BIM Acoustics is not affiliated with AFMG Technologies GmbH.
       </footer>
 
     </div>
@@ -954,10 +954,10 @@
     //   desc:  one-line description in the lightbox
     // =============================================================
     const SHOTS = [
-      { id: 'room-exchange-ease',            label: 'Room Exchange',      title: 'Room Exchange — EASE 5',  desc: 'A church sanctuary exported from Revit and opened in EASE 5 as a closed volume, one Selection Set per material layer.' },
+      { id: 'room-exchange-ease',            label: 'Room Exchange',      title: 'Room Exchange — Church Sanctuary',  desc: 'A church sanctuary exported from Revit and opened in EASE\u00AE 5 as a closed volume, one Selection Set per material layer.' },
       { id: 'room-exchange-revit',           label: 'Room Exchange (Revit)', title: 'Room Exchange — Revit', desc: 'The same sanctuary as modeled in Revit: curved ceiling, balcony, stepped floor.' },
-      { id: 'room-exchange-theater',         label: 'Theater in EASE 5',  title: 'Room Exchange — High School Theater', desc: 'Raked seating, balcony, fly loft and stage house exported from Revit and opened in EASE 5.' },
-      { id: 'room-exchange-gym',             label: 'Gym in EASE 5',      title: 'Room Exchange — High School Gym', desc: 'Bleachers, CMU, acoustic panels and mezzanine, each on its own material layer in EASE 5.' },
+      { id: 'room-exchange-theater',         label: 'Theater export',     title: 'Room Exchange — High School Theater', desc: 'Raked seating, balcony, fly loft and stage house exported from Revit and opened in EASE\u00AE 5.' },
+      { id: 'room-exchange-gym',             label: 'Gym export',         title: 'Room Exchange — High School Gym', desc: 'Bleachers, CMU, acoustic panels and mezzanine, each on its own material layer in EASE\u00AE 5.' },
       { id: 'rooms',                         label: 'Rooms',              title: 'Rooms',                     desc: 'Room selection with area, volume, total surface, and ceiling height. Linked-model room support.' },
       { id: 'configuration',                 label: 'Configuration',      title: 'Configuration',             desc: 'Speaker type, spacing mode, tile snap, and coverage override settings.' },
       { id: 'coverage',                      label: 'Coverage',           title: 'Coverage',                  desc: 'Direct-field coverage analysis with iso-maps at \u00B11, \u00B12, and \u00B13 dB contours.' },
