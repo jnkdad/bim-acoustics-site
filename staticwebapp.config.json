@@ -1,6 +1,11 @@
 {
   "routes": [
     {
+      "route": "/downloads/JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
+      "redirect": "/downloads/BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+      "statusCode": 301
+    },
+    {
       "route": "/help/",
       "rewrite": "/help/index.html"
     },
@@ -19,6 +24,10 @@
     {
       "route": "/help/lucius/",
       "rewrite": "/help/lucius/index.html"
+    },
+    {
+      "route": "/help/echea/",
+      "rewrite": "/help/echea/index.html"
     },
     {
       "route": "/help/license-manager/",
