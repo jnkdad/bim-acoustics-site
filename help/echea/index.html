@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Echea | Help | J. Stevens BIM Acoustics</title>
+  <meta name="description" content="Echea help: room acoustics by ray tracing in Revit. Rooms, materials, sources, seats and audience, results, and the limits of the Beta." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css?v=20261102c">
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <div class="topbar">
+        <div class="brand">
+          <img src="/assets/logo.png" alt="J. Stevens BIM Acoustics logo">
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/">Home</a>
+          <a class="btn" href="/products.html">Products</a>
+          <a class="btn" href="/resources.html">Resources</a>
+          <a class="btn primary" href="/help/">Help</a>
+          <a class="btn" href="/about.html">About</a>
+          <a class="btn" href="https://bookings.cloud.microsoft/book/BIMAcousticsLLCMeetingRequests@bimacoustics.net/" target="_blank" rel="noopener">Book a demo</a>
+        </div>
+      </div>
+
+      <section class="card" id="help">
+        <div class="hd">
+          <h1 class="title">Echea <span style="font-size:0.6em; opacity:0.75;">(Beta)</span></h1>
+        </div>
+
+        <div class="bd">
+<div class="note" style="margin:0 0 14px 0;"><b>Echea is a Beta.</b> Results are for trying your own rooms and telling us what you find, not yet for basing a design decision on. Results are predictions. Please send what you find to <a class="link" href="mailto:support@bimacoustics.net">support@bimacoustics.net</a>.</div><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">What it does</h2><p style="margin:0 0 12px 0; line-height:1.6;">Echea is the room acoustics add-in of BIM Acoustics Studio. You tick one or more Revit rooms; Echea reads every surface the air of those rooms touches (the same way Room Exchange does), gives each surface an absorption from the materials database it shares with System Designer, and traces sound rays from an omnidirectional source or from the model's loudspeakers to the seats you choose. It reports reverberation (EDT, T20, T30), clarity (C50, C80, D50), speech intelligibility (STI, ALcons), level (D/R, sound strength G) and spaciousness (LF, LFC, IACC), per seat and per band, with charts, maps over the audience and the surfaces, the paths of single reflections, an animation and a way to listen at a seat. Reading and tracing leave the Revit model as it is.</p><p style="margin:0 0 12px 0; line-height:1.6;">Echea is a different tool from the Room Acoustics tab inside System Designer, which works the reverberation time out by formula. The name: echea were the bronze vessels the Roman architect Vitruvius describes in ancient theatres, tuned to ring with the performers' voices.</p><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">How to open it</h2><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li>Revit ribbon: <b>BIM Acoustics</b> tab &rarr; <b>Acoustics Studio</b> panel &rarr; <b>Echea</b>. A project must be open. Press <b>F1</b> on the button to open this page.</li><li>Echea opens in its own window and stays open beside Revit while you work. Put it on a second monitor if you have one.</li><li><b>Free trial:</b> 14 days from the first time Echea is opened on a PC. The foot of the window shows the days left. Echea's trial is separate from System Designer's.</li><li><b>After the trial</b> Echea opens with an <b>Echea</b> or <b>BIM Acoustics Studio</b> subscription: subscribe, then press <b>Validate Now</b> in <a class="link" href="/help/license-manager/">License Manager</a> (BIM Acoustics tab &rarr; Utilities).</li><li>Echea installs together with AVTools System Designer, for Revit 2025, 2026 and 2027.</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">The main steps</h2><p style="margin:0 0 12px 0; line-height:1.6;">The tabs run in the order of the work, and <b>Next &gt;</b> moves on. <b>Analysis Initialize</b> (bottom of the window) does the first read and sets up sources, receivers and materials in one step, then shows a checklist of what is ready and what still needs you.</p><ol style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li><b>Rooms.</b> Tick the room (rooms of the model, of linked models, and Room Exchange's saved Custom Perimeters). Ticking several reads them as one space. <b>Preview room&hellip;</b> shows the room as it was read, in 3D and coloured by material.</li><li><b>Elements.</b> What was found in the room. Untick what should be left out; the left-out list is saved in the model and shared with System Designer and Room Exchange.</li><li><b>Materials.</b> One row per kind of surface, with the material and the absorption it uses, picked automatically from the Revit material and the element's type. Press <b>&hellip;</b> or <b>Choose material&hellip;</b> to pick another from System Designer's database (over 2,500 materials) or your own. Choices are saved in the model.</li><li><b>Sources.</b> Tick the loudspeakers to trace; each type needs a data file (CLF, or an EASE&reg; loudspeaker file). Or press <b>Place omni source&hellip;</b> to place an omnidirectional source where the talker stands.</li><li><b>Receivers.</b> Pick seats or points, place listener seats or a binaural mic, and add audience areas with <b>Draw audience areas</b>: open the floor plan with the seats, choose the seating, press the button, and click the corners of each block of seating in the copy of the plan Echea opens.</li><li><b>Processing.</b> Groups, gain, EQ and delay for the loudspeakers; <b>Set delays to align at this seat</b>, and <b>Write delays to model&hellip;</b> with one undo.</li><li><b>Settings.</b> Number of rays (200,000 by default), time limit, octaves or third octaves, air absorption, scattering and background noise for STI. The defaults are a reasonable start. <b>Run</b> is on this tab.</li><li><b>Results.</b> Summary per seat, Graphs (with a target reverberation band), Mapping (draw in a Revit 3D view, or Write to model to keep it), Rays (Hedgehog, Animate, Room preview), Details, Listen, Save run and Saved runs, Export CSV, and Export DXF/DWG for EASE&reg; 5 (through Room Exchange) or as 3D faces for other acoustic simulation software.</li><li><b>About.</b> Every measure as the formula it is worked out by, with the standards behind it (ISO 3382-1, IEC 60268-16, ISO 9613-1, IEC 61260).</li></ol><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">Getting the room right</h2><p style="margin:0 0 12px 0; line-height:1.6;">This is the most common cause of a wrong result. Where a Revit room stops short of a wall, floor, ceiling or deck, the traced room ends there in a flat face that is not in the building.</p><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li><b>Height:</b> set the room's Upper Limit and Limit Offset so it reaches the ceiling or the underside of the deck everywhere; check it in a section.</li><li><b>Neighbouring rooms:</b> tick the rooms inside or against the space as well (the stage, a vomitory, the space under a balcony), also in linked models.</li><li><b>No room describes the space:</b> draw a Custom Perimeter in <a class="link" href="/help/room-exchange/">Room Exchange</a>; it is listed on Echea's Rooms tab.</li><li><b>Check it:</b> Room preview shows the room as traced. A large share of escaped rays in the results line means the room did not close.</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">Omni source or loudspeakers</h2><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li>A run with an <b>omni source</b> gives the room's own measures; LF, LFC, IACC and G are defined with one (ISO 3382-1).</li><li>A run with <b>loudspeakers</b> gives what this system does in this room. LF, LFC, IACC and G are left out, and T30 and EDT are marked &ldquo;with this system&rdquo;.</li><li>Loudspeaker level is pink noise at each loudspeaker's rated maximum input. STI reads high unless background noise is switched on in Settings.</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">Reading the results</h2><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li>T30 at one seat can scatter; the &plusmn; beside it says by how much. Raise the number of rays if seats disagree by tenths of a second.</li><li>Before tracing, Echea shows the reverberation time by formula (Sabine, Eyring, Arau-Puchades) as a check of the room and its materials.</li><li>Target bands are starting points for the room use you choose, not a standard. Unmatched surfaces and leaks are reported under the results.</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">Known limits in this Beta</h2><ul style="margin:0 0 12px 0; padding-left:22px; line-height:1.6;"><li>Checked against a reference in two rooms so far: a church compared with EASE&reg; 5 AURA (EDT, T30, C80, D50, G and STI agree closely), and a measured auditorium of the public BRAS benchmark (T30 about 12 % longer than measured, C80 within about 1 dB). Other kinds of room have not been compared.</li><li>Listen is the least finished part. IACC uses a plain ball for a head: good for comparing seats and runs.</li><li>Animate works for a run with one source. Temporary graphics (maps, ray paths, hedgehog, animation) do not show in a view set to Realistic: use Shaded.</li></ul><h2 style="margin:18px 0 8px; font-size:1.1rem; color:var(--accent);">Sending a problem</h2><p style="margin:0 0 12px 0; line-height:1.6;">Send the report from <b>Details &rarr; Copy report</b>, the log file <code>Echea.log</code> (in <code>%APPDATA%\JSBA\Echea</code>), what you clicked last, and your Revit version to <a class="link" href="mailto:support@bimacoustics.net">support@bimacoustics.net</a>.</p><p style="margin:0 0 12px 0; line-height:1.6;">More: the <a class="link" href="/downloads/Echea%20Beta%20Quick%20Start.pdf" target="_blank">Echea Beta Quick Start</a> (PDF).</p>
+          <div class="note" style="margin-top:18px;">
+            Related: <a class="link" href="/help/system-designer/">System Designer</a> &middot; <a class="link" href="/help/room-exchange/">Room Exchange</a> &middot; <a class="link" href="/help/lucius/">Lucius</a> &middot; <a class="link" href="/help/license-manager/">License Manager</a>.<br>
+            Questions? Ask <b>Lucius</b> (bottom right), or email
+            <a class="link" href="mailto:support@bimacoustics.net">support@bimacoustics.net</a>.
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        &copy; <span id="year"></span> J. Stevens BIM Acoustics
+        &nbsp;|&nbsp; <a class="link" href="mailto:info@bimacoustics.net">info@bimacoustics.net</a>
+        <br>EASE&reg; is a registered trademark of AFMG Technologies GmbH. J. Stevens BIM Acoustics is not affiliated with AFMG Technologies GmbH.<br>Autodesk, AutoCAD, DWG and Revit are registered trademarks or trademarks of Autodesk, Inc., and/or its subsidiaries and/or affiliates in the USA and/or other countries; DWG is the native file format of Autodesk AutoCAD software. J. Stevens BIM Acoustics is not affiliated with Autodesk. All other brand names, product names or trademarks belong to their respective holders.
+      </footer>
+
+    </div>
+  </div>
+
+  <div id="lucius-widget"></div>
+
+  <script src="/lucius-widget.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

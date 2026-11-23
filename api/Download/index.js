@@ -9,29 +9,29 @@
 // Add new releases here; anything not listed returns 404.
 const FILES = {
   "v121":     "JSBA.AVTools-SystemDesigner_Revit2022-2024_v1.2.1.zip",
-  // v3.2.0 (current): one signed MSI for Revit 2025, 2026 and 2027. AVTools System Designer 3.2.0
+  // v3.2.0 (current): BIM Acoustics Studio, one signed MSI for Revit 2025, 2026 and 2027 (renamed 2026-11-23 from JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi). AVTools System Designer 3.2.0
   // (Room Exchange, SpecTool, Lucius, License Manager) and Echea (Beta); five PDF guides inside the MSI.
-  "v320":     "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
+  "v320":     "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
   // v3.1.0: Revit 2027, F1 help, Room Exchange loudspeaker targets. ZIP: signed MSI + guides + release notes.
   "v310":     "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.1.0.zip",
   // v3.0.0: Room Exchange (Revit rooms to EASE 5), License Manager, RoomExchange plan. Revit 2025/2026 only.
   "v300":     "JSBA.AVTools-SystemDesigner_Revit2025-2026_v3.0.0.zip",
   // v2.x bundles were removed from the site in November 2026 (they remain in git history).
   // Old keys and aliases resolve to the current release (v3.2.0).
-  "v235":     "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v233":     "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v232":     "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v231":     "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v230":     "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v222":     "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v221":     "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v20":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v21":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v22":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v30":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v31":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "v32":      "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
-  "latest":   "JSBA.AVTools-SystemDesigner_Revit2025-2027_v3.2.0.msi",
+  "v235":     "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v233":     "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v232":     "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v231":     "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v230":     "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v222":     "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v221":     "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v20":      "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v21":      "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v22":      "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v30":      "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v31":      "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "v32":      "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
+  "latest":   "BIM-Acoustics-Studio_Revit2025-2027_v3.2.0.msi",
   "presskit": "AVTools-SystemDesigner-v2.0-PressKit.zip"
 };
 
