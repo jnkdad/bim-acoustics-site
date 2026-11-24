@@ -2,7 +2,7 @@
 
 Revit 2025, 2026 and 2027 · J. Stevens BIM Acoustics, LLC · November 2026
 
-v3.2.0 brings **STI mapping**, **3D coverage maps** and a new loudspeaker layout for awkward rooms to **AVTools System Designer**, simpler and lighter EASE 5 drawings to **Room Exchange**, and the first Beta of **Echea**, the room-acoustics add-in of BIM Acoustics Studio. One installer covers Revit 2025, 2026 and 2027.
+v3.2.0 brings **STI mapping**, **3D coverage maps** and a new loudspeaker layout for awkward rooms to **AVTools System Designer**, simpler and lighter EASE® 5 drawings to **Room Exchange**, and the first Beta of **Echea**, the room-acoustics add-in of BIM Acoustics Studio. One installer covers Revit 2025, 2026 and 2027.
 
 ## AVTools System Designer 3.2.0
 
@@ -56,7 +56,7 @@ These layouts are still being tested. If a room comes out wrong, please send wha
 - **Custom Perimeters are shared.** A perimeter traced in Room Exchange is listed in System Designer and in Echea.
 - **The left-out list is shared** with System Designer and Echea and saved in the model.
 - **Room heights** follow the level's height in the model (the Survey Point fix above).
-- **Supported with EASE 5:** open the DWG in EASE 5. DXF is also written for programs that read only DXF. Other programs that read DXF or DWG have been tried but are not supported.
+- **Which software:** Room Exchange is supported with EASE® 5; open the DWG in EASE® 5. DXF is also written for programs that read only DXF. Other programs that read DXF or DWG have been tried but are not supported.
 
 ## Echea (Beta)
 
@@ -67,5 +67,7 @@ Echea is the room-acoustics add-in of BIM Acoustics Studio, and this is its firs
 - **Close Revit first.** v3.2.0 replaces an installed AVTools System Designer (v3.1.0 or earlier). Project state, licence activation, settings and EULA acceptance carry forward. No uninstall is needed first.
 - **Existing projects** open with a 2 dB iso-line step and no fill, exactly as before. Rooms of the kinds listed under "Loudspeaker layout" can get a different loudspeaker count and positions the next time **Refresh Calculations** is pressed.
 - **Internet.** Lucius and SpecTool need a connection; everything else works offline once the licence is activated.
-- Room Exchange's DWG export for EASE 5 still needs AutoCAD on the same machine.
+- Room Exchange's DWG export for EASE® 5 still needs AutoCAD on the same machine.
 - **Support:** support@bimacoustics.net
+
+EASE® is a registered trademark of AFMG Technologies GmbH. J. Stevens BIM Acoustics is not affiliated with AFMG Technologies GmbH.
